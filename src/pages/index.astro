@@ -190,7 +190,10 @@ const ogImage = `${ORIGIN}/og.png`;
         /* tracking adds space after the last glyph; pull it back to centre */
         text-indent: 0.34em;
         color: var(--ink-light);
-        margin-top: calc(var(--mark) * 0.22);
+        /* sit the wordmark optically centred between the rule above and the
+           divider below; the all-caps line carries empty descender space, so
+           the gap above is a touch larger than the gap below */
+        margin-top: calc(var(--mark) * 0.36);
       }
 
       /* the single page divider — same width as the rule inside the mark, so the
@@ -259,7 +262,7 @@ const ogImage = `${ORIGIN}/og.png`;
       /* asymmetric rhythm: name + descriptor are one unit; the sign-off is a
          separate, quiet beat carried by air alone — no divider needed */
       .gap-mark-rule {
-        margin-top: 64px;
+        margin-top: calc(var(--mark) * 0.3);
       }
       .gap-rule-name {
         margin-top: 36px;
@@ -274,9 +277,6 @@ const ogImage = `${ORIGIN}/og.png`;
       @media (max-width: 600px) {
         body {
           padding: 14vh 1.5rem 10vh;
-        }
-        .gap-mark-rule {
-          margin-top: 52px;
         }
         .gap-to-email {
           margin-top: 72px;
