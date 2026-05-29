@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tobin at Large</title>
+<meta name="description" content="Kyle J. Tobin. Writing, consulting, and AI architecture.">
+<meta property="og:title" content="Tobin at Large">
+<meta property="og:description" content="Kyle J. Tobin. Writing, consulting, and AI architecture.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:      #ede5d8;
+    --ink:        #1a1a1a;
+    --ink-light:  #3a3a3a;
+    --ink-faint:  #8a8378;
+    --rule:       #2a2a2a;
+    --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+    --font-body:    "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    /* one governing module: the monogram cap size. everything keys off it */
+    --mark: clamp(78px, 17vw, 132px);
+    --lockup-rule: calc(var(--mark) * 1.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { background-color: var(--paper); }
+
+  body {
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    /* paper under even light: a falloff you feel, not see */
+    background: radial-gradient(150% 130% at 50% 32%,
+      #f0e8db 0%, #ece4d6 70%, #e7dfcf 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18vh 2rem 12vh;
+    position: relative;
+  }
+
+  /* faint paper grain multiplied into the sheet — reads as fibre */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.045;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .sheet {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* the load: each element settles in its own pass, like ink laid in stages.
+     resting state is fully visible — motion is a pure enhancement */
+  .settle {
+    transition: opacity .9s cubic-bezier(.2,.6,.2,1),
+                transform .9s cubic-bezier(.2,.6,.2,1);
+  }
+  .sheet.composing .settle { opacity: 0; transform: translateY(10px); }
+  .sheet > *:nth-child(1) { transition-delay: 0s; }
+  .sheet > *:nth-child(2) { transition-delay: .16s; }
+  .sheet > *:nth-child(3) { transition-delay: .30s; }
+  .sheet > *:nth-child(4) { transition-delay: .40s; }
+  .sheet > *:nth-child(5) { transition-delay: .58s; }
+
+  /* ============================================================
+     THE MARK — rebuilt as live type + drawn rules on a clear ground.
+     Sized off --mark (the monogram cap size); everything scales from it.
+     #tal-mark is a clean, isolated block, ready to be clipped/exported.
+     ============================================================ */
+  #tal-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--ink);
+    /* the faintest letterpress deboss: ink pressed just into the paper */
+    text-shadow: 0 1px 0 rgba(255, 252, 244, 0.45);
+  }
+
+  .mark__box {
+    border: 1.5px solid var(--ink);
+    /* padding keyed to the monogram module (NOT em — em here resolves to the
+       16px base). top < bottom so the all-caps sit optically centred, since
+       Playfair carries more space above the caps than below the baseline. */
+    padding: calc(var(--mark) * 0.24) calc(var(--mark) * 0.26) calc(var(--mark) * 0.34);
+    line-height: 1;
+  }
+
+  .mark__monogram {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--mark);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    /* offset the trailing tracking so TAL sits optically centred */
+    text-indent: 0.05em;
+  }
+
+  .mark__rule {
+    width: var(--lockup-rule);
+    height: 1.5px;
+    border: 0;
+    background: var(--ink);
+    margin-top: calc(var(--mark) * 0.30);
+  }
+
+  .mark__wordmark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: calc(var(--mark) * 0.205);
+    letter-spacing: 0.34em;
+    /* tracking adds space after the last glyph; pull it back to centre */
+    text-indent: 0.34em;
+    color: var(--ink-light);
+    margin-top: calc(var(--mark) * 0.22);
+  }
+
+  /* the single page divider — same width as the rule inside the mark, so the
+     two lines rhyme. thinner and a touch lighter so it reads as structure,
+     not as part of the lockup. */
+  .rule {
+    width: var(--lockup-rule);
+    height: 1px;
+    border: 0;
+    background: var(--rule);
+    opacity: 0.55;
+  }
+
+  .name {
+    font-weight: 500;
+    font-size: clamp(1.45rem, 3.6vw, 1.78rem);
+    line-height: 1.3;
+    color: var(--ink);
+    text-shadow: 0 1px 0 rgba(255, 252, 244, 0.5);
+  }
+  .descriptor {
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.12rem, 2.8vw, 1.34rem);
+    line-height: 1.45;
+    color: var(--ink-light);
+    letter-spacing: 0.01em;
+  }
+
+  /* the sign-off: tracked, quiet, hairline underline drawn from the centre */
+  .email {
+    font-size: 1.04rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    text-decoration: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.4rem;
+    transition: color 0.5s ease;
+  }
+  .email::after {
+    content: "";
+    position: absolute;
+    left: 0.4rem; right: 0.4rem;
+    bottom: 11px;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s cubic-bezier(.2,.6,.2,1);
+  }
+  .email:hover { color: var(--ink); }
+  .email:hover::after { transform: scaleX(1); }
+
+  ::selection { background: rgba(42, 42, 42, 0.12); }
+
+  /* asymmetric rhythm: name + descriptor are one unit; the sign-off is a
+     separate, quiet beat carried by air alone — no divider needed */
+  .gap-mark-rule  { margin-top: 64px; }
+  .gap-rule-name  { margin-top: 36px; }
+  .gap-name-desc  { margin-top: 6px; }
+  .gap-to-email   { margin-top: 88px; }
+
+  @media (max-width: 600px) {
+    body { padding: 14vh 1.5rem 10vh; }
+    .gap-mark-rule { margin-top: 52px; }
+    .gap-to-email  { margin-top: 72px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .settle { transition: none; }
+    .sheet.composing .settle { opacity: 1; transform: none; }
+    .email, .email::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <main class="sheet">
+
+    <div id="tal-mark" class="settle" role="img" aria-label="Tobin at Large">
+      <div class="mark__box"><span class="mark__monogram">TAL</span></div>
+      <hr class="mark__rule">
+      <div class="mark__wordmark">TOBIN AT LARGE</div>
+    </div>
+
+    <hr class="rule gap-mark-rule settle">
+
+    <p class="name gap-rule-name settle">Kyle J. Tobin.</p>
+    <p class="descriptor gap-name-desc settle">Writing, consulting, and AI architecture.</p>
+
+    <a class="email gap-to-email settle" href="/cdn-cgi/l/email-protection#d9b2a0b5bc99adb6bbb0b7b8adb5b8abbebcf7bab6b4"><span class="__cf_email__" data-cfemail="d6bdafbab396a2b9b4bfb8b7a2bab7a4b1b3f8b5b9bb">[email&#160;protected]</span></a>
+  </main>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // resting state is visible. add .composing (hides children) before the
+    // first paint, then release it so each element settles in with its delay.
+    // if this never runs, the page is simply shown in full.
+    const sheet = document.querySelector('.sheet');
+    sheet.classList.add('composing');
+    void sheet.offsetWidth;
+    requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.remove('composing')));
+  </script>
+</body>
+</html>
