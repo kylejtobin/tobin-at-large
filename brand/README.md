@@ -5,9 +5,9 @@ the image. The TAL monogram, LinkedIn avatar and favicons only say "TAL" and are
 unchanged.
 
 The brand is TAL. "Company" is a descriptor and is always set smaller, lighter
-and wider spaced than TAL, never at the same size. Under the TAL box it reads
-just COMPANY; on the banners, which have no box, it sits beneath TAL. Open
-`review.html` in a browser to compare against the current files.
+and wider spaced than TAL, never at the same size. In the mark it sits inside
+the frame beneath TAL; on the banners, which have no frame, it sits beneath TAL.
+Open `review.html` in a browser to compare against the current files.
 
 | Asset                     | Size        | Replaces                                  |
 | ------------------------- | ----------- | ----------------------------------------- |

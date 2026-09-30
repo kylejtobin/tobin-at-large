@@ -158,10 +158,10 @@ const ogImage = `${ORIGIN}/og.png`;
       .mark__box {
         border: 1.5px solid var(--ink);
         /* padding keyed to the monogram module (NOT em — em here resolves to the
-           16px base). top < bottom so the all-caps sit optically centred, since
-           Playfair carries more space above the caps than below the baseline. */
-        padding: calc(var(--mark) * 0.24) calc(var(--mark) * 0.26)
-          calc(var(--mark) * 0.34);
+           16px base), matched to the frame in brand/. top is nearly nil because
+           Playfair's line box already carries space above the caps. */
+        padding: calc(var(--mark) * 0.02) calc(var(--mark) * 0.06)
+          calc(var(--mark) * 0.19);
         line-height: 1;
       }
 
@@ -176,33 +176,23 @@ const ogImage = `${ORIGIN}/og.png`;
         text-indent: 0.05em;
       }
 
-      .mark__rule {
-        width: var(--lockup-rule);
-        height: 1.5px;
-        border: 0;
-        background: var(--ink);
-        margin-top: calc(var(--mark) * 0.3);
-      }
-
-      .mark__wordmark {
+      /* COMPANY sits inside the frame under TAL: a descriptor, never its equal.
+         smaller and wider spaced, as in brand/ */
+      .mark__descriptor {
+        display: block;
         font-family: var(--font-display);
         font-weight: 400;
-        /* COMPANY is a descriptor under TAL, never its equal: smaller and wider
-           spaced than a full name would be, as in brand/ */
-        font-size: calc(var(--mark) * 0.154);
+        font-size: calc(var(--mark) * 0.157);
+        line-height: 1;
         letter-spacing: 0.62em;
         /* tracking adds space after the last glyph; pull it back to centre */
         text-indent: 0.62em;
         color: var(--ink-light);
-        /* sit the wordmark optically centred between the rule above and the
-           divider below; the all-caps line carries empty descender space, so
-           the gap above is a touch larger than the gap below */
-        margin-top: calc(var(--mark) * 0.36);
+        margin-top: calc(var(--mark) * 0.08);
       }
 
-      /* the single page divider — same width as the rule inside the mark, so the
-         two lines rhyme. thinner and a touch lighter so it reads as structure,
-         not as part of the lockup. */
+      /* the single page divider. thin and a touch light so it reads as
+         structure, not as part of the mark. */
       .rule {
         width: var(--lockup-rule);
         height: 1px;
@@ -308,9 +298,10 @@ const ogImage = `${ORIGIN}/og.png`;
 
     <main class="sheet">
       <div id="tal-mark" class="settle" role="img" aria-label="TAL Company">
-        <div class="mark__box"><span class="mark__monogram">TAL</span></div>
-        <hr class="mark__rule" />
-        <div class="mark__wordmark">COMPANY</div>
+        <div class="mark__box">
+          <span class="mark__monogram">TAL</span>
+          <span class="mark__descriptor">COMPANY</span>
+        </div>
       </div>
 
       <hr class="rule gap-mark-rule settle" />

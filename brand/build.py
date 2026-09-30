@@ -210,15 +210,32 @@ def rule(cx: float, y: float, width: float, weight: float, color: str = INK) -> 
     )
 
 
-def monogram(cx: float, box_top: float, box_w: float, box_h: float, stroke: float, cap: float, baseline: float) -> str:
-    """The TAL box: Playfair capitals inside a hairline frame."""
+def monogram(cx: float, box_top: float, cap: float, stroke: float) -> tuple[str, float]:
+    """The mark: TAL, with COMPANY beneath it, inside one hairline frame.
+
+    Every dimension is a multiple of TAL's cap height, so the lockup and the
+    link preview are the same mark at two sizes. Returns the SVG and the frame's
+    bottom edge, so callers can set what follows it.
+    """
+    pad = 0.30 * cap  # frame to TAL's cap line, and COMPANY's baseline to frame
+    gap = 0.25 * cap  # TAL's baseline to COMPANY's cap line
+    desc_cap = 0.157 * cap
+    box_w = 2.947 * cap
+
+    tal_size = cap_to_size(PLAYFAIR, cap)
+    tal_base = box_top + pad + cap
+    desc_size = cap_to_size(PLAYFAIR, desc_cap)
+    desc_base = tal_base + gap + desc_cap
+    box_h = desc_base + pad - box_top
+
     frame = (
         f'<rect x="{cx - box_w / 2 + stroke / 2:.2f}" y="{box_top + stroke / 2:.2f}" '
         f'width="{box_w - stroke:.2f}" height="{box_h - stroke:.2f}" '
         f'fill="none" stroke="{INK}" stroke-width="{stroke}"/>'
     )
-    letters = set_text(PLAYFAIR, "TAL", cap_to_size(PLAYFAIR, cap), cx=cx, baseline=baseline, tracking=0.05)
-    return frame + "\n  " + letters
+    tal = set_text(PLAYFAIR, "TAL", tal_size, cx=cx, baseline=tal_base, tracking=0.05)
+    desc = set_text(PLAYFAIR, DESCRIPTOR, desc_size, cx=cx, baseline=desc_base, tracking=0.62, fill=INK_LIGHT)
+    return "\n  ".join([frame, tal, desc]), box_top + box_h
 
 
 def document(w: int, h: int, title: str, body: list[str]) -> str:
@@ -236,25 +253,20 @@ def document(w: int, h: int, title: str, body: list[str]) -> str:
 
 
 def lockup() -> tuple[int, int, str]:
-    # The box already says TAL, so the line beneath carries only the descriptor.
     w = h = 2000
-    body = [
-        monogram(1000, 625, 828, 427, 5, 281, 1002),
-        rule(1000, 1177, 460, 5),
-        set_text(PLAYFAIR, DESCRIPTOR, cap_to_size(PLAYFAIR, 44), cx=1000, baseline=1348, tracking=0.62, fill=INK_LIGHT),
-    ]
-    return w, h, document(w, h, NAME, body)
+    cap = 281
+    mark, _ = monogram(1000, (h - 2.007 * cap) / 2, cap, 5)
+    return w, h, document(w, h, NAME, [mark])
 
 
 def og() -> tuple[int, int, str]:
     w, h = 1200, 628
+    mark, bottom = monogram(600, 128, 95, 1.5)
     body = [
-        monogram(600, 113, 336, 211, 1.5, 95, 268),
-        rule(600, 363, 152, 2.5),
-        set_text(PLAYFAIR, DESCRIPTOR, cap_to_size(PLAYFAIR, 15), cx=600, baseline=420, tracking=0.62, fill=INK_LIGHT),
-        rule(600, 494, 152, 1, INK_FAINT),
-        set_text(CORMORANT, BYLINE, 28.3, cx=600, baseline=558, fill=INK),
-        set_text(CORMORANT_ITALIC, TAGLINE, 22, cx=600, baseline=597, fill=INK_LIGHT),
+        mark,
+        rule(600, bottom + 70, 152, 1, INK_FAINT),
+        set_text(CORMORANT, BYLINE, 28.3, cx=600, baseline=bottom + 134, fill=INK),
+        set_text(CORMORANT_ITALIC, TAGLINE, 22, cx=600, baseline=bottom + 173, fill=INK_LIGHT),
     ]
     return w, h, document(w, h, NAME, body)
 
