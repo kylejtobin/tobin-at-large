@@ -1,12 +1,14 @@
 ---
-// Tobin at Large — a single-sheet holding page. No interactivity beyond the
+// TAL Company — a single-sheet holding page. No interactivity beyond the
 // load animation. Styles are global (hand-tuned, document-scoped) and the
 // settle script is inlined so it can hide the sheet before first paint.
-const email = "kyle@tobinatlarge.com";
+import Analytics from "@vercel/analytics/astro";
+
+const email = "contact@talco.dev";
 const description = "Kyle J. Tobin. Writing, consulting, and AI architecture.";
 
 // Absolute origin for canonical + social tags — the production domain.
-const ORIGIN = "https://tobinatlarge.com";
+const ORIGIN = "https://talco.dev";
 const canonical = `${ORIGIN}/`;
 const ogImage = `${ORIGIN}/og.png`;
 ---
@@ -16,7 +18,7 @@ const ogImage = `${ORIGIN}/og.png`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tobin at Large</title>
+    <title>TAL Company</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
@@ -24,18 +26,18 @@ const ogImage = `${ORIGIN}/og.png`;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta property="og:title" content="Tobin at Large" />
+    <meta property="og:title" content="TAL Company" />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Tobin at Large" />
+    <meta property="og:site_name" content="TAL Company" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="628" />
-    <meta property="og:image:alt" content="Tobin at Large" />
+    <meta property="og:image:alt" content="TAL Company" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Tobin at Large" />
+    <meta name="twitter:title" content="TAL Company" />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -185,10 +187,12 @@ const ogImage = `${ORIGIN}/og.png`;
       .mark__wordmark {
         font-family: var(--font-display);
         font-weight: 400;
-        font-size: calc(var(--mark) * 0.205);
-        letter-spacing: 0.34em;
+        /* COMPANY is a descriptor under TAL, never its equal: smaller and wider
+           spaced than a full name would be, as in brand/ */
+        font-size: calc(var(--mark) * 0.154);
+        letter-spacing: 0.62em;
         /* tracking adds space after the last glyph; pull it back to centre */
-        text-indent: 0.34em;
+        text-indent: 0.62em;
         color: var(--ink-light);
         /* sit the wordmark optically centred between the rule above and the
            divider below; the all-caps line carries empty descender space, so
@@ -297,15 +301,16 @@ const ogImage = `${ORIGIN}/og.png`;
         }
       }
     </style>
+    <Analytics />
   </head>
   <body>
     <div class="grain"></div>
 
     <main class="sheet">
-      <div id="tal-mark" class="settle" role="img" aria-label="Tobin at Large">
+      <div id="tal-mark" class="settle" role="img" aria-label="TAL Company">
         <div class="mark__box"><span class="mark__monogram">TAL</span></div>
         <hr class="mark__rule" />
-        <div class="mark__wordmark">TOBIN AT LARGE</div>
+        <div class="mark__wordmark">COMPANY</div>
       </div>
 
       <hr class="rule gap-mark-rule settle" />

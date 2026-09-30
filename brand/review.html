@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TAL Brand Review</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 32px 16px 64px;
+        background: #d9d2c6;
+        color: #1a1a1a;
+        font:
+          15px/1.5 Georgia,
+          "Times New Roman",
+          serif;
+      }
+      main {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-weight: 400;
+        letter-spacing: 0.08em;
+        margin: 0 0 4px;
+      }
+      p.lede {
+        margin: 0 0 32px;
+        color: #4a463f;
+        max-width: 70ch;
+      }
+      section {
+        margin-bottom: 48px;
+      }
+      h2 {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0.06em;
+        border-bottom: 1px solid #b9b0a2;
+        padding-bottom: 6px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .row.wide {
+        grid-template-columns: 1fr;
+      }
+      figure {
+        margin: 0;
+        background: #fbf8f3;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      figcaption {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #4a463f;
+      }
+      figcaption a {
+        color: inherit;
+      }
+      .current figcaption::before {
+        content: "Current · ";
+        color: #8a8378;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>TAL Company — brand assets</h1>
+      <p class="lede">
+        The brand is TAL; "Company" is a descriptor, always smaller, lighter and
+        wider spaced. Where the TAL box is present the line beneath it reads
+        just COMPANY. On the banners, which have no box, COMPANY sits beneath
+        TAL. Each image links to its SVG source.
+      </p>
+
+      <section>
+        <h2>Lockup · 2000 × 2000</h2>
+        <div class="row">
+          <figure class="current">
+            <img src="../public/logo/tal-lockup.png" alt="Current lockup" />
+            <figcaption>Tobin at Large</figcaption>
+          </figure>
+          <figure>
+            <a href="svg/tal-lockup.svg"
+              ><img src="png/tal-lockup.png" alt="TAL Company lockup"
+            /></a>
+            <figcaption>
+              <a href="svg/tal-lockup.svg">TAL Company</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Link preview (og.png) · 1200 × 628</h2>
+        <div class="row">
+          <figure class="current">
+            <img src="../public/og.png" alt="Current link preview" />
+            <figcaption>Tobin at Large</figcaption>
+          </figure>
+          <figure>
+            <a href="svg/og.svg"
+              ><img src="png/og.png" alt="TAL Company link preview"
+            /></a>
+            <figcaption><a href="svg/og.svg">TAL Company</a></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>LinkedIn profile banner · 1584 × 396 (@2x)</h2>
+        <div class="row wide">
+          <figure class="current">
+            <img
+              src="../public/logo/banner-profile-1584x396.png"
+              alt="Current profile banner"
+            />
+            <figcaption>Tobin at Large</figcaption>
+          </figure>
+          <figure>
+            <a href="svg/banner-profile-1584x396.svg"
+              ><img
+                src="png/banner-profile-1584x396.png"
+                alt="TAL Company profile banner"
+            /></a>
+            <figcaption>
+              <a href="svg/banner-profile-1584x396.svg">TAL Company</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>LinkedIn company banner · 1128 × 191 (@2x)</h2>
+        <div class="row wide">
+          <figure class="current">
+            <img
+              src="../public/logo/banner-company-1128x191.png"
+              alt="Current company banner"
+            />
+            <figcaption>Tobin at Large</figcaption>
+          </figure>
+          <figure>
+            <a href="svg/banner-company-1128x191.svg"
+              ><img
+                src="png/banner-company-1128x191.png"
+                alt="TAL Company company banner"
+            /></a>
+            <figcaption>
+              <a href="svg/banner-company-1128x191.svg">TAL Company</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
