@@ -16,6 +16,9 @@ Open `review.html` in a browser to compare against the current files.
 | `banner-profile-1584x396` | 3168 × 792  | `public/logo/banner-profile-1584x396.png` |
 | `banner-company-1128x191` | 2256 × 382  | `public/logo/banner-company-1128x191.png` |
 
+`paper.webp` is the page's paper texture, not a replacement: a lit relief tile
+the site repeats behind (and over) everything, copied to `public/paper.webp`.
+
 `svg/` is the source. Text is converted to outlines, so the files render the
 same anywhere with no fonts installed. `png/` holds renders of those SVGs.
 

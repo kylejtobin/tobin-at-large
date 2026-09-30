@@ -305,6 +305,60 @@ ASSETS = {
 }
 
 
+# ---- the page's paper --------------------------------------------------------
+# A lit relief tile, not flat noise: turbulence builds a height field (soft
+# formation, a faint horizontal fibre, fine tooth) and a low raking light shades
+# it, so each fleck has a lit side and a shadowed side, as real stock does. The
+# page tiles it at half size (2x) and blends it with `overlay`, which needs the
+# tile to average mid-grey so it adds texture without shifting the colour.
+
+PAPER_TILE = 768
+#: Overlay barely moves a light page, so the tile carries extra contrast; the
+#: page's opacity then sets the final strength (about 4.5 levels of variation).
+PAPER_CONTRAST = 2.2
+
+
+def paper_tile() -> str:
+    n = PAPER_TILE
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{n}" height="{n}" viewBox="0 0 {n} {n}">
+  <filter id="paper" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="3" seed="11" stitchTiles="stitch" result="formation"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.09 0.38" numOctaves="3" seed="7" stitchTiles="stitch" result="fibre"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="3" stitchTiles="stitch" result="tooth"/>
+    <feComposite in="fibre" in2="tooth" operator="arithmetic" k2="0.45" k3="0.55" result="surface"/>
+    <feComposite in="formation" in2="surface" operator="arithmetic" k2="0.35" k3="0.65" result="height"/>
+    <feDiffuseLighting in="height" surfaceScale="1.3" diffuseConstant="1" lighting-color="#fff">
+      <feDistantLight azimuth="225" elevation="48"/>
+    </feDiffuseLighting>
+  </filter>
+  <rect width="{n}" height="{n}" filter="url(#paper)"/>
+</svg>
+"""
+
+
+def build_paper() -> None:
+    svg_path = SVG_DIR / "paper.svg"
+    svg_path.write_text(paper_tile())
+    lit = PNG_DIR / "paper-lit.png"
+    subprocess.run(["rsvg-convert", str(svg_path), "-o", str(lit)], check=True)
+    mean = subprocess.run(
+        ["magick", str(lit), "-colorspace", "gray", "-format", "%[fx:mean]", "info:"],
+        check=True, capture_output=True, text=True,
+    ).stdout
+    # Noise barely compresses; at q50 it is indistinguishable from q80 at 2x.
+    subprocess.run(
+        [
+            "magick", str(lit), "-colorspace", "gray",
+            "-fx", f"0.5+(u-{mean})*{PAPER_CONTRAST}",
+            "-quality", "50", "-define", "webp:method=6",
+            str(PNG_DIR / "paper.webp"),
+        ],
+        check=True,
+    )
+    lit.unlink()
+    print("built paper")
+
+
 def main() -> None:
     SVG_DIR.mkdir(exist_ok=True)
     PNG_DIR.mkdir(exist_ok=True)
@@ -317,6 +371,7 @@ def main() -> None:
             check=True,
         )
         print(f"built {stem}")
+    build_paper()
 
 
 if __name__ == "__main__":
