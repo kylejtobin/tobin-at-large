@@ -1,0 +1,106 @@
+---
+// A featured work: the cover set on the page as an object, with its entry
+// beside it. Stacks on narrow screens.
+import type { CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Arrow from "./Arrow.astro";
+
+interface Props {
+  work: CollectionEntry<"works">;
+}
+
+const { title, subtitle, kind, by, url, linkLabel, year, cover } =
+  Astro.props.work.data;
+---
+
+<article class:list={["feature", { "has-cover": cover }]}>
+  {
+    cover && (
+      <a
+        href={url}
+        rel="noopener"
+        class="plate"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <Picture
+          src={cover}
+          alt=""
+          widths={[168, 220, 336, 440]}
+          sizes="(max-width: 719px) 220px, 168px"
+          formats={["avif", "webp"]}
+          loading="lazy"
+        />
+      </a>
+    )
+  }
+  <div class="entry">
+    <p class="label">{kind}{year && <> · {year}</>}</p>
+    <h3>{title}</h3>
+    {subtitle && <p class="subtitle">{subtitle}</p>}
+    <p class="by">by {by.join(" & ")}</p>
+    <a href={url} rel="noopener" class="ink-link">{linkLabel}<Arrow /></a>
+  </div>
+</article>
+
+<style>
+  .feature {
+    display: grid;
+    gap: 1.75rem;
+  }
+  .feature.has-cover {
+    grid-template-columns: 168px 1fr;
+    column-gap: 2.25rem;
+    align-items: center;
+  }
+
+  /* the cover is an object on the sheet: a contact edge where it meets the
+     paper, and a soft fall of light beneath */
+  .plate {
+    display: block;
+    line-height: 0;
+  }
+  .plate :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow:
+      0 0 0 1px rgba(26, 26, 26, 0.08),
+      0 1px 1px rgba(26, 26, 26, 0.14),
+      0 12px 24px -10px rgba(40, 30, 15, 0.32);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.35rem, 2.4vw, 1.6rem);
+    line-height: 1.2;
+    margin-top: 0.5rem;
+  }
+  .subtitle {
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--ink-light);
+    margin-top: 0.35rem;
+  }
+  .by {
+    font-size: 1.05rem;
+    color: var(--ink-quiet);
+    margin-top: 0.6rem;
+  }
+  .ink-link {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 719px) {
+    .feature.has-cover {
+      grid-template-columns: 1fr;
+      row-gap: 1.5rem;
+    }
+    .plate {
+      width: min(60%, 220px);
+    }
+  }
+</style>

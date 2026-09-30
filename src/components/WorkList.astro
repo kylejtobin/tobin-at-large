@@ -1,0 +1,116 @@
+---
+// The catalogue: one ruled row per work, the whole row the link. Kind | title
+// and subtitle | year, like a publisher's list.
+import type { CollectionEntry } from "astro:content";
+import Arrow from "./Arrow.astro";
+
+interface Props {
+  works: CollectionEntry<"works">[];
+}
+
+const { works } = Astro.props;
+---
+
+<ul>
+  {
+    works.map(({ data }) => (
+      <li>
+        <a
+          href={data.url}
+          rel="noopener"
+          class="row"
+          aria-label={`${data.title} — ${data.linkLabel}`}
+        >
+          <span class="label kind">{data.kind}</span>
+          <span class="work">
+            <span class="title">{data.title}</span>
+            {data.subtitle && <span class="subtitle">{data.subtitle}</span>}
+          </span>
+          <span class="year">{data.year}</span>
+          <span class="out">
+            <Arrow />
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    list-style: none;
+  }
+  li {
+    border-top: 1px solid rgba(42, 42, 42, 0.18);
+  }
+  li:last-child {
+    border-bottom: 1px solid rgba(42, 42, 42, 0.18);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto 1rem;
+    grid-template-areas: "kind work year out";
+    column-gap: 1.5rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .row:focus-visible {
+    outline: 1.5px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  .kind {
+    grid-area: kind;
+  }
+  .work {
+    grid-area: work;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  .subtitle {
+    display: block;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-light);
+  }
+  .year {
+    grid-area: year;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--ink-quiet);
+  }
+  .out {
+    grid-area: out;
+    color: var(--ink-quiet);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+  }
+  .row:hover .out,
+  .row:focus-visible .out {
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "kind year"
+        "work work";
+      row-gap: 0.35rem;
+    }
+    .out {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .out {
+      transition: none;
+    }
+  }
+</style>

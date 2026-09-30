@@ -1,0 +1,152 @@
+/* The sheet: tokens, paper, and the few treatments every section shares.
+   Everything else is scoped to its component. */
+
+:root {
+  --paper: #ede5d8;
+  --ink: #1a1a1a;
+  --ink-light: #3a3a3a;
+  /* quiet text: labels, bylines, the colophon. ≥ 4.5:1 on the paper, even at
+     its darker edges */
+  --ink-quiet: #625c53;
+  /* rules only — too light for text */
+  --ink-faint: #8a8378;
+  --rule: #2a2a2a;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+
+  /* one governing module: the monogram cap size. the mark keys off it */
+  --mark: clamp(64px, 11vw, 104px);
+
+  /* the record: one column, lines held to a readable measure */
+  --column: 40rem;
+  --measure: 34rem;
+  --body-size: 1.2rem;
+  --label-size: 0.72rem;
+  --label-track: 0.32em;
+  --section-gap: clamp(4rem, 10vh, 7rem);
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: var(--paper);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  /* paper under even light: a falloff you feel, not see */
+  background: radial-gradient(
+    150% 130% at 50% 32%,
+    #f0e8db 0%,
+    #ece4d6 70%,
+    #e7dfcf 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12vh 2rem 8vh;
+  position: relative;
+}
+
+/* the paper itself: a lit relief tile (tooth, a faint horizontal fibre,
+   soft formation) baked by brand/build.py, averaging mid-grey so overlay
+   adds texture without shifting the colour. it sits above the sheet, so
+   the ink and the plates take the tooth too, as letterpress does. drawn at 2x. */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  background-image: url("/paper.webp");
+  background-size: 384px 384px;
+}
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--column);
+}
+
+/* section labels and kinds: Playfair capitals, tracked like COMPANY */
+.label {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+  line-height: 1.4;
+}
+
+/* running text for the record */
+.prose {
+  font-size: var(--body-size);
+  line-height: 1.55;
+  color: var(--ink-light);
+  max-width: var(--measure);
+}
+
+/* the house link: quiet until touched, then a hairline drawn from the centre */
+.ink-link {
+  color: var(--ink-quiet);
+  text-decoration: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-height: 44px;
+  letter-spacing: 0.02em;
+  transition: color 0.5s ease;
+}
+.ink-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 11px;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s var(--ease);
+}
+.ink-link:hover,
+.ink-link:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+.ink-link:hover::after,
+.ink-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+::selection {
+  background: rgba(42, 42, 42, 0.12);
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 9vh 1.5rem 6vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-link,
+  .ink-link::after {
+    transition: none;
+  }
+}

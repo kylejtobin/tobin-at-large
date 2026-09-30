@@ -1,0 +1,52 @@
+---
+// The mark: TAL, with COMPANY beneath it, inside one hairline frame. Live type
+// sized off --mark, matched to the frame in brand/.
+---
+
+<div class="mark" role="img" aria-label="TAL Company">
+  <span class="monogram">TAL</span>
+  <span class="descriptor">COMPANY</span>
+</div>
+
+<style>
+  .mark {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    /* padding keyed to the monogram module (NOT em — em here resolves to the
+       16px base). top is nearly nil because Playfair's line box already
+       carries space above the caps. */
+    padding: calc(var(--mark) * 0.02) calc(var(--mark) * 0.06)
+      calc(var(--mark) * 0.19);
+    line-height: 1;
+    /* the faintest letterpress deboss: ink pressed just into the paper */
+    text-shadow: 0 1px 0 rgba(255, 252, 244, 0.45);
+  }
+
+  .monogram {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--mark);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    /* offset the trailing tracking so TAL sits optically centred */
+    text-indent: 0.05em;
+  }
+
+  /* COMPANY: a descriptor, never TAL's equal. smaller and wider spaced */
+  .descriptor {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: calc(var(--mark) * 0.157);
+    line-height: 1;
+    letter-spacing: 0.62em;
+    /* tracking adds space after the last glyph; pull it back to centre */
+    text-indent: 0.62em;
+    color: var(--ink-light);
+    margin-top: calc(var(--mark) * 0.08);
+  }
+</style>

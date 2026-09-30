@@ -1,333 +1,143 @@
 ---
-// TAL Company — a single-sheet holding page. No interactivity beyond the
-// load animation. Styles are global (hand-tuned, document-scoped) and the
-// settle script is inlined so it can hide the sheet before first paint.
-import Analytics from "@vercel/analytics/astro";
+// TAL Company, set as a book: a centred title page, then the record, set left
+// on one column: the work, engagements, the principal, and a colophon.
+import { getCollection } from "astro:content";
+import Sheet from "../layouts/Sheet.astro";
+import Mark from "../components/Mark.astro";
+import Section from "../components/Section.astro";
+import WorkFeature from "../components/WorkFeature.astro";
+import WorkList from "../components/WorkList.astro";
 
+const statement = "An independent practice in AI architecture.";
 const email = "contact@talco.dev";
-const description = "Kyle J. Tobin. Writing, consulting, and AI architecture.";
 
-// Absolute origin for canonical + social tags — the production domain.
-const ORIGIN = "https://talco.dev";
-const canonical = `${ORIGIN}/`;
-const ogImage = `${ORIGIN}/og.png`;
+// featured first, then newest; undated works after dated ones
+const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
+  (a, b) =>
+    Number(b.data.featured) - Number(a.data.featured) ||
+    (b.data.year ?? 0) - (a.data.year ?? 0) ||
+    a.data.title.localeCompare(b.data.title),
+);
+const featured = works.filter((w) => w.data.featured);
+const listed = works.filter((w) => !w.data.featured);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAL Company</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+<Sheet title="TAL Company" description={`TAL Company. ${statement}`}>
+  <header class="title">
+    <div class="settle"><Mark /></div>
+    <p class="statement settle">{statement}</p>
+  </header>
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <Section label="Work" id="work">
+    <div class="features">
+      {featured.map((work) => <WorkFeature work={work} />)}
+    </div>
+    {listed.length > 0 && <WorkList works={listed} />}
+  </Section>
 
-    <meta property="og:title" content="TAL Company" />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="TAL Company" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="628" />
-    <meta property="og:image:alt" content="TAL Company" />
+  <Section label="Engagements" id="engagements">
+    <p class="prose">
+      TAL takes on a small number of advisory and architecture engagements each
+      year.
+    </p>
+    <a class="ink-link email" href={`mailto:${email}`}>{email}</a>
+  </Section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TAL Company" />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <style is:global>
-      :root {
-        --paper: #ede5d8;
-        --ink: #1a1a1a;
-        --ink-light: #3a3a3a;
-        --ink-faint: #8a8378;
-        --rule: #2a2a2a;
-        --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-        --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-        /* one governing module: the monogram cap size. everything keys off it */
-        --mark: clamp(78px, 17vw, 132px);
-        --lockup-rule: calc(var(--mark) * 1.15);
-      }
+  <Section label="Principal" id="principal">
+    <p class="name">Kyle J. Tobin</p>
+    <p class="prose">
+      Principal of TAL Company, designing AI systems for organizations and
+      writing about the architecture of automated work.
+    </p>
+    <p class="links">
+      <a
+        class="ink-link label"
+        href="https://github.com/kylejtobin"
+        rel="noopener">GitHub</a
+      >
+    </p>
+  </Section>
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+  <footer class="colophon">
+    © {new Date().getFullYear()} TAL Company · Set in Playfair Display &amp; Cormorant
+    Garamond
+  </footer>
+</Sheet>
 
-      html,
-      body {
-        background-color: var(--paper);
-      }
+<style>
+  /* the title page: centred and formal. everything after it is set left */
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .statement {
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.8vw, 1.4rem);
+    line-height: 1.45;
+    color: var(--ink-light);
+    letter-spacing: 0.01em;
+    margin-top: calc(var(--mark) * 0.34);
+  }
 
-      body {
-        min-height: 100vh;
-        color: var(--ink);
-        font-family: var(--font-body);
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        font-kerning: normal;
-        /* paper under even light: a falloff you feel, not see */
-        background: radial-gradient(
-          150% 130% at 50% 32%,
-          #f0e8db 0%,
-          #ece4d6 70%,
-          #e7dfcf 100%
-        );
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 18vh 2rem 12vh;
-        position: relative;
-      }
+  /* each title element settles in its own pass. resting state is fully
+     visible; motion is a pure enhancement */
+  .settle {
+    transition:
+      opacity 0.9s var(--ease),
+      transform 0.9s var(--ease);
+  }
+  .title.composing .settle {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .title > .settle:nth-child(2) {
+    transition-delay: 0.18s;
+  }
 
-      /* the paper itself: a lit relief tile (tooth, a faint horizontal fibre,
-         soft formation) baked by brand/build.py, averaging mid-grey so overlay
-         adds texture without shifting the colour. it sits above the sheet, so
-         the ink takes the tooth too, as letterpress does. drawn at 2x. */
-      .grain {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 2;
-        opacity: 0.8;
-        mix-blend-mode: overlay;
-        background-image: url("/paper.webp");
-        background-size: 384px 384px;
-      }
+  .features {
+    display: grid;
+    gap: 3rem;
+  }
+  .features + :global(ul) {
+    margin-top: 3rem;
+  }
 
-      .sheet {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 560px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+  .email {
+    font-size: var(--body-size);
+    margin-top: 0.75rem;
+  }
 
-      /* the load: each element settles in its own pass, like ink laid in stages.
-         resting state is fully visible — motion is a pure enhancement */
-      .settle {
-        transition:
-          opacity 0.9s cubic-bezier(0.2, 0.6, 0.2, 1),
-          transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
-      }
-      .sheet.composing .settle {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      .sheet > *:nth-child(1) {
-        transition-delay: 0s;
-      }
-      .sheet > *:nth-child(2) {
-        transition-delay: 0.16s;
-      }
-      .sheet > *:nth-child(3) {
-        transition-delay: 0.3s;
-      }
-      .sheet > *:nth-child(4) {
-        transition-delay: 0.4s;
-      }
-      .sheet > *:nth-child(5) {
-        transition-delay: 0.58s;
-      }
+  .name {
+    font-weight: 500;
+    font-size: clamp(1.45rem, 3.6vw, 1.7rem);
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .links {
+    margin-top: 0.75rem;
+  }
+  /* the link style's tracking would flatten the label's; keep the capitals wide */
+  .links .ink-link {
+    letter-spacing: var(--label-track);
+  }
 
-      /* ============================================================
-         THE MARK — rebuilt as live type + drawn rules on a clear ground.
-         Sized off --mark (the monogram cap size); everything scales from it.
-         #tal-mark is a clean, isolated block, ready to be clipped/exported.
-         ============================================================ */
-      #tal-mark {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: var(--ink);
-        /* the faintest letterpress deboss: ink pressed just into the paper */
-        text-shadow: 0 1px 0 rgba(255, 252, 244, 0.45);
-      }
+  .colophon {
+    margin-top: var(--section-gap);
+    font-size: 0.95rem;
+    color: var(--ink-quiet);
+    letter-spacing: 0.01em;
+  }
 
-      .mark__box {
-        border: 1.5px solid var(--ink);
-        /* padding keyed to the monogram module (NOT em — em here resolves to the
-           16px base), matched to the frame in brand/. top is nearly nil because
-           Playfair's line box already carries space above the caps. */
-        padding: calc(var(--mark) * 0.02) calc(var(--mark) * 0.06)
-          calc(var(--mark) * 0.19);
-        line-height: 1;
-      }
-
-      .mark__monogram {
-        display: block;
-        font-family: var(--font-display);
-        font-weight: 500;
-        font-size: var(--mark);
-        line-height: 1;
-        letter-spacing: 0.05em;
-        /* offset the trailing tracking so TAL sits optically centred */
-        text-indent: 0.05em;
-      }
-
-      /* COMPANY sits inside the frame under TAL: a descriptor, never its equal.
-         smaller and wider spaced, as in brand/ */
-      .mark__descriptor {
-        display: block;
-        font-family: var(--font-display);
-        font-weight: 400;
-        font-size: calc(var(--mark) * 0.157);
-        line-height: 1;
-        letter-spacing: 0.62em;
-        /* tracking adds space after the last glyph; pull it back to centre */
-        text-indent: 0.62em;
-        color: var(--ink-light);
-        margin-top: calc(var(--mark) * 0.08);
-      }
-
-      /* the single page divider. thin and a touch light so it reads as
-         structure, not as part of the mark. */
-      .rule {
-        width: var(--lockup-rule);
-        height: 1px;
-        border: 0;
-        background: var(--rule);
-        opacity: 0.55;
-      }
-
-      .name {
-        font-weight: 500;
-        font-size: clamp(1.45rem, 3.6vw, 1.78rem);
-        line-height: 1.3;
-        color: var(--ink);
-        text-shadow: 0 1px 0 rgba(255, 252, 244, 0.5);
-      }
-      .descriptor {
-        font-style: italic;
-        font-weight: 400;
-        font-size: clamp(1.12rem, 2.8vw, 1.34rem);
-        line-height: 1.45;
-        color: var(--ink-light);
-        letter-spacing: 0.01em;
-      }
-
-      /* the sign-off: tracked, quiet, hairline underline drawn from the centre */
-      .email {
-        font-size: 1.04rem;
-        letter-spacing: 0.02em;
-        color: var(--ink-faint);
-        text-decoration: none;
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 0 0.4rem;
-        transition: color 0.5s ease;
-      }
-      .email::after {
-        content: "";
-        position: absolute;
-        left: 0.4rem;
-        right: 0.4rem;
-        bottom: 11px;
-        height: 1px;
-        background: var(--ink);
-        transform: scaleX(0);
-        transform-origin: center;
-        transition: transform 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
-      }
-      .email:hover {
-        color: var(--ink);
-      }
-      .email:hover::after {
-        transform: scaleX(1);
-      }
-
-      ::selection {
-        background: rgba(42, 42, 42, 0.12);
-      }
-
-      /* asymmetric rhythm: name + descriptor are one unit; the sign-off is a
-         separate, quiet beat carried by air alone — no divider needed */
-      .gap-mark-rule {
-        margin-top: calc(var(--mark) * 0.3);
-      }
-      .gap-rule-name {
-        margin-top: 36px;
-      }
-      .gap-name-desc {
-        margin-top: 6px;
-      }
-      .gap-to-email {
-        margin-top: 88px;
-      }
-
-      @media (max-width: 600px) {
-        body {
-          padding: 14vh 1.5rem 10vh;
-        }
-        .gap-to-email {
-          margin-top: 72px;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .settle {
-          transition: none;
-        }
-        .sheet.composing .settle {
-          opacity: 1;
-          transform: none;
-        }
-        .email,
-        .email::after {
-          transition: none;
-        }
-      }
-    </style>
-    <Analytics />
-  </head>
-  <body>
-    <div class="grain"></div>
-
-    <main class="sheet">
-      <div id="tal-mark" class="settle" role="img" aria-label="TAL Company">
-        <div class="mark__box">
-          <span class="mark__monogram">TAL</span>
-          <span class="mark__descriptor">COMPANY</span>
-        </div>
-      </div>
-
-      <hr class="rule gap-mark-rule settle" />
-
-      <p class="name gap-rule-name settle">Kyle J. Tobin.</p>
-      <p class="descriptor gap-name-desc settle">
-        Writing, consulting, and AI architecture.
-      </p>
-
-      <a class="email gap-to-email settle" href={`mailto:${email}`}>{email}</a>
-    </main>
-
-    <script is:inline>
-      // resting state is visible. add .composing (hides children) before the
-      // first paint, then release it so each element settles in with its delay.
-      // if this never runs, the page is simply shown in full.
-      const sheet = document.querySelector(".sheet");
-      sheet.classList.add("composing");
-      void sheet.offsetWidth;
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => sheet.classList.remove("composing")),
-      );
-    </script>
-  </body>
-</html>
+  @media (prefers-reduced-motion: reduce) {
+    .settle {
+      transition: none;
+    }
+    .title.composing .settle {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
