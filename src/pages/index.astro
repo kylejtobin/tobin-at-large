@@ -1,6 +1,6 @@
 ---
 // TAL Company, set as a book: a centred title page, then the record, set left
-// on one column: the work, engagements, the principal, and a colophon.
+// on one column: the work, the engagements it supports, and a colophon.
 import { getCollection } from "astro:content";
 import Sheet from "../layouts/Sheet.astro";
 import Mark from "../components/Mark.astro";
@@ -8,9 +8,26 @@ import Section from "../components/Section.astro";
 import WorkFeature from "../components/WorkFeature.astro";
 import WorkList from "../components/WorkList.astro";
 
-const statement =
-  "An independent practice in the architecture of automated organizations.";
+const statement = "The architecture of the automated organization.";
 const email = "contact@talco.dev";
+const inquiry = `mailto:${email}?subject=${encodeURIComponent("Engagement")}`;
+
+// What TAL is engaged to do: each the applied form of one work, stated as
+// the problem the moment creates and what resolving it makes possible.
+const capabilities = [
+  {
+    name: "Operating models for automated work",
+    text: "Agents given real authority execute the organization as documented, not as it runs. TAL maps the organization that actually operates, separates what must be governed from what can run locally, and sets the decision rights agents act within, so automation extends control rather than eroding it.",
+  },
+  {
+    name: "Enterprise world models",
+    text: "Each AI initiative that encodes the business in its own prompts builds another private copy of it, and the copies drift. TAL builds the organization’s operational world model and connects agents and applications to it, so every one of them acts on the same governed definition of the business.",
+  },
+  {
+    name: "Agent-native engineering",
+    text: "Coding agents deliver at a speed that procedural habit turns into production defects. TAL installs the method, skills, and gates under which agents write software where those defects cannot be constructed, and trains the teams who run it.",
+  },
+];
 
 // featured first, then by explicit order, then newest; works without an
 // order or a year come after those with one
@@ -22,6 +39,8 @@ const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
     a.data.title.localeCompare(b.data.title),
 );
 const featured = works.filter((w) => w.data.featured);
+// a year is shown only once it tells works apart
+const showYear = new Set(works.map((w) => w.data.year)).size > 1;
 const listed = works.filter((w) => !w.data.featured);
 
 // What the page is, for search engines and link unfurlers: the practice, its
@@ -41,6 +60,14 @@ const structuredData = {
       email,
       description: statement,
       founder: { "@id": principal },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Engagements",
+        itemListElement: capabilities.map(({ name, text }) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name, description: text },
+        })),
+      },
     },
     {
       "@type": "Person",
@@ -80,35 +107,34 @@ const structuredData = {
 
   <Section label="Work" id="work">
     <div class="features">
-      {featured.map((work) => <WorkFeature work={work} />)}
+      {featured.map((work) => <WorkFeature work={work} showYear={showYear} />)}
     </div>
-    {listed.length > 0 && <WorkList works={listed} />}
+    {listed.length > 0 && <WorkList works={listed} showYear={showYear} />}
   </Section>
 
   <Section label="Engagements" id="engagements">
-    <p class="prose">
-      Advisory and architecture work for organizations putting AI into real
-      operations: finding the organization that actually runs, deciding what
-      must be governed, and building the systems that carry it. TAL takes on a
-      small number of engagements each year.
-    </p>
-    <a class="ink-link email" href={`mailto:${email}`}>{email}</a>
-  </Section>
-
-  <Section label="Principal" id="principal">
-    <p class="name">Kyle J. Tobin</p>
-    <p class="links">
-      <a
-        class="ink-link label"
-        href="https://github.com/kylejtobin"
-        rel="noopener">GitHub</a
-      >
-    </p>
+    <ol class="capabilities">
+      {
+        capabilities.map(({ name, text }) => (
+          <li>
+            <h3>{name}</h3>
+            <p class="prose">{text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="inquiry">
+      <p class="prose">TAL accepts engagements selectively.</p>
+      <a class="cta" href={inquiry}>Discuss an engagement</a>
+      <a class="ink-link email" href={inquiry}>{email}</a>
+    </div>
   </Section>
 
   <footer class="colophon">
-    © {new Date().getFullYear()} TAL Company · Set in Playfair Display &amp; Cormorant
-    Garamond
+    <span>© {new Date().getFullYear()} TAL Company</span>
+    <a class="ink-link" href="https://github.com/kylejtobin" rel="noopener"
+      >GitHub</a
+    >
   </footer>
 </Sheet>
 
@@ -152,31 +178,74 @@ const structuredData = {
     margin-top: 3rem;
   }
 
-  .email {
-    font-size: var(--body-size);
-    margin-top: 0.75rem;
+  /* engagements: one ruled entry per capability, set like the work */
+  .capabilities {
+    list-style: none;
+    display: grid;
+    gap: 2.25rem;
+  }
+  .capabilities h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2vw, 1.3rem);
+    line-height: 1.25;
+    margin-bottom: 0.45rem;
   }
 
-  .name {
-    font-weight: 500;
-    font-size: clamp(1.45rem, 3.6vw, 1.7rem);
-    line-height: 1.3;
+  /* the inquiry: a stated policy, then one framed action that echoes the
+     mark's frame and inverts to ink when touched */
+  .inquiry {
+    margin-top: 3.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 1.75rem;
+    row-gap: 1rem;
+  }
+  .inquiry .prose {
+    flex-basis: 100%;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.7rem 1.35rem;
+    border: 1.5px solid var(--ink);
     color: var(--ink);
-    margin-bottom: 0.4rem;
-  }
-  .links {
-    margin-top: 0.75rem;
-  }
-  /* the link style's tracking would flatten the label's; keep the capitals wide */
-  .links .ink-link {
+    font-family: var(--font-display);
+    font-size: var(--label-size);
     letter-spacing: var(--label-track);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      background-color 0.4s var(--ease),
+      color 0.4s var(--ease);
+  }
+  .cta:hover,
+  .cta:focus-visible {
+    background-color: var(--ink);
+    color: var(--paper);
+    outline: none;
+  }
+  .email {
+    font-size: var(--body-size);
   }
 
   .colophon {
     margin-top: var(--section-gap);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 1.25rem;
     font-size: 0.95rem;
     color: var(--ink-quiet);
     letter-spacing: 0.01em;
+  }
+  .colophon .ink-link {
+    font-family: var(--font-display);
+    font-size: var(--label-size);
+    letter-spacing: var(--label-track);
+    text-transform: uppercase;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -186,6 +255,9 @@ const structuredData = {
     .title.composing .settle {
       opacity: 1;
       transform: none;
+    }
+    .cta {
+      transition: none;
     }
   }
 </style>

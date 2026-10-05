@@ -7,10 +7,13 @@ import Arrow from "./Arrow.astro";
 
 interface Props {
   work: CollectionEntry<"works">;
+  // a year earns its place only once works' years differ
+  showYear: boolean;
 }
 
 const { title, subtitle, summary, kind, by, url, linkLabel, year, cover } =
   Astro.props.work.data;
+const { showYear } = Astro.props;
 
 // A portrait cover (a book) stands beside its entry. A landscape plate (a
 // software hero) is too wide for that column, so it spans the column and the
@@ -44,11 +47,12 @@ const wide = cover !== undefined && cover.width > cover.height;
     )
   }
   <div class="entry">
-    <p class="label">{kind}{year && <> · {year}</>}</p>
+    <p class="label">{kind}{showYear && year && <> · {year}</>}</p>
     <h3>{title}</h3>
     {subtitle && <p class="subtitle">{subtitle}</p>}
     {summary && <p class="summary">{summary}</p>}
-    <p class="by">by {by.join(" & ")}</p>
+    {/* books carry their authors; the practice publishes everything else */}
+    {kind === "book" && <p class="by">by {by.join(" & ")}</p>}
     <a href={url} rel="noopener" class="ink-link">{linkLabel}<Arrow /></a>
   </div>
 </article>

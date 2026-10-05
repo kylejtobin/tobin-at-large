@@ -37,7 +37,7 @@ INK_FAINT = "#8a8378"
 # spaced than TAL, never at the same size.
 NAME = "TAL Company"
 DESCRIPTOR = "COMPANY"
-TAGLINE = "An independent practice in the architecture of automated organizations."
+TAGLINE = "The architecture of the automated organization."
 
 
 @dataclass(frozen=True)
@@ -279,15 +279,15 @@ def _banner_text(cx: float, cy: float, k: float) -> list[str]:
     return [
         set_text(PLAYFAIR, "TAL", cap_to_size(PLAYFAIR, 150 * k), cx=cx, baseline=base, tracking=0.1),
         set_text(PLAYFAIR, DESCRIPTOR, cap_to_size(PLAYFAIR, 30 * k), cx=cx, baseline=base + 74 * k, tracking=0.7, fill=INK_LIGHT),
-        set_text(CORMORANT_ITALIC, TAGLINE, 54 * k, cx=cx, baseline=base + 160 * k, fill=INK_LIGHT),
+        set_text(CORMORANT_ITALIC, TAGLINE, 66.7 * k, cx=cx, baseline=base + 164 * k, fill=INK_LIGHT),
     ]
 
 
 def banner_profile() -> tuple[int, int, str]:
     # Weighted right so LinkedIn's avatar overlay, bottom-left, never meets it.
     w, h = 3168, 792
-    # the statement is long; centring at 2150 keeps its left end clear of the
-    # avatar, which covers roughly the left third of the lower half
+    # centred right of middle so the text stays clear of the avatar, which
+    # covers roughly the left third of the lower half
     body = _banner_text(2150, h / 2, 1.0)
     return w, h, document(w, h, f"{NAME} profile banner", body)
 

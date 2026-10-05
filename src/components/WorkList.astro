@@ -6,9 +6,10 @@ import Arrow from "./Arrow.astro";
 
 interface Props {
   works: CollectionEntry<"works">[];
+  showYear: boolean;
 }
 
-const { works } = Astro.props;
+const { works, showYear } = Astro.props;
 ---
 
 <ul>
@@ -26,7 +27,7 @@ const { works } = Astro.props;
             <span class="title">{data.title}</span>
             {data.subtitle && <span class="subtitle">{data.subtitle}</span>}
           </span>
-          <span class="year">{data.year}</span>
+          <span class="year">{showYear && data.year}</span>
           <span class="out">
             <Arrow />
           </span>

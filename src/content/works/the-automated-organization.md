@@ -2,7 +2,7 @@
 kind: book
 title: The Automated Organization
 subtitle: A Practitioner’s Guide to Building an Autonomous Enterprise
-summary: "Every AI agent you deploy is handed the manual and runs it literally, at scale. The organization that actually works lives elsewhere, in habits, workarounds, and people nobody briefed. This book shows how to find it, decide what must be governed and what should run locally, and build an enterprise where people, software, and AI act under one set of rules."
+summary: "AI agents enter an organization through its manual and execute it literally, at scale, while the organization that actually runs was never written down. The Automated Organization turns a century of management and organization design into authority explicit enough for people, software, and agents to act on legitimately: governing what binds, and leaving the rest to run and learn locally."
 by: [Kyle J. Tobin]
 url: https://leanpub.com/the-automated-organization
 linkLabel: Read on Leanpub

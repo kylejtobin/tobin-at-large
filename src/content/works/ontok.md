@@ -1,8 +1,8 @@
 ---
 kind: software
 title: ONTOK
-subtitle: The organization’s model of itself, written once as code.
-summary: "Every application and every agent rebuilds its own fragment of what your organization is, its customers, roles, goals, and rules, and no two agree. ONTOK gives that model one home: a small, closed core that every organization refines into its own kinds, as strict Pydantic types, so every program and agent works from the same definitions."
+subtitle: "The organization’s operational world model, written once as code."
+summary: "Every application and every agent carries its own partial model of the business, and no two agree. ONTOK defines what exists, who acts, toward what end, and under which rules as one closed, executable model, so every system reasons and acts over the same proven facts."
 by: [Kyle J. Tobin]
 url: https://github.com/kylejtobin/ontok
 linkLabel: View on GitHub

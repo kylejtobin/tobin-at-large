@@ -1,8 +1,8 @@
 ---
 kind: software
 title: Type Construction Architecture
-subtitle: Python where the usual bugs can’t be written, and coding agents that write it that way.
-summary: "No if, no try, no None, no loops. Every step is a frozen Pydantic type that holds the one before it, so a half-read message, a failure nobody can see, or state lost on restart has nowhere to exist. It ships as agent skills, a smell check, and an adversarial reviewer that keep your coding agent from sliding back into procedural habit."
+subtitle: "Software in which an invalid state cannot be constructed."
+summary: "Procedural code passes its tests and still ships the failures that reach production: the half-read message, the error no caller can see, the state lost on restart. TCA builds programs entirely from types whose construction is their proof, and the same declarations that constrain the code instruct the agents that write it."
 by: [Kyle J. Tobin]
 url: https://github.com/kylejtobin/tca
 linkLabel: View on GitHub
