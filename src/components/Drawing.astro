@@ -1,0 +1,129 @@
+---
+// One sheet of the set: a field framed by a drafting border, registration
+// crosses at its corners, the sheet's number at the head, and a title block
+// at the foot. The frame is drafted in as the sheet comes into view.
+interface Props {
+  id: string;
+  number: string;
+  label: string;
+  titleBlock: string;
+}
+
+const { id, number, label, titleBlock } = Astro.props;
+---
+
+<section class="drawing" id={id} aria-label={`${label}`}>
+  <div class="frame" aria-hidden="true">
+    <span class="cross tl"></span>
+    <span class="cross tr"></span>
+    <span class="cross bl"></span>
+    <span class="cross br"></span>
+  </div>
+  <p class="head mono-label">
+    <span class="no">Sheet {number}</span>
+    <span>{label}</span>
+  </p>
+  <div class="field"><slot /></div>
+  <p class="block mono-label">TAL Company · {titleBlock}</p>
+</section>
+
+<style>
+  .drawing {
+    position: relative;
+    min-height: 100svh;
+    padding: calc(var(--gutter) + 1.4rem) calc(var(--gutter) + 1.5rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    scroll-snap-align: start;
+  }
+
+  /* the drafting border, inset from the paper's edge */
+  .frame {
+    position: absolute;
+    inset: calc(var(--gutter) * 0.5);
+    border: 1px solid var(--line);
+    pointer-events: none;
+    transition: clip-path 1.6s var(--ease);
+  }
+  /* registration crosses, centred on each corner */
+  .cross {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    transition: opacity 0.8s var(--ease) 1.2s;
+  }
+  .cross::before,
+  .cross::after {
+    content: "";
+    position: absolute;
+    background: var(--ink);
+    opacity: 0.55;
+  }
+  .cross::before {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+  }
+  .cross::after {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+  }
+  .tl {
+    top: -11px;
+    left: -11px;
+  }
+  .tr {
+    top: -11px;
+    right: -11px;
+  }
+  .bl {
+    bottom: -11px;
+    left: -11px;
+  }
+  .br {
+    bottom: -11px;
+    right: -11px;
+  }
+
+  /* drafted in: the border runs out from the top-left, then the crosses land */
+  :global(.drafting) .drawing:not(.drawn) .frame {
+    clip-path: inset(0 100% 100% 0);
+  }
+  :global(.drafting) .drawing:not(.drawn) .cross {
+    opacity: 0;
+  }
+
+  .head {
+    display: flex;
+    gap: 1.25rem;
+  }
+  .no {
+    color: var(--ink);
+  }
+
+  .field {
+    width: 100%;
+    max-width: var(--sheet-max);
+    margin: 0 auto;
+    align-self: center;
+    padding: 1.25rem 0;
+  }
+
+  .block {
+    justify-self: end;
+    text-align: right;
+  }
+
+  @media (max-width: 700px) {
+    .drawing {
+      padding: calc(var(--gutter) + 2.25rem) calc(var(--gutter) + 0.5rem);
+    }
+    .head {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+  }
+</style>

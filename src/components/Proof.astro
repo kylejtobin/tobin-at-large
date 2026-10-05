@@ -1,0 +1,163 @@
+---
+// The proof on a sheet: shown, never claimed. Three forms, chosen by the work.
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  proof: CollectionEntry<"works">["data"]["proof"];
+}
+
+const { proof } = Astro.props;
+
+// Code is assembled as one escaped string: template whitespace inside <pre>
+// would otherwise render as stray indentation. A comment line is the refusal,
+// so it is drawn in the signal red.
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const codeHtml =
+  proof.kind === "code"
+    ? proof.code
+        .trimEnd()
+        .split("\n")
+        .map((line) =>
+          line.trimStart().startsWith("#")
+            ? `<span class="signal">${escape(line)}</span>`
+            : escape(line),
+        )
+        .join("\n")
+    : "";
+---
+
+<figure class="proof">
+  {
+    proof.kind === "contrast" && (
+      <table class="contrast">
+        <thead>
+          <tr>
+            <th class="mono-label" scope="col">
+              {proof.left}
+            </th>
+            <th class="mono-label" scope="col">
+              {proof.right}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {proof.rows.map(([paper, operation]) => (
+            <tr>
+              <td class="paper">{paper}</td>
+              <td>{operation}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+  {
+    proof.kind === "code" && (
+      <pre class="code" set:html={`<code>${codeHtml}</code>`} />
+    )
+  }
+  {
+    proof.kind === "struck" && (
+      <ul class="struck">
+        {proof.lines.map((line, i) => (
+          <li style={`--i: ${i}`}>
+            <s>
+              <code>{line}</code>
+            </s>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  <figcaption>{proof.caption}</figcaption>
+</figure>
+
+<style>
+  .proof {
+    margin-top: 1.6rem;
+    max-width: 36rem;
+  }
+  figcaption {
+    margin-top: 1rem;
+    font-style: italic;
+    font-size: 1.12rem;
+    line-height: 1.5;
+    color: var(--ink-quiet);
+  }
+
+  /* on paper, set against what actually runs */
+  .contrast {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.12rem;
+    line-height: 1.35;
+  }
+  .contrast th {
+    text-align: left;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .contrast td {
+    width: 50%;
+    padding: 0.55rem 1rem 0.55rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line-faint);
+    color: var(--ink);
+  }
+  .contrast td.paper {
+    color: var(--ink-quiet);
+  }
+
+  /* the idea, as the code that is the idea */
+  .code {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    line-height: 1.75;
+    color: var(--ink);
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .code :global(.signal) {
+    color: var(--signal);
+  }
+
+  /* what the old way needs, struck out: the strike is drawn as the sheet lands */
+  .struck {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .struck s {
+    position: relative;
+    text-decoration: none;
+    color: var(--ink-quiet);
+  }
+  .struck code {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+  }
+  .struck s::after {
+    content: "";
+    position: absolute;
+    left: -0.2rem;
+    right: -0.2rem;
+    top: 52%;
+    height: 1.5px;
+    background: var(--signal);
+    transform-origin: left center;
+    transition: transform 0.6s var(--ease);
+    transition-delay: calc(0.9s + var(--i) * 0.14s);
+  }
+  :global(.drafting) :global(.drawing:not(.drawn)) .struck s::after {
+    transform: scaleX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .struck s::after {
+      transition: none;
+    }
+  }
+</style>

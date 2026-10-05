@@ -1,7 +1,7 @@
 ---
-// The sheet every page is set on: head, fonts, the paper, analytics.
+// The ground every drawing is set on: head, fonts, the paper, analytics.
 import Analytics from "@vercel/analytics/astro";
-import "../styles/sheet.css";
+import "../styles/base.css";
 
 interface Props {
   title: string;
@@ -46,7 +46,7 @@ const ogImage = `${ORIGIN}/og.png`;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:wght@400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <Analytics />
@@ -54,21 +54,30 @@ const ogImage = `${ORIGIN}/og.png`;
   </head>
   <body>
     <div class="grain"></div>
-    <main class="sheet">
+    <main>
       <slot />
     </main>
 
     <script is:inline>
-      // the title page settles in, like ink laid in stages. resting state is
-      // visible: add .composing (hides it) before first paint, then release it.
-      // if this never runs, the page is simply shown in full.
-      const title = document.querySelector(".title");
-      if (title) {
-        title.classList.add("composing");
-        void title.offsetWidth;
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => title.classList.remove("composing")),
+      // each drawing's frame is drafted as it comes into view: the one motion
+      // on the site. without this script, or with reduced motion, every frame
+      // is simply already drawn.
+      if (
+        "IntersectionObserver" in window &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        document.documentElement.classList.add("drafting");
+        const seen = new IntersectionObserver(
+          (entries) =>
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("drawn");
+                seen.unobserve(e.target);
+              }
+            }),
+          { threshold: 0.12 },
         );
+        document.querySelectorAll(".drawing").forEach((d) => seen.observe(d));
       }
     </script>
   </body>

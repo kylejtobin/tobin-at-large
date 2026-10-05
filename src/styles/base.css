@@ -1,0 +1,120 @@
+/* TAL: the identity every sheet is drawn on. Tokens, the paper, and the
+   drafting marks. Composition lives in the components. */
+
+:root {
+  --paper: #ede5d8;
+  --ink: #1a1a1a;
+  --ink-light: #3a3a3a;
+  /* quiet text: labels, captions. ≥ 4.5:1 on the paper, even at its edges */
+  --ink-quiet: #625c53;
+  /* drafting lines only — too light for text */
+  --line: rgba(26, 26, 26, 0.32);
+  --line-faint: rgba(26, 26, 26, 0.14);
+  /* the red the plates draw their live lines in. used only to strike out */
+  --signal: #c8452c;
+
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  /* the plates' technical lettering, for labels and proofs */
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --sheet-max: 76rem;
+  --gutter: clamp(1.25rem, 3.4vw, 2.75rem);
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--paper);
+}
+/* on screens large enough to hold a sheet, each sheet comes to rest whole */
+@media (min-width: 900px) and (min-height: 700px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  /* paper under even light: a falloff you feel, not see */
+  background: radial-gradient(
+      150% 130% at 50% 32%,
+      #f0e8db 0%,
+      #ece4d6 70%,
+      #e7dfcf 100%
+    )
+    fixed;
+}
+
+/* the paper itself: a lit relief tile baked by brand/build.py, averaging
+   mid-grey so overlay adds texture without shifting colour. above
+   everything, so ink and plates take the tooth too. drawn at 2x. */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  background-image: url("/paper.webp");
+  background-size: 384px 384px;
+}
+
+/* technical lettering: sheet numbers, layers, captions */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+}
+
+/* a link that names where it goes and moves toward it when touched */
+.go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.4s var(--ease);
+}
+.go svg {
+  transition: transform 0.4s var(--ease);
+}
+.go:hover,
+.go:focus-visible {
+  border-color: var(--ink);
+  outline: none;
+}
+.go:hover svg,
+.go:focus-visible svg {
+  transform: translate(2px, -2px);
+}
+
+::selection {
+  background: rgba(200, 69, 44, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .go,
+  .go svg {
+    transition: none;
+  }
+}

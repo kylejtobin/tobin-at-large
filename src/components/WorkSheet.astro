@@ -1,0 +1,205 @@
+---
+// A work, drawn as one sheet: the recognition, the reveal, the proof, and the
+// offer at the peak, set against the work itself as an exhibit. Alternate
+// sheets mirror, so the set reads as a sequence of spreads.
+import type { CollectionEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Arrow from "./Arrow.astro";
+import Proof from "./Proof.astro";
+
+interface Props {
+  work: CollectionEntry<"works">;
+  email: string;
+}
+
+const { email } = Astro.props;
+const {
+  sheet,
+  kind,
+  title,
+  subtitle,
+  by,
+  url,
+  linkLabel,
+  cover,
+  recognition,
+  reveal,
+  proof,
+  offer,
+} = Astro.props.work.data;
+
+const mirrored = sheet % 2 === 0;
+// a tall cover is the book itself; a wide plate is a drawing of the software
+const tall = cover.height > cover.width;
+const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.subject)}`;
+---
+
+<div class:list={["spread", { mirrored, tall }]}>
+  <div class="argument">
+    <h2>{recognition}</h2>
+    <p class="reveal">{reveal}</p>
+    <Proof proof={proof} />
+    <div class="offer">
+      <p>{offer.line}</p>
+      <div class="actions">
+        <a class="go" href={inquiry}>Discuss an engagement <Arrow /></a>
+        <a class="go" href={url} rel="noopener">{linkLabel} <Arrow /></a>
+      </div>
+    </div>
+  </div>
+
+  <figure class="exhibit">
+    <a href={url} rel="noopener" tabindex="-1" aria-hidden="true">
+      <Picture
+        src={cover}
+        alt=""
+        widths={tall ? [360, 540, 720] : [560, 840, 1120]}
+        sizes={tall
+          ? "(max-width: 900px) min(70vw, 360px), 360px"
+          : "(max-width: 900px) calc(100vw - 4rem), 560px"}
+        formats={["avif", "webp"]}
+        loading="lazy"
+      />
+    </a>
+    <figcaption>
+      <span class="title">{title}</span>
+      {subtitle && <span class="subtitle">{subtitle}</span>}
+      {kind === "book" && <span class="by">by {by.join(" & ")}</span>}
+    </figcaption>
+  </figure>
+</div>
+
+<style>
+  .spread {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+  }
+  .argument {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+  .exhibit {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+  }
+  /* a tall cover is narrower than a plate; give it air and centre it */
+  .tall .exhibit {
+    grid-column: 8 / span 4;
+  }
+  .mirrored .argument {
+    grid-column: 7 / span 6;
+  }
+  .mirrored .exhibit {
+    grid-column: 1 / span 5;
+  }
+  .mirrored.tall .exhibit {
+    grid-column: 2 / span 4;
+  }
+
+  /* the recognition: the largest type on the sheet */
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 2.9vw, 2.55rem);
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    max-width: 22ch;
+  }
+  .reveal {
+    margin-top: 1.1rem;
+    font-size: clamp(1.1rem, 1.45vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink-light);
+    max-width: 36rem;
+  }
+
+  /* the offer, at the peak of the sheet */
+  .offer {
+    margin-top: 1.75rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    max-width: 36rem;
+  }
+  .offer p {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    line-height: 1.4;
+  }
+  .actions {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 0.25rem;
+  }
+
+  /* the exhibit: the work as an object on the sheet */
+  .exhibit a {
+    display: block;
+    line-height: 0;
+  }
+  .exhibit :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow:
+      0 0 0 1px rgba(26, 26, 26, 0.08),
+      0 1px 1px rgba(26, 26, 26, 0.14),
+      0 18px 32px -14px rgba(40, 30, 15, 0.34);
+  }
+  .exhibit figcaption {
+    margin-top: 1.1rem;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+  }
+  .subtitle {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+  }
+  .by {
+    font-size: 1rem;
+    color: var(--ink-quiet);
+  }
+
+  /* one column: the recognition first, then the exhibit, then the argument */
+  @media (max-width: 900px) {
+    .spread {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2rem;
+    }
+    .argument {
+      display: contents;
+    }
+    h2 {
+      order: 0;
+    }
+    .exhibit {
+      order: 1;
+    }
+    .tall .exhibit {
+      width: min(70vw, 360px);
+    }
+    .reveal {
+      order: 2;
+      margin-top: 0;
+    }
+    .argument :global(.proof) {
+      order: 3;
+      margin-top: 0;
+    }
+    .offer {
+      order: 4;
+      margin-top: 0;
+    }
+  }
+</style>

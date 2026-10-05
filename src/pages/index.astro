@@ -1,53 +1,29 @@
 ---
-// TAL Company, set as a book: a centred title page, then the record, set left
-// on one column: the work, the engagements it supports, and a colophon.
+// TAL Company, as a drawing set: a cover sheet that states the field and
+// lists the drawings, then one sheet per layer of the automated organization.
 import { getCollection } from "astro:content";
-import Sheet from "../layouts/Sheet.astro";
+import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import Section from "../components/Section.astro";
-import WorkFeature from "../components/WorkFeature.astro";
-import WorkList from "../components/WorkList.astro";
+import Drawing from "../components/Drawing.astro";
+import WorkSheet from "../components/WorkSheet.astro";
+import Arrow from "../components/Arrow.astro";
 
 const statement = "The architecture of the automated organization.";
+const thesis =
+  "Machines now read structure. A rule, a role, a type: each is an instruction they act on. That turns a century of management, knowledge, and software discipline from documentation into execution, and makes the organization itself something to design, model, and build.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Engagement")}`;
 
-// What TAL is engaged to do: each the applied form of one work, stated as
-// the problem the moment creates and what resolving it makes possible.
-const capabilities = [
-  {
-    name: "Operating models for automated work",
-    text: "Agents given real authority execute the organization as documented, not as it runs. TAL maps the organization that actually operates, separates what must be governed from what can run locally, and sets the decision rights agents act within, so automation extends control rather than eroding it.",
-  },
-  {
-    name: "Enterprise world models",
-    text: "Each AI initiative that encodes the business in its own prompts builds another private copy of it, and the copies drift. TAL builds the organization’s operational world model and connects agents and applications to it, so every one of them acts on the same governed definition of the business.",
-  },
-  {
-    name: "Agent-native engineering",
-    text: "Coding agents deliver at a speed that procedural habit turns into production defects. TAL installs the method, skills, and gates under which agents write software where those defects cannot be constructed, and trains the teams who run it.",
-  },
-];
-
-// featured first, then by explicit order, then newest; works without an
-// order or a year come after those with one
 const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
-  (a, b) =>
-    Number(b.data.featured) - Number(a.data.featured) ||
-    (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
-    (b.data.year ?? 0) - (a.data.year ?? 0) ||
-    a.data.title.localeCompare(b.data.title),
+  (a, b) => a.data.sheet - b.data.sheet,
 );
-const featured = works.filter((w) => w.data.featured);
-// a year is shown only once it tells works apart
-const showYear = new Set(works.map((w) => w.data.year)).size > 1;
-const listed = works.filter((w) => !w.data.featured);
+const sheetNo = (n: number) => String(n).padStart(2, "0");
 
-// What the page is, for search engines and link unfurlers: the practice, its
-// principal, and each work as the kind of thing it is.
+// What the page is, for search engines and link unfurlers: the organization,
+// its founder, each work as the kind of thing it is, and the engagements.
 const ORIGIN = "https://talco.dev";
 const org = `${ORIGIN}/#org`;
-const principal = `${ORIGIN}/#principal`;
+const founder = `${ORIGIN}/#founder`;
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -59,19 +35,23 @@ const structuredData = {
       logo: `${ORIGIN}/logo/tal-lockup.png`,
       email,
       description: statement,
-      founder: { "@id": principal },
+      founder: { "@id": founder },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Engagements",
-        itemListElement: capabilities.map(({ name, text }) => ({
+        itemListElement: works.map(({ data }) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name, description: text },
+          itemOffered: {
+            "@type": "Service",
+            name: data.offer.subject,
+            description: data.offer.line,
+          },
         })),
       },
     },
     {
       "@type": "Person",
-      "@id": principal,
+      "@id": founder,
       name: "Kyle J. Tobin",
       worksFor: { "@id": org },
       sameAs: ["https://github.com/kylejtobin"],
@@ -80,11 +60,10 @@ const structuredData = {
       "@type": data.kind === "book" ? "Book" : "SoftwareSourceCode",
       name: data.title,
       ...(data.subtitle && { alternativeHeadline: data.subtitle }),
-      ...(data.summary && { description: data.summary }),
+      description: data.reveal,
       author: data.by.map((name) => ({ "@type": "Person", name })),
       publisher: { "@id": org },
       url: data.url,
-      ...(data.year && { datePublished: String(data.year) }),
       ...(data.kind === "software" && {
         codeRepository: data.url,
         programmingLanguage: "Python",
@@ -94,169 +73,174 @@ const structuredData = {
 };
 ---
 
-<Sheet title="TAL Company" description={`TAL Company. ${statement}`}>
+<Base title="TAL Company" description={`TAL Company. ${statement}`}>
   <script
+    is:inline
     slot="head"
     type="application/ld+json"
     set:html={JSON.stringify(structuredData)}
   />
-  <header class="title">
-    <div class="settle"><Mark /></div>
-    <p class="statement settle">{statement}</p>
-  </header>
 
-  <Section label="Work" id="work">
-    <div class="features">
-      {featured.map((work) => <WorkFeature work={work} showYear={showYear} />)}
+  <Drawing id="cover" number="00" label="Cover" titleBlock="Drawing set">
+    <div class="cover">
+      <Mark />
+      <h1>{statement}</h1>
+      <div class="lower">
+        <div class="thesis">
+          <p>{thesis}</p>
+          <a class="go" href={inquiry}>Discuss an engagement <Arrow /></a>
+        </div>
+        <nav class="index" aria-label="Drawings">
+          <p class="mono-label">Drawings</p>
+          <ol>
+            {
+              works.map(({ data }) => (
+                <li>
+                  <a href={`#sheet-${sheetNo(data.sheet)}`}>
+                    <span class="no">{sheetNo(data.sheet)}</span>
+                    <span class="layer mono-label">{data.layer}</span>
+                    <span class="name">{data.title}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </div>
     </div>
-    {listed.length > 0 && <WorkList works={listed} showYear={showYear} />}
-  </Section>
+  </Drawing>
 
-  <Section label="Engagements" id="engagements">
-    <ol class="capabilities">
-      {
-        capabilities.map(({ name, text }) => (
-          <li>
-            <h3>{name}</h3>
-            <p class="prose">{text}</p>
-          </li>
-        ))
-      }
-    </ol>
-    <div class="inquiry">
-      <p class="prose">TAL accepts engagements selectively.</p>
-      <a class="cta" href={inquiry}>Discuss an engagement</a>
-      <a class="ink-link email" href={inquiry}>{email}</a>
-    </div>
-  </Section>
+  {
+    works.map((work) => (
+      <Drawing
+        id={`sheet-${sheetNo(work.data.sheet)}`}
+        number={sheetNo(work.data.sheet)}
+        label={work.data.layer}
+        titleBlock={work.data.title}
+      >
+        <WorkSheet work={work} email={email} />
+      </Drawing>
+    ))
+  }
 
-  <footer class="colophon">
+  <footer class="mono-label">
     <span>© {new Date().getFullYear()} TAL Company</span>
-    <a class="ink-link" href="https://github.com/kylejtobin" rel="noopener"
-      >GitHub</a
-    >
+    <a href={inquiry}>{email}</a>
+    <a href="https://github.com/kylejtobin" rel="noopener">GitHub</a>
   </footer>
-</Sheet>
+</Base>
 
 <style>
-  /* the title page: centred and formal. everything after it is set left */
-  .title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .statement {
-    font-style: italic;
-    font-size: clamp(1.2rem, 2.8vw, 1.4rem);
-    line-height: 1.45;
-    color: var(--ink-light);
-    letter-spacing: 0.01em;
-    margin-top: calc(var(--mark) * 0.34);
-  }
-
-  /* each title element settles in its own pass. resting state is fully
-     visible; motion is a pure enhancement */
-  .settle {
-    transition:
-      opacity 0.9s var(--ease),
-      transform 0.9s var(--ease);
-  }
-  .title.composing .settle {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  .title > .settle:nth-child(2) {
-    transition-delay: 0.18s;
-  }
-
-  .features {
+  /* the cover: the mark at the head, the field named in the largest type on
+     the site, then the thesis set against the list of drawings */
+  .cover {
+    --mark: clamp(52px, 7vw, 88px);
     display: grid;
-    gap: 4.5rem;
+    gap: clamp(1.5rem, 4vh, 2.75rem);
   }
-  .features + :global(ul) {
-    margin-top: 3rem;
+  .cover :global(.mark) {
+    justify-self: start;
   }
-
-  /* engagements: one ruled entry per capability, set like the work */
-  .capabilities {
-    list-style: none;
-    display: grid;
-    gap: 2.25rem;
-  }
-  .capabilities h3 {
+  h1 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(1.15rem, 2vw, 1.3rem);
-    line-height: 1.25;
-    margin-bottom: 0.45rem;
+    font-weight: 400;
+    font-size: clamp(2.7rem, 6.2vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.012em;
+    max-width: 13ch;
   }
 
-  /* the inquiry: a stated policy, then one framed action that echoes the
-     mark's frame and inverts to ink when touched */
-  .inquiry {
-    margin-top: 3.25rem;
+  .lower {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 2.5rem;
+    align-items: end;
+  }
+  .thesis {
+    grid-column: 1 / span 6;
+  }
+  .thesis p {
+    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+    line-height: 1.55;
+    color: var(--ink-light);
+    max-width: 36rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* the drawing list, as every set opens with */
+  .index {
+    grid-column: 8 / span 5;
+  }
+  .index ol {
+    list-style: none;
+    margin-top: 0.6rem;
+    border-top: 1px solid var(--line);
+  }
+  .index li {
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .index a {
+    display: grid;
+    grid-template-columns: 2.25rem 7.5rem 1fr;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .index .no {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .index .name {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    transition: transform 0.4s var(--ease);
+  }
+  .index a:hover .name,
+  .index a:focus-visible .name {
+    transform: translateX(4px);
+  }
+  .index a:focus-visible {
+    outline: 1.5px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  footer {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    column-gap: 1.75rem;
-    row-gap: 1rem;
+    gap: 0.5rem 1.75rem;
+    padding: 1.5rem calc(var(--gutter) + 1.5rem) 2.5rem;
   }
-  .inquiry .prose {
-    flex-basis: 100%;
-  }
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 0.7rem 1.35rem;
-    border: 1.5px solid var(--ink);
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: var(--label-size);
-    letter-spacing: var(--label-track);
-    text-transform: uppercase;
+  footer a {
+    color: var(--ink-quiet);
     text-decoration: none;
-    transition:
-      background-color 0.4s var(--ease),
-      color 0.4s var(--ease);
+    border-bottom: 1px solid var(--line-faint);
   }
-  .cta:hover,
-  .cta:focus-visible {
-    background-color: var(--ink);
-    color: var(--paper);
+  footer a:hover,
+  footer a:focus-visible {
+    color: var(--ink);
+    border-color: var(--ink);
     outline: none;
   }
-  .email {
-    font-size: var(--body-size);
-  }
 
-  .colophon {
-    margin-top: var(--section-gap);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    column-gap: 1.25rem;
-    font-size: 0.95rem;
-    color: var(--ink-quiet);
-    letter-spacing: 0.01em;
-  }
-  .colophon .ink-link {
-    font-family: var(--font-display);
-    font-size: var(--label-size);
-    letter-spacing: var(--label-track);
-    text-transform: uppercase;
+  @media (max-width: 900px) {
+    .thesis,
+    .index {
+      grid-column: 1 / -1;
+    }
+    .index a {
+      grid-template-columns: 2rem 1fr;
+    }
+    .index .layer,
+    .index .name {
+      grid-column: 2;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .settle {
-      transition: none;
-    }
-    .title.composing .settle {
-      opacity: 1;
-      transform: none;
-    }
-    .cta {
+    .index .name {
       transition: none;
     }
   }
