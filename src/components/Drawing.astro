@@ -1,7 +1,6 @@
 ---
 // One sheet of the set: a field framed by a drafting border whose corners
-// overshoot, the sheet's number and name at the head, and a title block at the
-// foot. The frame is drafted in as the sheet comes into view.
+// overshoot, and the sheet's number at its head. The frame is drafted in as the sheet comes into view.
 interface Props {
   id: string;
   // the cover carries no number
@@ -26,12 +25,10 @@ const { id, number, label, full = false } = Astro.props;
     number && (
       <p class="head mono-label">
         <span class="no">{number}</span>
-        <span class="name">{label}</span>
       </p>
     )
   }
   <div class="field"><slot /></div>
-  <p class="block mono-label">TAL Company</p>
 </section>
 
 <style>
@@ -39,7 +36,7 @@ const { id, number, label, full = false } = Astro.props;
     position: relative;
     /* clear of the frame and the labels drawn on its margin; the sheet is as
        tall as its composition */
-    padding: calc(var(--gutter) * 0.5 + 3.4rem) calc(var(--gutter) + 1.5rem);
+    padding: calc(var(--gutter) * 0.5 + 3rem) calc(var(--gutter) + 1.5rem);
     display: grid;
     /* the track is the sheet's width, never its widest content's */
     grid-template-columns: minmax(0, 1fr);
@@ -133,10 +130,9 @@ const { id, number, label, full = false } = Astro.props;
     clip-path: inset(-16px 100% 100% -16px);
   }
 
-  /* the sheet number and the title block sit on the frame's margin, as on
-     a drawing, so the field keeps the whole sheet */
-  .head,
-  .block {
+  /* the sheet number sits on the frame's margin, as on a drawing, so the
+     field keeps the whole sheet */
+  .head {
     position: absolute;
     left: calc(var(--gutter) * 0.5 + 1.25rem);
     right: calc(var(--gutter) * 0.5 + 1.25rem);
@@ -158,18 +154,9 @@ const { id, number, label, full = false } = Astro.props;
     align-self: center;
   }
 
-  .block {
-    bottom: calc(var(--gutter) * 0.5 + 1rem);
-    text-align: right;
-  }
-
   @media (max-width: 700px) {
     .drawing {
       padding: calc(var(--gutter) * 0.5 + 4rem) calc(var(--gutter) + 0.5rem);
-    }
-    .head {
-      flex-direction: column;
-      gap: 0.2rem;
     }
   }
 </style>

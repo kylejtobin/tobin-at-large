@@ -14,7 +14,7 @@ import CoverDrawing from "../components/CoverDrawing.astro";
 
 const view = "Organizations are becoming executable.";
 const consequence =
-  "Machines act on whatever an organization has made explicit. Everything it has left implicit is now its foundation or its fault line.";
+  "Whatever an organization leaves implicit becomes its fault line.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 
@@ -189,7 +189,7 @@ const structuredData = {
 
   <Drawing id="start" number={no(workSheet + 1)} label="Contact">
     <div class="start">
-      <h2>TAL applies this inside organizations.</h2>
+      <h2>TAL makes organizations explicit.</h2>
       <div class="start-actions">
         <a class="cta" href={inquiry}>Start a conversation</a>
         <a class="go" href={inquiry}>{email} <Arrow /></a>
@@ -199,7 +199,6 @@ const structuredData = {
 
   <footer class="mono-label">
     <span>© {new Date().getFullYear()} TAL Company</span>
-    <a href={inquiry}>{email}</a>
     <a href="https://github.com/kylejtobin" rel="noopener">GitHub</a>
   </footer>
   <script is:inline>

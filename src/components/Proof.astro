@@ -1,7 +1,8 @@
 ---
-// A position's proof, drawn on the sheet: shown, never claimed. One or more
-// blocks, tables or code, and a caption. Each proof has one live point in red:
-// a table's marked cell, or a code comment.
+// A position's proof, drawn on the sheet: shown, never claimed, and never
+// captioned. A sequence of blocks: tables, code, and struck lines, the way
+// that is replaced. Red marks the live point: a table's marked cell, a code
+// comment, or a strike.
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -29,14 +30,23 @@ const codeHtml = (code: string) =>
 
 <figure class="proof">
   {
-    proof.blocks.map((block) =>
+    proof.map((block) =>
       block.kind === "table" ? (
         <table>
           <thead>
             <tr>
-              {block.columns.map((column) => (
-                <th class="mono-label" scope="col">
+              {block.columns.map((column, c) => (
+                <th
+                  class:list={[
+                    "mono-label",
+                    { unreachable: block.unreachable === c },
+                  ]}
+                  scope="col"
+                >
                   {column}
+                  {block.unreachable === c && (
+                    <span class="note">Out of an agent’s reach</span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -48,6 +58,7 @@ const codeHtml = (code: string) =>
                   <td
                     class:list={{
                       live: block.live?.[0] === r && block.live?.[1] === c,
+                      unreachable: block.unreachable === c,
                     }}
                   >
                     {cell}
@@ -57,12 +68,19 @@ const codeHtml = (code: string) =>
             ))}
           </tbody>
         </table>
+      ) : block.kind === "struck" ? (
+        <ul class:list={["struck", `as-${block.as}`]}>
+          {block.lines.map((line) => (
+            <li>
+              <s>{line}</s>
+            </li>
+          ))}
+        </ul>
       ) : (
         <pre class="code" set:html={`<code>${codeHtml(block.code)}</code>`} />
       ),
     )
   }
-  <figcaption>{proof.caption}</figcaption>
 </figure>
 
 <style>
@@ -70,12 +88,6 @@ const codeHtml = (code: string) =>
     display: grid;
     gap: 1.25rem;
     min-width: 0;
-  }
-  figcaption {
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.45;
-    color: var(--ink-quiet);
   }
 
   table {
@@ -110,6 +122,47 @@ const codeHtml = (code: string) =>
     height: 7px;
     border-radius: 50%;
     background: var(--signal);
+  }
+
+  /* the column an agent cannot read: hatched, as a drawing marks a void */
+  td.unreachable,
+  th.unreachable {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 6px,
+      rgba(26, 26, 26, 0.07) 6px 7px
+    );
+    padding-left: 0.75rem;
+  }
+  td.unreachable {
+    color: var(--ink-quiet);
+  }
+  th .note {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--signal-text);
+    letter-spacing: 0.08em;
+  }
+
+  /* the replaced way, struck through in red */
+  .struck {
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .struck s {
+    text-decoration: line-through;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 1.5px;
+    color: var(--ink-quiet);
+  }
+  .struck.as-code s {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+  }
+  .struck.as-speech s {
+    font-style: italic;
+    font-size: 1.2rem;
   }
 
   .code {

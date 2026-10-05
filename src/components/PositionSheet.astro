@@ -1,7 +1,7 @@
 ---
-// One of TAL's positions, drawn as a sheet: the position stated as fact, the
-// insight that makes it so, and the proof drawn opposite as the sheet's
-// exhibit. Alternate sheets mirror, so the set reads as a run of spreads.
+// One of TAL's positions, drawn as a sheet: the position stated as fact, at
+// most one line for what the proof cannot show, and the proof drawn opposite
+// as the sheet's exhibit. Alternate sheets mirror, so the set reads as a run of spreads.
 import type { CollectionEntry } from "astro:content";
 import Proof from "./Proof.astro";
 
@@ -9,14 +9,14 @@ interface Props {
   position: CollectionEntry<"positions">;
 }
 
-const { sheet, position, insight, proof } = Astro.props.position.data;
+const { sheet, position, consequence, proof } = Astro.props.position.data;
 const mirrored = sheet % 2 === 0;
 ---
 
 <div class:list={["spread", { mirrored }]}>
   <div class="argument">
     <h2>{position}</h2>
-    <p class="insight">{insight}</p>
+    {consequence && <p class="consequence">{consequence}</p>}
   </div>
   <div class="exhibit">
     <Proof proof={proof} />
@@ -60,7 +60,7 @@ const mirrored = sheet % 2 === 0;
     max-width: 20ch;
     text-wrap: balance;
   }
-  .insight {
+  .consequence {
     margin-top: 1.25rem;
     font-size: clamp(1.18rem, 1.6vw, 1.38rem);
     line-height: 1.55;
