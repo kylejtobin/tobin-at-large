@@ -31,7 +31,7 @@ const {
 const mirrored = sheet % 2 === 0;
 // a tall cover is the book itself; a wide plate is a drawing of the software
 const tall = cover.height > cover.width;
-const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.subject)}`;
+const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.name)}`;
 ---
 
 <div class:list={["spread", { mirrored, tall }]}>
@@ -40,10 +40,11 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.subject)}`;
     <p class="reveal">{reveal}</p>
     <Proof proof={proof} />
     <div class="offer">
-      <p>{offer.line}</p>
+      <p class="mono-label">Engagement · {offer.name}</p>
+      <p class="promise">{offer.promise}</p>
       <div class="actions">
-        <a class="go" href={inquiry}>Discuss an engagement <Arrow /></a>
-        <a class="go" href={url} rel="noopener">{linkLabel} <Arrow /></a>
+        <a class="go" href={inquiry}>{offer.ask} <Arrow /></a>
+        <a class="go quiet" href={url} rel="noopener">{linkLabel} <Arrow /></a>
       </div>
     </div>
   </div>
@@ -117,15 +118,22 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.subject)}`;
 
   /* the offer, at the peak of the sheet */
   .offer {
-    margin-top: 1.75rem;
+    margin-top: 1.4rem;
     padding-top: 1.1rem;
     border-top: 1px solid var(--line);
     max-width: 36rem;
   }
-  .offer p {
+  /* the promise: the reader's after-state, the strongest line on the sheet */
+  .promise {
+    margin-top: 0.5rem;
     font-family: var(--font-display);
-    font-size: 1.12rem;
-    line-height: 1.4;
+    font-size: clamp(1.25rem, 1.75vw, 1.45rem);
+    line-height: 1.3;
+    max-width: 36ch;
+  }
+  /* the work's own link stands back from the ask */
+  .go.quiet {
+    color: var(--ink-quiet);
   }
   .actions {
     margin-top: 0.9rem;

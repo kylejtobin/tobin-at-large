@@ -31,9 +31,11 @@ const { id, number, label, titleBlock } = Astro.props;
   .drawing {
     position: relative;
     min-height: 100svh;
-    padding: calc(var(--gutter) + 1.4rem) calc(var(--gutter) + 1.5rem);
+    /* clear of the frame and the labels drawn on its margin */
+    padding: calc(var(--gutter) * 0.5 + 3.1rem) calc(var(--gutter) + 1.5rem);
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    /* the track is the sheet's width, never its widest content's */
+    grid-template-columns: minmax(0, 1fr);
     scroll-snap-align: start;
   }
 
@@ -96,7 +98,16 @@ const { id, number, label, titleBlock } = Astro.props;
     opacity: 0;
   }
 
+  /* the sheet number and the title block sit on the frame's margin, as on
+     a drawing, so the field keeps the whole sheet */
+  .head,
+  .block {
+    position: absolute;
+    left: calc(var(--gutter) * 0.5 + 1.25rem);
+    right: calc(var(--gutter) * 0.5 + 1.25rem);
+  }
   .head {
+    top: calc(var(--gutter) * 0.5 + 1rem);
     display: flex;
     gap: 1.25rem;
   }
@@ -105,21 +116,21 @@ const { id, number, label, titleBlock } = Astro.props;
   }
 
   .field {
+    min-width: 0;
     width: 100%;
     max-width: var(--sheet-max);
     margin: 0 auto;
     align-self: center;
-    padding: 1.25rem 0;
   }
 
   .block {
-    justify-self: end;
+    bottom: calc(var(--gutter) * 0.5 + 1rem);
     text-align: right;
   }
 
   @media (max-width: 700px) {
     .drawing {
-      padding: calc(var(--gutter) + 2.25rem) calc(var(--gutter) + 0.5rem);
+      padding: calc(var(--gutter) * 0.5 + 4rem) calc(var(--gutter) + 0.5rem);
     }
     .head {
       flex-direction: column;

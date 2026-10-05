@@ -1,6 +1,6 @@
 ---
 sheet: 2
-layer: Its model
+layer: What the business means
 kind: software
 title: ONTOK
 subtitle: The organization’s operational world model, written once as code.
@@ -8,8 +8,8 @@ by: [Kyle J. Tobin]
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
-recognition: Every system in the business has its own idea of what a customer is.
-reveal: "Ontology always promised one definition of the enterprise, and always lived beside the systems instead of inside them. ONTOK makes the model the system: a closed core every organization refines into its own kinds, so every application and agent acts on the same proven facts."
+recognition: Every system has its own idea of what a customer is. The agents inherited all of them.
+reveal: "Every attempt at one shared definition of the enterprise, from data dictionaries to formal ontologies, ended up as documentation beside the systems. ONTOK puts it inside them: a fixed vocabulary of entities, roles, goals, actions, and rules, extended into each organization’s own terms as the code its software and agents run on."
 proof:
   kind: code
   code: |
@@ -19,8 +19,9 @@ proof:
 
     ReviewCompleted(id="not an identifier", ...)
     # no such fact exists
-  caption: The organization’s own kinds, as code. A fact that fails its kind never exists.
+  caption: The organization’s own terms, as code. A fact that fails its definition never exists.
 offer:
-  line: TAL builds enterprise world models and connects agents and applications to them.
-  subject: World models
+  name: World models
+  promise: One definition of the business that every application and agent acts on, and no project has to reinvent.
+  ask: Discuss a world model
 ---

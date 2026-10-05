@@ -10,7 +10,7 @@ import Arrow from "../components/Arrow.astro";
 
 const statement = "The architecture of the automated organization.";
 const thesis =
-  "Machines now read structure. A rule, a role, a type: each is an instruction they act on. That turns a century of management, knowledge, and software discipline from documentation into execution, and makes the organization itself something to design, model, and build.";
+  "Machines now read structure. A rule, a role, a type: each is an instruction they act on. How authority works, what the business means, how its software must behave: for the first time, all three can be built rather than written down.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Engagement")}`;
 
@@ -43,8 +43,8 @@ const structuredData = {
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: data.offer.subject,
-            description: data.offer.line,
+            name: data.offer.name,
+            description: data.offer.promise,
           },
         })),
       },
@@ -180,10 +180,12 @@ const structuredData = {
   .index li {
     border-bottom: 1px solid var(--line-faint);
   }
+  /* number, then the layer over the work it draws */
   .index a {
     display: grid;
-    grid-template-columns: 2.25rem 7.5rem 1fr;
+    grid-template-columns: 2.25rem 1fr;
     align-items: baseline;
+    row-gap: 0.15rem;
     padding: 0.85rem 0;
     min-height: 44px;
     color: var(--ink);
@@ -192,6 +194,13 @@ const structuredData = {
   .index .no {
     font-family: var(--font-mono);
     font-size: 0.8rem;
+  }
+  .index .layer,
+  .index .name {
+    grid-column: 2;
+  }
+  .index .no {
+    grid-row: 1 / span 2;
   }
   .index .name {
     font-family: var(--font-display);
@@ -229,13 +238,6 @@ const structuredData = {
     .thesis,
     .index {
       grid-column: 1 / -1;
-    }
-    .index a {
-      grid-template-columns: 2rem 1fr;
-    }
-    .index .layer,
-    .index .name {
-      grid-column: 2;
     }
   }
 

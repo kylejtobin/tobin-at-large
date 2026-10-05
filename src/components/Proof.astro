@@ -42,11 +42,20 @@ const codeHtml =
           </tr>
         </thead>
         <tbody>
-          {proof.rows.map(([paper, operation]) => (
-            <tr>
-              <td class="paper">{paper}</td>
-              <td>{operation}</td>
-            </tr>
+          {proof.rows.map((row) => (
+            <>
+              {row.case && (
+                <tr class="case">
+                  <th class="mono-label" scope="rowgroup" colspan="2">
+                    {row.case}
+                  </th>
+                </tr>
+              )}
+              <tr>
+                <td class="paper">{row.paper}</td>
+                <td>{row.operation}</td>
+              </tr>
+            </>
           ))}
         </tbody>
       </table>
@@ -75,11 +84,14 @@ const codeHtml =
 
 <style>
   .proof {
-    margin-top: 1.6rem;
-    max-width: 36rem;
+    margin-top: 1.35rem;
+    /* never wider than the sheet: a long line of code scrolls inside its own
+       frame instead of pushing the page sideways */
+    min-width: 0;
+    max-width: min(36rem, 100%);
   }
   figcaption {
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     font-style: italic;
     font-size: 1.12rem;
     line-height: 1.5;
@@ -100,7 +112,7 @@ const codeHtml =
   }
   .contrast td {
     width: 50%;
-    padding: 0.55rem 1rem 0.55rem 0;
+    padding: 0.45rem 1rem 0.45rem 0;
     vertical-align: top;
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
@@ -108,15 +120,26 @@ const codeHtml =
   .contrast td.paper {
     color: var(--ink-quiet);
   }
+  /* a named case heads its row: the evidence has a place and a date */
+  .contrast .case th {
+    text-align: left;
+    padding: 0.7rem 0 0;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .contrast .case + tr td {
+    padding-top: 0.3rem;
+  }
 
   /* the idea, as the code that is the idea */
   .code {
     font-family: var(--font-mono);
     font-size: 0.86rem;
-    line-height: 1.75;
+    line-height: 1.6;
     color: var(--ink);
     padding: 1.1rem 1.25rem;
     border: 1px solid var(--line);
+    max-width: 100%;
     overflow-x: auto;
     white-space: pre;
   }

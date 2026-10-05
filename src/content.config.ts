@@ -9,12 +9,21 @@ import { glob } from "astro/loaders";
 
 // The proof is shown, never claimed, and takes one of three forms.
 const proof = z.discriminatedUnion("kind", [
-  // what the documents say set against what actually runs
+  // what the documents say set against what actually runs, ideally as named
+  // cases: evidence persuades where a stand-in only illustrates
   z.object({
     kind: z.literal("contrast"),
     left: z.string(),
     right: z.string(),
-    rows: z.array(z.tuple([z.string(), z.string()])).min(2),
+    rows: z
+      .array(
+        z.object({
+          case: z.string().optional(),
+          paper: z.string(),
+          operation: z.string(),
+        }),
+      )
+      .min(2),
     caption: z.string(),
   }),
   // the idea, as the code that is the idea
@@ -51,10 +60,13 @@ const works = defineCollection({
       recognition: z.string(),
       reveal: z.string(),
       proof,
-      // the engagement this work is the evidence for
+      // the engagement this work is the evidence for. the promise is the
+      // reader's after-state, not TAL's activity, and is the strongest line on
+      // the sheet; the ask names this engagement, not engagements in general
       offer: z.object({
-        line: z.string(),
-        subject: z.string(),
+        name: z.string(),
+        promise: z.string(),
+        ask: z.string(),
       }),
       draft: z.boolean().default(false),
     }),
