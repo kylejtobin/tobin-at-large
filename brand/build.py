@@ -37,8 +37,7 @@ INK_FAINT = "#8a8378"
 # spaced than TAL, never at the same size.
 NAME = "TAL Company"
 DESCRIPTOR = "COMPANY"
-TAGLINE = "Writing, consulting, and AI architecture."
-BYLINE = "Kyle J. Tobin."
+TAGLINE = "An independent practice in the architecture of automated organizations."
 
 
 @dataclass(frozen=True)
@@ -261,12 +260,12 @@ def lockup() -> tuple[int, int, str]:
 
 def og() -> tuple[int, int, str]:
     w, h = 1200, 628
-    mark, bottom = monogram(600, 128, 95, 1.5)
+    # the practice's card: the mark and what the practice is, centred as a block
+    mark, bottom = monogram(600, 160, 95, 1.5)
     body = [
         mark,
-        rule(600, bottom + 70, 152, 1, INK_FAINT),
-        set_text(CORMORANT, BYLINE, 28.3, cx=600, baseline=bottom + 134, fill=INK),
-        set_text(CORMORANT_ITALIC, TAGLINE, 22, cx=600, baseline=bottom + 173, fill=INK_LIGHT),
+        rule(600, bottom + 60, 152, 1, INK_FAINT),
+        set_text(CORMORANT_ITALIC, TAGLINE, 24, cx=600, baseline=bottom + 112, fill=INK_LIGHT),
     ]
     return w, h, document(w, h, NAME, body)
 
@@ -280,14 +279,16 @@ def _banner_text(cx: float, cy: float, k: float) -> list[str]:
     return [
         set_text(PLAYFAIR, "TAL", cap_to_size(PLAYFAIR, 150 * k), cx=cx, baseline=base, tracking=0.1),
         set_text(PLAYFAIR, DESCRIPTOR, cap_to_size(PLAYFAIR, 30 * k), cx=cx, baseline=base + 74 * k, tracking=0.7, fill=INK_LIGHT),
-        set_text(CORMORANT_ITALIC, TAGLINE, 66.7 * k, cx=cx, baseline=base + 164 * k, fill=INK_LIGHT),
+        set_text(CORMORANT_ITALIC, TAGLINE, 54 * k, cx=cx, baseline=base + 160 * k, fill=INK_LIGHT),
     ]
 
 
 def banner_profile() -> tuple[int, int, str]:
     # Weighted right so LinkedIn's avatar overlay, bottom-left, never meets it.
     w, h = 3168, 792
-    body = _banner_text(1968, h / 2, 1.0)
+    # the statement is long; centring at 2150 keeps its left end clear of the
+    # avatar, which covers roughly the left third of the lower half
+    body = _banner_text(2150, h / 2, 1.0)
     return w, h, document(w, h, f"{NAME} profile banner", body)
 
 

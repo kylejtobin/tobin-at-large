@@ -8,7 +8,8 @@ import Section from "../components/Section.astro";
 import WorkFeature from "../components/WorkFeature.astro";
 import WorkList from "../components/WorkList.astro";
 
-const statement = "An independent practice in AI architecture.";
+const statement =
+  "An independent practice in the architecture of automated organizations.";
 const email = "contact@talco.dev";
 
 // featured first, then by explicit order, then newest; works without an
@@ -22,9 +23,56 @@ const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
 );
 const featured = works.filter((w) => w.data.featured);
 const listed = works.filter((w) => !w.data.featured);
+
+// What the page is, for search engines and link unfurlers: the practice, its
+// principal, and each work as the kind of thing it is.
+const ORIGIN = "https://talco.dev";
+const org = `${ORIGIN}/#org`;
+const principal = `${ORIGIN}/#principal`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": org,
+      name: "TAL Company",
+      url: `${ORIGIN}/`,
+      logo: `${ORIGIN}/logo/tal-lockup.png`,
+      email,
+      description: statement,
+      founder: { "@id": principal },
+    },
+    {
+      "@type": "Person",
+      "@id": principal,
+      name: "Kyle J. Tobin",
+      worksFor: { "@id": org },
+      sameAs: ["https://github.com/kylejtobin"],
+    },
+    ...works.map(({ data }) => ({
+      "@type": data.kind === "book" ? "Book" : "SoftwareSourceCode",
+      name: data.title,
+      ...(data.subtitle && { alternativeHeadline: data.subtitle }),
+      ...(data.summary && { description: data.summary }),
+      author: data.by.map((name) => ({ "@type": "Person", name })),
+      publisher: { "@id": org },
+      url: data.url,
+      ...(data.year && { datePublished: String(data.year) }),
+      ...(data.kind === "software" && {
+        codeRepository: data.url,
+        programmingLanguage: "Python",
+      }),
+    })),
+  ],
+};
 ---
 
 <Sheet title="TAL Company" description={`TAL Company. ${statement}`}>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
   <header class="title">
     <div class="settle"><Mark /></div>
     <p class="statement settle">{statement}</p>
@@ -39,8 +87,10 @@ const listed = works.filter((w) => !w.data.featured);
 
   <Section label="Engagements" id="engagements">
     <p class="prose">
-      TAL takes on a small number of advisory and architecture engagements each
-      year.
+      Advisory and architecture work for organizations putting AI into real
+      operations: finding the organization that actually runs, deciding what
+      must be governed, and building the systems that carry it. TAL takes on a
+      small number of engagements each year.
     </p>
     <a class="ink-link email" href={`mailto:${email}`}>{email}</a>
   </Section>

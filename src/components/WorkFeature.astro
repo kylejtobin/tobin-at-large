@@ -61,7 +61,8 @@ const wide = cover !== undefined && cover.width > cover.height;
   .feature.has-cover {
     grid-template-columns: 168px 1fr;
     column-gap: 2.25rem;
-    align-items: center;
+    /* the cover's head aligns with the entry's, as on a catalogue page */
+    align-items: start;
   }
 
   /* the cover is an object on the sheet: a contact edge where it meets the
