@@ -7,6 +7,7 @@ import Mark from "../components/Mark.astro";
 import Drawing from "../components/Drawing.astro";
 import WorkSheet from "../components/WorkSheet.astro";
 import Arrow from "../components/Arrow.astro";
+import CoverDrawing from "../components/CoverDrawing.astro";
 
 const statement = "The architecture of the automated organization.";
 const thesis =
@@ -83,30 +84,31 @@ const structuredData = {
 
   <Drawing id="cover" number="00" label="Cover" titleBlock="Drawing set">
     <div class="cover">
-      <Mark />
-      <h1>{statement}</h1>
-      <div class="lower">
+      <div class="statement">
+        <Mark />
+        <h1>{statement}</h1>
         <div class="thesis">
           <p>{thesis}</p>
           <a class="go" href={inquiry}>Discuss an engagement <Arrow /></a>
         </div>
-        <nav class="index" aria-label="Drawings">
-          <p class="mono-label">Drawings</p>
-          <ol>
-            {
-              works.map(({ data }) => (
-                <li>
-                  <a href={`#sheet-${sheetNo(data.sheet)}`}>
-                    <span class="no">{sheetNo(data.sheet)}</span>
-                    <span class="layer mono-label">{data.layer}</span>
-                    <span class="name">{data.title}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ol>
-        </nav>
       </div>
+      <nav class="index" aria-label="Drawings">
+        <p class="mono-label">Drawings</p>
+        <CoverDrawing />
+        <ol>
+          {
+            works.map(({ data }) => (
+              <li>
+                <a href={`#sheet-${sheetNo(data.sheet)}`}>
+                  <span class="no">{sheetNo(data.sheet)}</span>
+                  <span class="layer mono-label">{data.layer}</span>
+                  <span class="name">{data.title}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
     </div>
   </Drawing>
 
@@ -131,10 +133,19 @@ const structuredData = {
 </Base>
 
 <style>
-  /* the cover: the mark at the head, the field named in the largest type on
-     the site, then the thesis set against the list of drawings */
+  /* the cover: the statement on the left, from the mark down through the
+     field's name to the thesis; on the right, the one drawing on the site
+     standing on the list of drawings it keys */
   .cover {
     --mark: clamp(52px, 7vw, 88px);
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 3rem;
+    align-items: end;
+  }
+  .statement {
+    grid-column: 1 / span 7;
     display: grid;
     gap: clamp(1.5rem, 4vh, 2.75rem);
   }
@@ -150,16 +161,6 @@ const structuredData = {
     max-width: 13ch;
   }
 
-  .lower {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1.5rem, 3vw, 3rem);
-    row-gap: 2.5rem;
-    align-items: end;
-  }
-  .thesis {
-    grid-column: 1 / span 6;
-  }
   .thesis p {
     font-size: clamp(1.15rem, 1.6vw, 1.35rem);
     line-height: 1.55;
@@ -168,13 +169,16 @@ const structuredData = {
     margin-bottom: 1.25rem;
   }
 
-  /* the drawing list, as every set opens with */
+  /* the drawing list, as every set opens with, under the drawing it keys:
+     the drawing stands on the list's top rule, where its leaders land */
   .index {
     grid-column: 8 / span 5;
   }
+  .index :global(.cover-drawing) {
+    margin-top: 1.25rem;
+  }
   .index ol {
     list-style: none;
-    margin-top: 0.6rem;
     border-top: 1px solid var(--line);
   }
   .index li {
@@ -235,7 +239,7 @@ const structuredData = {
   }
 
   @media (max-width: 900px) {
-    .thesis,
+    .statement,
     .index {
       grid-column: 1 / -1;
     }

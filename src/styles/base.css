@@ -2,7 +2,8 @@
    drafting marks. Composition lives in the components. */
 
 :root {
-  --paper: #ede5d8;
+  /* warm drafting stock: warmer than it was, never parchment */
+  --paper: #eee3d0;
   --ink: #1a1a1a;
   --ink-light: #3a3a3a;
   /* quiet text: labels, captions. ≥ 4.5:1 on the paper, even at its edges */
@@ -10,8 +11,11 @@
   /* drafting lines only — too light for text */
   --line: rgba(26, 26, 26, 0.32);
   --line-faint: rgba(26, 26, 26, 0.14);
-  /* the red the plates draw their live lines in. used only to strike out */
+  /* red marks what is live: what the work refuses, and what it promises.
+     never decoration. the line red is the plates' own; as text it deepens to
+     stay ≥ 4.5:1 on the paper */
   --signal: #c8452c;
+  --signal-text: #a8371f;
 
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -49,9 +53,9 @@ body {
   /* paper under even light: a falloff you feel, not see */
   background: radial-gradient(
       150% 130% at 50% 32%,
-      #f0e8db 0%,
-      #ece4d6 70%,
-      #e7dfcf 100%
+      #f2e9d9 0%,
+      #eee3d0 70%,
+      #e8dcc6 100%
     )
     fixed;
 }

@@ -117,7 +117,20 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.name)}`;
   }
 
   /* the offer, at the peak of the sheet */
+  /* the rule above the offer begins at a red node: the promise is the live
+     point of the sheet */
+  .offer::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal);
+  }
   .offer {
+    position: relative;
     margin-top: 1.4rem;
     padding-top: 1.1rem;
     border-top: 1px solid var(--line);

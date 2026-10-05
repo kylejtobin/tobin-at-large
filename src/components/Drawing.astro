@@ -1,7 +1,7 @@
 ---
-// One sheet of the set: a field framed by a drafting border, registration
-// crosses at its corners, the sheet's number at the head, and a title block
-// at the foot. The frame is drafted in as the sheet comes into view.
+// One sheet of the set: a field framed by a drafting border whose corners
+// overshoot, the sheet's number at the head, and a title block at the foot.
+// The frame is drafted in as the sheet comes into view.
 interface Props {
   id: string;
   number: string;
@@ -14,10 +14,10 @@ const { id, number, label, titleBlock } = Astro.props;
 
 <section class="drawing" id={id} aria-label={`${label}`}>
   <div class="frame" aria-hidden="true">
-    <span class="cross tl"></span>
-    <span class="cross tr"></span>
-    <span class="cross bl"></span>
-    <span class="cross br"></span>
+    <span class="over tl"></span>
+    <span class="over tr"></span>
+    <span class="over bl"></span>
+    <span class="over br"></span>
   </div>
   <p class="head mono-label">
     <span class="no">Sheet {number}</span>
@@ -36,66 +36,85 @@ const { id, number, label, titleBlock } = Astro.props;
     display: grid;
     /* the track is the sheet's width, never its widest content's */
     grid-template-columns: minmax(0, 1fr);
+    /* a sheet ends at its edge: construction lines may run into the margin,
+       never off the paper */
+    overflow-x: clip;
     scroll-snap-align: start;
   }
 
-  /* the drafting border, inset from the paper's edge */
+  /* the drafting border, inset from the paper's edge. drawn: its clip
+     reaches past the corners so the overshoots show */
   .frame {
     position: absolute;
     inset: calc(var(--gutter) * 0.5);
     border: 1px solid var(--line);
     pointer-events: none;
+    clip-path: inset(-16px);
     transition: clip-path 1.6s var(--ease);
   }
-  /* registration crosses, centred on each corner */
-  .cross {
+  /* each corner closed the way a draughtsman closes it: both lines run on
+     past the meeting point */
+  .over {
     position: absolute;
-    width: 22px;
-    height: 22px;
-    transition: opacity 0.8s var(--ease) 1.2s;
   }
-  .cross::before,
-  .cross::after {
+  .over::before,
+  .over::after {
     content: "";
     position: absolute;
-    background: var(--ink);
-    opacity: 0.55;
+    background: var(--line);
   }
-  .cross::before {
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-  }
-  .cross::after {
-    top: 50%;
-    left: 0;
-    right: 0;
+  .over::before {
+    width: 14px;
     height: 1px;
   }
+  .over::after {
+    width: 1px;
+    height: 14px;
+  }
   .tl {
-    top: -11px;
-    left: -11px;
+    top: -1px;
+    left: -1px;
+  }
+  .tl::before {
+    right: 0;
+  }
+  .tl::after {
+    bottom: 0;
   }
   .tr {
-    top: -11px;
-    right: -11px;
+    top: -1px;
+    right: -1px;
+  }
+  .tr::before {
+    left: 0;
+  }
+  .tr::after {
+    bottom: 0;
   }
   .bl {
-    bottom: -11px;
-    left: -11px;
+    bottom: -1px;
+    left: -1px;
+  }
+  .bl::before {
+    right: 0;
+  }
+  .bl::after {
+    top: 0;
   }
   .br {
-    bottom: -11px;
-    right: -11px;
+    bottom: -1px;
+    right: -1px;
+  }
+  .br::before {
+    left: 0;
+  }
+  .br::after {
+    top: 0;
   }
 
-  /* drafted in: the border runs out from the top-left, then the crosses land */
+  /* drafted in: the border runs out from the top-left corner */
   :global(.drafting) .drawing:not(.drawn) .frame {
-    clip-path: inset(0 100% 100% 0);
-  }
-  :global(.drafting) .drawing:not(.drawn) .cross {
-    opacity: 0;
+    clip-path: inset(-16px 100% 100% -16px);
   }
 
   /* the sheet number and the title block sit on the frame's margin, as on
