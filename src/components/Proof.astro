@@ -1,82 +1,65 @@
 ---
-// The proof on a sheet: shown, never claimed. Three forms, chosen by the work.
+// A position's proof, drawn on the sheet: shown, never claimed. One or more
+// blocks, tables or code, and a caption. Each proof has one live point in red:
+// a table's marked cell, or a code comment.
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  proof: CollectionEntry<"works">["data"]["proof"];
+  proof: CollectionEntry<"positions">["data"]["proof"];
 }
 
 const { proof } = Astro.props;
 
 // Code is assembled as one escaped string: template whitespace inside <pre>
-// would otherwise render as stray indentation. A comment line is the refusal,
-// so it is drawn in the signal red.
+// would otherwise render as stray indentation. A comment line is the live
+// point, so it is drawn in the signal red.
 const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const codeHtml =
-  proof.kind === "code"
-    ? proof.code
-        .trimEnd()
-        .split("\n")
-        .map((line) =>
-          line.trimStart().startsWith("#")
-            ? `<span class="signal">${escape(line)}</span>`
-            : escape(line),
-        )
-        .join("\n")
-    : "";
+const codeHtml = (code: string) =>
+  code
+    .trimEnd()
+    .split("\n")
+    .map((line) =>
+      line.trimStart().startsWith("#")
+        ? `<span class="signal">${escape(line)}</span>`
+        : escape(line),
+    )
+    .join("\n");
 ---
 
 <figure class="proof">
   {
-    proof.kind === "contrast" && (
-      <table class="contrast">
-        <thead>
-          <tr>
-            <th class="mono-label" scope="col">
-              {proof.left}
-            </th>
-            <th class="mono-label" scope="col">
-              {proof.right}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {proof.rows.map((row) => (
-            <>
-              {row.case && (
-                <tr class="case">
-                  <th class="mono-label" scope="rowgroup" colspan="2">
-                    {row.case}
-                  </th>
-                </tr>
-              )}
+    proof.blocks.map((block) =>
+      block.kind === "table" ? (
+        <table>
+          <thead>
+            <tr>
+              {block.columns.map((column) => (
+                <th class="mono-label" scope="col">
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {block.rows.map((row, r) => (
               <tr>
-                <td class="paper">{row.paper}</td>
-                <td>{row.operation}</td>
+                {row.map((cell, c) => (
+                  <td
+                    class:list={{
+                      live: block.live?.[0] === r && block.live?.[1] === c,
+                    }}
+                  >
+                    {cell}
+                  </td>
+                ))}
               </tr>
-            </>
-          ))}
-        </tbody>
-      </table>
-    )
-  }
-  {
-    proof.kind === "code" && (
-      <pre class="code" set:html={`<code>${codeHtml}</code>`} />
-    )
-  }
-  {
-    proof.kind === "struck" && (
-      <ul class="struck">
-        {proof.lines.map((line, i) => (
-          <li style={`--i: ${i}`}>
-            <s>
-              <code>{line}</code>
-            </s>
-          </li>
-        ))}
-      </ul>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <pre class="code" set:html={`<code>${codeHtml(block.code)}</code>`} />
+      ),
     )
   }
   <figcaption>{proof.caption}</figcaption>
@@ -84,60 +67,57 @@ const codeHtml =
 
 <style>
   .proof {
-    margin-top: 1.35rem;
-    /* never wider than the sheet: a long line of code scrolls inside its own
-       frame instead of pushing the page sideways */
+    display: grid;
+    gap: 1.25rem;
     min-width: 0;
-    max-width: min(36rem, 100%);
   }
   figcaption {
-    margin-top: 0.8rem;
     font-style: italic;
-    font-size: 1.12rem;
-    line-height: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.45;
     color: var(--ink-quiet);
   }
 
-  /* on paper, set against what actually runs */
-  .contrast {
+  table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 1.12rem;
+    font-size: 1.1rem;
     line-height: 1.35;
   }
-  .contrast th {
+  th {
     text-align: left;
-    padding-bottom: 0.6rem;
+    padding: 0 1rem 0.6rem 0;
     border-bottom: 1px solid var(--line);
   }
-  .contrast td {
-    width: 50%;
-    padding: 0.45rem 1rem 0.45rem 0;
+  td {
+    padding: 0.6rem 1rem 0.6rem 0;
     vertical-align: top;
     border-bottom: 1px solid var(--line-faint);
-    color: var(--ink);
-  }
-  .contrast td.paper {
     color: var(--ink-quiet);
   }
-  /* a named case heads its row: the evidence has a place and a date */
-  .contrast .case th {
-    text-align: left;
-    padding: 0.7rem 0 0;
+  /* the live cell: full ink, led by the red node */
+  td.live {
+    position: relative;
     color: var(--ink);
-    font-weight: 400;
+    padding-left: 1rem;
   }
-  .contrast .case + tr td {
-    padding-top: 0.3rem;
+  td.live::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.05rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal);
   }
 
-  /* the idea, as the code that is the idea */
   .code {
     font-family: var(--font-mono);
-    font-size: 0.86rem;
-    line-height: 1.6;
+    font-size: 0.84rem;
+    line-height: 1.65;
     color: var(--ink);
-    padding: 1.1rem 1.25rem;
+    padding: 1rem 1.2rem;
     border: 1px solid var(--line);
     max-width: 100%;
     overflow-x: auto;
@@ -145,42 +125,5 @@ const codeHtml =
   }
   .code :global(.signal) {
     color: var(--signal-text);
-  }
-
-  /* what the old way needs, struck out: the strike is drawn as the sheet lands */
-  .struck {
-    list-style: none;
-    display: grid;
-    gap: 0.55rem;
-  }
-  .struck s {
-    position: relative;
-    text-decoration: none;
-    color: var(--ink-quiet);
-  }
-  .struck code {
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-  }
-  .struck s::after {
-    content: "";
-    position: absolute;
-    left: -0.2rem;
-    right: -0.2rem;
-    top: 52%;
-    height: 1.5px;
-    background: var(--signal);
-    transform-origin: left center;
-    transition: transform 0.6s var(--ease);
-    transition-delay: calc(0.9s + var(--i) * 0.14s);
-  }
-  :global(.drafting) :global(.drawing:not(.drawn)) .struck s::after {
-    transform: scaleX(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .struck s::after {
-      transition: none;
-    }
   }
 </style>

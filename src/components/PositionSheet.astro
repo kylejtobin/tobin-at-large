@@ -1,0 +1,77 @@
+---
+// One of TAL's positions, drawn as a sheet: the position stated as fact, the
+// insight that makes it so, and the proof drawn opposite as the sheet's
+// exhibit. Alternate sheets mirror, so the set reads as a run of spreads.
+import type { CollectionEntry } from "astro:content";
+import Proof from "./Proof.astro";
+
+interface Props {
+  position: CollectionEntry<"positions">;
+}
+
+const { sheet, position, insight, proof } = Astro.props.position.data;
+const mirrored = sheet % 2 === 0;
+---
+
+<div class:list={["spread", { mirrored }]}>
+  <div class="argument">
+    <h2>{position}</h2>
+    <p class="insight">{insight}</p>
+  </div>
+  <div class="exhibit">
+    <Proof proof={proof} />
+  </div>
+</div>
+
+<style>
+  .spread {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 2.5rem;
+    align-items: center;
+  }
+  .argument {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+  .exhibit {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .mirrored .argument {
+    grid-column: 7 / span 6;
+  }
+  .mirrored .exhibit {
+    grid-column: 1 / span 5;
+  }
+
+  /* the position: the largest type on the sheet, stated as fact */
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.008em;
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+  .insight {
+    margin-top: 1.5rem;
+    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
+    line-height: 1.55;
+    color: var(--ink-light);
+    max-width: 34rem;
+  }
+
+  @media (max-width: 900px) {
+    .argument,
+    .exhibit,
+    .mirrored .argument,
+    .mirrored .exhibit {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+  }
+</style>

@@ -1,81 +1,54 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// Each sheet in the set is one area of TAL's practice, one file in
-// src/content/works. Each is written to the same arc: a recognition the
-// reader has lived, the reveal they had not imagined, a proof they can see,
-// and the offer at the peak. The product TAL has made for that area stands
-// beside it as its exhibit: evidence that TAL ships what it advises, not a
-// layer in a pipeline. The schema holds that arc, so a sheet missing
-// any part of it fails the build instead of rendering half-persuasive.
+// The page is TAL's positions: what it holds to be true about organizations
+// now that machines act on what they have made explicit. Each position is one
+// sheet: the position, stated as fact; the insight that makes it so; and the
+// proof, drawn on the sheet. Then the work TAL has made, as evidence.
 
-// The proof is shown, never claimed, and takes one of three forms.
-const proof = z.discriminatedUnion("kind", [
-  // what the documents say set against what actually runs, ideally as named
-  // cases: evidence persuades where a stand-in only illustrates
-  z.object({
-    kind: z.literal("contrast"),
-    left: z.string(),
-    right: z.string(),
-    rows: z
-      .array(
-        z.object({
-          case: z.string().optional(),
-          paper: z.string(),
-          operation: z.string(),
-        }),
-      )
-      .min(2),
-    caption: z.string(),
-  }),
-  // the idea, as the code that is the idea
-  z.object({
-    kind: z.literal("code"),
-    code: z.string(),
-    caption: z.string(),
-  }),
-  // lines the old way needs, struck out because they can no longer be written
-  z.object({
-    kind: z.literal("struck"),
-    lines: z.array(z.string()).min(2),
-    caption: z.string(),
-  }),
-]);
+// A proof is one or more drawn blocks: a table, or code. At most one cell of a
+// table is the live point, marked in red.
+const table = z.object({
+  kind: z.literal("table"),
+  columns: z.array(z.string()).min(2),
+  rows: z.array(z.array(z.string()).min(2)).min(2),
+  // [row, column] of the one live cell
+  live: z.tuple([z.number().int(), z.number().int()]).optional(),
+});
+const code = z.object({
+  kind: z.literal("code"),
+  code: z.string(),
+});
 
+const positions = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/positions" }),
+  schema: z.object({
+    sheet: z.number().int().positive(),
+    // the position's name in the cover's index
+    short: z.string(),
+    position: z.string(),
+    insight: z.string(),
+    proof: z.object({
+      blocks: z.array(z.discriminatedUnion("kind", [table, code])).min(1),
+      caption: z.string(),
+    }),
+  }),
+});
+
+// What TAL has made: written and built, and given away.
 const works = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/works" }),
   schema: ({ image }) =>
     z.object({
-      // sheet number, and its place in the set
-      sheet: z.number().int().positive(),
-      // the area of TAL's practice this sheet is: Authority, Meaning, ...
-      area: z.string(),
-      // the question the area answers, as the cover lists it
-      question: z.string(),
-      // the exhibit's caption lead: what this product is to TAL's practice
-      exhibit: z.string(),
-      kind: z.enum(["book", "software", "essay", "talk"]),
+      kind: z.enum(["book", "software"]),
+      // e.g. "Book", "Open-source language"
+      label: z.string(),
       title: z.string(),
-      subtitle: z.string().optional(),
-      // books carry their authors; nothing else shows a byline
-      by: z.array(z.string()).min(1),
       url: z.string().url(),
-      // names the destination, e.g. "Read the book on Leanpub"
       linkLabel: z.string(),
       cover: image(),
-      recognition: z.string(),
-      reveal: z.string(),
-      proof,
-      // the engagement this work is the evidence for. the promise is the
-      // reader's after-state, not TAL's activity, and is the strongest line on
-      // the sheet; the ask names this engagement, not engagements in general
-      offer: z.object({
-        name: z.string(),
-        promise: z.string(),
-        ask: z.string(),
-      }),
-      draft: z.boolean().default(false),
+      order: z.number().int(),
     }),
 });
 
-export const collections = { works };
+export const collections = { positions, works };

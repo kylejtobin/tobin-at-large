@@ -1,38 +1,34 @@
 ---
-// TAL Company, as a drawing set. The cover states TAL's value: AI multiplies
-// whatever structure it is given, and TAL designs that structure and builds
-// the tools that hold it. Then one sheet per area of TAL's practice
-// (authority, meaning, correctness), each with the product TAL has made for
-// it as its exhibit; a sheet on how the consulting and the products are one
-// business; and a closing sheet with the one action.
+// TAL Company. The page is TAL's positions on what organizations are becoming,
+// drawn as a set: a cover that states the point of view and indexes the
+// positions, one sheet per position with its proof, a sheet of the work TAL
+// has made, and a quiet door for those who want it applied.
 import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import Drawing from "../components/Drawing.astro";
-import WorkSheet from "../components/WorkSheet.astro";
+import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
 import CoverDrawing from "../components/CoverDrawing.astro";
 
-const statement = "AI multiplies whatever structure it is given.";
-const thesis =
-  "Machines read structure as instruction: a rule, a role, a definition, a type. Whatever is vague or wrong in it now runs at scale. TAL designs that structure, the rules, definitions, and code an organization’s agents run on, and builds the tools that hold it.";
+const view = "Organizations are becoming executable.";
+const consequence =
+  "Machines act on whatever an organization has made explicit. Everything it has left implicit is now its foundation or its fault line.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 
-// what an engagement leaves in place, one per area of the practice
-const leaves = [
-  "Decision rights the organization’s agents act within.",
-  "A model of the business that all its systems share.",
-  "Code that cannot drift from the design.",
-];
-
-const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
+const positions = (await getCollection("positions")).sort(
   (a, b) => a.data.sheet - b.data.sheet,
 );
-const sheetNo = (n: number) => String(n).padStart(2, "0");
+const works = (await getCollection("works")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const [book, ...software] = works;
+const no = (n: number) => String(n).padStart(2, "0");
+const workSheet = positions.length + 1;
 
-// What the page is, for search engines and link unfurlers: the organization,
-// its founder, each work as the kind of thing it is, and the engagements.
+// What the page is, for search engines and link unfurlers.
 const ORIGIN = "https://talco.dev";
 const org = `${ORIGIN}/#org`;
 const founder = `${ORIGIN}/#founder`;
@@ -46,20 +42,8 @@ const structuredData = {
       url: `${ORIGIN}/`,
       logo: `${ORIGIN}/logo/tal-lockup.png`,
       email,
-      description: statement,
+      description: `${view} ${consequence}`,
       founder: { "@id": founder },
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Engagements",
-        itemListElement: works.map(({ data }) => ({
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: data.offer.name,
-            description: data.offer.promise,
-          },
-        })),
-      },
     },
     {
       "@type": "Person",
@@ -71,9 +55,7 @@ const structuredData = {
     ...works.map(({ data }) => ({
       "@type": data.kind === "book" ? "Book" : "SoftwareSourceCode",
       name: data.title,
-      ...(data.subtitle && { alternativeHeadline: data.subtitle }),
-      description: data.reveal,
-      author: data.by.map((name) => ({ "@type": "Person", name })),
+      author: { "@id": founder },
       publisher: { "@id": org },
       url: data.url,
       ...(data.kind === "software" && {
@@ -85,7 +67,7 @@ const structuredData = {
 };
 ---
 
-<Base title="TAL Company" description={`TAL Company. ${statement}`}>
+<Base title="TAL Company" description={`TAL Company. ${view} ${consequence}`}>
   <script
     is:inline
     slot="head"
@@ -100,30 +82,23 @@ const structuredData = {
     <a class="cta" href={inquiry}>Start a conversation</a>
   </header>
 
-  <Drawing
-    id="cover"
-    label="TAL Company"
-    titleBlock="Architecture and products for the automated organization"
-  >
+  <Drawing id="cover" label="TAL Company" titleBlock="Positions">
     <div class="cover">
       <div class="statement">
         <Mark />
-        <h1>{statement}</h1>
-        <div class="thesis">
-          <p>{thesis}</p>
-        </div>
+        <h1>{view}</h1>
+        <p class="consequence">{consequence}</p>
       </div>
-      <nav class="index" aria-label="What TAL designs">
-        <p class="mono-label">What TAL designs</p>
+      <nav class="index" aria-label="Positions">
+        <p class="mono-label">Positions</p>
         <CoverDrawing />
         <ol>
           {
-            works.map(({ data }) => (
+            positions.map(({ data }) => (
               <li>
-                <a href={`#sheet-${sheetNo(data.sheet)}`}>
-                  <span class="no">{sheetNo(data.sheet)}</span>
-                  <span class="name">{data.area}</span>
-                  <span class="question">{data.question}</span>
+                <a href={`#position-${no(data.sheet)}`}>
+                  <span class="no">{no(data.sheet)}</span>
+                  <span class="name">{data.short}</span>
                 </a>
               </li>
             ))
@@ -134,56 +109,93 @@ const structuredData = {
   </Drawing>
 
   {
-    works.map((work) => (
+    positions.map((position) => (
       <Drawing
-        id={`sheet-${sheetNo(work.data.sheet)}`}
-        number={sheetNo(work.data.sheet)}
-        label={work.data.area}
-        titleBlock={work.data.area}
+        id={`position-${no(position.data.sheet)}`}
+        number={no(position.data.sheet)}
+        label={position.data.short}
+        titleBlock={position.data.short}
       >
-        <WorkSheet work={work} email={email} />
+        <PositionSheet position={position} />
       </Drawing>
     ))
   }
 
-  <Drawing
-    id="sheet-04"
-    number="04"
-    label="How TAL works"
-    titleBlock="How TAL works"
-  >
-    <div class="works">
-      <h2>Advice that ships as working structure.</h2>
-      <div class="works-body">
-        <p>
-          An engagement does not end in a recommendation. It ends in structure
-          the organization runs on.
-        </p>
-        <ol class="schedule">
+  <Drawing id="work" number={no(workSheet)} label="Work" titleBlock="Work">
+    <div class="work">
+      <p class="work-caption">Written and built by TAL. Given away.</p>
+      <div class="shelf">
+        {
+          book && (
+            <figure class="item tall">
+              <a
+                class="plate"
+                href={book.data.url}
+                rel="noopener"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <Picture
+                  src={book.data.cover}
+                  alt=""
+                  widths={[240, 480]}
+                  sizes="240px"
+                  formats={["avif", "webp"]}
+                  loading="lazy"
+                />
+              </a>
+              <figcaption>
+                <span class="mono-label">{book.data.label}</span>
+                <a class="go" href={book.data.url} rel="noopener">
+                  {book.data.title} <Arrow />
+                </a>
+              </figcaption>
+            </figure>
+          )
+        }
+        <div class="pair">
           {
-            works.map(({ data }, i) => (
-              <li>
-                <span class="no">{sheetNo(data.sheet)}</span>
-                <span class="area mono-label">{data.area}</span>
-                <span class="leaves">{leaves[i]}</span>
-              </li>
+            software.map(({ data }) => (
+              <figure class="item">
+                <a
+                  class="plate"
+                  href={data.url}
+                  rel="noopener"
+                  tabindex="-1"
+                  aria-hidden="true"
+                >
+                  <Picture
+                    src={data.cover}
+                    alt=""
+                    widths={[480, 960]}
+                    sizes="(max-width: 900px) calc(100vw - 4rem), 480px"
+                    formats={["avif", "webp"]}
+                    loading="lazy"
+                  />
+                </a>
+                <figcaption>
+                  <span class="mono-label">{data.label}</span>
+                  <a class="go" href={data.url} rel="noopener">
+                    {data.title} <Arrow />
+                  </a>
+                </figcaption>
+              </figure>
             ))
           }
-        </ol>
-        <p>
-          TAL’s products are the same work, generalized: built once from
-          problems that appear in every organization, and kept honest by being
-          used.
-        </p>
+        </div>
       </div>
     </div>
   </Drawing>
 
-  <Drawing id="start" number="05" label="Start" titleBlock="Contact" compact>
+  <Drawing
+    id="start"
+    number={no(workSheet + 1)}
+    label="Contact"
+    titleBlock="Contact"
+    compact
+  >
     <div class="start">
-      <h2>
-        The right time to design the structure is before agents run on it.
-      </h2>
+      <h2>TAL applies this inside organizations.</h2>
       <div class="start-actions">
         <a class="cta" href={inquiry}>Start a conversation</a>
         <a class="go" href={inquiry}>{email} <Arrow /></a>
@@ -200,23 +212,24 @@ const structuredData = {
     // the bar's mark stands down while the cover's mark is in view. without
     // this script the bar simply always shows it.
     if ("IntersectionObserver" in window) {
-      const cover = document.querySelector("#cover .cover");
-      new IntersectionObserver(
-        ([e]) =>
-          document.documentElement.classList.toggle(
-            "at-cover",
-            e.isIntersecting,
-          ),
-        { rootMargin: "-56px 0px 0px 0px" },
-      ).observe(cover.querySelector(".mark") || cover);
+      const mark = document.querySelector("#cover .statement .mark");
+      if (mark) {
+        new IntersectionObserver(
+          ([e]) =>
+            document.documentElement.classList.toggle(
+              "at-cover",
+              e.isIntersecting,
+            ),
+          { rootMargin: "-56px 0px 0px 0px" },
+        ).observe(mark);
+      }
     }
   </script>
 </Base>
 
 <style>
-  /* the cover: the statement on the left, from the mark down through the
-     field's name to the thesis; on the right, the one drawing on the site
-     standing on the list of drawings it keys */
+  /* ---- the cover: the point of view on the left; on the right, the one
+     drawing on the site, standing on the index of positions it keys ---- */
   .cover {
     --mark: clamp(52px, 7vw, 88px);
     display: grid;
@@ -236,22 +249,19 @@ const structuredData = {
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.6rem, 5.6vw, 4.75rem);
-    line-height: 1.03;
-    letter-spacing: -0.012em;
-    max-width: 17ch;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.014em;
+    max-width: 14ch;
     text-wrap: balance;
   }
-
-  .thesis p {
-    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
-    line-height: 1.55;
+  .consequence {
+    font-size: clamp(1.2rem, 1.7vw, 1.42rem);
+    line-height: 1.5;
     color: var(--ink-light);
-    max-width: 36rem;
+    max-width: 34rem;
   }
 
-  /* the drawing list, as every set opens with, under the drawing it keys:
-     the drawing stands on the list's top rule, where its leaders land */
   .index {
     grid-column: 8 / span 5;
   }
@@ -265,13 +275,11 @@ const structuredData = {
   .index li {
     border-bottom: 1px solid var(--line-faint);
   }
-  /* number, then the layer over the work it draws */
   .index a {
     display: grid;
     grid-template-columns: 2.25rem 1fr;
     align-items: baseline;
-    row-gap: 0.15rem;
-    padding: 0.85rem 0;
+    padding: 0.7rem 0;
     min-height: 44px;
     color: var(--ink);
     text-decoration: none;
@@ -279,19 +287,6 @@ const structuredData = {
   .index .no {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-  }
-  .index .question,
-  .index .name {
-    grid-column: 2;
-  }
-  .index .question {
-    font-style: italic;
-    font-size: 1.05rem;
-    line-height: 1.35;
-    color: var(--ink-quiet);
-  }
-  .index .no {
-    grid-row: 1 / span 2;
   }
   .index .name {
     font-family: var(--font-display);
@@ -307,7 +302,7 @@ const structuredData = {
     outline-offset: 4px;
   }
 
-  /* ---- the bar: the mark and the one action, always in reach ---- */
+  /* ---- the bar: the mark and the one action ---- */
   .bar {
     position: sticky;
     top: 0;
@@ -333,8 +328,6 @@ const structuredData = {
     opacity: 0;
     pointer-events: none;
   }
-
-  /* the one action, framed like the mark, inverting to ink when touched */
   .cta {
     display: inline-flex;
     align-items: center;
@@ -358,66 +351,68 @@ const structuredData = {
     outline: none;
   }
 
-  /* ---- how TAL works: the claim against what an engagement leaves ---- */
-  .works {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1.5rem, 3vw, 3rem);
-    row-gap: 2rem;
-    align-items: start;
+  /* ---- the work: what TAL has made, as objects on the sheet ---- */
+  .work-caption {
+    font-style: italic;
+    font-size: clamp(1.2rem, 1.7vw, 1.42rem);
+    color: var(--ink-light);
   }
-  .works h2,
+  .shelf {
+    margin-top: 2.25rem;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: end;
+  }
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: end;
+  }
+  .plate {
+    display: block;
+    line-height: 0;
+  }
+  .plate :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow:
+      0 0 0 1px rgba(26, 26, 26, 0.08),
+      0 1px 1px rgba(26, 26, 26, 0.14),
+      0 18px 32px -14px rgba(40, 30, 15, 0.34);
+  }
+  .item figcaption {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .item .go {
+    display: inline;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0;
+    text-transform: none;
+    min-height: 0;
+    padding-bottom: 0.15rem;
+    justify-self: start;
+  }
+  .item .go :global(svg) {
+    margin-left: 0.3em;
+    vertical-align: 0.1em;
+  }
+
+  /* ---- contact: the quiet door ---- */
   .start h2 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.2rem, 4.6vw, 3.9rem);
-    line-height: 1.06;
-    letter-spacing: -0.01em;
-  }
-  .works h2 {
-    grid-column: 1 / span 5;
-    max-width: 14ch;
-    text-wrap: balance;
-  }
-  .works-body {
-    grid-column: 7 / span 6;
-  }
-  .works-body p {
-    font-size: clamp(1.15rem, 1.6vw, 1.32rem);
-    line-height: 1.55;
-    color: var(--ink-light);
-    max-width: 36rem;
-  }
-  .schedule {
-    list-style: none;
-    margin: 1.75rem 0;
-    border-top: 1px solid var(--line);
-  }
-  .schedule li {
-    display: grid;
-    grid-template-columns: 2.25rem 8rem minmax(0, 1fr);
-    align-items: baseline;
-    column-gap: 1rem;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--line-faint);
-  }
-  .schedule .no {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-  .schedule .leaves {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    line-height: 1.3;
-  }
-
-  /* ---- start: the reason to begin, and the action ---- */
-  .start h2 {
-    max-width: 20ch;
-    text-wrap: balance;
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.008em;
   }
   .start-actions {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -443,20 +438,20 @@ const structuredData = {
   }
 
   @media (max-width: 900px) {
-    .works h2,
-    .works-body {
-      grid-column: 1 / -1;
-    }
-    .schedule li {
-      grid-template-columns: 2rem minmax(0, 1fr);
-    }
-    .schedule .area,
-    .schedule .leaves {
-      grid-column: 2;
-    }
     .statement,
     .index {
       grid-column: 1 / -1;
+    }
+    .shelf {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 3rem;
+    }
+    .tall .plate {
+      width: min(60%, 240px);
+    }
+    .pair {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3rem;
     }
   }
 

@@ -1,15 +1,13 @@
 ---
-// The cover's one drawing: the construction geometry of the list it stands
+// The cover's one drawing: the construction geometry of the index it stands
 // on. Concentric construction arcs projected from one origin, a centre line
-// that runs on past the sheet's edge, and three callout balloons, numbered as
-// the list of TAL's areas is, with leaders dropping to it. The areas are three
-// concerns of one practice, so the drawing draws no path between them. Red
-// appears once: the origin every arc is projected from, the structure that
-// everything after it multiplies. The list is the key; the drawing carries no
-// labels of its own.
+// that runs on past the sheet's edge, and four callout balloons, numbered as
+// TAL's positions are, with leaders dropping to the index. Red appears once:
+// the origin every arc is projected from. The index is the key; the drawing
+// carries no labels of its own.
 //
 // Geometry: origin (260, 330); construction arcs r = 110, 180, 250; the
-// balloons sit on r = 180 at 150°, 90° and 30°.
+// balloons sit on r = 180 at 158°, 113°, 67° and 22°.
 const cx = 260;
 const cy = 330;
 const r = 180;
@@ -18,9 +16,10 @@ const at = (deg: number, radius = r) => {
   return { x: cx + radius * Math.cos(t), y: cy - radius * Math.sin(t) };
 };
 const balloons = [
-  { no: "01", ...at(150) },
-  { no: "02", ...at(90) },
-  { no: "03", ...at(30) },
+  { no: "01", ...at(158) },
+  { no: "02", ...at(113) },
+  { no: "03", ...at(67) },
+  { no: "04", ...at(22) },
 ];
 const arc = (radius: number) =>
   `M ${cx - radius} ${cy} A ${radius} ${radius} 0 0 1 ${cx + radius} ${cy}`;
