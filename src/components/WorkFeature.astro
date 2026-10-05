@@ -11,9 +11,14 @@ interface Props {
 
 const { title, subtitle, kind, by, url, linkLabel, year, cover } =
   Astro.props.work.data;
+
+// A portrait cover (a book) stands beside its entry. A landscape plate (a
+// software hero) is too wide for that column, so it spans the column and the
+// entry is set beneath it. Decided by the image itself, not by a field.
+const wide = cover !== undefined && cover.width > cover.height;
 ---
 
-<article class:list={["feature", { "has-cover": cover }]}>
+<article class:list={["feature", { "has-cover": cover && !wide, wide }]}>
   {
     cover && (
       <a
@@ -26,8 +31,12 @@ const { title, subtitle, kind, by, url, linkLabel, year, cover } =
         <Picture
           src={cover}
           alt=""
-          widths={[168, 220, 336, 440]}
-          sizes="(max-width: 719px) 220px, 168px"
+          widths={wide ? [640, 960, 1280] : [168, 220, 336, 440]}
+          sizes={
+            wide
+              ? "(max-width: 43rem) calc(100vw - 3rem), 640px"
+              : "(max-width: 719px) 220px, 168px"
+          }
           formats={["avif", "webp"]}
           loading="lazy"
         />
@@ -94,12 +103,18 @@ const { title, subtitle, kind, by, url, linkLabel, year, cover } =
     margin-top: 0.5rem;
   }
 
+  /* a wide plate spans the column; the entry follows beneath it */
+  .feature.wide {
+    row-gap: 1.5rem;
+  }
+
   @media (max-width: 719px) {
     .feature.has-cover {
       grid-template-columns: 1fr;
       row-gap: 1.5rem;
     }
-    .plate {
+    /* only a portrait cover narrows; a wide plate keeps the full column */
+    .has-cover .plate {
       width: min(60%, 220px);
     }
   }
