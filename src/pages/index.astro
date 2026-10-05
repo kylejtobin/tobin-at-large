@@ -10,6 +10,7 @@ import Mark from "../components/Mark.astro";
 import Drawing from "../components/Drawing.astro";
 import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
+import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
 
 const view = "Organizations are becoming executable.";
@@ -27,6 +28,7 @@ const works = (await getCollection("works")).sort(
 const [book, ...software] = works;
 const no = (n: number) => String(n).padStart(2, "0");
 const workSheet = positions.length + 1;
+const linkedin = "https://www.linkedin.com/in/kyletobin/";
 
 // What the page is, for search engines and link unfurlers.
 const ORIGIN = "https://talco.dev";
@@ -49,8 +51,10 @@ const structuredData = {
       "@type": "Person",
       "@id": founder,
       name: "Kyle J. Tobin",
+      jobTitle: "Founder",
+      image: `${ORIGIN}/logo/founder.png`,
       worksFor: { "@id": org },
-      sameAs: ["https://github.com/kylejtobin"],
+      sameAs: [linkedin, "https://github.com/kylejtobin"],
     },
     ...works.map(({ data }) => ({
       "@type": data.kind === "book" ? "Book" : "SoftwareSourceCode",
@@ -187,7 +191,34 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <Drawing id="start" number={no(workSheet + 1)} label="Contact">
+  <Drawing id="founder" number={no(workSheet + 1)} label="Founder">
+    <div class="founder">
+      <div class="portrait">
+        <Picture
+          src={portrait}
+          alt="Kyle J. Tobin, drawn in pencil"
+          widths={[280, 560]}
+          sizes="(max-width: 900px) 60vw, 280px"
+          formats={["avif", "webp"]}
+          loading="lazy"
+        />
+      </div>
+      <div class="founder-text">
+        <p class="statement-lead">
+          <strong>Kyle J. Tobin</strong> founded TAL to build organizations the way
+          they will now have to run: whole, explicit, and executable, from the authority
+          at the top to the code underneath.
+        </p>
+        <p class="statement-body">
+          He thinks in both directions at once. Every decision he makes about an
+          organization is already a design for its software, and every line of
+          software he writes is already a decision about the organization.
+        </p>
+      </div>
+    </div>
+  </Drawing>
+
+  <Drawing id="start" number={no(workSheet + 2)} label="Contact">
     <div class="start">
       <h2>TAL makes organizations explicit.</h2>
       <div class="start-actions">
@@ -199,6 +230,7 @@ const structuredData = {
 
   <footer class="mono-label">
     <span>© {new Date().getFullYear()} TAL Company</span>
+    <a href={linkedin} rel="noopener">LinkedIn</a>
     <a href="https://github.com/kylejtobin" rel="noopener">GitHub</a>
   </footer>
   <script is:inline>
@@ -429,6 +461,43 @@ const structuredData = {
     outline: none;
   }
 
+  /* ---- the founder: the portrait as a plate, the statement beside it ---- */
+  .founder {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    row-gap: 2rem;
+    align-items: center;
+  }
+  .portrait :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow:
+      0 0 0 1px rgba(26, 26, 26, 0.08),
+      0 1px 1px rgba(26, 26, 26, 0.14),
+      0 18px 32px -14px rgba(40, 30, 15, 0.34);
+  }
+  .founder-text {
+    max-width: 40rem;
+  }
+  .statement-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+    line-height: 1.22;
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .statement-lead strong {
+    font-weight: 500;
+  }
+  .statement-body {
+    margin-top: 1.25rem;
+    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
+    line-height: 1.55;
+    color: var(--ink-light);
+  }
+
   /* ---- contact: the quiet door ---- */
   .start h2 {
     font-family: var(--font-display);
@@ -477,6 +546,12 @@ const structuredData = {
     }
     .tools {
       gap: 2.25rem;
+    }
+    .founder {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .portrait {
+      width: min(60vw, 280px);
     }
   }
 
