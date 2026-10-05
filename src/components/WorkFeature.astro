@@ -9,7 +9,7 @@ interface Props {
   work: CollectionEntry<"works">;
 }
 
-const { title, subtitle, kind, by, url, linkLabel, year, cover } =
+const { title, subtitle, summary, kind, by, url, linkLabel, year, cover } =
   Astro.props.work.data;
 
 // A portrait cover (a book) stands beside its entry. A landscape plate (a
@@ -47,6 +47,7 @@ const wide = cover !== undefined && cover.width > cover.height;
     <p class="label">{kind}{year && <> · {year}</>}</p>
     <h3>{title}</h3>
     {subtitle && <p class="subtitle">{subtitle}</p>}
+    {summary && <p class="summary">{summary}</p>}
     <p class="by">by {by.join(" & ")}</p>
     <a href={url} rel="noopener" class="ink-link">{linkLabel}<Arrow /></a>
   </div>
@@ -92,6 +93,14 @@ const wide = cover !== undefined && cover.width > cover.height;
     line-height: 1.4;
     color: var(--ink-light);
     margin-top: 0.35rem;
+  }
+  /* the pitch: running text, held to the measure */
+  .summary {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-light);
+    max-width: var(--measure);
+    margin-top: 0.85rem;
   }
   .by {
     font-size: 1.05rem;

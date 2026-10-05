@@ -10,6 +10,10 @@ const works = defineCollection({
       kind: z.enum(["book", "software", "essay", "talk"]),
       title: z.string(),
       subtitle: z.string().optional(),
+      // the pitch, a sentence or two: shown on featured works
+      summary: z.string().optional(),
+      // position in the list; lower comes first. unordered works follow
+      order: z.number().int().optional(),
       // credited by name: the practice publishes, people make the work
       by: z.array(z.string()).min(1),
       url: z.string().url(),

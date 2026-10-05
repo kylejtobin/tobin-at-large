@@ -11,10 +11,12 @@ import WorkList from "../components/WorkList.astro";
 const statement = "An independent practice in AI architecture.";
 const email = "contact@talco.dev";
 
-// featured first, then newest; undated works after dated ones
+// featured first, then by explicit order, then newest; works without an
+// order or a year come after those with one
 const works = (await getCollection("works", ({ data }) => !data.draft)).sort(
   (a, b) =>
     Number(b.data.featured) - Number(a.data.featured) ||
+    (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
     (b.data.year ?? 0) - (a.data.year ?? 0) ||
     a.data.title.localeCompare(b.data.title),
 );
