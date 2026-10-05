@@ -28,8 +28,9 @@ const mirrored = sheet % 2 === 0;
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: clamp(1.5rem, 3vw, 3rem);
-    row-gap: 2.5rem;
-    align-items: center;
+    row-gap: 2rem;
+    /* claim and evidence hang from one top edge */
+    align-items: start;
   }
   .argument {
     grid-column: 1 / span 6;
@@ -39,6 +40,8 @@ const mirrored = sheet % 2 === 0;
     grid-column: 8 / span 5;
     grid-row: 1;
     min-width: 0;
+    /* the proof starts level with the position's cap line */
+    padding-top: 0.6rem;
   }
   .mirrored .argument {
     grid-column: 7 / span 6;
@@ -58,7 +61,7 @@ const mirrored = sheet % 2 === 0;
     text-wrap: balance;
   }
   .insight {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     font-size: clamp(1.18rem, 1.6vw, 1.38rem);
     line-height: 1.55;
     color: var(--ink-light);

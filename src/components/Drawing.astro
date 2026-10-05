@@ -7,36 +7,39 @@ interface Props {
   // the cover carries no number
   number?: string;
   label: string;
-  titleBlock: string;
-  // a compact sheet sizes to its content instead of filling the screen
-  compact?: boolean;
+  // the title page holds the full screen; every other sheet is as tall as
+  // its composition needs
+  full?: boolean;
 }
 
-const { id, number, label, titleBlock, compact = false } = Astro.props;
+const { id, number, label, full = false } = Astro.props;
 ---
 
-<section class:list={["drawing", { compact }]} id={id} aria-label={label}>
+<section class:list={["drawing", { full }]} id={id} aria-label={label}>
   <div class="frame" aria-hidden="true">
     <span class="over tl"></span>
     <span class="over tr"></span>
     <span class="over bl"></span>
     <span class="over br"></span>
   </div>
-  <p class="head mono-label">
-    {number && <span class="no">{number}</span>}
-    <span class="name">{label}</span>
-  </p>
+  {
+    number && (
+      <p class="head mono-label">
+        <span class="no">{number}</span>
+        <span class="name">{label}</span>
+      </p>
+    )
+  }
   <div class="field"><slot /></div>
-  <p class="block mono-label">TAL Company · {titleBlock}</p>
+  <p class="block mono-label">TAL Company</p>
 </section>
 
 <style>
   .drawing {
     position: relative;
-    /* a sheet fills the screen beneath the bar */
-    min-height: calc(100svh - var(--bar));
-    /* clear of the frame and the labels drawn on its margin */
-    padding: calc(var(--gutter) * 0.5 + 2.6rem) calc(var(--gutter) + 1.5rem);
+    /* clear of the frame and the labels drawn on its margin; the sheet is as
+       tall as its composition */
+    padding: calc(var(--gutter) * 0.5 + 3.4rem) calc(var(--gutter) + 1.5rem);
     display: grid;
     /* the track is the sheet's width, never its widest content's */
     grid-template-columns: minmax(0, 1fr);
@@ -46,10 +49,13 @@ const { id, number, label, titleBlock, compact = false } = Astro.props;
     scroll-snap-align: start;
   }
 
-  .drawing.compact {
-    min-height: 0;
-    padding-top: calc(var(--gutter) * 0.5 + 4.5rem);
-    padding-bottom: calc(var(--gutter) * 0.5 + 4.5rem);
+  /* the title page holds the first screen */
+  .drawing.full {
+    min-height: calc(100svh - var(--bar));
+  }
+  /* sheets in a run share their edges, like pages in a set */
+  .drawing + :global(.drawing) {
+    margin-top: calc(var(--gutter) * -0.5);
   }
 
   /* the drafting border, inset from the paper's edge. drawn: its clip
