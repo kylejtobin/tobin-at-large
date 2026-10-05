@@ -1,6 +1,8 @@
 ---
 sheet: 3
-layer: How software behaves
+area: Correctness
+question: "What the software must never be able to do"
+exhibit: "TAL’s open-source method for this work"
 kind: software
 title: Type Construction Architecture
 subtitle: Software in which an invalid state cannot be constructed.
@@ -9,7 +11,7 @@ url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png
 recognition: Coding agents ship in an hour what fails in production in a week.
-reveal: "Strict typing has prevented these failures for decades, and most teams skipped it because it was slow to write by hand. Coding agents remove that cost, and they follow types as instructions. Type Construction Architecture builds a program entirely from types that cannot be created in an invalid state, so the code itself holds the agent to the design."
+reveal: "Strict typing has prevented these failures for decades, and most teams skipped it because it was slow to write by hand. Coding agents remove that cost, and they follow types as instructions. TAL builds software from types that cannot be created in an invalid state, and sets up the practice that holds coding agents to the design."
 proof:
   kind: struck
   lines:

@@ -24,6 +24,8 @@
     "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --sheet-max: 76rem;
+  /* the height of the persistent bar; sheets fill the screen beneath it */
+  --bar: 3.5rem;
   --gutter: clamp(1.25rem, 3.4vw, 2.75rem);
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
@@ -36,6 +38,8 @@
 
 html {
   background-color: var(--paper);
+  /* sheets come to rest beneath the bar, not under it */
+  scroll-padding-top: var(--bar);
 }
 /* on screens large enough to hold a sheet, each sheet comes to rest whole */
 @media (min-width: 900px) and (min-height: 700px) {

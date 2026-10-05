@@ -1,6 +1,8 @@
 ---
 sheet: 1
-layer: How authority works
+area: Authority
+question: "Who decides what, and where that stops"
+exhibit: "TAL’s book on this work"
 kind: book
 title: The Automated Organization
 subtitle: A Practitioner’s Guide to Building an Autonomous Enterprise
@@ -9,7 +11,7 @@ url: https://leanpub.com/the-automated-organization
 linkLabel: Read the book
 cover: ./the-automated-organization.png
 recognition: The agent was handed the manual. The organization was never in it.
-reveal: "Management science has known for a century that the documented organization and the working one differ. People bridged the gap without being asked; an agent does exactly what it was given. The Automated Organization is the method for finding the organization that actually runs, and deciding which of its arrangements become rules."
+reveal: "Every organization runs on authority nobody wrote down: who really approves, which exceptions hold, where a rule stops. People navigate it; an agent acts only on what is explicit. TAL finds the authority an organization actually runs on, decides with its leaders what should stand, and writes it down precisely enough to delegate."
 proof:
   kind: contrast
   left: On paper

@@ -1,10 +1,12 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// Every work TAL presents is one sheet in the set, one file in
+// Each sheet in the set is one area of TAL's practice, one file in
 // src/content/works. Each is written to the same arc: a recognition the
 // reader has lived, the reveal they had not imagined, a proof they can see,
-// and the offer at the peak. The schema holds that arc, so a sheet missing
+// and the offer at the peak. The product TAL has made for that area stands
+// beside it as its exhibit: evidence that TAL ships what it advises, not a
+// layer in a pipeline. The schema holds that arc, so a sheet missing
 // any part of it fails the build instead of rendering half-persuasive.
 
 // The proof is shown, never claimed, and takes one of three forms.
@@ -46,8 +48,12 @@ const works = defineCollection({
     z.object({
       // sheet number, and its place in the set
       sheet: z.number().int().positive(),
-      // the layer of the automated organization this work is
-      layer: z.string(),
+      // the area of TAL's practice this sheet is: Authority, Meaning, ...
+      area: z.string(),
+      // the question the area answers, as the cover lists it
+      question: z.string(),
+      // the exhibit's caption lead: what this product is to TAL's practice
+      exhibit: z.string(),
       kind: z.enum(["book", "software", "essay", "talk"]),
       title: z.string(),
       subtitle: z.string().optional(),

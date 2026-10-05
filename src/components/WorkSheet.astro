@@ -1,7 +1,8 @@
 ---
-// A work, drawn as one sheet: the recognition, the reveal, the proof, and the
-// offer at the peak, set against the work itself as an exhibit. Alternate
-// sheets mirror, so the set reads as a sequence of spreads.
+// An area of TAL's practice, drawn as one sheet: the recognition, the reveal,
+// the proof, and the offer at the peak, set against the product TAL has made
+// for that area as its exhibit. Alternate sheets mirror, so the set reads as
+// a sequence of spreads.
 import type { CollectionEntry } from "astro:content";
 import { Picture } from "astro:assets";
 import Arrow from "./Arrow.astro";
@@ -15,6 +16,7 @@ interface Props {
 const { email } = Astro.props;
 const {
   sheet,
+  exhibit,
   kind,
   title,
   subtitle,
@@ -63,6 +65,7 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.name)}`;
       />
     </a>
     <figcaption>
+      <span class="mono-label">{exhibit}</span>
       <span class="title">{title}</span>
       {subtitle && <span class="subtitle">{subtitle}</span>}
       {kind === "book" && <span class="by">by {by.join(" & ")}</span>}
@@ -106,7 +109,8 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.name)}`;
     font-size: clamp(1.8rem, 2.9vw, 2.55rem);
     line-height: 1.12;
     letter-spacing: -0.005em;
-    max-width: 22ch;
+    max-width: 26ch;
+    text-wrap: balance;
   }
   .reveal {
     margin-top: 1.1rem;
@@ -174,6 +178,9 @@ const inquiry = `mailto:${email}?subject=${encodeURIComponent(offer.name)}`;
     margin-top: 1.1rem;
     display: grid;
     gap: 0.15rem;
+  }
+  .exhibit figcaption .mono-label {
+    margin-bottom: 0.25rem;
   }
   .title {
     font-family: var(--font-display);

@@ -1,18 +1,21 @@
 ---
 // One sheet of the set: a field framed by a drafting border whose corners
-// overshoot, the sheet's number at the head, and a title block at the foot.
-// The frame is drafted in as the sheet comes into view.
+// overshoot, the sheet's number and name at the head, and a title block at the
+// foot. The frame is drafted in as the sheet comes into view.
 interface Props {
   id: string;
-  number: string;
+  // the cover carries no number
+  number?: string;
   label: string;
   titleBlock: string;
+  // a compact sheet sizes to its content instead of filling the screen
+  compact?: boolean;
 }
 
-const { id, number, label, titleBlock } = Astro.props;
+const { id, number, label, titleBlock, compact = false } = Astro.props;
 ---
 
-<section class="drawing" id={id} aria-label={`${label}`}>
+<section class:list={["drawing", { compact }]} id={id} aria-label={label}>
   <div class="frame" aria-hidden="true">
     <span class="over tl"></span>
     <span class="over tr"></span>
@@ -20,8 +23,8 @@ const { id, number, label, titleBlock } = Astro.props;
     <span class="over br"></span>
   </div>
   <p class="head mono-label">
-    <span class="no">Sheet {number}</span>
-    <span>{label}</span>
+    {number && <span class="no">{number}</span>}
+    <span class="name">{label}</span>
   </p>
   <div class="field"><slot /></div>
   <p class="block mono-label">TAL Company · {titleBlock}</p>
@@ -30,9 +33,10 @@ const { id, number, label, titleBlock } = Astro.props;
 <style>
   .drawing {
     position: relative;
-    min-height: 100svh;
+    /* a sheet fills the screen beneath the bar */
+    min-height: calc(100svh - var(--bar));
     /* clear of the frame and the labels drawn on its margin */
-    padding: calc(var(--gutter) * 0.5 + 3.1rem) calc(var(--gutter) + 1.5rem);
+    padding: calc(var(--gutter) * 0.5 + 2.6rem) calc(var(--gutter) + 1.5rem);
     display: grid;
     /* the track is the sheet's width, never its widest content's */
     grid-template-columns: minmax(0, 1fr);
@@ -40,6 +44,12 @@ const { id, number, label, titleBlock } = Astro.props;
        never off the paper */
     overflow-x: clip;
     scroll-snap-align: start;
+  }
+
+  .drawing.compact {
+    min-height: 0;
+    padding-top: calc(var(--gutter) * 0.5 + 4.5rem);
+    padding-bottom: calc(var(--gutter) * 0.5 + 4.5rem);
   }
 
   /* the drafting border, inset from the paper's edge. drawn: its clip

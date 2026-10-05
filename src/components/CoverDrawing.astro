@@ -1,14 +1,15 @@
 ---
-// The cover's one drawing: the construction geometry of the drawing list it
-// sits above. Concentric construction arcs on a centre line; three callout
-// balloons, numbered as the list is, with leaders dropping to it; and one
-// red line, the live path through the system, from authority to meaning to
-// software. The list is its key, so it carries no labels of its own.
+// The cover's one drawing: the construction geometry of the list it stands
+// on. Concentric construction arcs projected from one origin, a centre line
+// that runs on past the sheet's edge, and three callout balloons, numbered as
+// the list of TAL's areas is, with leaders dropping to it. The areas are three
+// concerns of one practice, so the drawing draws no path between them. Red
+// appears once: the origin every arc is projected from, the structure that
+// everything after it multiplies. The list is the key; the drawing carries no
+// labels of its own.
 //
-// Geometry: centre (260, 330); construction arcs r = 110, 180, 250; the
-// balloons sit on r = 180 at 150°, 90° and 30°. The live path runs on the
-// same arc from 145° to 35°, so it meets balloon 03 at its edge, and the
-// arrowhead points along the arc's tangent there.
+// Geometry: origin (260, 330); construction arcs r = 110, 180, 250; the
+// balloons sit on r = 180 at 150°, 90° and 30°.
 const cx = 260;
 const cy = 330;
 const r = 180;
@@ -21,20 +22,6 @@ const balloons = [
   { no: "02", ...at(90) },
   { no: "03", ...at(30) },
 ];
-const start = at(145);
-const end = at(35);
-// the tangent of a clockwise path at 35°, and the arrowhead built on it
-const t = (35 * Math.PI) / 180;
-const dir = { x: Math.sin(t), y: Math.cos(t) };
-const back = { x: end.x - 9 * dir.x, y: end.y - 9 * dir.y };
-const wing = { x: -dir.y * 3.5, y: dir.x * 3.5 };
-const arrow = [
-  [end.x, end.y],
-  [back.x + wing.x, back.y + wing.y],
-  [back.x - wing.x, back.y - wing.y],
-]
-  .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`)
-  .join(" ");
 const arc = (radius: number) =>
   `M ${cx - radius} ${cy} A ${radius} ${radius} 0 0 1 ${cx + radius} ${cy}`;
 const f = (n: number) => n.toFixed(1);
@@ -64,15 +51,6 @@ const f = (n: number) => n.toFixed(1);
     }
   </g>
 
-  <g class="live">
-    <path
-      class="path"
-      pathLength="1"
-      d={`M ${f(start.x)} ${f(start.y)} A ${r} ${r} 0 0 1 ${f(end.x)} ${f(end.y)}`}
-    ></path>
-    <polygon class="head" points={arrow}></polygon>
-  </g>
-
   <g class="construct">
     {
       balloons.map(({ no, x, y }) => (
@@ -85,6 +63,7 @@ const f = (n: number) => n.toFixed(1);
       ))
     }
   </g>
+  <circle class="origin" cx={cx} cy={cy} r="5"></circle>
 </svg>
 
 <style>
@@ -136,32 +115,22 @@ const f = (n: number) => n.toFixed(1);
     dominant-baseline: central;
   }
 
-  /* the live path, in the plates' red */
-  .path {
-    fill: none;
-    stroke: var(--signal);
-    stroke-width: 1.25;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1.4s var(--ease) 1.5s;
-  }
-  .head {
+  /* the origin: the one red point, what everything after it multiplies */
+  .origin {
     fill: var(--signal);
-    transition: opacity 0.4s var(--ease) 2.8s;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.6s var(--ease) 1.6s;
   }
   .construct {
     transition: opacity 1.2s var(--ease) 0.5s;
   }
 
-  /* drafted in after the frame: construction first, then the live path runs
-     from 01 to 03 and its head lands */
+  /* drafted in after the frame: construction first, then the origin lands */
   :global(.drafting) :global(.drawing:not(.drawn)) .construct {
     opacity: 0;
   }
-  :global(.drafting) :global(.drawing:not(.drawn)) .path {
-    stroke-dashoffset: 1;
-  }
-  :global(.drafting) :global(.drawing:not(.drawn)) .head {
-    opacity: 0;
+  :global(.drafting) :global(.drawing:not(.drawn)) .origin {
+    transform: scale(0);
   }
 </style>
