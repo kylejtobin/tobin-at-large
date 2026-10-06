@@ -94,9 +94,9 @@ calmly, its old meeting room empty behind it (Scale).
 - **Tone means automation.** In every drawn map a pale step is done by hand and
   a dark step runs on its own. The balance holds through Declare however much
   the map is argued over, and turns in Refactor. It is never labelled.
-- The founder appears only as the facilitator (See, Declare, from behind in
-  Refactor), never in Prototype or Scale, where the client's organization is
-  the subject.
+- The founder appears only in the founder portrait, never in a consulting
+  scene. The scenes show the client's people and teams at work; a recurring
+  face would read as a one-person shop.
 - On wide screens the loop is the control. The next stage's balloon carries
   the red node; visited stages keep an ink ring. Each stage's text ends in the
   question that advances it.

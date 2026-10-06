@@ -1,5 +1,5 @@
 ---
-sheet: 3
+sheet: 4
 short: One meaning
 position: Agents inherit every definition at once.
 proof:

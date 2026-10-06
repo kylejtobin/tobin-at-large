@@ -11,9 +11,9 @@ paper.
 
 Each prompt is `style.txt` (the shared medium and rules) plus its scene. The
 Declare session thumbnails pass `declare-main.png` as a second reference so the
-room and map stay the same. Prompts for Prototype and Scale describe their
-people explicitly so the founder's likeness does not carry over from the
-reference.
+room and map stay the same. Every scene prompt describes its people explicitly
+and says none resembles the man in the reference, so the founder's likeness
+never carries over: he appears only in his portrait.
 
 Finished images live in `src/assets/consulting/` as JPEG masters; Astro serves
 them as AVIF/WebP. The key is read from the repo's `.env` (`OPENAI_API_KEY`),

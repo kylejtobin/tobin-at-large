@@ -36,6 +36,8 @@ now. It is not a portfolio, a services menu, or a résumé.
 
 - Every organization runs twice: as declared, and as it operates.
 - Unwritten authority cannot be delegated.
+- Much of management was carrying decisions between people who could not see
+  the whole.
 - Agents inherit every definition at once.
 - Speed and correctness stopped being a trade.
 
@@ -64,6 +66,19 @@ must leave the reader wanting the next.
   Selectivity, if stated, is policy.
 - **No selling.** Consulting appears only as the contact. No engagements
   section, no services list, no tiers, no per-product asks.
+
+## Say the unsaid, with dignity
+
+The buyer is an executive who has seen every operating model and change
+program. Hype and threat both read as amateur. What lands is the plain truth
+they already suspect:
+
+- Some rules go unwritten because there was too much to write; some because no
+  one wanted to say them. Name both, once, as mechanism.
+- Making the organization explicit changes management. Say what coordination
+  was and what leadership remains, with no villains and no flattery. The
+  reader should recognize the work they already wished they were doing.
+- State consequences plainly; never perform candor.
 
 ## Show, don't tell
 

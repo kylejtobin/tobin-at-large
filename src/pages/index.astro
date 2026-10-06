@@ -16,7 +16,7 @@ import ConsultingCycle from "../components/ConsultingCycle.astro";
 
 const view = "Organizations are becoming executable.";
 const consequence =
-  "Whatever an organization leaves implicit becomes its fault line.";
+  "Machines run only on what an organization has written down. Most of what governs it never was, some because there was too much to write, and some because no one wanted to say it.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 
@@ -96,7 +96,7 @@ const structuredData = {
       </div>
       <nav class="index" aria-label="Positions">
         <p class="mono-label">Positions</p>
-        <CoverDrawing />
+        <CoverDrawing count={positions.length} />
         <ol>
           {
             positions.map(({ data }) => (

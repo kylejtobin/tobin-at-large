@@ -1,13 +1,13 @@
 ---
 // The cover's one drawing: the construction geometry of the index it stands
 // on. Concentric construction arcs projected from one origin, a centre line
-// that runs on past the sheet's edge, and four callout balloons, numbered as
-// TAL's positions are, with leaders dropping to the index. Red appears once:
+// that runs on past the sheet's edge, and one callout balloon per position, numbered
+// as TAL's positions are, with leaders dropping to the index. Red appears once:
 // the origin every arc is projected from. The index is the key; the drawing
 // carries no labels of its own.
 //
 // Geometry: origin (260, 330); construction arcs r = 110, 180, 250; the
-// balloons sit on r = 180 at 158°, 113°, 67° and 22°.
+// balloons sit on r = 180, spread evenly from 158° to 22°.
 const cx = 260;
 const cy = 330;
 const r = 180;
@@ -15,12 +15,12 @@ const at = (deg: number, radius = r) => {
   const t = (deg * Math.PI) / 180;
   return { x: cx + radius * Math.cos(t), y: cy - radius * Math.sin(t) };
 };
-const balloons = [
-  { no: "01", ...at(158) },
-  { no: "02", ...at(113) },
-  { no: "03", ...at(67) },
-  { no: "04", ...at(22) },
-];
+// one balloon per position, spread evenly along the arc from 158° to 22°
+const { count = 4 } = Astro.props as { count?: number };
+const balloons = Array.from({ length: count }, (_, i) => ({
+  no: String(i + 1).padStart(2, "0"),
+  ...at(count === 1 ? 90 : 158 - (i * 136) / (count - 1)),
+}));
 const arc = (radius: number) =>
   `M ${cx - radius} ${cy} A ${radius} ${radius} 0 0 1 ${cx + radius} ${cy}`;
 const f = (n: number) => n.toFixed(1);
