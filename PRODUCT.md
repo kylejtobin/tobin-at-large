@@ -29,8 +29,9 @@ now. It is not a portfolio, a services menu, or a résumé.
    what the proof cannot show.
 3. **Work**: the book, ONTOK, and TCA, as evidence that the positions are
    practiced. Each stands on its own.
-4. **Founder**: who he is, declared.
-5. **Contact**: one line and the address.
+4. **What We Do**: the cycle each value stream goes through, demonstrated.
+5. **Founder**: who he is, declared.
+6. **Contact**: one line and the address.
 
 ### Current positions
 
@@ -41,7 +42,7 @@ now. It is not a portfolio, a services menu, or a résumé.
 - Agents inherit every definition at once.
 - Speed and correctness stopped being a trade.
 
-## The consulting section
+## What We Do
 
 It sells by demonstration the reader completes, not by description. Each stage
 of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
@@ -59,13 +60,14 @@ must leave the reader wanting the next.
 - **Declare.** Plain statements about the world, as fact. No hedging, no hype.
 - **Never describe TAL or the founder.** No adjectives about quality, rarity,
   or expertise. No "leading", "expert", "one of the few".
-- **Third person.** No "you", "your", "we", "our".
+- **We and our.** TAL speaks as a company: a team that does the work, never
+  one person.
 - **Offense, not defense.** Name the capability that becomes possible, not the
   failure prevented. Avoid defining value by _never_, _cannot_, _without_.
 - **No size or modesty words.** No _independent_, _small_, _boutique_.
   Selectivity, if stated, is policy.
-- **No selling.** Consulting appears only as the contact. No engagements
-  section, no services list, no tiers, no per-product asks.
+- **No selling.** What We Do demonstrates the work; it is not a services
+  list. No tiers, no per-product asks.
 
 ## Say the unsaid, with dignity
 

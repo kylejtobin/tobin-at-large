@@ -82,7 +82,7 @@ explicit:
   what replaces it.
 - **Code** blocks are framed; a red comment carries the point.
 
-## The consulting cycle
+## What We Do: the cycle
 
 One value stream followed through the cycle in pencil scenes of the people
 doing the work: a small room naming the stream (See); a room arguing over the
