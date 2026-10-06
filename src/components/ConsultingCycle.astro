@@ -605,8 +605,11 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   }
 
   /* wide: the loop beside the stage. the whole step reads on one screen:
-     each exhibit is sized to its shape so all stand about 19rem tall */
+     every scene stands one height, as tall as the screen allows */
   @media (min-width: 900px) {
+    .interactive {
+      --scene: clamp(17rem, 100svh - 33rem, 21.5rem);
+    }
     .cycle.interactive {
       display: grid;
       grid-template-columns: 260px minmax(0, 1fr);
@@ -618,13 +621,13 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     }
     .interactive .state-see .exhibit,
     .interactive .state-declare .exhibit {
-      max-width: 25rem;
+      max-width: calc(var(--scene) * 4 / 3);
     }
     .interactive .state-refactor .exhibit {
-      max-width: 34rem;
+      max-width: calc(var(--scene) * 16 / 9);
     }
     .interactive .state-prototype .exhibit {
-      max-width: 19rem;
+      max-width: var(--scene);
     }
     /* scale opens out: the one scene with no map in it runs past the text
        column toward the sheet's edge, onto the working floor */
