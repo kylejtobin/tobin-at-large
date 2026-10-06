@@ -30,8 +30,9 @@ The identity carries the authority; nothing on the page announces it.
   proof, both hanging from one top edge. Alternate sheets mirror.
 - **Work sheet**: one composed exhibit. The book leads at full scale; the tools
   stack beside it at half its weight.
-- **Founder sheet**: the portrait as a plate, one statement beside it.
-- **Contact** (compact): one line and the address.
+- **Founder sheet**: the portrait as a plate, one statement beside it, and
+  the door under the statement: one action and the address. It is the last
+  sheet.
 - **Footer**: copyright and profile links, small.
 
 ## Sheets

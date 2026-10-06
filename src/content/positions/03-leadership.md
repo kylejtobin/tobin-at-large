@@ -9,13 +9,11 @@ proof:
     rows:
       - [
           Relaying intent down the chain,
-          "Writing intent once, where every system acts on it",
+          "Writing intent once, where everything acts on it",
         ]
       - [Carrying status back up, Reading the state of the work directly]
       - [
           Approving what the edge could decide,
           Setting the limits the edge decides within,
         ]
-      - [Reconciling versions of the truth, Owning the one definition]
-    live: [2, 1]
 ---

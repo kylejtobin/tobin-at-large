@@ -30,8 +30,8 @@ now. It is not a portfolio, a services menu, or a résumé.
 3. **What We Do**: the cycle each value stream goes through, demonstrated.
 4. **Work**: the book, ONTOK, and TCA, as evidence that the positions are
    practiced. Each stands on its own.
-5. **Founder**: who he is, declared.
-6. **Contact**: one line and the address.
+5. **Founder**: who he is, declared, and the door: one action and the
+   address.
 
 ### Current positions
 
@@ -40,7 +40,10 @@ now. It is not a portfolio, a services menu, or a résumé.
 - Much of management was carrying decisions between people who could not see
   the whole.
 - Agents inherit every definition at once.
-- Speed and correctness stopped being a trade.
+
+The page speaks to the executive who owns the organization. Engineering
+depth is shown by the work (TCA), not argued in a position; a position the
+buyer cannot check against their own organization does not belong.
 
 ## What We Do
 

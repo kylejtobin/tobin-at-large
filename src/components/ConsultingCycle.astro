@@ -33,7 +33,7 @@ const stages = [
     name: "See",
     premise:
       "The work that matters most crosses every department and belongs to none of them.",
-    move: "See names one value stream, from the trigger that starts it to the outcome it owes. Nothing else is decided yet; detail is earned stream by stream.",
+    move: "See names one value stream, from what starts it to what it owes the customer. Nothing else has to be decided.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -42,7 +42,7 @@ const stages = [
     name: "Declare",
     premise:
       "Ask five people how that stream runs and hear five answers, each true from where they stand.",
-    move: "Declare maps the stream as it actually runs, including who really decides, and reconciles every version into one the whole room accepts. That truth is what software and agents will act on.",
+    move: "Declare maps the stream as it actually runs, including who really decides, until the whole room accepts one version.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -50,16 +50,15 @@ const stages = [
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    move: "Refactor redesigns the stream whole. Steps merge, handoffs disappear, authority moves to where the decision is made, and each step goes to whoever does it best: a person, software, or an agent.",
+    move: "Refactor redesigns the stream whole. Handoffs disappear, decisions move to where the facts are, and each step goes to whoever does it best: a person, software, or an agent.",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
   {
     id: "prototype",
     name: "Prototype",
-    premise:
-      "A redesign proves nothing until it runs with real people, real systems, and real agents.",
-    move: "Prototype builds a bounded slice fast and runs it live. A failure is the next revision, not a setback. It is issued only when it holds.",
+    premise: "Every redesign looks right on the wall.",
+    move: "Prototype runs a bounded slice live, with the people who will own it. Each failure is the next revision; it is issued only when it holds.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },

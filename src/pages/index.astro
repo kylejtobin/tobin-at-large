@@ -1,8 +1,8 @@
 ---
 // TAL Company. The page is TAL's positions on what organizations are becoming,
 // drawn as a set: a cover that states the point of view and indexes the
-// positions, one sheet per position with its proof, a sheet of the work TAL
-// has made, and a quiet door for those who want it applied.
+// positions, one sheet per position with its proof, what TAL does, the work
+// TAL has made, and the founder, whose sheet is the door.
 import { getCollection } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
@@ -224,16 +224,10 @@ const structuredData = {
           organization is already a design for its software, and every line of
           software he writes is already a decision about the organization.
         </p>
-      </div>
-    </div>
-  </Drawing>
-
-  <Drawing id="start" number={no(after + 3)} label="Contact">
-    <div class="start">
-      <h2>TAL makes organizations explicit.</h2>
-      <div class="start-actions">
-        <a class="cta" href={inquiry}>Start a conversation</a>
-        <a class="go" href={inquiry}>{email} <Arrow /></a>
+        <div class="start-actions">
+          <a class="cta" href={inquiry}>Start a conversation</a>
+          <a class="go" href={inquiry}>{email} <Arrow /></a>
+        </div>
       </div>
     </div>
   </Drawing>
@@ -522,14 +516,7 @@ const structuredData = {
     color: var(--ink-light);
   }
 
-  /* ---- contact: the quiet door ---- */
-  .start h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 3.6vw, 3.1rem);
-    line-height: 1.1;
-    letter-spacing: -0.008em;
-  }
+  /* the door sits under the founder's statement */
   .start-actions {
     margin-top: 2rem;
     display: flex;
