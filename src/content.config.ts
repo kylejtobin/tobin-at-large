@@ -7,15 +7,13 @@ import { glob } from "astro/loaders";
 // shows the move from implicit to explicit, and at most one line says what
 // the proof cannot show. Then the work TAL has made, as evidence.
 
-// A proof is a sequence of drawn blocks. A table may mark one cell live, in
-// red, and one column out of an agent's reach. Struck lines are the implicit
+// A proof is a sequence of drawn blocks. A table may mark one column out of
+// an agent's reach. Struck lines are the implicit
 // or procedural way, crossed out beside what replaces it.
 const table = z.object({
   kind: z.literal("table"),
   columns: z.array(z.string()).min(2),
   rows: z.array(z.array(z.string()).min(2)).min(2),
-  // [row, column] of the one live cell
-  live: z.tuple([z.number().int(), z.number().int()]).optional(),
   // a column an agent cannot read
   unreachable: z.number().int().optional(),
 });

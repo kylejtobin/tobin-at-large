@@ -73,11 +73,10 @@ the tooth too. Warm drafting stock, never parchment mottling.
 A proof is drawn, never captioned, and shows the move from implicit to
 explicit:
 
-- **Tables** may mark one cell (red node) and hatch one column as out of
-  an agent's reach.
+- **Tables** may hatch one column as out of an agent's reach.
 - **Struck lines** show the replaced way (speech or code), struck in red above
   what replaces it.
-- **Code** blocks are framed; a red comment carries the point.
+- **Code** blocks are framed; a comment is set in the quiet ink.
 
 ## What We Do: the cycle
 
@@ -99,7 +98,9 @@ things on the spot, technology small and far back (Scale).
   pinned above it on a phone. A stage is chosen from the loop, by its own next
   question, by arrow keys, or on a phone by a sideways swipe; it changes in
   place and enters from the side it was reached from. The next stage's balloon
-  carries the red node; visited stages keep an ink ring.
+  is drawn in full ink; visited stages keep an ink ring.
+- **No red dots.** Red appears only as the plates' accent, the struck line, and
+  the label of the column out of an agent's reach.
 - A whole step (scene, premise, move, next question) fits on one screen at
   1440×900, 1280×800, 390×844, and 360×740.
 - Without script the five stages read in order. No scroll-jacking, ever.

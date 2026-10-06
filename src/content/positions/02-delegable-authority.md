@@ -14,5 +14,4 @@ proof:
       - [Refund, The agent, Up to $500]
       - [Refund, Finance lead, Above $500]
       - [Policy exception, A named person, Reason recorded]
-    live: [0, 1]
 ---

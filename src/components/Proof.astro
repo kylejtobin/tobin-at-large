@@ -1,8 +1,7 @@
 ---
 // A position's proof, drawn on the sheet: shown, never claimed, and never
 // captioned. A sequence of blocks: tables, code, and struck lines, the way
-// that is replaced. Red marks the live point: a table's marked cell, a code
-// comment, or a strike.
+// that is replaced, struck through in red.
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -12,8 +11,8 @@ interface Props {
 const { proof } = Astro.props;
 
 // Code is assembled as one escaped string: template whitespace inside <pre>
-// would otherwise render as stray indentation. A comment line is the live
-// point, so it is drawn in the signal red.
+// would otherwise render as stray indentation. A comment line is set apart
+// from the code in the quiet ink.
 const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const codeHtml = (code: string) =>
@@ -22,7 +21,7 @@ const codeHtml = (code: string) =>
     .split("\n")
     .map((line) =>
       line.trimStart().startsWith("#")
-        ? `<span class="signal">${escape(line)}</span>`
+        ? `<span class="comment">${escape(line)}</span>`
         : escape(line),
     )
     .join("\n");
@@ -55,12 +54,7 @@ const codeHtml = (code: string) =>
             {block.rows.map((row, r) => (
               <tr>
                 {row.map((cell, c) => (
-                  <td
-                    class:list={{
-                      live: block.live?.[0] === r && block.live?.[1] === c,
-                      unreachable: block.unreachable === c,
-                    }}
-                  >
+                  <td class:list={{ unreachable: block.unreachable === c }}>
                     {cell}
                   </td>
                 ))}
@@ -107,23 +101,6 @@ const codeHtml = (code: string) =>
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink-quiet);
   }
-  /* the live cell: full ink, led by the red node */
-  td.live {
-    position: relative;
-    color: var(--ink);
-    padding-left: 1rem;
-  }
-  td.live::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 1.05rem;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--signal);
-  }
-
   /* the column an agent cannot read: hatched, as a drawing marks a void */
   td.unreachable,
   th.unreachable {
@@ -176,7 +153,7 @@ const codeHtml = (code: string) =>
     overflow-x: auto;
     white-space: pre;
   }
-  .code :global(.signal) {
-    color: var(--signal-text);
+  .code :global(.comment) {
+    color: var(--ink-quiet);
   }
 </style>

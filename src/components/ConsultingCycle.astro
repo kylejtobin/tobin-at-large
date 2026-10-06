@@ -304,7 +304,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
         { duration: 380, easing: "cubic-bezier(0.2, 0.6, 0.2, 1)" },
       );
     };
-    // the next stage carries the red node: the way on
+    // the next stage is drawn in full ink: the way on
     const select = (id) => {
       const dir = Math.sign(order.indexOf(id) - order.indexOf(selected));
       selected = id;
@@ -506,11 +506,8 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   }
   .loop-inner {
     fill: none;
-    stroke: var(--signal);
-    stroke-width: 1.2;
-  }
-  .loop-inner-head {
-    fill: var(--signal);
+    stroke: rgba(26, 26, 26, 0.6);
+    stroke-width: 1;
   }
   .balloon {
     position: absolute;
@@ -570,15 +567,13 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   .balloon[data-visited="true"] .dot {
     border-color: var(--ink);
   }
-  /* the next stage carries the red node */
-  .balloon[data-next="true"] .dot::after {
-    content: "";
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--signal);
-    transform: translate(13px, -13px);
+  /* the next stage is drawn in full ink: the way on */
+  .balloon[data-next="true"] .dot {
+    border-color: var(--ink);
+    border-width: 1.5px;
+  }
+  .balloon[data-next="true"] .name {
+    color: var(--ink);
   }
   .balloon[aria-pressed="true"] .dot {
     background: var(--ink);
@@ -692,9 +687,6 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     }
     .interactive .balloon .anchor-middle {
       bottom: calc(100% + 0.35rem);
-    }
-    .interactive .balloon[data-next="true"] .dot::after {
-      transform: translate(11px, -11px);
     }
     /* a sideways swipe belongs to the stage, never to the browser's back
        gesture; vertical scrolling and pinch zoom stay the browser's */
