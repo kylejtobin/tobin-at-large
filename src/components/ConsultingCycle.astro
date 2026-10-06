@@ -10,9 +10,10 @@
 // what it earns, and the question their own reasoning asks next, set as the
 // way on. The last question becomes the conversation.
 //
-// One DOM serves every reader. Without script or on narrow screens, the
-// stages read in order as small multiples. On wide screens with script, the
-// loop is the control and the exhibit changes in place.
+// One DOM serves every reader. Without script the stages read in order as
+// small multiples. With script the loop is the control at every width: beside
+// the stage on wide screens, pinned above it on a phone, where a swipe also
+// turns the stage.
 import { Picture } from "astro:assets";
 import see from "../assets/consulting/see.jpg";
 import declareMain from "../assets/consulting/declare-main.jpg";
@@ -33,7 +34,7 @@ const stages = [
     name: "See",
     premise:
       "The work that matters most crosses every department and belongs to none of them.",
-    move: "See names one value stream, from what starts it to what it owes the customer. Nothing else has to be decided.",
+    move: "We name one value stream, from what starts it to what it owes the customer. It can take thirty seconds or a month.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -42,7 +43,7 @@ const stages = [
     name: "Declare",
     premise:
       "Ask five people how that stream runs and hear five answers, each true from where they stand.",
-    move: "Declare maps the stream as it actually runs, including who really decides, until the whole room accepts one version.",
+    move: "We map the stream as it actually runs and reconcile every version of it with what really happens, including the rules no one says out loud.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -50,7 +51,7 @@ const stages = [
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    move: "Refactor redesigns the stream whole. Handoffs disappear, decisions move to where the facts are, and each step goes to whoever does it best: a person, software, or an agent.",
+    move: "A changed step ripples through every step around it. We redesign the stream whole: each step goes to a person, software, or an agent.",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
@@ -58,7 +59,7 @@ const stages = [
     id: "prototype",
     name: "Prototype",
     premise: "Every redesign looks right on the wall.",
-    move: "Prototype runs a bounded slice live, with the people who will own it. Each failure is the next revision; it is issued only when it holds.",
+    move: "We build it fast and run it live. A failed run is signal, not failure. We prototype until it is green.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -67,9 +68,9 @@ const stages = [
     name: "Scale",
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
-    move: "Scale runs every case through the new stream and switches the old one off. The customer notices first.",
+    move: "We run every case through the new stream and retire the old one.",
     next: "Start with one stream",
-    alt: "A staff member hands a finished folder to a relieved older couple; behind them an unhurried office at work, its meeting room empty.",
+    alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },
 ] as const;
 const inquiry = `mailto:contact@talco.dev?subject=${encodeURIComponent("One stream")}`;
@@ -103,40 +104,42 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
 ---
 
 <div class="cycle" data-cycle>
-  <div class="loop" aria-hidden="false">
-    <svg class="loop-art" viewBox="0 0 240 240" aria-hidden="true">
-      <circle class="loop-path" cx={C} cy={C} r={R}></circle>
-      <path
-        class="loop-head"
-        d={`M ${f(close.x)} ${f(close.y)} l 7 -4 l -1 8 z`}
-        transform={`rotate(-14 ${f(close.x)} ${f(close.y)})`}></path>
-      <circle class="loop-inner" cx={f(innerC.x)} cy={f(innerC.y)} r={innerR}
-      ></circle>
-      <path
-        class="loop-inner-head"
-        d={`M ${f(innerC.x + innerR)} ${f(innerC.y)} l -4 -6 l 8 0 z`}></path>
-    </svg>
-    <div class="balloons" role="group" aria-label="Stages of the cycle">
-      {
-        loop.map((s, i) => (
-          <button
-            type="button"
-            class="balloon"
-            data-stage={s.id}
-            aria-pressed={i === 0 ? "true" : "false"}
-            style={`--x: ${f((s.x / 240) * 100)}%; --y: ${f((s.y / 240) * 100)}%; --lx: ${f((s.lx / 240) * 100)}%; --ly: ${f((s.ly / 240) * 100)}%`}
-          >
-            <span class="dot" aria-hidden="true">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span class:list={["name", `anchor-${s.anchor}`]}>{s.name}</span>
-          </button>
-        ))
-      }
+  <div class="loop-band">
+    <div class="loop">
+      <svg class="loop-art" viewBox="0 0 240 240" aria-hidden="true">
+        <circle class="loop-path" cx={C} cy={C} r={R}></circle>
+        <path
+          class="loop-head"
+          d={`M ${f(close.x)} ${f(close.y)} l 7 -4 l -1 8 z`}
+          transform={`rotate(-14 ${f(close.x)} ${f(close.y)})`}></path>
+        <circle class="loop-inner" cx={f(innerC.x)} cy={f(innerC.y)} r={innerR}
+        ></circle>
+        <path
+          class="loop-inner-head"
+          d={`M ${f(innerC.x + innerR)} ${f(innerC.y)} l -4 -6 l 8 0 z`}></path>
+      </svg>
+      <div class="balloons" role="group" aria-label="Stages of the cycle">
+        {
+          loop.map((s, i) => (
+            <button
+              type="button"
+              class="balloon"
+              data-stage={s.id}
+              aria-pressed={i === 0 ? "true" : "false"}
+              style={`--x: ${f((s.x / 240) * 100)}%; --y: ${f((s.y / 240) * 100)}%; --lx: ${f((s.lx / 240) * 100)}%; --ly: ${f((s.ly / 240) * 100)}%`}
+            >
+              <span class="dot" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span class:list={["name", `anchor-${s.anchor}`]}>{s.name}</span>
+            </button>
+          ))
+        }
+      </div>
     </div>
   </div>
 
-  <div class="states">
+  <div class="states" data-states>
     {
       stages.map((s, i) => (
         <figure
@@ -272,24 +275,38 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
 </div>
 
 <script is:inline>
-  // the loop becomes the control on wide screens. a stage is selected by
-  // click, tap, or keyboard; hovering previews it. narrow screens and no
-  // script keep the five states as small multiples.
+  // the loop is the control. a stage is chosen from the loop (click, tap, or
+  // arrow keys), by its own next question, or on a phone by a swipe; it
+  // changes in place and enters from the side it was reached from. hover
+  // previews a stage only where there is a pointer to hover with.
   (() => {
     const root = document.querySelector("[data-cycle]");
     if (!root) return;
-    const wide = matchMedia("(min-width: 900px)");
+    const hover = matchMedia("(hover: hover)");
+    const narrow = matchMedia("(max-width: 899px)");
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
     const buttons = [...root.querySelectorAll("[data-stage]")];
     const states = [...root.querySelectorAll("[data-state]")];
-    let selected = "see";
+    const order = buttons.map((b) => b.dataset.stage);
+    let selected = order[0];
+    const visited = new Set();
     const show = (id) =>
       states.forEach(
         (s) => (s.dataset.active = String(s.dataset.state === id)),
       );
-    const order = buttons.map((b) => b.dataset.stage);
-    const visited = new Set();
-    // the next stage carries the red node: the live point of the loop
+    const enter = (id, dir) => {
+      if (!dir || still.matches) return;
+      root.querySelector(`[data-state="${id}"]`)?.animate(
+        [
+          { opacity: 0, transform: `translateX(${dir * 24}px)` },
+          { opacity: 1, transform: "none" },
+        ],
+        { duration: 380, easing: "cubic-bezier(0.2, 0.6, 0.2, 1)" },
+      );
+    };
+    // the next stage carries the red node: the way on
     const select = (id) => {
+      const dir = Math.sign(order.indexOf(id) - order.indexOf(selected));
       selected = id;
       visited.add(id);
       const next = order[order.indexOf(id) + 1];
@@ -299,14 +316,29 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
         b.dataset.visited = String(visited.has(stage) && stage !== id);
         b.dataset.next = String(stage === next);
       });
-      // at the last stage the stream is live: the loop is inked in, the
-      // prototype's turning stops, and red marks the stream itself
-      root.dataset.live = String(id === order[order.length - 1]);
       show(id);
+      enter(id, dir);
+    };
+    // on a phone the loop is pinned above the stage; a new stage is brought
+    // back up under it, so it is read from its top
+    const settle = () => {
+      if (!narrow.matches) return;
+      const bar = document.querySelector(".bar")?.offsetHeight ?? 0;
+      const top = root.getBoundingClientRect().top - bar;
+      if (top < 0)
+        scrollBy({ top, behavior: still.matches ? "auto" : "smooth" });
+    };
+    const step = (delta) => {
+      const id = order[order.indexOf(selected) + delta];
+      if (!id) return false;
+      select(id);
+      settle();
+      return true;
     };
     root.querySelectorAll("[data-next]").forEach((n) =>
       n.addEventListener("click", () => {
         select(n.dataset.next);
+        settle();
         root
           .querySelector(`[data-stage="${n.dataset.next}"]`)
           ?.focus({ preventScroll: true });
@@ -314,24 +346,57 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     );
     buttons.forEach((b) => {
       b.addEventListener("click", () => select(b.dataset.stage));
-      b.addEventListener("mouseenter", () => show(b.dataset.stage));
-      b.addEventListener("mouseleave", () => show(selected));
+      b.addEventListener("mouseenter", () => {
+        if (hover.matches) show(b.dataset.stage);
+      });
+      b.addEventListener("mouseleave", () => {
+        if (hover.matches) show(selected);
+      });
       b.addEventListener("focus", () => {
         if (b.dataset.stage !== selected) select(b.dataset.stage);
       });
+      b.addEventListener("keydown", (e) => {
+        const delta = {
+          ArrowRight: 1,
+          ArrowDown: 1,
+          ArrowLeft: -1,
+          ArrowUp: -1,
+        }[e.key];
+        if (!delta) return;
+        e.preventDefault();
+        if (step(delta))
+          root
+            .querySelector(`[data-stage="${selected}"]`)
+            ?.focus({ preventScroll: true });
+      });
     });
-    const mode = () => root.classList.toggle("interactive", wide.matches);
-    wide.addEventListener("change", mode);
-    mode();
+    // a sideways swipe across the stage turns it; a vertical one scrolls
+    const field = root.querySelector("[data-states]");
+    let from = null;
+    field.addEventListener(
+      "touchstart",
+      (e) => (from = { x: e.touches[0].clientX, y: e.touches[0].clientY }),
+      { passive: true },
+    );
+    field.addEventListener(
+      "touchend",
+      (e) => {
+        if (!from) return;
+        const dx = e.changedTouches[0].clientX - from.x;
+        const dy = e.changedTouches[0].clientY - from.y;
+        from = null;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5)
+          step(dx < 0 ? 1 : -1);
+      },
+      { passive: true },
+    );
+    root.classList.add("interactive");
     select(selected);
   })();
 </script>
 
 <style>
   /* ---- small multiples: the default for every reader ---- */
-  .loop {
-    display: none;
-  }
   .states {
     display: grid;
     gap: 2.5rem;
@@ -412,16 +477,14 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   }
 
   /* ---- interactive: the loop is the control; one state shows at a time ---- */
-  .cycle.interactive {
-    display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-    align-items: start;
+  .loop-band {
+    display: none;
+  }
+  .interactive .loop-band {
+    display: block;
   }
   .interactive .loop {
-    display: block;
     position: relative;
-    width: 260px;
     aspect-ratio: 1;
   }
   .loop-art {
@@ -448,38 +511,6 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   }
   .loop-inner-head {
     fill: var(--signal);
-  }
-  .loop-path,
-  .loop-inner,
-  .loop-inner-head {
-    transition:
-      stroke 0.6s var(--ease),
-      fill 0.6s var(--ease),
-      stroke-dasharray 0.6s var(--ease);
-  }
-  /* live: the construction line is inked solid, the prototype's turning
-     settles into ink, and the one red node sits on the running stream */
-  [data-live="true"] .loop-path {
-    stroke: var(--ink);
-    stroke-dasharray: none;
-  }
-  [data-live="true"] .loop-inner {
-    stroke: rgba(26, 26, 26, 0.45);
-  }
-  [data-live="true"] .loop-inner-head {
-    fill: rgba(26, 26, 26, 0.45);
-  }
-  [data-live="true"] .balloon .dot {
-    border-color: var(--ink);
-  }
-  [data-live="true"] .balloon[aria-pressed="true"] .dot::after {
-    content: "";
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--signal);
-    transform: translate(13px, -13px);
   }
   .balloon {
     position: absolute;
@@ -569,31 +600,6 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     display: grid;
     gap: 0;
   }
-  /* the whole step reads on one screen: exhibit, premise, and the way on.
-     each exhibit is sized to its shape so all stand about 19rem tall */
-  .interactive .state-see .exhibit {
-    max-width: 25rem;
-  }
-  .interactive .state-declare .exhibit {
-    max-width: 25rem;
-  }
-  .interactive .state-refactor .exhibit {
-    max-width: 34rem;
-  }
-  .interactive .state-prototype .exhibit {
-    max-width: 19rem;
-  }
-  /* scale opens out: the one scene with no map in it runs past the text
-     column toward the sheet's edge, like a door onto the working floor */
-  .interactive .state-scale .exhibit {
-    margin-right: calc(var(--gutter) * -0.5);
-  }
-  /* a wider panorama, so the whole step still reads on one screen */
-  .interactive .state-scale .exhibit :global(img) {
-    aspect-ratio: 2.75;
-    object-fit: cover;
-    object-position: 50% 55%;
-  }
   .interactive .state {
     grid-area: 1 / 1;
     transition: opacity 0.35s var(--ease);
@@ -601,6 +607,134 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   .interactive .state[data-active="false"] {
     opacity: 0;
     visibility: hidden;
+  }
+
+  /* wide: the loop beside the stage. the whole step reads on one screen:
+     each exhibit is sized to its shape so all stand about 19rem tall */
+  @media (min-width: 900px) {
+    .cycle.interactive {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      column-gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+    .interactive .loop {
+      width: 260px;
+    }
+    .interactive .state-see .exhibit,
+    .interactive .state-declare .exhibit {
+      max-width: 25rem;
+    }
+    .interactive .state-refactor .exhibit {
+      max-width: 34rem;
+    }
+    .interactive .state-prototype .exhibit {
+      max-width: 19rem;
+    }
+    /* scale opens out: the one scene with no map in it runs past the text
+       column toward the sheet's edge, onto the working floor */
+    .interactive .state-scale .exhibit {
+      margin-right: calc(var(--gutter) * -0.5);
+    }
+    .interactive .state-scale .exhibit :global(img) {
+      aspect-ratio: 2.75;
+      object-fit: cover;
+      object-position: 50% 55%;
+    }
+  }
+
+  /* phone: the loop is pinned above the stage as one strip, and the whole
+     step (loop, scene, premise, move, way on) reads on one screen. each scene
+     is held to one height so the stages do not jump */
+  @media (max-width: 899px) {
+    .interactive {
+      --scene: min(27svh, 15rem);
+    }
+    .interactive .loop-band {
+      position: sticky;
+      top: var(--bar);
+      z-index: 2;
+      /* the strip spans the sheet inside its frame; content scrolling under
+         it fades out rather than being cut */
+      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
+      padding: 1.5rem 0 0.75rem;
+      background: linear-gradient(
+        to bottom,
+        rgb(238, 227, 208) 84%,
+        rgba(238, 227, 208, 0)
+      );
+    }
+    .interactive .loop {
+      width: min(156px, 20svh);
+      margin: 0 auto;
+    }
+    .interactive .dot {
+      width: 30px;
+      height: 30px;
+      font-size: 0.62rem;
+    }
+    /* a fingertip's reach around each balloon */
+    .interactive .balloon::before {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+    }
+    .interactive .balloon .name {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+    }
+    .interactive .balloon .anchor-start {
+      left: calc(100% + 0.45rem);
+    }
+    .interactive .balloon .anchor-end {
+      right: calc(100% + 0.45rem);
+    }
+    .interactive .balloon .anchor-middle {
+      bottom: calc(100% + 0.35rem);
+    }
+    .interactive .balloon[data-next="true"] .dot::after {
+      transform: translate(11px, -11px);
+    }
+    /* a sideways swipe belongs to the stage, never to the browser's back
+       gesture; vertical scrolling and pinch zoom stay the browser's */
+    .interactive .states {
+      margin-top: 0.25rem;
+      touch-action: pan-y pinch-zoom;
+      overscroll-behavior-x: contain;
+    }
+    .interactive .exhibit {
+      margin-inline: auto;
+    }
+    .interactive .state-see .exhibit,
+    .interactive .state-declare .exhibit {
+      max-width: calc(var(--scene) * 4 / 3);
+    }
+    .interactive .state-refactor .exhibit {
+      max-width: calc(var(--scene) * 16 / 9);
+    }
+    .interactive .state-prototype .exhibit {
+      max-width: var(--scene);
+    }
+    /* scale opens out to the frame */
+    .interactive .state-scale .exhibit {
+      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
+    }
+    .interactive .state-scale .exhibit :global(img) {
+      aspect-ratio: 1.9;
+      object-fit: cover;
+      object-position: 50% 55%;
+    }
+    .interactive .premise {
+      font-size: 1.25rem;
+    }
+    .interactive .move {
+      font-size: 1.06rem;
+    }
+    /* the way on, tall enough to tap */
+    .interactive .next {
+      padding-top: 0.7rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

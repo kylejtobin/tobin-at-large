@@ -66,6 +66,8 @@ const mirrored = sheet % 2 === 0;
     line-height: 1.55;
     color: var(--ink-light);
     max-width: 34rem;
+    /* no word left alone on the last line */
+    text-wrap: pretty;
   }
 
   @media (max-width: 900px) {

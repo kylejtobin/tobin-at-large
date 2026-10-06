@@ -19,6 +19,8 @@ const consequence =
   "Machines run only on what an organization has written down. Most of what governs it never was, some because there was too much to write, and some because no one wanted to say it.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
+// the same first step the cycle ends on
+const oneStream = `mailto:${email}?subject=${encodeURIComponent("One stream")}`;
 
 const positions = (await getCollection("positions")).sort(
   (a, b) => a.data.sheet - b.data.sheet,
@@ -163,6 +165,7 @@ const structuredData = {
                 <Arrow />
               </a>
               <span class="by">by Kyle J. Tobin</span>
+              <span class="line">{book.data.line}</span>
             </figcaption>
           </figure>
         )
@@ -193,6 +196,7 @@ const structuredData = {
                   {data.title}
                   <Arrow />
                 </a>
+                <span class="line">{data.line}</span>
               </figcaption>
             </figure>
           ))
@@ -225,8 +229,8 @@ const structuredData = {
           software he writes is already a decision about the organization.
         </p>
         <div class="start-actions">
-          <a class="cta" href={inquiry}>Start a conversation</a>
-          <a class="go" href={inquiry}>{email} <Arrow /></a>
+          <a class="cta" href={oneStream}>Start with one stream</a>
+          <a class="go" href={oneStream}>{email} <Arrow /></a>
         </div>
       </div>
     </div>
@@ -454,6 +458,14 @@ const structuredData = {
   }
   .hero-item .title-link {
     font-size: 1.45rem;
+  }
+  /* what it is, said once, for whoever will vet it */
+  .line {
+    margin-top: 0.3rem;
+    max-width: 30ch;
+    font-size: 1.12rem;
+    line-height: 1.45;
+    color: var(--ink-light);
   }
   .title-link :global(svg) {
     margin-left: 0.3em;

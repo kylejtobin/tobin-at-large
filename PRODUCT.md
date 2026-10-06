@@ -37,13 +37,9 @@ now. It is not a portfolio, a services menu, or a résumé.
 
 - Every organization runs twice: as declared, and as it operates.
 - Unwritten authority cannot be delegated.
+- Agents inherit every definition at once.
 - Much of management was carrying decisions between people who could not see
   the whole.
-- Agents inherit every definition at once.
-
-The page speaks to the executive who owns the organization. Engineering
-depth is shown by the work (TCA), not argued in a position; a position the
-buyer cannot check against their own organization does not belong.
 
 ## What We Do
 
@@ -54,13 +50,8 @@ of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
 2. **The move**: what the stage does, and what it earns.
 3. **The next question** their own reasoning asks, set as the way on.
 
-Scale is the payoff, and it is shown, not claimed. The premise names what
-the buyer has lived: the pilot that succeeded and changed nothing a customer
-could feel. The move shows the one act that makes it real (every case runs the
-new way, and the old way is switched off) and lets the customer's noticing
-carry the value. No benefit words (_faster_, _better_, _empowered_), no
-technology: a business exists to deliver its value, and at Scale the means
-recede.
+Scale is about the business, not the technology or the process design: the
+organization doing the thing it exists to do and delivering its value.
 
 The questions chain the stages into one argument. The last one becomes the
 conversation: _Start with one stream_. Never describe a stage flatly; each one
@@ -76,7 +67,6 @@ must leave the reader wanting the next.
 - **Offense, not defense.** Name the capability that becomes possible, not the
   failure prevented. Avoid defining value by _never_, _cannot_, _without_.
 - **No size or modesty words.** No _independent_, _small_, _boutique_.
-  Selectivity, if stated, is policy.
 - **No selling.** What We Do demonstrates the work; it is not a services
   list. No tiers, no per-product asks.
 
@@ -118,7 +108,6 @@ telling, however well phrased.
 - Each element has one job; say each idea once.
 - The headline argues, the proof shows, one line at most adds the rest.
 - Choose the strongest few; leave out what is merely true.
-- Triads only when the content truly has three parts.
 
 ## The works
 

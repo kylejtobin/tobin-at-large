@@ -52,6 +52,8 @@ const works = defineCollection({
       // e.g. "Book", "Open-source language"
       label: z.string(),
       title: z.string(),
+      // what it is, in one line, for the reader who will vet it
+      line: z.string(),
       url: z.string().url(),
       linkLabel: z.string(),
       cover: image(),

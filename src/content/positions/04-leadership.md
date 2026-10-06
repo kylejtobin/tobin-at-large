@@ -1,5 +1,5 @@
 ---
-sheet: 3
+sheet: 4
 short: What leadership becomes
 position: Much of management was carrying decisions between people who could not see the whole.
 consequence: When the organization is explicit, what remains is what was always leadership.

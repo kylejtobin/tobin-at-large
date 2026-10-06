@@ -61,10 +61,6 @@ The identity carries the authority; nothing on the page announces it.
 `brand/build.py`) laid over everything with `overlay`, so ink and plates take
 the tooth too. Warm drafting stock, never parchment mottling.
 
-**Red means live.** It marks only what the work refuses or what is live: a
-proof's marked cell, a struck line, a code comment that is the point, the
-cover's origin. One red gesture per proof. Never decoration.
-
 ## Type
 
 - **Playfair Display**: claims. Headlines, positions, titles. Balanced wrap.
@@ -77,7 +73,7 @@ cover's origin. One red gesture per proof. Never decoration.
 A proof is drawn, never captioned, and shows the move from implicit to
 explicit:
 
-- **Tables** may mark one live cell (red node) and hatch one column as out of
+- **Tables** may mark one cell (red node) and hatch one column as out of
   an agent's reach.
 - **Struck lines** show the replaced way (speech or code), struck in red above
   what replaces it.
@@ -89,9 +85,9 @@ One value stream followed through the cycle in pencil scenes of the people
 doing the work: a small room naming the stream (See); a room arguing over the
 wall map, then four later sessions as it fills with notes (Declare); the clean
 new map alone on a sunlit wall (Refactor); a montage of building, revising,
-laughing at a failure, and watching it work (Prototype); a customer receiving
-what the organization exists to deliver, the floor behind at ease and its old
-meeting room empty (Scale).
+laughing at a failure, and watching it work (Prototype); the working floor of a
+healthy company whose people have far more capability than before, settling
+things on the spot, technology small and far back (Scale).
 
 - **Tone means automation.** In every drawn map a pale step is done by hand and
   a dark step runs on its own. The balance holds through Declare however much
@@ -99,20 +95,14 @@ meeting room empty (Scale).
 - The founder appears only in the founder portrait, never in a consulting
   scene. The scenes show the client's people and teams at work; a recurring
   face would read as a one-person shop.
-- **Scale is arrival.** Every earlier scene is work about work, with a map in
-  it and people facing the map or each other. Scale is the first with no map
-  in view: people face the customer, and technology is small and far back. It
-  opens wider than the text column, carries the fewest words, and names no
-  technology. The loop answers: the dashed construction line is inked solid,
-  the prototype's red turning settles into grey, and the one red node marks
-  the stream itself, now live.
-- On wide screens the loop is the control. The next stage's balloon carries
-  the red node; visited stages keep an ink ring. Each stage's text ends in the
-  question that advances it.
-- A whole step (scene, premise, move, next question) fits on one screen; every
-  exhibit stands about 19rem tall.
-- Narrow screens and no script read the five stages in order. No
-  scroll-jacking, ever.
+- The loop is the control at every width: beside the stage on wide screens,
+  pinned above it on a phone. A stage is chosen from the loop, by its own next
+  question, by arrow keys, or on a phone by a sideways swipe; it changes in
+  place and enters from the side it was reached from. The next stage's balloon
+  carries the red node; visited stages keep an ink ring.
+- A whole step (scene, premise, move, next question) fits on one screen at
+  1440×900, 1280×800, 390×844, and 360×740.
+- Without script the five stages read in order. No scroll-jacking, ever.
 
 ## Images
 
