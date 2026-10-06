@@ -7,32 +7,54 @@
 // One DOM serves every reader. Without script, on narrow screens, or with
 // reduced motion, the five states read as small multiples, each with its
 // line. On wide screens with script, the loop becomes the control and the
-// drawing changes state in place; a stage's line shows only when it is
+// drawing changes state in place; a stage's text shows only when it is
 // selected.
 
+// Each stage is one step of a demonstration the reader completes: a premise
+// they can check against their own organization, what the stage does and what
+// it earns, and the question their own reasoning asks next, set as the way
+// on. The last question becomes the conversation.
 const stages = [
-  { id: "see", name: "See", line: "A value stream is named." },
+  {
+    id: "see",
+    name: "See",
+    premise:
+      "The work that matters most crosses every department and belongs to none of them.",
+    move: "See names it: one value stream, from the trigger that starts it to the outcome it owes. Sometimes that takes thirty seconds.",
+    next: "Whose version of it is true?",
+  },
   {
     id: "declare",
     name: "Declare",
-    line: "Every version of how the work runs is reconciled into the one that is true.",
+    premise:
+      "Ask five people how that stream runs and hear five answers, each true from where they stand.",
+    move: "Declare maps it as it actually runs and reconciles every version into one the whole room accepts, precise enough for software and agents to act on.",
+    next: "What should it become?",
   },
   {
     id: "refactor",
     name: "Refactor",
-    line: "The stream is redesigned whole. Automating one step reshapes the rest.",
+    premise: "Automating one step of a tangled stream only tangles it faster.",
+    move: "Refactor redesigns the stream whole. Steps merge, handoffs disappear, and authority moves to where the decision is made. The lead time falls by design, not by effort.",
+    next: "Will it hold in operation?",
   },
   {
     id: "prototype",
     name: "Prototype",
-    line: "Built fast and run live. Each failure is the next revision, until it holds.",
+    premise:
+      "A redesign proves nothing until it runs with real people, real systems, and real agents.",
+    move: "Prototype builds a bounded live slice quickly and runs it. Each failure is the next revision. It is issued only when it holds.",
+    next: "What happens to the rest of the organization?",
   },
   {
     id: "scale",
     name: "Scale",
-    line: "What holds becomes the typical, reused across the organization.",
+    premise: "What works once usually dies when it is copied by memo.",
+    move: "Scale turns the proven stream into the typical: the patterns, platforms, and governance the next stream starts from. Autonomy grows, and control holds.",
+    next: "Start with one stream",
   },
 ] as const;
+const inquiry = `mailto:contact@talco.dev?subject=${encodeURIComponent("One stream")}`;
 
 // ---- drawing geometry ----------------------------------------------------
 const W = 640;
@@ -158,7 +180,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
           <svg
             viewBox={`0 0 ${W} ${H}`}
             role="img"
-            aria-label={`${s.name}: ${s.line}`}
+            aria-label={`${s.name}: the value stream as drawn at this stage`}
           >
             <defs>
               <pattern
@@ -405,7 +427,51 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
             <span class="mono-label">
               {String(i + 1).padStart(2, "0")} · {s.name}
             </span>
-            <span class="line">{s.line}</span>
+            <span class="premise">{s.premise}</span>
+            <span class="move">{s.move}</span>
+            {i < stages.length - 1 ? (
+              <button
+                type="button"
+                class="next go"
+                data-next={stages[i + 1].id}
+              >
+                {s.next}
+                <svg
+                  viewBox="0 0 12 12"
+                  width="0.62em"
+                  height="0.62em"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <a class="next go start" href={inquiry}>
+                {s.next}
+                <svg
+                  viewBox="0 0 12 12"
+                  width="0.62em"
+                  height="0.62em"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 9 9 3M4.5 3H9v4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            )}
           </figcaption>
         </figure>
       ))
@@ -428,18 +494,36 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
       states.forEach(
         (s) => (s.dataset.active = String(s.dataset.state === id)),
       );
+    const order = buttons.map((b) => b.dataset.stage);
+    const visited = new Set();
+    // the next stage carries the red node: the live point of the loop
     const select = (id) => {
       selected = id;
-      buttons.forEach((b) =>
-        b.setAttribute("aria-pressed", String(b.dataset.stage === id)),
-      );
+      visited.add(id);
+      const next = order[order.indexOf(id) + 1];
+      buttons.forEach((b) => {
+        const stage = b.dataset.stage;
+        b.setAttribute("aria-pressed", String(stage === id));
+        b.dataset.visited = String(visited.has(stage) && stage !== id);
+        b.dataset.next = String(stage === next);
+      });
       show(id);
     };
+    root.querySelectorAll("[data-next]").forEach((n) =>
+      n.addEventListener("click", () => {
+        select(n.dataset.next);
+        root
+          .querySelector(`[data-stage="${n.dataset.next}"]`)
+          ?.focus({ preventScroll: true });
+      }),
+    );
     buttons.forEach((b) => {
       b.addEventListener("click", () => select(b.dataset.stage));
       b.addEventListener("mouseenter", () => show(b.dataset.stage));
       b.addEventListener("mouseleave", () => show(selected));
-      b.addEventListener("focus", () => select(b.dataset.stage));
+      b.addEventListener("focus", () => {
+        if (b.dataset.stage !== selected) select(b.dataset.stage);
+      });
     });
     const mode = () => root.classList.toggle("interactive", wide.matches);
     wide.addEventListener("change", mode);
@@ -457,7 +541,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     display: grid;
     gap: 2.5rem;
   }
-  .state svg {
+  .state > svg {
     display: block;
     width: 100%;
     height: auto;
@@ -468,11 +552,46 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     display: grid;
     gap: 0.2rem;
   }
-  .line {
-    font-size: clamp(1.12rem, 1.5vw, 1.3rem);
-    line-height: 1.45;
+  /* the premise the reader checks against their own organization, then what
+     the stage does about it */
+  .premise {
+    margin-top: 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    line-height: 1.25;
+    color: var(--ink);
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .move {
+    margin-top: 0.5rem;
+    font-size: clamp(1.1rem, 1.45vw, 1.25rem);
+    line-height: 1.5;
     color: var(--ink-light);
-    max-width: 32rem;
+    max-width: 34rem;
+  }
+  /* the way on: the question the reader's own reasoning asks next */
+  .next {
+    justify-self: start;
+    margin-top: 0.6rem;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  /* as small multiples every stage is visible at once, so only the last
+     question, the conversation, is a way on */
+  .state button.next {
+    display: none;
+  }
+  .interactive .state button.next {
+    display: inline-flex;
   }
 
   /* drawing marks */
@@ -592,6 +711,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     font: inherit;
   }
   .dot {
+    position: relative;
     display: grid;
     place-items: center;
     width: 34px;
@@ -629,6 +749,23 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     bottom: calc(100% + 0.5rem);
     transform: translateX(-50%);
   }
+  .balloon:hover .dot {
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.06);
+  }
+  .balloon[data-visited="true"] .dot {
+    border-color: var(--ink);
+  }
+  /* the next stage carries the red node */
+  .balloon[data-next="true"] .dot::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal);
+    transform: translate(13px, -13px);
+  }
   .balloon[aria-pressed="true"] .dot {
     background: var(--ink);
     color: var(--paper);
@@ -648,6 +785,14 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   .interactive .states {
     display: grid;
     gap: 0;
+  }
+  /* the whole step reads on one screen: drawing, premise, and the way on */
+  .interactive .state > svg {
+    max-width: 34rem;
+  }
+  /* the drawing is set smaller here, so its lettering is set larger */
+  .interactive .state .mono {
+    font-size: 13.5px;
   }
   .interactive .state {
     grid-area: 1 / 1;

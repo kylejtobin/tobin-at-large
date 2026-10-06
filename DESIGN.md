@@ -82,6 +82,21 @@ explicit:
   what replaces it.
 - **Code** blocks are framed; a red comment carries the point.
 
+## The consulting cycle
+
+One value stream drawn through the drafting lifecycle the method already is:
+named (See), surveyed as built against as described (Declare), revised in red
+clouds (Refactor), revised A, B, until C is issued (Prototype), reused as TYP.
+(Scale). Value-stream notation: process boxes, wait triangles, the lead-time
+line. Automated steps are hatched.
+
+- On wide screens the loop is the control. The next stage's balloon carries
+  the red node; visited stages keep an ink ring. Each stage's text ends in
+  the question that advances it.
+- A whole step (drawing, premise, move, next question) fits on one screen.
+- Narrow screens and no script read the five states as small multiples. No
+  scroll-jacking, ever.
+
 ## Images
 
 - Product covers and plates sit as objects: a contact edge and a soft fall of

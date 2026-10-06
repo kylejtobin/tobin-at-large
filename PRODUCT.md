@@ -39,6 +39,19 @@ now. It is not a portfolio, a services menu, or a résumé.
 - Agents inherit every definition at once.
 - Speed and correctness stopped being a trade.
 
+## The consulting section
+
+It sells by demonstration the reader completes, not by description. Each stage
+of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
+
+1. **A premise** the buyer can check against their own organization.
+2. **The move**: what the stage does, and what it earns.
+3. **The next question** their own reasoning asks, set as the way on.
+
+The questions chain the stages into one argument. The last one becomes the
+conversation: _Start with one stream_. Never describe a stage flatly; each one
+must leave the reader wanting the next.
+
 ## Voice: quiet authority
 
 - **Declare.** Plain statements about the world, as fact. No hedging, no hype.
