@@ -27,9 +27,9 @@ now. It is not a portfolio, a services menu, or a résumé.
 1. **Cover**: the point of view, stated as fact.
 2. **Positions**: each one a claim, a drawn proof, and at most one line for
    what the proof cannot show.
-3. **Work**: the book, ONTOK, and TCA, as evidence that the positions are
+3. **What We Do**: the cycle each value stream goes through, demonstrated.
+4. **Work**: the book, ONTOK, and TCA, as evidence that the positions are
    practiced. Each stands on its own.
-4. **What We Do**: the cycle each value stream goes through, demonstrated.
 5. **Founder**: who he is, declared.
 6. **Contact**: one line and the address.
 
@@ -51,11 +51,13 @@ of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
 2. **The move**: what the stage does, and what it earns.
 3. **The next question** their own reasoning asks, set as the way on.
 
-Scale is the payoff, and it is about the business, not the method or the
-technology: the stream carries its full load, the customer receives the
-outcome faster and right, and people spend their time on the work only people
-can do. A business exists to deliver its value; technology and process design
-are means, and at Scale they recede.
+Scale is the payoff, and it is shown, not claimed. The premise names what
+the buyer has lived: the pilot that succeeded and changed nothing a customer
+could feel. The move shows the one act that makes it real (every case runs the
+new way, and the old way is switched off) and lets the customer's noticing
+carry the value. No benefit words (_faster_, _better_, _empowered_), no
+technology: a business exists to deliver its value, and at Scale the means
+recede.
 
 The questions chain the stages into one argument. The last one becomes the
 conversation: _Start with one stream_. Never describe a stage flatly; each one
@@ -89,6 +91,11 @@ they already suspect:
 - State consequences plainly; never perform candor.
 
 ## Show, don't tell
+
+Making the buyer feel seen is showing: name a particular they have lived and
+would recognize (five answers to one question, a pilot no customer noticed),
+then show the act that changes it. Benefit words and aphorisms about value are
+telling, however well phrased.
 
 - Proofs are reasoned from **first principles**: no case studies, no company
   names, no statistics, no history.

@@ -28,7 +28,8 @@ const works = (await getCollection("works")).sort(
 );
 const [book, ...software] = works;
 const no = (n: number) => String(n).padStart(2, "0");
-const workSheet = positions.length + 1;
+// the sheets after the positions, in order
+const after = positions.length + 1;
 const linkedin = "https://www.linkedin.com/in/kyletobin/";
 
 // What the page is, for search engines and link unfurlers.
@@ -125,7 +126,15 @@ const structuredData = {
     ))
   }
 
-  <Drawing id="work" number={no(workSheet)} label="Work">
+  <Drawing id="consulting" number={no(after)} label="What We Do">
+    <div class="consulting">
+      <p class="mono-label">What We Do</p>
+      <h2>Each value stream is redrawn until it runs.</h2>
+      <ConsultingCycle />
+    </div>
+  </Drawing>
+
+  <Drawing id="work" number={no(after + 1)} label="Work">
     <div class="work">
       <h2 class="work-head">Written down, and built.</h2>
       {
@@ -192,15 +201,7 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <Drawing id="consulting" number={no(workSheet + 1)} label="What We Do">
-    <div class="consulting">
-      <p class="mono-label">What We Do</p>
-      <h2>Each value stream is redrawn until it runs.</h2>
-      <ConsultingCycle />
-    </div>
-  </Drawing>
-
-  <Drawing id="founder" number={no(workSheet + 2)} label="Founder">
+  <Drawing id="founder" number={no(after + 2)} label="Founder">
     <div class="founder">
       <div class="portrait">
         <Picture
@@ -227,7 +228,7 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <Drawing id="start" number={no(workSheet + 3)} label="Contact">
+  <Drawing id="start" number={no(after + 3)} label="Contact">
     <div class="start">
       <h2>TAL makes organizations explicit.</h2>
       <div class="start-actions">
