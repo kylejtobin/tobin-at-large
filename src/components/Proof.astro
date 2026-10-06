@@ -51,7 +51,7 @@ const codeHtml = (code: string) =>
             </tr>
           </thead>
           <tbody>
-            {block.rows.map((row, r) => (
+            {block.rows.map((row) => (
               <tr>
                 {row.map((cell, c) => (
                   <td class:list={{ unreachable: block.unreachable === c }}>
