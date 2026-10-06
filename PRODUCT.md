@@ -2,9 +2,8 @@
 
 ## What TAL is
 
-**Organizations are becoming executable.** Machines act on whatever an
-organization has made explicit; whatever it leaves implicit becomes its fault
-line. **TAL makes organizations explicit**: from the authority at the top to
+**AI can only run what’s written down.** Most of how a company actually works
+never was; that gap is where AI pilots stall. **TAL makes organizations explicit**: from the authority at the top to
 the code underneath.
 
 TAL is a company that consults and builds products. The products and the
@@ -35,11 +34,11 @@ now. It is not a portfolio, a services menu, or a résumé.
 
 ### Current positions
 
-- Every organization runs twice: as declared, and as it operates.
-- Unwritten authority cannot be delegated.
-- Agents inherit every definition at once.
-- Much of management was carrying decisions between people who could not see
-  the whole.
+- Every company runs twice: on paper, and in practice.
+- Authority no one wrote down can’t be handed to an agent.
+- People quietly fix what systems disagree on. Agents can’t.
+- Much of management is carrying decisions between people who can’t see the
+  whole.
 
 ## What We Do
 

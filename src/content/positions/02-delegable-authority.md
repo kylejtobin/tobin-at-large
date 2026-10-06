@@ -1,8 +1,8 @@
 ---
 sheet: 2
-short: Delegable authority
-position: Unwritten authority cannot be delegated.
-consequence: Written, it can be handed to an agent, and taken back.
+short: What an agent may decide
+position: Authority no one wrote down can’t be handed to an agent.
+consequence: Written down, it can be handed over with a limit, and taken back.
 proof:
   - kind: struck
     as: speech

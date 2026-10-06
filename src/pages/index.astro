@@ -14,9 +14,9 @@ import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
 import ConsultingCycle from "../components/ConsultingCycle.astro";
 
-const view = "Organizations are becoming executable.";
+const view = "AI can only run what’s written down.";
 const consequence =
-  "Machines run only on what an organization has written down. Most of what governs it never was, some because there was too much to write, and some because no one wanted to say it.";
+  "Most of how a company actually works never was. Some of it was too much to write. Some of it no one wanted to say. That gap is where AI pilots stall.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 // the same first step the cycle ends on
@@ -97,8 +97,8 @@ const structuredData = {
         <h1>{view}</h1>
         <p class="consequence">{consequence}</p>
       </div>
-      <nav class="index" aria-label="Positions">
-        <p class="mono-label">Positions</p>
+      <nav class="index" aria-label="What AI exposes">
+        <p class="mono-label">What AI exposes</p>
         <CoverDrawing count={positions.length} />
         <ol>
           {
@@ -131,7 +131,7 @@ const structuredData = {
   <Drawing id="consulting" number={no(after)} label="What We Do">
     <div class="consulting">
       <p class="mono-label">What We Do</p>
-      <h2>Each value stream is redrawn until it runs.</h2>
+      <h2>One stream of work, taken all the way to running.</h2>
       <ConsultingCycle />
     </div>
   </Drawing>

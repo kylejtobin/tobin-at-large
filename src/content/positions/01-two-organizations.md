@@ -1,11 +1,11 @@
 ---
 sheet: 1
-short: Two organizations
-position: "Every organization runs twice: as declared, and as it operates."
-consequence: An agent runs only the first.
+short: On paper and in practice
+position: "Every company runs twice: on paper, and in practice."
+consequence: An agent only gets the version on paper.
 proof:
   - kind: table
-    columns: [Declared, Operating]
+    columns: [On paper, In practice]
     rows:
       - [The approver on the org chart, The person whose judgment is trusted]
       - [The threshold in the policy, The threshold that is honored]

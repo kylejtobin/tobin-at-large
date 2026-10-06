@@ -1,8 +1,8 @@
 ---
 sheet: 4
-short: What leadership becomes
-position: Much of management was carrying decisions between people who could not see the whole.
-consequence: When the organization is explicit, what remains is what was always leadership.
+short: What management becomes
+position: Much of management is carrying decisions between people who can’t see the whole.
+consequence: When everyone can see the whole, that carrying stops. What remains is leadership.
 proof:
   - kind: table
     columns: [Coordination, Leadership]

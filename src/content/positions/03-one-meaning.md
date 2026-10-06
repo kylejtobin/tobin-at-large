@@ -1,8 +1,8 @@
 ---
 sheet: 3
-short: One meaning
-position: Agents inherit every definition at once.
-consequence: People reconciled the three in meetings. Agents act on all three.
+short: Three answers to one question
+position: People quietly fix what systems disagree on. Agents can’t.
+consequence: Give agents one definition, and every system acts on it.
 proof:
   - kind: table
     columns: [System, An active customer]
