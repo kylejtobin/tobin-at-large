@@ -33,8 +33,8 @@ const stages = [
     id: "see",
     name: "See",
     premise:
-      "The work that matters most crosses every department and belongs to none of them.",
-    move: "We name one value stream, from what starts it to what it owes the customer. It can take thirty seconds or a month.",
+      "Naming the work sounds simple until every department draws its edges differently.",
+    move: "We hold the room to one question: what starts this work, and what does it owe the customer? Sometimes the answer takes thirty seconds. Sometimes it takes a month, and the month is the first finding.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -42,8 +42,8 @@ const stages = [
     id: "declare",
     name: "Declare",
     premise:
-      "Ask five people how that stream runs and hear five answers, each true from where they stand.",
-    move: "We map the stream as it actually runs and reconcile every version of it with what really happens, including the rules no one says out loud.",
+      "Ask five people how the work runs and hear five answers, each true from where they stand, and each defended.",
+    move: "We map it from what actually happens, case by case. The workarounds and unspoken rules come out because no one is blamed for them. It is as much therapy as documentation.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -51,15 +51,16 @@ const stages = [
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    move: "A changed step ripples through every step around it. We redesign the stream whole: each step goes to a person, software, or an agent.",
+    move: "Change one step and every step around it moves: handoffs, approvals, who decides. We redesign the stream whole, give each step to a person, software, or an agent, and show every role what changes before anything is built.",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
   {
     id: "prototype",
     name: "Prototype",
-    premise: "Every redesign looks right on the wall.",
-    move: "We build it fast and run it live. A failed run is signal, not failure. We prototype until it is green.",
+    premise:
+      "The first live runs fail. Most organizations read that as a verdict.",
+    move: "We read it as signal. We build fast, run it live with the people who will own it, change what broke, and run it again until it is green. Nothing scales before then.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -68,7 +69,7 @@ const stages = [
     name: "Scale",
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
-    move: "We run every case through the new stream and retire the old one.",
+    move: "We move every case onto the new stream, keep the old one only until the new one carries the load, then retire it. The measure is what the customer gets.",
     next: "Start with one stream",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },
@@ -646,7 +647,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
      is held to one height so the stages do not jump */
   @media (max-width: 899px) {
     .interactive {
-      --scene: min(27svh, 15rem);
+      --scene: min(25svh, 15rem);
     }
     .interactive .loop-band {
       position: sticky;
