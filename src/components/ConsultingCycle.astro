@@ -60,16 +60,16 @@ const stages = [
     premise:
       "A redesign proves nothing until it runs with real people, real systems, and real agents.",
     move: "Prototype builds a bounded slice fast and runs it live. A failure is the next revision, not a setback. It is issued only when it holds.",
-    next: "What happens to the rest of the organization?",
+    next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
   {
     id: "scale",
     name: "Scale",
-    premise: "What works once usually dies when it is copied by memo.",
-    move: "Scale turns what held into the typical: the patterns, platforms, and governance every next stream starts from. Each stream added makes the organization more autonomous and more governable at once.",
+    premise: "Customers never see the operating model, only what it delivers.",
+    move: "Scale puts the stream under its full load: every customer, every case, every day. The outcome arrives faster and right, and people spend their time on the work only people can do.",
     next: "Start with one stream",
-    alt: "An open office of people working calmly and decisively; the meeting room behind them stands empty.",
+    alt: "A staff member hands a finished folder to a relieved older couple; behind them an unhurried office at work, its meeting room empty.",
   },
 ] as const;
 const inquiry = `mailto:contact@talco.dev?subject=${encodeURIComponent("One stream")}`;
@@ -209,7 +209,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
                 src={scale}
                 alt=""
                 widths={[720, 1440]}
-                sizes="(max-width: 899px) 100vw, 46rem"
+                sizes="(max-width: 899px) 100vw, 60rem"
                 formats={["avif", "webp"]}
                 loading="lazy"
               />
@@ -299,6 +299,9 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
         b.dataset.visited = String(visited.has(stage) && stage !== id);
         b.dataset.next = String(stage === next);
       });
+      // at the last stage the stream is live: the loop is inked in, the
+      // prototype's turning stops, and red marks the stream itself
+      root.dataset.live = String(id === order[order.length - 1]);
       show(id);
     };
     root.querySelectorAll("[data-next]").forEach((n) =>
@@ -446,6 +449,38 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   .loop-inner-head {
     fill: var(--signal);
   }
+  .loop-path,
+  .loop-inner,
+  .loop-inner-head {
+    transition:
+      stroke 0.6s var(--ease),
+      fill 0.6s var(--ease),
+      stroke-dasharray 0.6s var(--ease);
+  }
+  /* live: the construction line is inked solid, the prototype's turning
+     settles into ink, and the one red node sits on the running stream */
+  [data-live="true"] .loop-path {
+    stroke: var(--ink);
+    stroke-dasharray: none;
+  }
+  [data-live="true"] .loop-inner {
+    stroke: rgba(26, 26, 26, 0.45);
+  }
+  [data-live="true"] .loop-inner-head {
+    fill: rgba(26, 26, 26, 0.45);
+  }
+  [data-live="true"] .balloon .dot {
+    border-color: var(--ink);
+  }
+  [data-live="true"] .balloon[aria-pressed="true"] .dot::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal);
+    transform: translate(13px, -13px);
+  }
   .balloon {
     position: absolute;
     left: var(--x);
@@ -548,8 +583,16 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   .interactive .state-prototype .exhibit {
     max-width: 19rem;
   }
+  /* scale opens out: the one scene with no map in it runs past the text
+     column toward the sheet's edge, like a door onto the working floor */
   .interactive .state-scale .exhibit {
-    max-width: 44rem;
+    margin-right: calc(var(--gutter) * -0.5);
+  }
+  /* a wider panorama, so the whole step still reads on one screen */
+  .interactive .state-scale .exhibit :global(img) {
+    aspect-ratio: 2.75;
+    object-fit: cover;
+    object-position: 50% 55%;
   }
   .interactive .state {
     grid-area: 1 / 1;

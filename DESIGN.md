@@ -88,8 +88,9 @@ One value stream followed through the cycle in pencil scenes of the people
 doing the work: a small room naming the stream (See); a room arguing over the
 wall map, then four later sessions as it fills with notes (Declare); the clean
 new map alone on a sunlit wall (Refactor); a montage of building, revising,
-laughing at a failure, and watching it work (Prototype); an organization working
-calmly, its old meeting room empty behind it (Scale).
+laughing at a failure, and watching it work (Prototype); a customer receiving
+what the organization exists to deliver, the floor behind at ease and its old
+meeting room empty (Scale).
 
 - **Tone means automation.** In every drawn map a pale step is done by hand and
   a dark step runs on its own. The balance holds through Declare however much
@@ -97,6 +98,13 @@ calmly, its old meeting room empty behind it (Scale).
 - The founder appears only in the founder portrait, never in a consulting
   scene. The scenes show the client's people and teams at work; a recurring
   face would read as a one-person shop.
+- **Scale is arrival.** Every earlier scene is work about work, with a map in
+  it and people facing the map or each other. Scale is the first with no map
+  in view: people face the customer, and technology is small and far back. It
+  opens wider than the text column, carries the fewest words, and names no
+  technology. The loop answers: the dashed construction line is inked solid,
+  the prototype's red turning settles into grey, and the one red node marks
+  the stream itself, now live.
 - On wide screens the loop is the control. The next stage's balloon carries
   the red node; visited stages keep an ink ring. Each stage's text ends in the
   question that advances it.

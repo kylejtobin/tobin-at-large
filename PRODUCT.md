@@ -51,6 +51,12 @@ of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
 2. **The move**: what the stage does, and what it earns.
 3. **The next question** their own reasoning asks, set as the way on.
 
+Scale is the payoff, and it is about the business, not the method or the
+technology: the stream carries its full load, the customer receives the
+outcome faster and right, and people spend their time on the work only people
+can do. A business exists to deliver its value; technology and process design
+are means, and at Scale they recede.
+
 The questions chain the stages into one argument. The last one becomes the
 conversation: _Start with one stream_. Never describe a stage flatly; each one
 must leave the reader wanting the next.
