@@ -12,6 +12,7 @@ import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
+import ConsultingCycle from "../components/ConsultingCycle.astro";
 
 const view = "Organizations are becoming executable.";
 const consequence =
@@ -191,7 +192,15 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <Drawing id="founder" number={no(workSheet + 1)} label="Founder">
+  <Drawing id="consulting" number={no(workSheet + 1)} label="Consulting">
+    <div class="consulting">
+      <p class="mono-label">Consulting</p>
+      <h2>Each value stream is redrawn until it runs.</h2>
+      <ConsultingCycle />
+    </div>
+  </Drawing>
+
+  <Drawing id="founder" number={no(workSheet + 2)} label="Founder">
     <div class="founder">
       <div class="portrait">
         <Picture
@@ -218,7 +227,7 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <Drawing id="start" number={no(workSheet + 2)} label="Contact">
+  <Drawing id="start" number={no(workSheet + 3)} label="Contact">
     <div class="start">
       <h2>TAL makes organizations explicit.</h2>
       <div class="start-actions">
@@ -459,6 +468,18 @@ const structuredData = {
   .title-link:focus-visible {
     text-decoration-color: var(--ink);
     outline: none;
+  }
+
+  /* ---- consulting: the claim, then the cycle drawn ---- */
+  .consulting h2 {
+    margin: 0.4rem 0 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.008em;
+    max-width: 22ch;
+    text-wrap: balance;
   }
 
   /* ---- the founder: the portrait as a plate, the statement beside it ---- */

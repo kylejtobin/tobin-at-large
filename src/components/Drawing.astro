@@ -47,8 +47,11 @@ const { id, number, label, full = false } = Astro.props;
   }
 
   /* the title page holds the first screen */
+  /* the title page holds the first screen, but never more than its
+     composition can fill: on a tall screen, extra height would only become
+     empty paper above the mark */
   .drawing.full {
-    min-height: calc(100svh - var(--bar));
+    min-height: min(calc(100svh - var(--bar)), 50rem);
   }
   /* sheets in a run share their edges, like pages in a set */
   .drawing + :global(.drawing) {
