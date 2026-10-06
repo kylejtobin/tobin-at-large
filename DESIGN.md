@@ -84,17 +84,25 @@ explicit:
 
 ## The consulting cycle
 
-One value stream drawn through the drafting lifecycle the method already is:
-named (See), surveyed as built against as described (Declare), revised in red
-clouds (Refactor), revised A, B, until C is issued (Prototype), reused as TYP.
-(Scale). Value-stream notation: process boxes, wait triangles, the lead-time
-line. Automated steps are hatched.
+One value stream followed through the cycle in pencil scenes of the people
+doing the work: a small room naming the stream (See); a room arguing over the
+wall map, then four later sessions as it fills with notes (Declare); the clean
+new map alone on a sunlit wall (Refactor); a montage of building, revising,
+laughing at a failure, and watching it work (Prototype); an organization working
+calmly, its old meeting room empty behind it (Scale).
 
+- **Tone means automation.** In every drawn map a pale step is done by hand and
+  a dark step runs on its own. The balance holds through Declare however much
+  the map is argued over, and turns in Refactor. It is never labelled.
+- The founder appears only as the facilitator (See, Declare, from behind in
+  Refactor), never in Prototype or Scale, where the client's organization is
+  the subject.
 - On wide screens the loop is the control. The next stage's balloon carries
-  the red node; visited stages keep an ink ring. Each stage's text ends in
-  the question that advances it.
-- A whole step (drawing, premise, move, next question) fits on one screen.
-- Narrow screens and no script read the five states as small multiples. No
+  the red node; visited stages keep an ink ring. Each stage's text ends in the
+  question that advances it.
+- A whole step (scene, premise, move, next question) fits on one screen; every
+  exhibit stands about 19rem tall.
+- Narrow screens and no script read the five stages in order. No
   scroll-jacking, ever.
 
 ## Images
@@ -102,7 +110,9 @@ line. Automated steps are hatched.
 - Product covers and plates sit as objects: a contact edge and a soft fall of
   light (`box-shadow`), served as AVIF/WebP at 2×.
 - Tall (book) leads; wide (software plates) support at half weight.
-- The founder portrait is a pencil drawing on the site's own paper.
+- Pencil scenes and the founder portrait share one hand and the site's paper,
+  and dissolve into the sheet at their edges. They are generated from
+  `brand/illustrations/` with the founder portrait as the style reference.
 - No invented illustrations. A drawing appears only where it carries something
   words cannot.
 

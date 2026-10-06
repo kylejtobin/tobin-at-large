@@ -482,7 +482,7 @@ const structuredData = {
     text-wrap: balance;
   }
 
-  /* ---- the founder: the portrait as a plate, the statement beside it ---- */
+  /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */
   .founder {
     display: grid;
     grid-template-columns: 280px minmax(0, 1fr);
@@ -490,14 +490,16 @@ const structuredData = {
     row-gap: 2rem;
     align-items: center;
   }
+  /* drawn on the sheet like the consulting scenes: its edges dissolve into
+     the paper rather than sitting as a plate */
   .portrait :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    box-shadow:
-      0 0 0 1px rgba(26, 26, 26, 0.08),
-      0 1px 1px rgba(26, 26, 26, 0.14),
-      0 18px 32px -14px rgba(40, 30, 15, 0.34);
+    mask-image:
+      linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+      linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
+    mask-composite: intersect;
   }
   .founder-text {
     max-width: 40rem;
