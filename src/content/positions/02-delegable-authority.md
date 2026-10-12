@@ -1,8 +1,7 @@
 ---
 sheet: 2
 short: What an agent may decide
-position: Authority no one wrote down can’t be handed to an agent.
-consequence: Written down with a limit, it can be handed over, and taken back by moving the limit.
+position: The only authority an agent can hold is a limit.
 proof:
   - kind: struck
     as: speech
@@ -11,7 +10,7 @@ proof:
   - kind: table
     columns: [Decision, Decided by, Limit]
     rows:
-      - [Refund, The agent, Up to $500]
-      - [Refund, Finance lead, Above $500]
+      - [Refund, The agent, "~~Up to $500~~ Up to $2,000"]
+      - [Refund, Finance lead, Above it]
       - [Policy exception, A named person, Reason recorded]
 ---

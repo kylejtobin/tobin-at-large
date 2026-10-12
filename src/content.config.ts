@@ -8,14 +8,25 @@ import { glob } from "astro/loaders";
 // the proof cannot show. Then the work TAL has made, as evidence.
 
 // A proof is a sequence of drawn blocks. A table may mark one column out of
-// an agent's reach. Struck lines are the implicit
-// or procedural way, crossed out beside what replaces it.
+// an agent's reach, and may give each row a tone: pale is done by hand, dark
+// runs on its own. Inside a cell, ~~text~~ is struck: the replaced way beside
+// what replaces it. Struck lines are the implicit or procedural way, crossed
+// out beside what replaces it. A stream is drawn as a line with its two ends
+// fixed, crossing the departments named, with nothing drawn between.
 const table = z.object({
   kind: z.literal("table"),
   columns: z.array(z.string()).min(2),
   rows: z.array(z.array(z.string()).min(2)).min(2),
   // a column an agent cannot read
   unreachable: z.number().int().optional(),
+  // one tone per row
+  tones: z.array(z.enum(["hand", "auto"])).optional(),
+});
+const stream = z.object({
+  kind: z.literal("stream"),
+  from: z.string(),
+  to: z.string(),
+  across: z.array(z.string()).min(1),
 });
 const struck = z.object({
   kind: z.literal("struck"),
@@ -37,7 +48,9 @@ const positions = defineCollection({
     position: z.string(),
     // only what the proof cannot show
     consequence: z.string().optional(),
-    proof: z.array(z.discriminatedUnion("kind", [table, code, struck])).min(1),
+    proof: z
+      .array(z.discriminatedUnion("kind", [table, code, struck, stream]))
+      .min(1),
   }),
 });
 

@@ -25,6 +25,18 @@ const codeHtml = (code: string) =>
         : escape(line),
     )
     .join("\n");
+// inside a cell, ~~the replaced way~~ is struck beside what replaces it
+const cellHtml = (cell: string) =>
+  escape(cell).replace(/~~([^~]+)~~/g, "<s>$1</s>");
+// the stream: its two ends fixed, the departments it crosses as faint rules
+const streamGeometry = (across: readonly string[]) => {
+  const x0 = 60;
+  const x1 = 460;
+  return across.map((name, i) => ({
+    name,
+    x: x0 + ((i + 1) * (x1 - x0)) / (across.length + 1),
+  }));
+};
 ---
 
 <figure class="proof">
@@ -51,17 +63,43 @@ const codeHtml = (code: string) =>
             </tr>
           </thead>
           <tbody>
-            {block.rows.map((row) => (
-              <tr>
+            {block.rows.map((row, r) => (
+              <tr class={block.tones?.[r]}>
                 {row.map((cell, c) => (
-                  <td class:list={{ unreachable: block.unreachable === c }}>
-                    {cell}
-                  </td>
+                  <td
+                    class:list={{ unreachable: block.unreachable === c }}
+                    set:html={cellHtml(cell)}
+                  />
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
+      ) : block.kind === "stream" ? (
+        <svg
+          class="stream"
+          viewBox="0 0 520 170"
+          role="img"
+          aria-label={`${block.from} to ${block.to}, across ${block.across.join(", ")}, with nothing fixed between`}
+        >
+          {streamGeometry(block.across).map(({ name, x }) => (
+            <>
+              <text class="dept" x={x} y="26" text-anchor="middle">
+                {name}
+              </text>
+              <line class="dept-rule" x1={x} x2={x} y1="44" y2="134" />
+            </>
+          ))}
+          <line class="between" x1="60" x2="460" y1="90" y2="90" />
+          <circle class="end" cx="60" cy="90" r="4.5" />
+          <circle class="end" cx="460" cy="90" r="4.5" />
+          <text class="end-label" x="60" y="156">
+            {block.from}
+          </text>
+          <text class="end-label" x="460" y="156" text-anchor="end">
+            {block.to}
+          </text>
+        </svg>
       ) : block.kind === "struck" ? (
         <ul class:list={["struck", `as-${block.as}`]}>
           {block.lines.map((line) => (
@@ -119,6 +157,66 @@ const codeHtml = (code: string) =>
     margin-top: 0.2rem;
     color: var(--signal-text);
     letter-spacing: 0.08em;
+  }
+  /* the replaced way inside a cell, struck beside what replaces it */
+  td :global(s) {
+    text-decoration: line-through;
+    text-decoration-color: var(--signal);
+    text-decoration-thickness: 1.5px;
+    color: var(--ink-quiet);
+    margin-right: 0.35em;
+  }
+  /* a row's tone is the legend's swatch at its head: pale by hand, dark
+     runs on its own */
+  tr.hand td:first-child::before,
+  tr.auto td:first-child::before {
+    content: "";
+    display: inline-block;
+    width: 0.7em;
+    height: 0.55em;
+    margin-right: 0.55em;
+    border: 1px solid var(--line);
+    vertical-align: 0.02em;
+  }
+  tr.auto td:first-child::before {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  tr.auto td {
+    color: var(--ink);
+  }
+
+  /* the stream: two ends fixed, the departments it crosses, nothing between */
+  .stream {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .stream text {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .stream .dept {
+    font-size: 9.5px;
+    fill: var(--ink-quiet);
+  }
+  .stream .dept-rule {
+    stroke: rgba(26, 26, 26, 0.18);
+    stroke-width: 1;
+  }
+  .stream .between {
+    stroke: rgba(26, 26, 26, 0.45);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+  }
+  .stream .end {
+    fill: var(--ink);
+  }
+  .stream .end-label {
+    font-size: 10.5px;
+    fill: var(--ink);
   }
 
   /* the replaced way, struck through in red */

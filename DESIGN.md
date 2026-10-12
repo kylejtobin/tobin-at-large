@@ -31,7 +31,11 @@ to rewrite to fit what was built.
   the site, one supporting line, and the one drawing on the site keying the
   index of positions.
 - **Position sheets**: a mirrored spread. The position as headline beside its
-  proof, both hanging from one top edge. Alternate sheets mirror.
+  proof, both hanging from one top edge. Alternate sheets mirror. A
+  consequence line appears only for what the proof cannot show; none of the
+  current four needs one.
+- **Founder sheet**: the portrait, one sentence, and the door. The page above
+  is how he thinks; nothing on the sheet describes it.
 - **Work sheet**: one composed exhibit. The book leads at full scale; the tools
   stack beside it at half its weight.
 - **Founder sheet**: the portrait as a plate, one statement beside it, and
@@ -53,7 +57,7 @@ added to it:
   The consequence line, in the reading face under the claim, is where the
   next sheet's question is left.
 - Sheet 05 reads at three speeds so the skimming reader is held: the premise
-  and decision in the display face, the rules in the heavier weight, the
+  in the display face and the plate, the rules in the heavier weight, the
   reasoning in the reading face. The next question, in mono, is the only
   forward control on the sheet, and the loop shows at a glance how much is
   left.
@@ -98,44 +102,54 @@ the tooth too. Warm drafting stock, never parchment mottling.
 A proof is drawn, never captioned, and shows the move from implicit to
 explicit:
 
-- **Tables** may hatch one column as out of an agent's reach.
+- **Tables** may hatch one column as out of an agent's reach. A row may carry
+  a tone at its head, the legend's swatch: pale is done by hand, dark runs on
+  its own. A cell may strike the replaced way beside what replaces it.
 - **Struck lines** show the replaced way (speech or code), struck in red above
   what replaces it.
-- **Code** blocks are framed; a comment is set in the quiet ink.
+- **Code** blocks are framed; a comment is set in the quiet ink. A run log is
+  code.
+- **The stream** is a line with its two ends fixed as filled terminals, the
+  departments it crosses as faint rules with quiet labels, and nothing drawn
+  between the ends but the dashed line itself.
+
+The cycle's plates are drawn in this grammar, the same as the positions', and
+reuse the positions' instances. Only Scale carries a pencil scene.
 
 ## What it takes: the cycle
 
-One value stream followed through the cycle in pencil scenes of the people
-doing the work: a small room naming the stream (See); a room arguing over the
-wall map, then four later sessions as it fills with notes (Declare); the clean
-new map alone on a sunlit wall (Refactor); a montage of building, revising,
-laughing at a failure, and watching it work (Prototype); the working floor of a
-healthy company whose people have far more capability than before, settling
-things on the spot, technology small and far back (Scale).
+One value stream followed through the cycle, each stage's plate the artifact
+the stage produces, drawn in the proofs' grammar: the stream with its two
+ends fixed and nothing between (See); the decisions as written beside as
+made, the written cell struck where practice differs (Declare); the same
+decisions with their holder, facts and limit, rows dark where they now run
+on their own (Refactor); a run log, one case wrong, the fault found in the
+table, run again (Prototype); and the one pencil scene, the working floor of
+a healthy company, people settling things on the spot, technology small and
+far back (Scale).
 
-- **Tone means automation.** In every drawn map a pale step is done by hand and
-  a dark step runs on its own. The balance holds through Declare however much
-  the map is argued over, and turns in Refactor. The sheet states the rule
-  once, as a legend under the loop: a pale swatch, a dark swatch, four words.
-  The maps themselves are never labelled.
+- **Tone means automation.** In every toned table a pale row is done by hand
+  and a dark row runs on its own. Every row is pale through Declare, and the
+  balance turns in Refactor. The sheet states the rule once, as a legend
+  under the loop: a pale swatch, a dark swatch, four words.
 - **A stage is set out as a demonstration**, the way a plate and its notes sit
   in a folio. On a wide screen the enunciation, the stage number and the
   premise, sits over the plate in the plate's column, and the commentary runs
   the stage's full height beside them, starting level with the enunciation.
-  The commentary has five parts, each in its own face, so the stage reads at
-  three speeds: the reasoning in the reading face, keyed to the position sheets it
-  rests on; the one decision the stage fixes, in the display face under a
-  hairline; the rules as numbered general notes, the rule in the heavier
-  weight and its reason after it; what it earns, in italic under a short rule,
-  as a position's consequence line; and the next question in mono.
+  The commentary has three parts, so the stage reads at three speeds with
+  the plate: the reasoning in the reading face, keyed to the position sheets
+  it rests on; the notes as numbered general notes, the rule in the heavier
+  weight and its reason after it, only for what the plate cannot show; and
+  the next question in mono. The decision the stage fixes is in the plate,
+  never captioned.
 - **Keys.** A sentence that rests on a position carries that sheet's number
   after it, small, in mono, raised, linking to the sheet. Keys are two-digit
   like the sheets; note numerals are plain, so the two are never confused.
 - **Terms.** One term per stage is marked in italic where it is defined:
-  stream, record, limit, holds, load.
-- The founder appears only in the founder portrait, never in a consulting
-  scene. The scenes show the client's people and teams at work; a recurring
-  face would read as a one-person shop.
+  stream, as made, limit, holds, load.
+- The founder appears only in the founder portrait, never in the Scale
+  scene. The scene shows the client's people at work; a recurring face would
+  read as a one-person shop.
 - The loop is the control at every width: beside the stage on wide screens,
   pinned above it on a phone. A stage is chosen from the loop, by its own next
   question, by arrow keys, or on a phone by a sideways swipe; it changes in
@@ -143,8 +157,8 @@ things on the spot, technology small and far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
-- The sheet opens with the method as its headline and one reading line
-  under it, as the cover does.
+- The sheet opens with the method as its headline, and nothing under it but
+  the loop and the first stage: the plates teach the seed.
 - A whole step (loop, enunciation, plate, commentary, next question) fits on
   one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
   pinned loop, the premise and the scene sit on the first screen, and the
@@ -160,9 +174,12 @@ things on the spot, technology small and far back (Scale).
 - Product covers and plates sit as objects: a contact edge and a soft fall of
   light (`box-shadow`), served as AVIF/WebP at 2×.
 - Tall (book) leads; wide (software plates) support at half weight.
-- Pencil scenes and the founder portrait share one hand and the site's paper,
-  and dissolve into the sheet at their edges. They are generated from
-  `brand/illustrations/` with the founder portrait as the style reference.
+- The Scale scene and the founder portrait share one hand and the site's
+  paper, and dissolve into the sheet at their edges. They are generated from
+  `brand/illustrations/` with the founder portrait as the style reference;
+  the scene masters live in `src/assets/cycle/`.
+- Nothing on the site is named for consulting: the sheet is _What it takes_,
+  its anchor is `#what-it-takes`, the component is the cycle.
 - No invented illustrations. A drawing appears only where it carries something
   words cannot.
 

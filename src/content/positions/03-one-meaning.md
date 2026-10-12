@@ -2,7 +2,6 @@
 sheet: 3
 short: Three answers to one question
 position: People quietly fix what systems disagree on. Agents can’t.
-consequence: Give agents one definition, and every system acts on it.
 proof:
   - kind: table
     columns: [System, An active customer]
@@ -14,5 +13,5 @@ proof:
     code: |
       class ActiveCustomer(State):
           customer: Customer
-      # one definition, every system
+          paid: Payment  # the proof, within 90 days
 ---

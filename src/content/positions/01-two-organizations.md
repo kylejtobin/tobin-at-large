@@ -2,7 +2,6 @@
 sheet: 1
 short: On paper and in practice
 position: "Every company runs twice: on paper, and in practice."
-consequence: An agent only gets the version on paper.
 proof:
   - kind: table
     columns: [On paper, In practice]

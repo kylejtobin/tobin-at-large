@@ -12,11 +12,11 @@ import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
-import ConsultingCycle from "../components/ConsultingCycle.astro";
+import Cycle from "../components/Cycle.astro";
 
-const view = "AI can only run what’s written down.";
+const view = "AI can run only the decisions a company has already made.";
 const consequence =
-  "Most of how a company works never was. Some of it was too much to write. Some of it would name a rule someone breaks to get the work done. An AI pilot gets the written part and stalls on the rest.";
+  "Most of a company’s decisions are made when the case arrives, by whoever it arrives to.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 // the same first step the cycle ends on
@@ -128,24 +128,17 @@ const structuredData = {
     ))
   }
 
-  <Drawing id="consulting" number={no(after)} label="What it takes">
-    <div class="consulting">
+  <Drawing id="what-it-takes" number={no(after)} label="What it takes">
+    <div class="method">
       <p class="mono-label">What it takes</p>
-      <h2>
-        Write down the judgment that runs one stream, decision by decision.
-      </h2>
-      <p class="thesis">
-        An agent can hold only what is written: who decides, on which facts, up
-        to where. Everything else a person supplies by judgment as the case
-        arrives, and only that person can write it down.
-      </p>
-      <ConsultingCycle />
+      <h2>Make one stream’s decisions before its cases arrive.</h2>
+      <Cycle />
     </div>
   </Drawing>
 
   <Drawing id="work" number={no(after + 1)} label="Work">
     <div class="work">
-      <h2 class="work-head">Written down, and built.</h2>
+      <h2 class="work-head">Argued, and built.</h2>
       {
         book && (
           <figure class="hero-item">
@@ -229,11 +222,6 @@ const structuredData = {
           <strong>Kyle J. Tobin</strong> founded TAL to build organizations the way
           they will now have to run: whole, explicit, and executable, from the authority
           at the top to the code underneath.
-        </p>
-        <p class="statement-body">
-          He thinks in both directions at once. Every decision he makes about an
-          organization is already a design for its software, and every line of
-          software he writes is already a decision about the organization.
         </p>
         <div class="start-actions">
           <a class="cta" href={oneStream}>Start with one stream</a>
@@ -485,22 +473,15 @@ const structuredData = {
   }
 
   /* ---- what it takes: the claim, then the cycle taught ---- */
-  .consulting h2 {
-    margin: 0.4rem 0 1rem;
+  .method h2 {
+    margin: 0.4rem 0 2.25rem;
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2rem, 3.6vw, 3.1rem);
     line-height: 1.1;
     letter-spacing: -0.008em;
+    max-width: 24ch;
     text-wrap: balance;
-  }
-  .consulting .thesis {
-    margin: 0 0 2.25rem;
-    font-size: clamp(1.15rem, 1.5vw, 1.32rem);
-    line-height: 1.5;
-    color: var(--ink-light);
-    max-width: 42rem;
-    text-wrap: pretty;
   }
 
   /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */
@@ -511,7 +492,7 @@ const structuredData = {
     row-gap: 2rem;
     align-items: center;
   }
-  /* drawn on the sheet like the consulting scenes: its edges dissolve into
+  /* drawn on the sheet like the Scale scene: its edges dissolve into
      the paper rather than sitting as a plate */
   .portrait :global(img) {
     display: block;
@@ -535,13 +516,6 @@ const structuredData = {
   .statement-lead strong {
     font-weight: 500;
   }
-  .statement-body {
-    margin-top: 1.25rem;
-    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
-    line-height: 1.55;
-    color: var(--ink-light);
-  }
-
   /* the door sits under the founder's statement */
   .start-actions {
     margin-top: 2rem;

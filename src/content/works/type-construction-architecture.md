@@ -2,7 +2,7 @@
 kind: software
 label: Open-source method
 title: Type Construction Architecture
-line: "Software built from the record: each type is the limit and the instruction at once, so agents write it at full speed and get it right."
+line: "A method in which the type is the limit: what it does not admit cannot be built, so an agent working from the types works inside them."
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png

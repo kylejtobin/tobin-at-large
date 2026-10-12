@@ -2,7 +2,7 @@
 kind: software
 label: Open-source language
 title: ONTOK
-line: "The record, written as code: the kinds of things an organization has, and a fact exists in it only once it is proven."
+line: "A language in which an organization’s kinds are types and its facts are values that exist only once they are proven."
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
