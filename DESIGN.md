@@ -94,10 +94,11 @@ things on the spot, technology small and far back (Scale).
   once, as a legend under the loop: a pale swatch, a dark swatch, four words.
   The maps themselves are never labelled.
 - **A stage is set out as a demonstration**, the way a plate and its notes sit
-  in a folio. The enunciation runs across the stage: the stage number and the
-  premise. Under it the plate and its commentary hang from one top edge. The
-  commentary has five parts, each in its own face, so the stage reads at three
-  speeds: the reasoning in the reading face, keyed to the position sheets it
+  in a folio. On a wide screen the enunciation, the stage number and the
+  premise, sits over the plate in the plate's column, and the commentary runs
+  the stage's full height beside them, starting level with the enunciation.
+  The commentary has five parts, each in its own face, so the stage reads at
+  three speeds: the reasoning in the reading face, keyed to the position sheets it
   rests on; the one decision the stage fixes, in the display face under a
   hairline; the rules as numbered general notes, the rule in the heavier
   weight and its reason after it; what it earns, in italic under a short rule,
@@ -117,6 +118,8 @@ things on the spot, technology small and far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
+- The sheet opens with the method as its headline and one reading line
+  under it, as the cover does.
 - A whole step (loop, enunciation, plate, commentary, next question) fits on
   one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
   pinned loop, the premise and the scene sit on the first screen, and the

@@ -42,26 +42,27 @@ const stages = [
     id: "see",
     name: "See",
     premise:
-      "The work that matters most crosses every department and belongs to none of them.",
+      "The work a customer is owed crosses every department and belongs to none of them.",
     reason:
-      "Departments are the organization on paper.{01} The work someone is owed runs across them, and the handoffs between them are what was never written down. So the unit is one *stream*, from what starts it to what it owes at the end.",
-    fixed: "Fixed now: only the two ends of the stream.",
+      "Each department writes down its own part.{01} The handoff between two departments belongs to neither, so neither writes it, and a person carries each case across it by judgment: the one who knows to call finance, the desk that settles the exception. A *stream* is the path those handoffs lie along, from the event that starts it, an order placed or a claim filed, to what the customer is owed at the end.",
+    fixed:
+      "Decided here: the two ends of the stream, and nothing between them.",
     notes: [
       {
-        rule: "Everything between the ends stays open,",
-        why: "because it is not yet known,{01} and naming it early restates the paper version.",
+        rule: "Only the ends are fixed,",
+        why: "because only they were written by someone outside: the order or claim that arrives, and the promise it is owed. Everything between is paper and judgment mixed, which the next stage separates.",
       },
       {
         rule: "Nothing is reorganized,",
-        why: "because that moves the paper units and leaves the handoffs where they are.",
+        why: "because a reorganization moves departments, and the handoffs stay between whichever departments are now adjacent.",
       },
       {
-        rule: "Choose the stream its customers would feel first,",
-        why: "because the result is measured there.",
+        rule: "Choose the stream where customers wait,",
+        why: "because waiting is a case sitting with someone who has to decide or ask,{04} and that stream holds the most judgment to write down.",
       },
     ],
     earns:
-      "A bounded piece of work, its middle still unknown, and the obligation the stream will be held to.",
+      "One stream, its two ends fixed, and at the end of it the obligation everything after this is measured against.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -71,25 +72,25 @@ const stages = [
     premise:
       "The people doing the work are the only ones who know how it runs, and they show it only when it’s safe to.",
     reason:
-      "The organization in practice is known to the people doing it and to no document,{01} and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Written from them, case by case, it becomes the *record*.",
+      "A rule on paper was written in advance by someone who did not see every case. A case is that rule completed by judgment at the moment it ran.{01} Ask for the rule and you get the advance version. Ask about a case, who decided, what they looked at, what they decided, and whether that matched the paper, and you get the judgment with it. Written from cases, that is the *record*.",
     fixed:
-      "Fixed now: the record of practice is the true one. The chart, the policy and the map become intentions.",
+      "Decided here, before anyone is asked: the record of practice is the true one. The chart, the policy and the map become intentions.",
     notes: [
       {
-        rule: "Write it without blame,",
-        why: "because some of it went unwritten when saying it had a cost, and the record stays false until the cost is gone.",
+        rule: "The decision comes first,",
+        why: "because a workaround is a written rule a person overrode to get the work done, and whoever reports it is naming a rule they broke. Once the record is the truth, reporting it is reporting the rule.",
       },
       {
-        rule: "Done is when everyone who does the work agrees it is true,",
-        why: "not when it is complete or signed, because agreement is the only proof a claim about practice has.",
+        rule: "It is done when the people whose judgment it describes say it is theirs,",
+        why: "not when it is signed, because a signature is a rule written by someone who did not see the cases, which is what the paper was.",
       },
       {
         rule: "Nothing is automated yet,",
-        why: "because an agent given a record that is not yet true runs the paper version, and faster than people did.",
+        why: "because an agent built from the paper rule runs the advance version with the person who used to override it taken out of the loop, so the wrong rule now runs every time at the agent’s speed.",
       },
     ],
     earns:
-      "A true record, with the workarounds visible as design input instead of deviations, which is what agents will act on.",
+      "For each decision on the stream: who makes it in practice, on which facts, from which system, and up to where. That is what agents will act on.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -98,24 +99,24 @@ const stages = [
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
     reason:
-      "The tangle is between the steps, in the handoffs, the approvals and the exceptions settled at the next desk,{04} not in the steps themselves. Speed one step and its output reaches those handoffs sooner, where a person still fixes it by hand.{03} So the stream is redesigned whole, and each step goes to a person, software, or an agent.",
-    fixed: "Fixed now: who decides what, within what *limit*.",
+      "The back-and-forth in a stream is judgment supplied in gaps: an approval is a person deciding where nothing written reached, and a relay is status moved by hand because no one could see it.{04} Speed one step and cases reach those gaps sooner, where the same person decides at the same pace, so the queue grows. The stream is redesigned whole, and every decision on it is given one holder within a *limit*, the amount or the condition past which it returns to a person.",
+    fixed: "Decided here: who decides what, and up to where.",
     notes: [
       {
-        rule: "A step goes to an agent only when every decision in it has an owner and a limit,",
-        why: "because that is the form that can be handed over and taken back.{02}",
+        rule: "A decision determined entirely by facts goes to software. One determined by facts within a range goes to an agent inside the limit and a person beyond it,",
+        why: "because a limit is the one form of authority that can be handed over and taken back.{02} One that no one can yet write stays with a person.",
       },
       {
         rule: "Every term gets one definition,",
-        why: "because an agent acting across systems otherwise inherits one from each.{03}",
+        why: "because a fact with three was being chosen between by a person each time,{03} and every system is made to answer to the one.",
       },
       {
-        rule: "Every role sees what changes before anything is built,",
-        why: "because a design of work is true by the same test as a record of it, which is that the people who will do it agree.",
+        rule: "Every role sees the design before it is built,",
+        why: "because it moves decisions they hold, and they are the only people who can say whether what is written is the judgment they were using.",
       },
     ],
     earns:
-      "A design in which every automated step can be delegated, every meaning is single, and the carrying is designed out.{04}",
+      "The approvals that were only judgment in a gap are gone, the ones that remain are limits, and each limit is one line that says what to do and where to stop.",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
@@ -124,24 +125,25 @@ const stages = [
     name: "Prototype",
     premise: "Every redesign looks right on the wall.",
     reason:
-      "The redesign is new paper, and it will run twice until it has run once.{01} A design of work is proven only by running it. It *holds* when real cases go through it and come out as the design said.",
+      "The redesign is a claim: these decisions, within these limits, on these definitions, handle the cases. It is new paper, and it will run twice until it has run once.{01} It *holds* when cases go through it with no gap needing a person, and the cases that count are the exceptions the record found, because those are where judgment used to be needed.",
     fixed:
-      "Fixed now: what counts as proof. Nothing scales until it has held live.",
+      "Decided here: what counts as proof. Nothing scales until it has held live.",
     notes: [
       {
-        rule: "Run it live, beside the stream that still carries the load, and small:",
-        why: "live, because a simulation is paper; beside, so the customer keeps receiving; small, so a failed run costs little.",
+        rule: "Run it live, beside the old stream, on one case type or one region:",
+        why: "live, because invented cases hold only the judgment their inventor already knew; beside, because the old stream still carries everything the slice does not; small, because the cost of a failed run is the judgment a person supplies afterward to repair it.",
       },
       {
-        rule: "Build it from the same record the limits were written in,",
-        why: "because a second record reopens the gap.{01}",
+        rule: "Build it from the record itself, not from a requirements document written from it,",
+        why: "because a document written from the record is a second version, read by the builder instead of the first, and the two drift.{01} The decision table is the thing built.",
       },
       {
-        rule: "Each failure names a fact not yet written,",
-        why: "a limit set wrong{02} or a definition still plural.{03} Write it and run again.",
+        rule: "When a run fails, the fault is in the record:",
+        why: "a limit set wrong, so the agent decided what a person should have or sent up what it could have decided,{02} or a definition still plural.{03} Write the fact and run again.",
       },
     ],
-    earns: "A stream that has run, owned by the people who ran it.",
+    earns:
+      "A stream that has run through its exceptions, revised run by run by the people who will own it.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -151,25 +153,25 @@ const stages = [
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
     reason:
-      "The pilot ran beside the old stream, so the customer kept receiving from the old stream and nothing changed for them. The earlier stages exist so that the whole *load* can move.",
+      "A pilot handles a slice. Every other case still goes through the old stream, where judgment fills the gaps at the old pace, so for nearly every customer the wait is unchanged. The *load* is every case the stream receives, every day, exceptions included. Moving the whole of it is what the earlier stages were for, because only then is judgment supplied nowhere but at the limits, where it is written.",
     fixed:
-      "Fixed now: what counts as done. The old stream is retired once the new one has carried the load.",
+      "Decided here: what counts as done. The old stream is retired once the new one has carried the whole load through a round of its exceptions.",
     notes: [
       {
         rule: "The whole load, not a share,",
-        why: "because while both run the company runs twice{01} and people fix between them by hand.{03}",
+        why: "because while both streams run, people decide by hand which one a case belongs to and reconcile two records,{01} and the definitions drift apart again.{03}",
       },
       {
         rule: "Retiring the old stream is the sponsor’s decision,",
-        why: "because it removes the fallback and no one else can.",
+        why: "because it removes the fallback, after which a failing case cannot be handed back to people informally and has to be met at a limit, and the limits were cut from the sponsor’s authority.",
       },
       {
-        rule: "Measure what the customer gets,",
-        why: "the obligation named at the start.",
+        rule: "Measure what the customer gets:",
+        why: "the time from the trigger to the obligation met, because waiting was judgment in a gap, and the share of cases completed without a person stepping in, because that is how much of the stream is now written.",
       },
     ],
     earns:
-      "On that stream the organization delivers what it exists to deliver, and its managers stop carrying its decisions.{04}",
+      "On that stream the managers stop approving, relaying and chasing, because those gaps no longer exist, and what they hold is the limits, which they set and revise.{04}",
     next: "Which stream is next?",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },
@@ -227,9 +229,14 @@ const innerC = {
   x: C + (R - 34) * Math.cos((-90 + 3 * 72) * (Math.PI / 180)),
   y: C + (R - 34) * Math.sin((-90 + 3 * 72) * (Math.PI / 180)),
 };
-// the arrowhead that closes the loop, just before SEE
+// the arrowhead that closes the loop, just before SEE; the small loop's
+// head is the same mark at the same place on its own circle, smaller
 const closeA = (-90 - 14) * (Math.PI / 180);
 const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
+const innerClose = {
+  x: innerC.x + innerR * Math.cos(closeA),
+  y: innerC.y + innerR * Math.sin(closeA),
+};
 ---
 
 <div class="cycle" data-cycle>
@@ -245,7 +252,9 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
         ></circle>
         <path
           class="loop-inner-head"
-          d={`M ${f(innerC.x + innerR)} ${f(innerC.y)} l -4 -6 l 8 0 z`}></path>
+          d={`M ${f(innerClose.x)} ${f(innerClose.y)} l 5 -3 l -1 6 z`}
+          transform={`rotate(-14 ${f(innerClose.x)} ${f(innerClose.y)})`}
+        ></path>
       </svg>
       <div class="balloons" role="group" aria-label="Stages of the cycle">
         {
@@ -551,8 +560,8 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     gap: 0;
     align-content: start;
     max-width: 34rem;
-    font-size: clamp(1.02rem, 1.25vw, 1.12rem);
-    line-height: 1.48;
+    font-size: clamp(1rem, 1.2vw, 1.08rem);
+    line-height: 1.45;
     color: var(--ink-light);
     text-wrap: pretty;
   }
@@ -884,15 +893,19 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
       width: 236px;
     }
     .interactive .state {
-      grid-template-columns: minmax(0, 11fr) minmax(0, 10fr);
+      grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
+      grid-template-rows: auto 1fr;
       grid-template-areas:
-        "head head"
+        "head notes"
         "plate notes";
-      column-gap: clamp(1.5rem, 3vw, 2.5rem);
-      row-gap: 1.25rem;
+      column-gap: clamp(1.5rem, 3vw, 2.75rem);
+      row-gap: 1.1rem;
     }
     .interactive .enunciation {
       grid-area: head;
+    }
+    .interactive .premise {
+      max-width: 22ch;
     }
     .interactive .exhibit {
       grid-area: plate;
@@ -900,12 +913,13 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     }
     .interactive .commentary {
       grid-area: notes;
-      /* the notes start level with the plate's top edge */
-      margin-top: 0.1rem;
+      max-width: none;
+      /* the notes start level with the enunciation's cap line */
+      margin-top: 0.15rem;
     }
     /* the two scenes that are built of several drawings keep their shape */
     .interactive .state-prototype .exhibit {
-      max-width: 24rem;
+      max-width: 22rem;
     }
     /* scale, the one scene with no map in it, is the working floor: cropped
        to the people in it */

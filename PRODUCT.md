@@ -2,9 +2,21 @@
 
 ## What TAL is
 
-**AI can only run what’s written down.** Most of how a company works
-never was; that gap is where AI pilots stall. **TAL makes organizations explicit**: from the authority at the top to
-the code underneath.
+**AI can only run what’s written down.** Most of how a company works never
+was; an AI pilot gets the written part and stalls on the rest. **TAL makes
+organizations explicit**: from the authority at the top to the code
+underneath.
+
+The seed everything on the page grows from: an organization is a set of
+decisions. What is written of a decision is who may make it, on which facts,
+up to where. What is not written a person supplies by judgment as the case
+arrives. An agent can hold only the written part. Handing work to agents is
+the conversion of judgment into what is written, one decision at a time, and
+only the person whose judgment it is can do it, where it is safe to say that
+it differs from the paper. A limit is where the conversion stops: inside it
+the written rule acts, past it judgment resumes with a person, which is why
+authority can be handed over and taken back by moving the line. The cycle is
+that conversion for one stream.
 
 TAL is a company that consults and builds products. The products and the
 consulting are one body of work: the products are the problems met in every
@@ -42,7 +54,9 @@ now. It is not a portfolio, a services menu, or a résumé.
 
 ## What it takes
 
-It teaches the method whole, and sells only by the reader coming to know it.
+The sheet opens with the method in one line, _Write down the judgment that
+runs one stream, decision by decision_, and one reading line that states the
+seed. It teaches the method whole, and sells only by the reader coming to know it.
 A teacher is a knowledge consultant: the reader who can follow the reasoning
 either does it or calls, and the reasoning is the evidence. Nothing is held
 back for a conversation; the door stays in the bar and on the founder sheet.
@@ -132,12 +146,12 @@ system.
 - **The Automated Organization** (book): the organization is the thing being
   transformed. Find the organization that actually operates; make its
   authority explicit enough to delegate; govern only what binds.
-- **ONTOK** (open-source language): the organization's operational world model
-  as code. A closed core every organization refines into its own kinds; a fact
-  exists only if it is proven.
-- **Type Construction Architecture** (open-source method): software correct by
-  construction. A type is both the limit and the instruction, so agents build
-  to it at full speed.
+- **ONTOK** (open-source language): the record, written as code. A closed core
+  every organization refines into its own kinds; a fact exists only if it is
+  proven.
+- **Type Construction Architecture** (open-source method): software built from
+  the record, correct by construction. A type is both the limit and the
+  instruction, so agents build to it at full speed.
 
 ## Working rules learned the hard way
 

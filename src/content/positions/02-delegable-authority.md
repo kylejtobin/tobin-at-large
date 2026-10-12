@@ -2,7 +2,7 @@
 sheet: 2
 short: What an agent may decide
 position: Authority no one wrote down can’t be handed to an agent.
-consequence: Written down, it can be handed over with a limit, and taken back.
+consequence: Written down with a limit, it can be handed over, and taken back by moving the limit.
 proof:
   - kind: struck
     as: speech

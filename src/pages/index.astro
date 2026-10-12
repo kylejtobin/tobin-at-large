@@ -16,7 +16,7 @@ import ConsultingCycle from "../components/ConsultingCycle.astro";
 
 const view = "AI can only run what’s written down.";
 const consequence =
-  "Most of how a company works never was. Some of it was too much to write. Some of it no one wanted to say. That gap is where AI pilots stall.";
+  "Most of how a company works never was. Some of it was too much to write. Some of it would name a rule someone breaks to get the work done. An AI pilot gets the written part and stalls on the rest.";
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 // the same first step the cycle ends on
@@ -131,7 +131,14 @@ const structuredData = {
   <Drawing id="consulting" number={no(after)} label="What it takes">
     <div class="consulting">
       <p class="mono-label">What it takes</p>
-      <h2>One stream of work, taken all the way to running.</h2>
+      <h2>
+        Write down the judgment that runs one stream, decision by decision.
+      </h2>
+      <p class="thesis">
+        An agent can hold only what is written: who decides, on which facts, up
+        to where. Everything else a person supplies by judgment as the case
+        arrives, and only that person can write it down.
+      </p>
       <ConsultingCycle />
     </div>
   </Drawing>
@@ -479,13 +486,21 @@ const structuredData = {
 
   /* ---- what it takes: the claim, then the cycle taught ---- */
   .consulting h2 {
-    margin: 0.4rem 0 2rem;
+    margin: 0.4rem 0 1rem;
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2rem, 3.6vw, 3.1rem);
     line-height: 1.1;
     letter-spacing: -0.008em;
     text-wrap: balance;
+  }
+  .consulting .thesis {
+    margin: 0 0 2.25rem;
+    font-size: clamp(1.15rem, 1.5vw, 1.32rem);
+    line-height: 1.5;
+    color: var(--ink-light);
+    max-width: 42rem;
+    text-wrap: pretty;
   }
 
   /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */
