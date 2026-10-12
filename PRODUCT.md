@@ -49,10 +49,14 @@ back for a conversation; the door stays in the bar and on the founder sheet.
 Each stage of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
 
 1. **A premise** the buyer can check against their own organization.
-2. **The reasoning**: why the premise forces this stage's one decision, what
-   exactly is fixed here and nothing more, and what it earns. Derived from
-   the positions, never from a case, a company, or a hypothetical.
-3. **The next question** their own reasoning asks, set as the way on.
+2. **The reasoning**: why the premise forces this stage, derived from the
+   positions and keyed to their sheets, never from a case, a company, or a
+   hypothetical. One term is defined here, and marked.
+3. **The decision**: the one thing this stage fixes, and nothing more.
+4. **The rules**, each with its reason, as the sheet's notes. As many as the
+   stage needs; never three by reflex.
+5. **What it earns**: the conclusion, the stage's consequence line.
+6. **The next question** their own reasoning asks, set as the way on.
 
 The subject of every sentence is the work, not TAL. No stage says _we_. Each
 stage is a decision the sponsor has to make: See fixes the unit, Declare

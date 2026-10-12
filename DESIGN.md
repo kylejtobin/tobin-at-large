@@ -90,7 +90,23 @@ things on the spot, technology small and far back (Scale).
 
 - **Tone means automation.** In every drawn map a pale step is done by hand and
   a dark step runs on its own. The balance holds through Declare however much
-  the map is argued over, and turns in Refactor. It is never labelled.
+  the map is argued over, and turns in Refactor. The sheet states the rule
+  once, as a legend under the loop: a pale swatch, a dark swatch, four words.
+  The maps themselves are never labelled.
+- **A stage is set out as a demonstration**, the way a plate and its notes sit
+  in a folio. The enunciation runs across the stage: the stage number and the
+  premise. Under it the plate and its commentary hang from one top edge. The
+  commentary has five parts, each in its own face, so the stage reads at three
+  speeds: the reasoning in the reading face, keyed to the position sheets it
+  rests on; the one decision the stage fixes, in the display face under a
+  hairline; the rules as numbered general notes, the rule in the heavier
+  weight and its reason after it; what it earns, in italic under a short rule,
+  as a position's consequence line; and the next question in mono.
+- **Keys.** A sentence that rests on a position carries that sheet's number
+  after it, small, in mono, raised, linking to the sheet. Keys are two-digit
+  like the sheets; note numerals are plain, so the two are never confused.
+- **Terms.** One term per stage is marked in italic where it is defined:
+  stream, record, limit, holds, load.
 - The founder appears only in the founder portrait, never in a consulting
   scene. The scenes show the client's people and teams at work; a recurring
   face would read as a one-person shop.
@@ -101,11 +117,10 @@ things on the spot, technology small and far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
-- A whole step (scene, premise, reasoning, next question) fits on one screen
-  at 1440×900 and 1280×800. On a phone (390×844, 360×740) the pinned loop,
-  the scene, the premise and the start of the reasoning sit on the first
-  screen, and the rest reads on under the loop; the reasoning is not cut to
-  fit.
+- A whole step (loop, enunciation, plate, commentary, next question) fits on
+  one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
+  pinned loop, the premise and the scene sit on the first screen, and the
+  commentary reads on under the loop; it is not cut to fit.
 - The last question returns to See. The loop's arrowhead already draws that
   return; the copy never exits the loop to the door.
 - Without script the five stages read in order. No scroll-jacking, ever.

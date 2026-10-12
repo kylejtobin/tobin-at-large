@@ -1,22 +1,25 @@
 ---
-// How TAL consults: one value stream, followed through the cycle in pencil,
-// by the people who do the work. Every map drawn in these scenes follows one
+// What it takes: one value stream, followed through the cycle in pencil, by
+// the people who do the work. Every map drawn in these scenes follows one
 // rule: a pale step is done by hand, a dark step runs on its own. The reader
 // sees the balance hold through Declare, however much the map is argued over,
-// and turn in Refactor.
+// and turn in Refactor. The sheet's legend states the rule once.
 //
-// Each stage is one step of a demonstration the reader completes: a premise
-// they can check against their own organization, the reasoning that makes
-// the stage's one decision necessary and what it earns, and the question
-// their own reasoning asks next, set as the way on. The stages teach the
-// method whole; nothing is held back for a conversation. The last question
-// returns to See, because the unit was one stream and there are others.
+// Each stage is a demonstration the reader can run without us, set out the
+// way a demonstration has always been set out: the premise they can check
+// against their own organization; the reasoning, keyed to the position
+// sheets it rests on; the one decision the stage fixes; its rules, each with
+// its reason, as the sheet's notes; what it earns, as the conclusion; and
+// the question their own reasoning asks next, as the way on. The last
+// question returns to See, because the unit was one stream and there are
+// others. Nothing is held back for a conversation.
 //
 // One DOM serves every reader. Without script the stages read in order as
 // small multiples. With script the loop is the control at every width: beside
 // the stage on wide screens, pinned above it on a phone, where a swipe also
 // turns the stage.
 import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
 import see from "../assets/consulting/see.jpg";
 import declareMain from "../assets/consulting/declare-main.jpg";
 import declare2 from "../assets/consulting/declare-2.jpg";
@@ -30,13 +33,35 @@ import proto3 from "../assets/consulting/proto-3.jpg";
 import proto4 from "../assets/consulting/proto-4.jpg";
 import scale from "../assets/consulting/scale.jpg";
 
+// ---- the stages ------------------------------------------------------------
+// In the reasoning, `{02}` keys the sentence to position sheet 02, and
+// `*record*` marks the term where it is defined. One term per stage.
+type Note = { rule: string; why: string };
 const stages = [
   {
     id: "see",
     name: "See",
     premise:
       "The work that matters most crosses every department and belongs to none of them.",
-    move: "Departments are the organization on paper. The work someone is owed runs across them, and the crossings are where it was never written down. So the unit is one stream, from what starts it to what it owes at the end, and those two things are all that is fixed now. Everything between them is what is not yet known. Nothing is reorganized; that moves the paper and leaves the crossings in place. Choose the stream its customers would feel first, because that is where the result will be seen.",
+    reason:
+      "Departments are the organization on paper.{01} The work someone is owed runs across them, and the crossings are where it was never written down. So the unit is one *stream*: from what starts it to what it owes at the end.",
+    fixed: "Fixed now: the two ends of the stream, and nothing else.",
+    notes: [
+      {
+        rule: "Everything between the ends stays open.",
+        why: "It is what is not yet known.{01} Naming it early restates the paper version.",
+      },
+      {
+        rule: "Nothing is reorganized.",
+        why: "That moves the paper and leaves the crossings where they are.",
+      },
+      {
+        rule: "Choose the stream its customers would feel first.",
+        why: "The cycle is measured there, at the end.",
+      },
+    ],
+    earns:
+      "A bounded piece of work with an honest middle, and the obligation everything after this is measured against.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -45,7 +70,26 @@ const stages = [
     name: "Declare",
     premise:
       "Only the people doing the work know how it really runs, and they show it only when it’s safe to.",
-    move: "The organization in practice exists nowhere but in the people doing it, and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Some of it went unwritten because saying it had a cost; remove the cost, or the record stays false. It is done when everyone who does the work agrees it is true. Not when it is complete, and not when it is signed. Nothing is automated yet. An agent given a record that is not yet true runs the paper version, faster.",
+    reason:
+      "The organization in practice exists nowhere but in the people doing it,{01} and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Written from them, case by case, it becomes the *record*.",
+    fixed:
+      "Fixed now: the record of practice is the true one. The chart, the policy and the map become intentions.",
+    notes: [
+      {
+        rule: "Without blame.",
+        why: "Some of it went unwritten because saying it had a cost. Remove the cost, or the record stays false.",
+      },
+      {
+        rule: "Done is when everyone who does the work agrees it is true.",
+        why: "Not when it is complete, and not when it is signed. Agreement is the only proof a claim about practice has.",
+      },
+      {
+        rule: "Nothing is automated yet.",
+        why: "An agent given a record that is not yet true runs the paper version, faster.",
+      },
+    ],
+    earns:
+      "The first true record, with the workarounds visible as design instead of deviation. It is what agents will act on.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -53,7 +97,25 @@ const stages = [
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    move: "The tangle is not in the steps. It is between them: the handoffs, the approvals, the exception settled at the next desk. Speed one step and its output reaches those crossings sooner, where a person still fixes it by hand. So the stream is redesigned whole, and each step goes to a person, software, or an agent. A step can go to an agent only when every decision in it is written with an owner and a limit, because that is what can be handed over and taken back. Every term gets one definition. And every role sees what changes before anything is built.",
+    reason:
+      "The tangle is not in the steps. It is between them: the handoffs, the approvals, the exception settled at the next desk.{04} Speed one step and its output reaches those crossings sooner, where a person still fixes it by hand.{03} So the stream is redesigned whole, and each step goes to a person, software, or an agent.",
+    fixed: "Fixed now: who decides what, within what *limit*.",
+    notes: [
+      {
+        rule: "A step goes to an agent only when every decision in it has an owner and a limit.",
+        why: "That is the form that can be handed over and taken back.{02}",
+      },
+      {
+        rule: "Every term gets one definition.",
+        why: "An agent acting across systems inherits three otherwise.{03}",
+      },
+      {
+        rule: "Every role sees what changes before anything is built.",
+        why: "A design of work is true by the same test as a record of it: the people who will do it agree.",
+      },
+    ],
+    earns:
+      "A design in which every automated step can be delegated, every meaning is single, and the carrying is designed out.{04}",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
@@ -61,7 +123,26 @@ const stages = [
     id: "prototype",
     name: "Prototype",
     premise: "Every redesign looks right on the wall.",
-    move: "The redesign is new paper, and it will run twice until it has run once. A design of work is proven only by running it: live, on real cases, beside the stream that still carries the load, and small enough that a failed run costs little. It is built from the same record the limits were written in; a second record reopens the gap. Each failure names a fact not yet written, a limit set wrong, a definition still plural. Write it, run again. The people who will own it run it, so by the time it holds, they already do.",
+    reason:
+      "The redesign is new paper, and it will run twice until it has run once.{01} A design of work is proven only by running it. It *holds* when real cases go through it and come out as the design said.",
+    fixed:
+      "Fixed now: what counts as proof. Nothing scales until it has held live.",
+    notes: [
+      {
+        rule: "Live, beside the stream that still carries the load, and small.",
+        why: "A simulation is paper. The customer keeps receiving meanwhile. A failed run has to cost little, or it reads as a verdict.",
+      },
+      {
+        rule: "Built from the same record the limits were written in.",
+        why: "A second record reopens the gap between paper and practice.{01}",
+      },
+      {
+        rule: "Each failure names a fact not yet written.",
+        why: "A limit set wrong,{02} a definition still plural.{03} Write it, run again.",
+      },
+    ],
+    earns:
+      "A stream that has run. The people who will own it ran it, so by the time it holds, they already do.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -70,11 +151,59 @@ const stages = [
     name: "Scale",
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
-    move: "It ran beside the old stream, so the customer kept receiving from the old stream. Nothing changed for the one the work is owed to. Moving the whole load is what the earlier stages were for, and retiring the old stream is the decision only the sponsor can make, because it removes the fallback. Done is when the new stream has carried the load, not when it launched, measured where it was named at the start: what the customer gets. With the stream written and visible, the decisions it needed carried stop needing carrying. What remains for its managers is leadership.",
+    reason:
+      "It ran beside the old stream, so the customer kept receiving from the old stream. Nothing changed for the one the work is owed to. Moving the whole *load* is what the earlier stages were for.",
+    fixed:
+      "Fixed now: what counts as done. The old stream is retired once the new one has carried the load.",
+    notes: [
+      {
+        rule: "The whole load, not a share.",
+        why: "While both run, the company runs twice,{01} and people quietly fix between them.{03}",
+      },
+      {
+        rule: "Retiring the old stream is the sponsor’s decision.",
+        why: "It removes the fallback. No one else can remove it.",
+      },
+      {
+        rule: "Measure where it was named at the start.",
+        why: "What the customer gets.",
+      },
+    ],
+    earns:
+      "The organization doing the thing it exists to do on that stream. The decisions it needed carried stop needing carrying; what remains for its managers is leadership.{04}",
     next: "Which stream is next?",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },
-] as const;
+] as const satisfies readonly {
+  id: string;
+  name: string;
+  premise: string;
+  reason: string;
+  fixed: string;
+  notes: readonly Note[];
+  earns: string;
+  next: string;
+  alt: string;
+}[];
+
+// ---- the keys: a sentence rests on a numbered sheet -------------------------
+const sheets = new Map(
+  (await getCollection("positions")).map(({ data }) => [
+    String(data.sheet).padStart(2, "0"),
+    data.short,
+  ]),
+);
+const escape = (t: string) =>
+  t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// `{02}` becomes a key to sheet 02; `*term*` marks the term where it is defined
+const mark = (t: string) =>
+  escape(t)
+    .replace(/\{(\d\d)\}/g, (_, n) => {
+      const short = sheets.get(n);
+      if (!short) throw new Error(`no position sheet ${n}`);
+      return `<a class="key" href="#position-${n}" aria-label="Sheet ${n}, ${escape(short)}" title="${escape(short)}">${n}</a>`;
+    })
+    .replace(/\*([^*]+)\*/g, "<dfn>$1</dfn>");
 const f = (n: number) => n.toFixed(1);
 
 // ---- the loop control ----------------------------------------------------
@@ -148,6 +277,12 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
           data-state={s.id}
           data-active={i === 0 ? "true" : "false"}
         >
+          <div class="enunciation">
+            <span class="mono-label">
+              {String(i + 1).padStart(2, "0")} · {s.name}
+            </span>
+            <span class="premise">{s.premise}</span>
+          </div>
           <div class="exhibit" role="img" aria-label={s.alt}>
             {s.id === "see" && (
               <Picture
@@ -219,12 +354,18 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
               />
             )}
           </div>
-          <figcaption>
-            <span class="mono-label">
-              {String(i + 1).padStart(2, "0")} · {s.name}
-            </span>
-            <span class="premise">{s.premise}</span>
-            <span class="move">{s.move}</span>
+          <figcaption class="commentary">
+            <p class="reason" set:html={mark(s.reason)} />
+            <p class="fixed" set:html={mark(s.fixed)} />
+            <ol class="notes" aria-label="Rules">
+              {s.notes.map((n) => (
+                <li>
+                  <span class="rule" set:html={mark(n.rule)} />{" "}
+                  <span class="why" set:html={mark(n.why)} />
+                </li>
+              ))}
+            </ol>
+            <p class="earns" set:html={mark(s.earns)} />
             <button
               type="button"
               class="next go"
@@ -252,6 +393,11 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
       ))
     }
   </div>
+
+  <p class="legend mono-label">
+    <span class="swatch pale" aria-hidden="true"></span> by hand
+    <span class="swatch dark" aria-hidden="true"></span> runs on its own
+  </p>
 </div>
 
 <script is:inline>
@@ -284,7 +430,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
         { duration: 380, easing: "cubic-bezier(0.2, 0.6, 0.2, 1)" },
       );
     };
-    // the next stage is drawn in full ink: the way on
+    // the next stage is drawn in full ink: the way on. after Scale, See.
     const select = (id) => {
       const dir = Math.sign(order.indexOf(id) - order.indexOf(selected));
       selected = id;
@@ -376,38 +522,145 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
 </script>
 
 <style>
-  /* ---- small multiples: the default for every reader ---- */
+  /* ---- the stage: enunciation across the top, then the plate and its
+     commentary hanging from one edge, as a plate and its notes do in a
+     folio. as small multiples (no script) every stage reads in order ---- */
   .states {
     display: grid;
-    gap: 2.5rem;
+    gap: 3rem;
   }
-  figcaption {
-    margin-top: 0.6rem;
+  .state {
     display: grid;
-    gap: 0.2rem;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.1rem;
   }
-  /* the premise the reader checks against their own organization, then the
-     reasoning that makes the stage's decision necessary */
+  .enunciation {
+    display: grid;
+    gap: 0.45rem;
+  }
+  /* the premise: what the reader checks against their own organization */
   .premise {
-    margin-top: 0.35rem;
     font-family: var(--font-display);
-    font-size: clamp(1.3rem, 2vw, 1.6rem);
-    line-height: 1.25;
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.22;
     color: var(--ink);
-    max-width: 30ch;
+    max-width: 34ch;
     text-wrap: balance;
   }
-  .move {
-    margin-top: 0.5rem;
-    font-size: clamp(1.1rem, 1.45vw, 1.25rem);
-    line-height: 1.5;
-    color: var(--ink-light);
+  .commentary {
+    display: grid;
+    gap: 0;
+    align-content: start;
     max-width: 34rem;
+    font-size: clamp(1.02rem, 1.25vw, 1.12rem);
+    line-height: 1.48;
+    color: var(--ink-light);
+    text-wrap: pretty;
+  }
+  /* the reasoning: keyed to the sheets it rests on */
+  .reason {
+    margin: 0;
+  }
+  /* the term, where it is defined */
+  .commentary :global(dfn) {
+    font-style: italic;
+    color: var(--ink);
+  }
+  /* a key to a position sheet, set like the sheet numbers in the index */
+  .commentary :global(.key) {
+    display: inline-block;
+    margin-left: 0.3em;
+    vertical-align: 0.42em;
+    font-family: var(--font-mono);
+    font-size: 0.58em;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    color: var(--ink-quiet);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-faint);
+    transition:
+      color 0.3s var(--ease),
+      border-color 0.3s var(--ease);
+  }
+  .commentary :global(.key:hover),
+  .commentary :global(.key:focus-visible) {
+    color: var(--ink);
+    border-color: var(--ink);
+    outline: none;
+  }
+  /* the one decision this stage fixes: the middle reading speed, set as a
+     claim under a hairline */
+  .fixed {
+    margin: 1rem 0 0;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line-faint);
+    font-family: var(--font-display);
+    font-size: 0.92em;
+    line-height: 1.38;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  /* the rules, numbered as a sheet's general notes: the rule dark and
+     short, its reason after it in the lighter face */
+  .notes {
+    list-style: none;
+    margin: 0.95rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    counter-reset: note;
+  }
+  .notes li {
+    counter-increment: note;
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    column-gap: 0.25rem;
+    align-items: baseline;
+    line-height: 1.42;
+  }
+  /* plain numerals: the two-digit form belongs to the sheets and their keys */
+  .notes li::before {
+    content: counter(note);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-quiet);
+    /* the numeral is a label, not reading: it sits off the baseline a hair */
+    transform: translateY(-0.1em);
+  }
+  .notes li > span {
+    grid-column: 2;
+  }
+  .notes .rule {
+    display: inline;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .notes .why {
+    display: inline;
+  }
+  /* what it earns: the conclusion, set like a position's consequence line,
+     under a short rule */
+  .earns {
+    position: relative;
+    margin: 1.15rem 0 0;
+    padding-top: 0.85rem;
+    font-style: italic;
+    font-size: 1.04em;
+    color: var(--ink-light);
+  }
+  .earns::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.25rem;
+    border-top: 1px solid var(--line);
   }
   /* the way on: the question the reader's own reasoning asks next */
   .next {
     justify-self: start;
-    margin-top: 0.6rem;
+    margin-top: 0.9rem;
     background: none;
     border: 0;
     border-bottom: 1px solid var(--line);
@@ -426,6 +679,25 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
   }
   .interactive .state button.next {
     display: inline-flex;
+  }
+
+  /* ---- the legend: the one rule every drawn map follows, stated once ---- */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 1.5rem 0 0;
+  }
+  .swatch {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.62em;
+    border: 1px solid var(--line);
+  }
+  .swatch.dark {
+    margin-left: 1em;
+    background: var(--ink);
+    border-color: var(--ink);
   }
 
   /* ---- the exhibits: pencil scenes, set into the sheet ---- */
@@ -584,49 +856,74 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     visibility: hidden;
   }
 
-  /* wide: the loop beside the stage. the whole step reads on one screen:
-     every scene stands one height, as tall as the screen allows */
+  /* wide: the loop beside the stage, the legend under the loop. the
+     enunciation runs across the stage; under it the plate and its
+     commentary hang from one edge, so the whole step reads on one screen */
   @media (min-width: 900px) {
-    .interactive {
-      --scene: clamp(17rem, 100svh - 33rem, 21.5rem);
-    }
     .cycle.interactive {
       display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      column-gap: clamp(2rem, 5vw, 4.5rem);
+      grid-template-columns: 236px minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(2rem, 4vw, 3.5rem);
       align-items: start;
     }
+    .interactive .loop-band {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .interactive .states {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+    .interactive .legend {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: 1.25rem;
+      justify-content: center;
+    }
     .interactive .loop {
-      width: 260px;
+      width: 236px;
     }
-    .interactive .state-see .exhibit,
-    .interactive .state-declare .exhibit {
-      max-width: calc(var(--scene) * 4 / 3);
+    .interactive .state {
+      grid-template-columns: minmax(0, 11fr) minmax(0, 10fr);
+      grid-template-areas:
+        "head head"
+        "plate notes";
+      column-gap: clamp(1.5rem, 3vw, 2.5rem);
+      row-gap: 1.25rem;
     }
-    .interactive .state-refactor .exhibit {
-      max-width: calc(var(--scene) * 16 / 9);
+    .interactive .enunciation {
+      grid-area: head;
     }
+    .interactive .exhibit {
+      grid-area: plate;
+      align-self: start;
+    }
+    .interactive .commentary {
+      grid-area: notes;
+      /* the notes start level with the plate's top edge */
+      margin-top: 0.1rem;
+    }
+    /* the two scenes that are built of several drawings keep their shape */
     .interactive .state-prototype .exhibit {
-      max-width: var(--scene);
+      max-width: 24rem;
     }
-    /* scale opens out: the one scene with no map in it runs past the text
-       column toward the sheet's edge, onto the working floor */
-    .interactive .state-scale .exhibit {
-      margin-right: calc(var(--gutter) * -0.5);
-    }
+    /* scale, the one scene with no map in it, is the working floor: cropped
+       to the people in it */
     .interactive .state-scale .exhibit :global(img) {
-      aspect-ratio: 2.75;
+      aspect-ratio: 1.45;
       object-fit: cover;
-      object-position: 50% 55%;
+      object-position: 42% 55%;
     }
   }
 
-  /* phone: the loop is pinned above the stage as one strip, and the whole
-     step (loop, scene, premise, move, way on) reads on one screen. each scene
-     is held to one height so the stages do not jump */
+  /* phone: the loop is pinned above the stage as one strip. the premise,
+     the scene and the start of the commentary sit on the first screen, and
+     the rest reads on under the loop. each scene is held to one height so
+     the stages do not jump */
   @media (max-width: 899px) {
     .interactive {
-      --scene: min(25svh, 15rem);
+      --scene: min(24svh, 15rem);
     }
     .interactive .loop-band {
       position: sticky;
@@ -678,8 +975,14 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
       touch-action: pan-y pinch-zoom;
       overscroll-behavior-x: contain;
     }
+    .interactive .state {
+      row-gap: 0.9rem;
+    }
+    /* a grid item with auto margins shrinks to its content, so the scene is
+       given its width and centred */
     .interactive .exhibit {
-      margin-inline: auto;
+      width: 100%;
+      justify-self: center;
     }
     .interactive .state-see .exhibit,
     .interactive .state-declare .exhibit {
@@ -703,19 +1006,24 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     .interactive .premise {
       font-size: 1.25rem;
     }
-    .interactive .move {
-      font-size: 1.06rem;
+    .interactive .commentary {
+      font-size: 1.02rem;
     }
     /* the way on, tall enough to tap */
     .interactive .next {
       padding-top: 0.7rem;
+    }
+    .legend {
+      justify-content: center;
+      margin-top: 1.75rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .interactive .state,
     .dot,
-    .balloon .name {
+    .balloon .name,
+    .commentary :global(.key) {
       transition: none;
     }
   }
