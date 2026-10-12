@@ -45,8 +45,7 @@ const stages = [
       "The work a customer is owed crosses every department and belongs to none of them.",
     reason:
       "Each department writes down its own part.{01} The handoff between two departments belongs to neither, so neither writes it, and a person carries each case across it by judgment: the one who knows to call finance, the desk that settles the exception. A *stream* is the path those handoffs lie along, from the event that starts it, an order placed or a claim filed, to what the customer is owed at the end.",
-    fixed:
-      "Decided here: the two ends of the stream, and nothing between them.",
+    fixed: "Decided here: the two ends of the stream.",
     notes: [
       {
         rule: "Only the ends are fixed,",
@@ -62,7 +61,7 @@ const stages = [
       },
     ],
     earns:
-      "One stream, its two ends fixed, and at the end of it the obligation everything after this is measured against.",
+      "One stream, and the obligation at its end that everything after this is measured against.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -78,7 +77,7 @@ const stages = [
     notes: [
       {
         rule: "The decision comes first,",
-        why: "because a workaround is a written rule a person overrode to get the work done, and whoever reports it is naming a rule they broke. Once the record is the truth, reporting it is reporting the rule.",
+        why: "because a workaround is a written rule a person overrode to get the work done, and whoever reports it is naming a rule they broke. Once the record is the truth, reporting a workaround records a rule instead of confessing to breaking one.",
       },
       {
         rule: "It is done when the people whose judgment it describes say it is theirs,",
@@ -108,7 +107,7 @@ const stages = [
       },
       {
         rule: "Every term gets one definition,",
-        why: "because a fact with three was being chosen between by a person each time,{03} and every system is made to answer to the one.",
+        why: "because a fact defined three ways was being chosen between by a person each time,{03} and every system is made to answer to the one.",
       },
       {
         rule: "Every role sees the design before it is built,",
@@ -135,7 +134,7 @@ const stages = [
       },
       {
         rule: "Build it from the record itself, not from a requirements document written from it,",
-        why: "because a document written from the record is a second version, read by the builder instead of the first, and the two drift.{01} The decision table is the thing built.",
+        why: "because a document written from the record is a second version, read by the builder instead of the first, and the two drift.{01} The builders work from the decision table, and the agents run it.",
       },
       {
         rule: "When a run fails, the fault is in the record:",
@@ -153,7 +152,7 @@ const stages = [
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
     reason:
-      "A pilot handles a slice. Every other case still goes through the old stream, where judgment fills the gaps at the old pace, so for nearly every customer the wait is unchanged. The *load* is every case the stream receives, every day, exceptions included. Moving the whole of it is what the earlier stages were for, because only then is judgment supplied nowhere but at the limits, where it is written.",
+      "A pilot handles a slice. Every other case still goes through the old stream, where judgment fills the gaps at the old pace, so for nearly every customer the wait is unchanged. The *load* is every case the stream receives, every day, exceptions included. The earlier stages exist so that the whole of it can move, because only then is judgment supplied nowhere but at the limits, where it is written.",
     fixed:
       "Decided here: what counts as done. The old stream is retired once the new one has carried the whole load through a round of its exceptions.",
     notes: [
@@ -163,7 +162,7 @@ const stages = [
       },
       {
         rule: "Retiring the old stream is the sponsor’s decision,",
-        why: "because it removes the fallback, after which a failing case cannot be handed back to people informally and has to be met at a limit, and the limits were cut from the sponsor’s authority.",
+        why: "because it removes the fallback: after it, a failing case cannot be handed back to people informally and has to be met at a limit, and only the sponsor holds the authority the limits were cut from.",
       },
       {
         rule: "Measure what the customer gets:",
