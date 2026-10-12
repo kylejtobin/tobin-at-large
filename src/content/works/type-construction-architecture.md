@@ -1,8 +1,8 @@
 ---
 kind: software
-label: Open-source method
+label: Open-source architecture
 title: Type Construction Architecture
-line: "A method in which the type is the limit: what it does not admit cannot be built, so an agent working from the types works inside them."
+line: "The type is the limit. If the type won’t admit it, the agent can’t build it."
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png

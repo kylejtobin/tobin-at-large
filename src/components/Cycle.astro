@@ -1,44 +1,41 @@
 ---
-// What it takes: one value stream, followed through the cycle. Each stage's
+// How we do it: one stream of work followed through the cycle. Each stage's
 // plate is the artifact the stage produces, drawn in the same grammar as the
-// positions' proofs and reusing their instances, so the reader meets the
-// same decision being made explicit stage by stage. Only Scale carries a
-// pencil scene: the working floor, which no table can show. Every toned
-// table follows one rule: a pale row is done by hand, a dark row runs on its
-// own. The sheet's legend states the rule once.
+// positions' proofs and reusing their instances. Only Scale carries a pencil
+// scene: the working floor, which no table can show. In a toned table a pale
+// row is done by hand and a dark row runs on its own; the legend sits under
+// the tables it explains.
 //
-// Each stage is a demonstration the reader can run without us: the premise
-// they can check against their own organization; the plate; the reasoning,
-// keyed to the position sheets it rests on; notes for what the plate cannot
-// show, each rule with its reason; and the question their own reasoning asks
-// next, as the way on. The last question returns to See, because the unit
-// was one stream and there are others. Nothing is held back for a
-// conversation.
+// A stage is the premise the reader can check against their own company, the
+// plate, one or two sentences, notes only for what the plate cannot show, and
+// the way on. The last step is the door.
 //
 // One DOM serves every reader. Without script the stages read in order as
 // small multiples. With script the loop is the control at every width: beside
 // the stage on wide screens, pinned above it on a phone, where a swipe also
 // turns the stage.
 import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Proof from "./Proof.astro";
 import scale from "../assets/cycle/scale.jpg";
 
+interface Props {
+  // the door: where the last step leads
+  door: string;
+}
+const { door } = Astro.props;
+
 // ---- the stages ------------------------------------------------------------
-// In the reasoning, `{02}` keys the sentence to position sheet 02, and
-// `*limit*` marks the term where it is defined. One term per stage.
-type Note = { rule: string; why: string };
 type Plate = CollectionEntry<"positions">["data"]["proof"];
 type Stage = {
   id: string;
   name: string;
   premise: string;
-  reason: string;
-  notes: Note[];
-  next: string;
+  body: string;
+  notes: string[];
   // the artifact the stage produces, or (Scale) the one pencil scene
   plate?: Plate;
+  legend?: boolean;
   alt?: string;
 };
 const stages: Stage[] = [
@@ -46,9 +43,7 @@ const stages: Stage[] = [
     id: "see",
     name: "See",
     premise:
-      "The work a customer is owed crosses every department and belongs to none of them.",
-    reason:
-      "Each department made its decisions in advance for its own part.{01} At the handoff between two, no one did, so each case is decided there as it arrives, by the one who knows to call finance or the desk that settles the exception. A *stream* is the path those handoffs lie along, from the event that starts it to what the customer is owed at the end.",
+      "A customer’s request crosses four departments. Nobody owns the path.",
     plate: [
       {
         kind: "stream",
@@ -57,29 +52,17 @@ const stages: Stage[] = [
         across: ["Sales", "Underwriting", "Finance", "Service"],
       },
     ],
+    body: "Each department decided its own part in advance. At every handoff, someone decides on the spot.",
     notes: [
-      {
-        rule: "Fix the two ends and nothing between,",
-        why: "because only the ends were set from outside, the event that arrives and what it is owed, and everything between is decided by whoever it reaches, which the next stage finds.",
-      },
-      {
-        rule: "Reorganize nothing,",
-        why: "because a reorganization moves departments, and the handoffs stay between whichever are now adjacent.",
-      },
-      {
-        rule: "Choose the stream where customers wait,",
-        why: "because a wait is a case sitting with someone who has to decide or ask,{04} and that stream holds the most decisions still made at arrival.",
-      },
+      "Start where customers wait longest. That’s where the most is decided on the spot.",
+      "Don’t reorganize. A reorg moves the boxes; the handoffs stay.",
     ],
-    next: "How does it run in practice?",
   },
   {
     id: "declare",
     name: "Declare",
     premise:
-      "The people doing the work are the only ones who know how it runs, and they show it only when it’s safe to.",
-    reason:
-      "A decision as written was made in advance by someone who did not see every case. A decision *as made* is in the case: who decided, on what they saw, up to what, and whether it matched the paper.{01} The cases are the evidence. The people who ran them are the only ones who can say where they decided, and they say it once practice is declared the true version, because until then it is a rule they broke.",
+      "Only the people doing the work know how it runs. They’ll show you once it’s safe to.",
     plate: [
       {
         kind: "table",
@@ -104,32 +87,22 @@ const stages: Stage[] = [
         tones: ["hand", "hand", "hand"],
       },
     ],
+    legend: true,
+    body: "The written rule was set by someone who never saw the cases. The real rule is in the cases: who decided, on what, up to how much.",
     notes: [
-      {
-        rule: "Declare practice the true version before anyone is asked,",
-        why: "because a workaround is a rule a person overrode to get the work done, and no one reports one until it is a decision to record instead of a rule they broke.",
-      },
-      {
-        rule: "It is done when the people who made the decisions say the table is theirs,",
-        why: "not when it is signed, because a signature is one more rule written by someone who did not see the cases.",
-      },
-      {
-        rule: "Nothing runs on its own yet,",
-        why: "because an agent built from the written column runs the wrong version at full speed, with the person who used to override it gone.",
-      },
+      "Declare the real version the true one before you ask, or nobody reports a workaround.",
+      "It’s done when the people who make the decisions say the table is right, not when it’s signed.",
+      "Automate nothing yet. An agent built from the written column runs the wrong version at full speed, with the person who used to override it gone.",
     ],
-    next: "What should each decision become?",
   },
   {
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    reason:
-      "The back-and-forth in a stream is decisions being made at arrival: an approval is a person deciding where nothing determinate reached, and a relay is status moved by hand because no one could see it.{04} Speed one step and cases reach those points sooner, where the same person decides at the same pace, so the queue grows. The stream is redesigned whole, and each decision on it is made determinate: one holder, facts that carry their proof,{03} and a *limit*, the amount or condition past which it returns to a person.{02}",
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "Holder", "On", "Limit"],
+        columns: ["Decision", "Who decides", "On what", "Limit"],
         rows: [
           [
             "Refund",
@@ -138,117 +111,70 @@ const stages: Stage[] = [
             "Up to $2,000",
           ],
           ["Refund", "Service lead", "The case", "Above $2,000"],
-          ["Active customer", "Software", "A payment within 90 days", "None"],
+          [
+            "Active customer",
+            "Software",
+            "A payment within 90 days",
+            "The fact decides",
+          ],
           [
             "Exception to policy",
             "A named person",
-            "The reason, recorded",
-            "Every case",
+            "The reason, logged",
+            "Any case",
           ],
         ],
         tones: ["auto", "hand", "auto", "hand"],
       },
     ],
+    legend: true,
+    body: "Speed up one step and cases just reach the next approver sooner. So the stream is redesigned whole, and every decision gets one holder, the facts it’s decided on, and a limit.",
     notes: [
-      {
-        rule: "A decision the facts determine goes to software; one they determine within a range goes to an agent inside the limit and a person beyond it; one no one can yet make determinate stays with a person,",
-        why: "because a limit is the one form of authority that can be handed over and taken back.{02}",
-      },
-      {
-        rule: "Every term gets one proven definition,",
-        why: "because a fact defined three ways was being chosen between by a person each time.{03}",
-      },
-      {
-        rule: "Every role sees the table before it is built,",
-        why: "because it moves decisions they hold, and they are the only people who can say whether it is the decision they were making.",
-      },
+      "One definition per term, checked by the system, not typed by a person.",
+      "The people who hold these decisions today review the table before anything is built.",
     ],
-    next: "Will it hold in operation?",
   },
   {
     id: "prototype",
     name: "Prototype",
     premise: "Every redesign looks right on the wall.",
-    reason:
-      "The table is a claim: these holders, within these limits, on these facts, make the cases. It is new paper, and it will run twice until it has run once.{01} It *holds* when cases go through with no decision left to a person except at a limit, and the cases that count are the exceptions the last stage found, because those are where decisions were being made at arrival.",
     plate: [
       {
-        kind: "code",
-        code: [
-          "case              by          ran",
-          "inside the limit  the agent   held",
-          "past the limit    a person    held",
-          "unpaid order      the agent   wrong",
-          "# the limit was an amount;",
-          "# the fact was the payment",
-          "unpaid order      not built   held",
-        ].join("\n"),
+        kind: "table",
+        columns: ["Case", "Decided by", "Result"],
+        rows: [
+          ["Inside the limit", "The agent", "Correct"],
+          ["Past the limit", "A person", "Correct"],
+          [
+            "A refund on an unpaid order",
+            "The agent",
+            "Wrong. The limit was an amount; the fact was the payment.",
+          ],
+          ["The same order, again", "Can’t be built", "Correct"],
+        ],
       },
     ],
+    body: "Run it live, beside the old stream, on one case type. It holds when every case goes through with no person deciding except at a limit.",
     notes: [
-      {
-        rule: "Run it live, beside the old stream, on one case type or one region:",
-        why: "live, because invented cases carry only the decisions their inventor already knew; beside, because the old stream still carries what the slice does not; small, because a failed run is repaired by a person afterward.",
-      },
-      {
-        rule: "Build from the table itself, not from a requirements document written from it,",
-        why: "because the document is a second version, read by the builder instead of the first, and the two drift.{01}",
-      },
-      {
-        rule: "When a run fails, the fault is in the table:",
-        why: "a limit that admitted what it should not, or a fact still asserted instead of proven.{03} Make it determinate and run again; once the decision is a type, the same wrong case cannot be built.",
-      },
+      "Build from the table, not from a spec written about it. Two documents drift.",
+      "When a run fails the table is wrong: a limit that let something through, or a fact nobody checked. Fix it and run again. Once ‘paid’ is a type, a refund can’t be built without one.",
     ],
-    next: "What does it deliver at full load?",
   },
   {
     id: "scale",
     name: "Scale",
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
-    reason:
-      "A pilot handles a slice. Every other case still goes through the old stream, decided at arrival at the old pace, so for nearly every customer the wait is unchanged. The *load* is every case the stream receives, every day, exceptions included. The earlier stages exist so that the whole of it can move, because only then is every decision on the stream made in advance except at the limits, where a person makes it.",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
+    body: "A pilot handles a slice. For every other customer the wait is unchanged. The stream has moved when every case goes through it, exceptions included.",
     notes: [
-      {
-        rule: "The whole load, not a share,",
-        why: "because while both streams run, people decide by hand which one a case belongs to and reconcile two records,{01} and the definitions drift apart again.{03}",
-      },
-      {
-        rule: "Retiring the old stream is the sponsor’s decision,",
-        why: "because it removes the fallback: after it, a failing case cannot be handed back to people informally and has to be met at a limit, and only the sponsor holds the authority the limits were cut from.",
-      },
-      {
-        rule: "Measure what the customer gets:",
-        why: "the time from the event to the obligation met, because the wait was decisions made at arrival, and the share of cases that reach the obligation with no person deciding, because that is how much of the stream is now made in advance.",
-      },
-      {
-        rule: "What the managers hold is the limits, which they set and move,{04}",
-        why: "because approving, relaying and chasing were decisions made at arrival, and off the limits there are none left to make.",
-      },
+      "Retire the old stream. While both run, people hand-sort cases between them and the definitions drift again. That’s the sponsor’s call.",
+      "Measure two things: time from the event to what the customer asked for, and the share of cases no person touched.",
+      "Managers keep the limits. They set them and move them. The approving and chasing is gone.",
     ],
-    next: "Which stream is next?",
   },
 ];
 
-// ---- the keys: a sentence rests on a numbered sheet -------------------------
-const sheets = new Map(
-  (await getCollection("positions")).map(({ data }) => [
-    String(data.sheet).padStart(2, "0"),
-    data.short,
-  ]),
-);
-const escape = (t: string) =>
-  t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-// `{02}` becomes a key to sheet 02; `*term*` marks the term where it is defined
-const mark = (t: string) =>
-  escape(t)
-    .replace(/\{(\d\d)\}/g, (_, n) => {
-      const short = sheets.get(n);
-      if (!short) throw new Error(`no position sheet ${n}`);
-      return `<a class="key" href="#position-${n}" aria-label="Sheet ${n}, ${escape(short)}" title="${escape(short)}">${n}</a>`;
-    })
-    .replace(/\*([^*]+)\*/g, "<dfn>$1</dfn>");
 const f = (n: number) => n.toFixed(1);
 
 // ---- the loop control ----------------------------------------------------
@@ -338,6 +264,13 @@ const innerClose = {
           {s.plate ? (
             <div class="exhibit">
               <Proof proof={s.plate} />
+              {s.legend && (
+                <p class="legend mono-label">
+                  <span class="swatch pale" aria-hidden="true" /> by hand
+                  <span class="swatch dark" aria-hidden="true" /> runs on its
+                  own
+                </p>
+              )}
             </div>
           ) : (
             <div class="exhibit scene" role="img" aria-label={s.alt}>
@@ -352,47 +285,62 @@ const innerClose = {
             </div>
           )}
           <figcaption class="commentary">
-            <p class="reason" set:html={mark(s.reason)} />
-            <ol class="notes" aria-label="Rules">
+            <p class="body">{s.body}</p>
+            <ol class="notes">
               {s.notes.map((n) => (
                 <li>
-                  <span class="rule" set:html={mark(n.rule)} />{" "}
-                  <span class="why" set:html={mark(n.why)} />
+                  <span>{n}</span>
                 </li>
               ))}
             </ol>
-            <button
-              type="button"
-              class="next go"
-              data-next={stages[(i + 1) % stages.length].id}
-            >
-              {s.next}
-              <svg
-                viewBox="0 0 12 12"
-                width="0.62em"
-                height="0.62em"
-                aria-hidden="true"
+            {i + 1 < stages.length ? (
+              <button
+                type="button"
+                class="next go"
+                data-next={stages[i + 1].id}
               >
-                <path
-                  d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
+                Next: {stages[i + 1].name}
+                <svg
+                  viewBox="0 0 12 12"
+                  width="0.62em"
+                  height="0.62em"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            ) : (
+              <a class="next go" href={door}>
+                Start with one stream
+                <svg
+                  viewBox="0 0 12 12"
+                  width="0.62em"
+                  height="0.62em"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            )}
           </figcaption>
         </figure>
       ))
     }
   </div>
-
-  <p class="legend mono-label">
-    <span class="swatch pale" aria-hidden="true"></span> by hand
-    <span class="swatch dark" aria-hidden="true"></span> runs on its own
-  </p>
 </div>
 
 <script is:inline>
@@ -552,36 +500,8 @@ const innerClose = {
     color: var(--ink-light);
     text-wrap: pretty;
   }
-  /* the reasoning: keyed to the sheets it rests on */
-  .reason {
+  .body {
     margin: 0;
-  }
-  /* the term, where it is defined */
-  .commentary :global(dfn) {
-    font-style: italic;
-    color: var(--ink);
-  }
-  /* a key to a position sheet, set like the sheet numbers in the index */
-  .commentary :global(.key) {
-    display: inline-block;
-    margin-left: 0.3em;
-    vertical-align: 0.42em;
-    font-family: var(--font-mono);
-    font-size: 0.58em;
-    letter-spacing: 0.06em;
-    line-height: 1;
-    color: var(--ink-quiet);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line-faint);
-    transition:
-      color 0.3s var(--ease),
-      border-color 0.3s var(--ease);
-  }
-  .commentary :global(.key:hover),
-  .commentary :global(.key:focus-visible) {
-    color: var(--ink);
-    border-color: var(--ink);
-    outline: none;
   }
   /* the rules, numbered as a sheet's general notes: the rule dark and
      short, its reason after it in the lighter face */
@@ -614,14 +534,6 @@ const innerClose = {
   .notes li > span {
     grid-column: 2;
   }
-  .notes .rule {
-    display: inline;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .notes .why {
-    display: inline;
-  }
   /* the way on: the question the reader's own reasoning asks next */
   .next {
     justify-self: start;
@@ -645,13 +557,20 @@ const innerClose = {
   .interactive .state button.next {
     display: inline-flex;
   }
+  .state a.next {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--ink);
+    text-decoration: none;
+  }
 
   /* ---- the legend: the one rule every drawn map follows, stated once ---- */
   .legend {
     display: flex;
     align-items: center;
     gap: 0.5em;
-    margin: 1.5rem 0 0;
+    margin: 0.6rem 0 0;
   }
   .swatch {
     display: inline-block;
@@ -837,12 +756,6 @@ const innerClose = {
       grid-column: 2;
       grid-row: 1 / span 2;
     }
-    .interactive .legend {
-      grid-column: 1;
-      grid-row: 2;
-      margin-top: 1.25rem;
-      justify-content: center;
-    }
     .interactive .loop {
       width: 236px;
     }
@@ -983,17 +896,12 @@ const innerClose = {
     .interactive .next {
       padding-top: 0.7rem;
     }
-    .legend {
-      justify-content: center;
-      margin-top: 1.75rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .interactive .state,
     .dot,
-    .balloon .name,
-    .commentary :global(.key) {
+    .balloon .name {
       transition: none;
     }
   }

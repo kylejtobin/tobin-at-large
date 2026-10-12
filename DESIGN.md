@@ -56,11 +56,10 @@ added to it:
 - The position sheets alternate mirror, so turning a sheet is felt as a turn.
   The consequence line, in the reading face under the claim, is where the
   next sheet's question is left.
-- Sheet 05 reads at three speeds so the skimming reader is held: the premise
-  in the display face and the plate, the rules in the heavier weight, the
-  reasoning in the reading face. The next question, in mono, is the only
-  forward control on the sheet, and the loop shows at a glance how much is
-  left.
+- Sheet 05 reads at two speeds: the premise in the display face and the
+  plate, then the sentences and notes in the reading face. The next control,
+  in mono, is the only forward control on the sheet, and the loop shows at a
+  glance how much is left.
 - The door appears twice, in the bar and under the founder's name, and
   nowhere in the teaching.
 
@@ -130,23 +129,17 @@ far back (Scale).
 
 - **Tone means automation.** In every toned table a pale row is done by hand
   and a dark row runs on its own. Every row is pale through Declare, and the
-  balance turns in Refactor. The sheet states the rule once, as a legend
-  under the loop: a pale swatch, a dark swatch, four words.
+  balance turns in Refactor. The legend, a pale swatch, a dark swatch, four
+  words, sits under each table it explains.
 - **A stage is set out as a demonstration**, the way a plate and its notes sit
   in a folio. On a wide screen the enunciation, the stage number and the
   premise, sits over the plate in the plate's column, and the commentary runs
   the stage's full height beside them, starting level with the enunciation.
-  The commentary has three parts, so the stage reads at three speeds with
-  the plate: the reasoning in the reading face, keyed to the position sheets
-  it rests on; the notes as numbered general notes, the rule in the heavier
-  weight and its reason after it, only for what the plate cannot show; and
-  the next question in mono. The decision the stage fixes is in the plate,
-  never captioned.
-- **Keys.** A sentence that rests on a position carries that sheet's number
-  after it, small, in mono, raised, linking to the sheet. Keys are two-digit
-  like the sheets; note numerals are plain, so the two are never confused.
-- **Terms.** One term per stage is marked in italic where it is defined:
-  stream, as made, limit, holds, load.
+  The commentary is one or two sentences in the reading face, numbered notes
+  only for what the plate cannot show, and the way on in mono: "Next:
+  Declare", and on the last stage the door, "Start with one stream". The
+  decision the stage fixes is in the plate, never captioned. No keys, no
+  italic definitions.
 - The founder appears only in the founder portrait, never in the Scale
   scene. The scene shows the client's people at work; a recurring face would
   read as a one-person shop.
@@ -157,16 +150,17 @@ far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
-- The sheet opens with the method as its headline, and nothing under it but
-  the loop and the first stage: the plates teach the seed.
+- The sheet opens with the headline, one line saying what a stream is, and
+  the triage (software, agent inside a limit, person) in the ink, before the
+  loop and the first stage.
 - A whole step (loop, enunciation, plate, commentary, next question) fits on
   one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
   pinned loop, the premise and the scene sit on the first screen, and the
   commentary reads on under the loop; it is not cut to fit. When the teaching
   grows, the layout is solved (column split, plate size, type scale) before
   a word is cut, and the rule is not moved.
-- The last question returns to See. The loop's arrowhead already draws that
-  return; the copy never exits the loop to the door.
+- The loop's arrowhead draws the return to See. The last step's control is
+  the door.
 - Without script the five stages read in order. No scroll-jacking, ever.
 
 ## Images
@@ -178,8 +172,8 @@ far back (Scale).
   paper, and dissolve into the sheet at their edges. They are generated from
   `brand/illustrations/` with the founder portrait as the style reference;
   the scene masters live in `src/assets/cycle/`.
-- Nothing on the site is named for consulting: the sheet is _What it takes_,
-  its anchor is `#what-it-takes`, the component is the cycle.
+- The method sheet is _How we do it_, its anchor is `#how-we-do-it`, the
+  component is the cycle.
 - No invented illustrations. A drawing appears only where it carries something
   words cannot.
 
