@@ -4,6 +4,10 @@ The site is a **drawing set**. TAL designs the structure organizations run on,
 so its page is drafted like an architect's sheets: framed, precise, composed.
 The identity carries the authority; nothing on the page announces it.
 
+This file, with PRODUCT.md, is the record the page is checked against. A
+layout rule here is a constraint to solve for when content grows, not a line
+to rewrite to fit what was built.
+
 ## Principles
 
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
@@ -34,6 +38,27 @@ The identity carries the authority; nothing on the page announces it.
   the door under the statement: one action and the address. It is the last
   sheet.
 - **Footer**: copyright and profile links, small.
+
+## Drawing the reader through
+
+The arc in PRODUCT.md is carried by the drawing set itself, with no device
+added to it:
+
+- The cover's index is the one navigation on the site. Its four short names
+  are the steps of the argument, under the label that says what they have in
+  common.
+- Sheet numbers run as one set, so the reader always knows where they are and
+  that there is a next.
+- The position sheets alternate mirror, so turning a sheet is felt as a turn.
+  The consequence line, in the reading face under the claim, is where the
+  next sheet's question is left.
+- Sheet 05 reads at three speeds so the skimming reader is held: the premise
+  and decision in the display face, the rules in the heavier weight, the
+  reasoning in the reading face. The next question, in mono, is the only
+  forward control on the sheet, and the loop shows at a glance how much is
+  left.
+- The door appears twice, in the bar and under the founder's name, and
+  nowhere in the teaching.
 
 ## Sheets
 
@@ -123,7 +148,9 @@ things on the spot, technology small and far back (Scale).
 - A whole step (loop, enunciation, plate, commentary, next question) fits on
   one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
   pinned loop, the premise and the scene sit on the first screen, and the
-  commentary reads on under the loop; it is not cut to fit.
+  commentary reads on under the loop; it is not cut to fit. When the teaching
+  grows, the layout is solved (column split, plate size, type scale) before
+  a word is cut, and the rule is not moved.
 - The last question returns to See. The loop's arrowhead already draws that
   return; the copy never exits the loop to the door.
 - Without script the five stages read in order. No scroll-jacking, ever.
@@ -152,4 +179,7 @@ things on the spot, technology small and far back (Scale).
 
 Every change is checked by eye, not just by build: screenshots at desktop
 (1440×900) and phone (390×844), zero horizontal overflow, contrast measured on
-the darkest paper. `just check` before every push; push only on green.
+the darkest paper, and each stage of the cycle measured against the one-screen
+rule. Then the whole page is read top to bottom at reading pace, as a
+stranger would, and what held and what moved is reported. `just check` before
+every push; push only on green.

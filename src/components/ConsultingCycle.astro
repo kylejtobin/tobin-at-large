@@ -45,11 +45,12 @@ const stages = [
       "The work a customer is owed crosses every department and belongs to none of them.",
     reason:
       "Each department writes down its own part.{01} The handoff between two departments belongs to neither, so neither writes it, and a person carries each case across it by judgment: the one who knows to call finance, the desk that settles the exception. A *stream* is the path those handoffs lie along, from the event that starts it, an order placed or a claim filed, to what the customer is owed at the end.",
-    fixed: "Decided here: the two ends of the stream.",
+    fixed:
+      "Decided here: the two ends of the stream, and nothing between them.",
     notes: [
       {
-        rule: "Only the ends are fixed,",
-        why: "because only they were written by someone outside: the order or claim that arrives, and the promise it is owed. Everything between is paper and judgment mixed, which the next stage separates.",
+        rule: "The ends can be fixed now and the steps cannot,",
+        why: "because the ends were written by someone outside, the order or claim that arrives and the promise it is owed, and everything between is paper and judgment mixed, which the next stage separates.",
       },
       {
         rule: "Nothing is reorganized,",
