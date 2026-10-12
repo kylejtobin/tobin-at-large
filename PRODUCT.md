@@ -26,7 +26,7 @@ now. It is not a portfolio, a services menu, or a résumé.
 1. **Cover**: the point of view, stated as fact.
 2. **Positions**: each one a claim, a drawn proof, and at most one line for
    what the proof cannot show.
-3. **What We Do**: the cycle each value stream goes through, demonstrated.
+3. **What it takes**: the cycle each value stream goes through, taught.
 4. **Work**: the book, ONTOK, and TCA, as evidence that the positions are
    practiced. Each stands on its own.
 5. **Founder**: who he is, declared, and the door: one action and the
@@ -40,21 +40,33 @@ now. It is not a portfolio, a services menu, or a résumé.
 - Much of management is carrying decisions between people who can’t see the
   whole.
 
-## What We Do
+## What it takes
 
-It sells by demonstration the reader completes, not by description. Each stage
-of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
+It teaches the method whole, and sells only by the reader coming to know it.
+A teacher is a knowledge consultant: the reader who can follow the reasoning
+either does it or calls, and the reasoning is the evidence. Nothing is held
+back for a conversation; the door stays in the bar and on the founder sheet.
+Each stage of the cycle (See, Declare, Refactor, Prototype, Scale) carries:
 
 1. **A premise** the buyer can check against their own organization.
-2. **The move**: what the stage does, and what it earns.
+2. **The reasoning**: why the premise forces this stage's one decision, what
+   exactly is fixed here and nothing more, and what it earns. Derived from
+   the positions, never from a case, a company, or a hypothetical.
 3. **The next question** their own reasoning asks, set as the way on.
+
+The subject of every sentence is the work, not TAL. No stage says _we_. Each
+stage is a decision the sponsor has to make: See fixes the unit, Declare
+accepts the practiced organization as the true one, Refactor fixes who
+decides what within what limit, Prototype fixes what counts as proof, Scale
+fixes what counts as done.
 
 Scale is about the business, not the technology or the process design: the
 organization doing the thing it exists to do and delivering its value.
 
-The questions chain the stages into one argument. The last one becomes the
-conversation: _Start with one stream_. Never describe a stage flatly; each one
-must leave the reader wanting the next.
+The questions chain the stages into one argument. The last one, _Which stream
+is next?_, returns to See: the unit was one stream and there are others.
+Never describe a stage flatly; each one must leave the reader wanting the
+next.
 
 ## Voice: quiet authority
 
@@ -66,7 +78,7 @@ must leave the reader wanting the next.
 - **Offense, not defense.** Name the capability that becomes possible, not the
   failure prevented. Avoid defining value by _never_, _cannot_, _without_.
 - **No size or modesty words.** No _independent_, _small_, _boutique_.
-- **No selling.** What We Do demonstrates the work; it is not a services
+- **No selling.** What it takes teaches the work; it is not a services
   list. No tiers, no per-product asks.
 
 ## Say the unsaid, with dignity

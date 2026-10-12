@@ -1,7 +1,7 @@
 ---
 // TAL Company. The page is TAL's positions on what organizations are becoming,
 // drawn as a set: a cover that states the point of view and indexes the
-// positions, one sheet per position with its proof, what TAL does, the work
+// positions, one sheet per position with its proof, what it takes, the work
 // TAL has made, and the founder, whose sheet is the door.
 import { getCollection } from "astro:content";
 import { Picture } from "astro:assets";
@@ -128,9 +128,9 @@ const structuredData = {
     ))
   }
 
-  <Drawing id="consulting" number={no(after)} label="What We Do">
+  <Drawing id="consulting" number={no(after)} label="What it takes">
     <div class="consulting">
-      <p class="mono-label">What We Do</p>
+      <p class="mono-label">What it takes</p>
       <h2>One stream of work, taken all the way to running.</h2>
       <ConsultingCycle />
     </div>
@@ -477,7 +477,7 @@ const structuredData = {
     outline: none;
   }
 
-  /* ---- consulting: the claim, then the cycle drawn ---- */
+  /* ---- what it takes: the claim, then the cycle taught ---- */
   .consulting h2 {
     margin: 0.4rem 0 2rem;
     font-family: var(--font-display);

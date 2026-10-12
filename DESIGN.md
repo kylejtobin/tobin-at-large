@@ -78,7 +78,7 @@ explicit:
   what replaces it.
 - **Code** blocks are framed; a comment is set in the quiet ink.
 
-## What We Do: the cycle
+## What it takes: the cycle
 
 One value stream followed through the cycle in pencil scenes of the people
 doing the work: a small room naming the stream (See); a room arguing over the
@@ -101,8 +101,13 @@ things on the spot, technology small and far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
-- A whole step (scene, premise, move, next question) fits on one screen at
-  1440×900, 1280×800, 390×844, and 360×740.
+- A whole step (scene, premise, reasoning, next question) fits on one screen
+  at 1440×900 and 1280×800. On a phone (390×844, 360×740) the pinned loop,
+  the scene, the premise and the start of the reasoning sit on the first
+  screen, and the rest reads on under the loop; the reasoning is not cut to
+  fit.
+- The last question returns to See. The loop's arrowhead already draws that
+  return; the copy never exits the loop to the door.
 - Without script the five stages read in order. No scroll-jacking, ever.
 
 ## Images

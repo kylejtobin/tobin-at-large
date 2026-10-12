@@ -6,9 +6,11 @@
 // and turn in Refactor.
 //
 // Each stage is one step of a demonstration the reader completes: a premise
-// they can check against their own organization, what the stage does and
-// what it earns, and the question their own reasoning asks next, set as the
-// way on. The last question becomes the conversation.
+// they can check against their own organization, the reasoning that makes
+// the stage's one decision necessary and what it earns, and the question
+// their own reasoning asks next, set as the way on. The stages teach the
+// method whole; nothing is held back for a conversation. The last question
+// returns to See, because the unit was one stream and there are others.
 //
 // One DOM serves every reader. Without script the stages read in order as
 // small multiples. With script the loop is the control at every width: beside
@@ -34,7 +36,7 @@ const stages = [
     name: "See",
     premise:
       "The work that matters most crosses every department and belongs to none of them.",
-    move: "We start with the one stream customers would feel first, and agree on only two things: what starts it, and what it owes at the end. Nothing is reorganized to begin.",
+    move: "Departments are the organization on paper. The work someone is owed runs across them, and the crossings are where it was never written down. So the unit is one stream, from what starts it to what it owes at the end, and those two things are all that is fixed now. Everything between them is what is not yet known. Nothing is reorganized; that moves the paper and leaves the crossings in place. Choose the stream its customers would feel first, because that is where the result will be seen.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -43,7 +45,7 @@ const stages = [
     name: "Declare",
     premise:
       "Only the people doing the work know how it really runs, and they show it only when it’s safe to.",
-    move: "We write down the company in practice, workarounds and unspoken rules included, without blame, until everyone involved agrees it’s true. That record is what agents will act on.",
+    move: "The organization in practice exists nowhere but in the people doing it, and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Some of it went unwritten because saying it had a cost; remove the cost, or the record stays false. It is done when everyone who does the work agrees it is true. Not when it is complete, and not when it is signed. Nothing is automated yet. An agent given a record that is not yet true runs the paper version, faster.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -51,7 +53,7 @@ const stages = [
     id: "refactor",
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
-    move: "We redesign the stream whole. Every decision is written down with an owner and a limit, so it can go to an agent and come back, and every role sees what changes before anything is built.",
+    move: "The tangle is not in the steps. It is between them: the handoffs, the approvals, the exception settled at the next desk. Speed one step and its output reaches those crossings sooner, where a person still fixes it by hand. So the stream is redesigned whole, and each step goes to a person, software, or an agent. A step can go to an agent only when every decision in it is written with an owner and a limit, because that is what can be handed over and taken back. Every term gets one definition. And every role sees what changes before anything is built.",
     next: "Will it hold in operation?",
     alt: "A clean new map, most of its steps now dark, pinned alone on a sunlit wall.",
   },
@@ -59,7 +61,7 @@ const stages = [
     id: "prototype",
     name: "Prototype",
     premise: "Every redesign looks right on the wall.",
-    move: "We build it ourselves, run a bounded slice live beside the current process, and change it run by run with the people who will own it. It scales only once it holds.",
+    move: "The redesign is new paper, and it will run twice until it has run once. A design of work is proven only by running it: live, on real cases, beside the stream that still carries the load, and small enough that a failed run costs little. It is built from the same record the limits were written in; a second record reopens the gap. Each failure names a fact not yet written, a limit set wrong, a definition still plural. Write it, run again. The people who will own it run it, so by the time it holds, they already do.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -68,12 +70,11 @@ const stages = [
     name: "Scale",
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
-    move: "We move the whole load onto the new stream and retire the old one once the new one has carried it. Customers get the difference, and managers stop carrying the work and lead it.",
-    next: "Start with one stream",
+    move: "It ran beside the old stream, so the customer kept receiving from the old stream. Nothing changed for the one the work is owed to. Moving the whole load is what the earlier stages were for, and retiring the old stream is the decision only the sponsor can make, because it removes the fallback. Done is when the new stream has carried the load, not when it launched, measured where it was named at the start: what the customer gets. With the stream written and visible, the decisions it needed carried stop needing carrying. What remains for its managers is leadership.",
+    next: "Which stream is next?",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },
 ] as const;
-const inquiry = `mailto:contact@talco.dev?subject=${encodeURIComponent("One stream")}`;
 const f = (n: number) => n.toFixed(1);
 
 // ---- the loop control ----------------------------------------------------
@@ -224,49 +225,28 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
             </span>
             <span class="premise">{s.premise}</span>
             <span class="move">{s.move}</span>
-            {i < stages.length - 1 ? (
-              <button
-                type="button"
-                class="next go"
-                data-next={stages[i + 1].id}
+            <button
+              type="button"
+              class="next go"
+              data-next={stages[(i + 1) % stages.length].id}
+            >
+              {s.next}
+              <svg
+                viewBox="0 0 12 12"
+                width="0.62em"
+                height="0.62em"
+                aria-hidden="true"
               >
-                {s.next}
-                <svg
-                  viewBox="0 0 12 12"
-                  width="0.62em"
-                  height="0.62em"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            ) : (
-              <a class="next go start" href={inquiry}>
-                {s.next}
-                <svg
-                  viewBox="0 0 12 12"
-                  width="0.62em"
-                  height="0.62em"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M3 9 9 3M4.5 3H9v4.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </a>
-            )}
+                <path
+                  d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
           </figcaption>
         </figure>
       ))
@@ -309,7 +289,7 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
       const dir = Math.sign(order.indexOf(id) - order.indexOf(selected));
       selected = id;
       visited.add(id);
-      const next = order[order.indexOf(id) + 1];
+      const next = order[(order.indexOf(id) + 1) % order.length];
       buttons.forEach((b) => {
         const stage = b.dataset.stage;
         b.setAttribute("aria-pressed", String(stage === id));
@@ -406,8 +386,8 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     display: grid;
     gap: 0.2rem;
   }
-  /* the premise the reader checks against their own organization, then what
-     the stage does about it */
+  /* the premise the reader checks against their own organization, then the
+     reasoning that makes the stage's decision necessary */
   .premise {
     margin-top: 0.35rem;
     font-family: var(--font-display);
@@ -439,8 +419,8 @@ const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-  /* as small multiples every stage is visible at once, so only the last
-     question, the conversation, is a way on */
+  /* as small multiples every stage is visible at once and the loop drawing
+     already returns to See, so no question is a control */
   .state button.next {
     display: none;
   }
