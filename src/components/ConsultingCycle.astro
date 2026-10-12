@@ -44,24 +44,24 @@ const stages = [
     premise:
       "The work that matters most crosses every department and belongs to none of them.",
     reason:
-      "Departments are the organization on paper.{01} The work someone is owed runs across them, and the crossings are where it was never written down. So the unit is one *stream*: from what starts it to what it owes at the end.",
-    fixed: "Fixed now: the two ends of the stream, and nothing else.",
+      "Departments are the organization on paper.{01} The work someone is owed runs across them, and the handoffs between them are what was never written down. So the unit is one *stream*, from what starts it to what it owes at the end.",
+    fixed: "Fixed now: only the two ends of the stream.",
     notes: [
       {
-        rule: "Everything between the ends stays open.",
-        why: "It is what is not yet known.{01} Naming it early restates the paper version.",
+        rule: "Everything between the ends stays open,",
+        why: "because it is not yet known,{01} and naming it early restates the paper version.",
       },
       {
-        rule: "Nothing is reorganized.",
-        why: "That moves the paper and leaves the crossings where they are.",
+        rule: "Nothing is reorganized,",
+        why: "because that moves the paper units and leaves the handoffs where they are.",
       },
       {
-        rule: "Choose the stream its customers would feel first.",
-        why: "The cycle is measured there, at the end.",
+        rule: "Choose the stream its customers would feel first,",
+        why: "because the result is measured there.",
       },
     ],
     earns:
-      "A bounded piece of work with an honest middle, and the obligation everything after this is measured against.",
+      "A bounded piece of work, its middle still unknown, and the obligation the stream will be held to.",
     next: "Whose version of it is true?",
     alt: "Four people around a small table as one of them draws the first line of a map.",
   },
@@ -69,27 +69,27 @@ const stages = [
     id: "declare",
     name: "Declare",
     premise:
-      "Only the people doing the work know how it really runs, and they show it only when it’s safe to.",
+      "The people doing the work are the only ones who know how it runs, and they show it only when it’s safe to.",
     reason:
-      "The organization in practice exists nowhere but in the people doing it,{01} and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Written from them, case by case, it becomes the *record*.",
+      "The organization in practice is known to the people doing it and to no document,{01} and it is made of cases. Ask for the rule and you get the rule on paper. Ask about last week’s exception and you get the one that runs. Written from them, case by case, it becomes the *record*.",
     fixed:
       "Fixed now: the record of practice is the true one. The chart, the policy and the map become intentions.",
     notes: [
       {
-        rule: "Without blame.",
-        why: "Some of it went unwritten because saying it had a cost. Remove the cost, or the record stays false.",
+        rule: "Write it without blame,",
+        why: "because some of it went unwritten when saying it had a cost, and the record stays false until the cost is gone.",
       },
       {
-        rule: "Done is when everyone who does the work agrees it is true.",
-        why: "Not when it is complete, and not when it is signed. Agreement is the only proof a claim about practice has.",
+        rule: "Done is when everyone who does the work agrees it is true,",
+        why: "not when it is complete or signed, because agreement is the only proof a claim about practice has.",
       },
       {
-        rule: "Nothing is automated yet.",
-        why: "An agent given a record that is not yet true runs the paper version, faster.",
+        rule: "Nothing is automated yet,",
+        why: "because an agent given a record that is not yet true runs the paper version, and faster than people did.",
       },
     ],
     earns:
-      "The first true record, with the workarounds visible as design instead of deviation. It is what agents will act on.",
+      "A true record, with the workarounds visible as design input instead of deviations, which is what agents will act on.",
     next: "What should it become?",
     alt: "A team argues over a value stream map on the wall; over later sessions the map fills with notes and redrawn lines.",
   },
@@ -98,20 +98,20 @@ const stages = [
     name: "Refactor",
     premise: "Automating one step of a tangled stream only tangles it faster.",
     reason:
-      "The tangle is not in the steps. It is between them: the handoffs, the approvals, the exception settled at the next desk.{04} Speed one step and its output reaches those crossings sooner, where a person still fixes it by hand.{03} So the stream is redesigned whole, and each step goes to a person, software, or an agent.",
+      "The tangle is between the steps, in the handoffs, the approvals and the exceptions settled at the next desk,{04} not in the steps themselves. Speed one step and its output reaches those handoffs sooner, where a person still fixes it by hand.{03} So the stream is redesigned whole, and each step goes to a person, software, or an agent.",
     fixed: "Fixed now: who decides what, within what *limit*.",
     notes: [
       {
-        rule: "A step goes to an agent only when every decision in it has an owner and a limit.",
-        why: "That is the form that can be handed over and taken back.{02}",
+        rule: "A step goes to an agent only when every decision in it has an owner and a limit,",
+        why: "because that is the form that can be handed over and taken back.{02}",
       },
       {
-        rule: "Every term gets one definition.",
-        why: "An agent acting across systems inherits three otherwise.{03}",
+        rule: "Every term gets one definition,",
+        why: "because an agent acting across systems otherwise inherits one from each.{03}",
       },
       {
-        rule: "Every role sees what changes before anything is built.",
-        why: "A design of work is true by the same test as a record of it: the people who will do it agree.",
+        rule: "Every role sees what changes before anything is built,",
+        why: "because a design of work is true by the same test as a record of it, which is that the people who will do it agree.",
       },
     ],
     earns:
@@ -129,20 +129,19 @@ const stages = [
       "Fixed now: what counts as proof. Nothing scales until it has held live.",
     notes: [
       {
-        rule: "Live, beside the stream that still carries the load, and small.",
-        why: "A simulation is paper. The customer keeps receiving meanwhile. A failed run has to cost little, or it reads as a verdict.",
+        rule: "Run it live, beside the stream that still carries the load, and small:",
+        why: "live, because a simulation is paper; beside, so the customer keeps receiving; small, so a failed run costs little.",
       },
       {
-        rule: "Built from the same record the limits were written in.",
-        why: "A second record reopens the gap between paper and practice.{01}",
+        rule: "Build it from the same record the limits were written in,",
+        why: "because a second record reopens the gap.{01}",
       },
       {
-        rule: "Each failure names a fact not yet written.",
-        why: "A limit set wrong,{02} a definition still plural.{03} Write it, run again.",
+        rule: "Each failure names a fact not yet written,",
+        why: "a limit set wrong{02} or a definition still plural.{03} Write it and run again.",
       },
     ],
-    earns:
-      "A stream that has run. The people who will own it ran it, so by the time it holds, they already do.",
+    earns: "A stream that has run, owned by the people who ran it.",
     next: "What does it deliver at full load?",
     alt: "Engineers and business people building together, revising, laughing at a failed run, and watching it work.",
   },
@@ -152,25 +151,25 @@ const stages = [
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
     reason:
-      "It ran beside the old stream, so the customer kept receiving from the old stream. Nothing changed for the one the work is owed to. Moving the whole *load* is what the earlier stages were for.",
+      "The pilot ran beside the old stream, so the customer kept receiving from the old stream and nothing changed for them. The earlier stages exist so that the whole *load* can move.",
     fixed:
       "Fixed now: what counts as done. The old stream is retired once the new one has carried the load.",
     notes: [
       {
-        rule: "The whole load, not a share.",
-        why: "While both run, the company runs twice,{01} and people quietly fix between them.{03}",
+        rule: "The whole load, not a share,",
+        why: "because while both run the company runs twice{01} and people fix between them by hand.{03}",
       },
       {
-        rule: "Retiring the old stream is the sponsor’s decision.",
-        why: "It removes the fallback. No one else can remove it.",
+        rule: "Retiring the old stream is the sponsor’s decision,",
+        why: "because it removes the fallback and no one else can.",
       },
       {
-        rule: "Measure where it was named at the start.",
-        why: "What the customer gets.",
+        rule: "Measure what the customer gets,",
+        why: "the obligation named at the start.",
       },
     ],
     earns:
-      "The organization doing the thing it exists to do on that stream. The decisions it needed carried stop needing carrying; what remains for its managers is leadership.{04}",
+      "On that stream the organization delivers what it exists to deliver, and its managers stop carrying its decisions.{04}",
     next: "Which stream is next?",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
   },

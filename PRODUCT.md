@@ -2,7 +2,7 @@
 
 ## What TAL is
 
-**AI can only run what’s written down.** Most of how a company actually works
+**AI can only run what’s written down.** Most of how a company works
 never was; that gap is where AI pilots stall. **TAL makes organizations explicit**: from the authority at the top to
 the code underneath.
 
