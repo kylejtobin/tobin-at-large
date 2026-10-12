@@ -1,10 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(*)",
-      "Edit",
-      "Write",
-      "Read(*)",
+      "Read(//home/kyle/src/tobin-at-large/**)",
+      "Read(//home/kyle/src/the-automated-organization/**)",
+      "Read(//home/kyle/src/tca/**)",
+      "Read(//home/kyle/src/ontok/**)",
+      "Edit(//home/kyle/src/tobin-at-large/**)",
       "WebFetch(*)",
       "WebSearch(*)",
       "Agent(*)"
