@@ -17,7 +17,7 @@ proof:
   - kind: code
     code: |
       class Tenure(BaseModel):
-          """How long a customer has paid us."""
+          """How long she has paid us."""
 
           customer: Customer
           first_payment: SettledPayment
