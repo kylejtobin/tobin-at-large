@@ -15,16 +15,24 @@ const { proof } = Astro.props;
 // from the code in the quiet ink.
 const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const codeHtml = (code: string) =>
-  code
+// The model's config lines are set in the quiet ink too: real, kept, and
+// not what the reader is here to see; the docstring and the fields stay dark.
+const codeHtml = (code: string) => {
+  let config = false;
+  return code
     .trimEnd()
     .split("\n")
-    .map((line) =>
-      line.trimStart().startsWith("#")
+    .map((line) => {
+      const t = line.trimStart();
+      if (t.startsWith("model_config")) config = true;
+      const quiet = t.startsWith("#") || config;
+      if (config && t === ")") config = false;
+      return quiet
         ? `<span class="comment">${escape(line)}</span>`
-        : escape(line),
-    )
+        : escape(line);
+    })
     .join("\n");
+};
 // inside a cell, ~~the replaced way~~ is struck beside what replaces it
 const cellHtml = (cell: string) =>
   escape(cell).replace(/~~([^~]+)~~/g, "<s>$1</s>");

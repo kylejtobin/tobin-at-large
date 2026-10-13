@@ -9,7 +9,6 @@ proof:
       - "“Three years means three years paying us. I don’t care when she signed up.”"
   - kind: table
     columns: [System, Three years with us]
-    stack: true
     rows:
       - [CRM, "~~Account created~~"]
       - [Billing, First payment]

@@ -7,7 +7,10 @@ proof:
     columns: [Before, After]
     stack: true
     rows:
-      - ["~~Approves refunds over $500~~", Changes what a refund needs to exist]
+      - [
+          "~~Signs off on every fee waiver~~",
+          Changes what a fee waiver needs to exist,
+        ]
       - [
           "~~Asks Service how many are waiting~~",
           Reads the time from placed to settled,

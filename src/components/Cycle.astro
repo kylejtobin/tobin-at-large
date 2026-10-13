@@ -55,7 +55,7 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Judgment", "As written", "As practiced"],
+        columns: ["Outcome", "As written", "As practiced"],
         stack: true,
         rows: [
           [
@@ -185,8 +185,8 @@ const loop = stages.map((s, i) => {
     x: C + R * Math.cos(a),
     y: C + R * Math.sin(a),
     // label sits outside the circle
-    lx: C + (R + 30) * Math.cos(a),
-    ly: C + (R + 30) * Math.sin(a),
+    lx: C + (R + 26) * Math.cos(a),
+    ly: C + (R + 26) * Math.sin(a),
     anchor: Math.cos(a) > 0.2 ? "start" : Math.cos(a) < -0.2 ? "end" : "middle",
   };
 });
