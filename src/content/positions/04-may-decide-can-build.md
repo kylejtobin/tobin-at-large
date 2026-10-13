@@ -6,7 +6,8 @@ proof:
   - kind: code
     code: |
       class Refund(BaseModel):
-          """A refund of a paid order, for a reason."""
+          """A refund of a paid order,
+          for a reason."""
 
           order: PaidOrder
           reason: Reason
