@@ -545,9 +545,16 @@ const streamGeometry = (across: readonly string[]) => {
   // the two controls: land a case in its region; move the limit and watch
   // the void beyond it grow and shrink
   // this script is printed once per proof; the work is done once
-  if (!window.__talSpace) {
-    window.__talSpace = true;
+  // printed once per proof, in document order: each copy wires whatever
+  // plates are on the page by then, and a plate is wired once
+  {
+    const wire = (plate) => {
+      if (plate.dataset.wired) return false;
+      plate.dataset.wired = "true";
+      return true;
+    };
     document.querySelectorAll("[data-space='cases']").forEach((plate) => {
+      if (!wire(plate)) return;
       const svg = plate.querySelector("svg");
       const buttons = [...plate.querySelectorAll("[data-land]")];
       buttons.forEach((b) =>
@@ -582,6 +589,7 @@ const streamGeometry = (across: readonly string[]) => {
       );
     });
     document.querySelectorAll("[data-space='limit']").forEach((plate) => {
+      if (!wire(plate)) return;
       const svg = plate.querySelector("svg");
       const range = plate.querySelector("input[type='range']");
       const line = svg.querySelector(".limit");
