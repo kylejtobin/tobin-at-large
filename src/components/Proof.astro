@@ -578,6 +578,8 @@ const streamGeometry = (across: readonly string[]) => {
             c.style.transition = still ? "none" : "";
             c.style.setProperty("--dx", "0px");
             c.style.setProperty("--dy", "0px");
+            // it reddens only once it has landed on the void
+            setTimeout(() => (c.dataset.landed = "true"), still ? 0 : 700);
           }
           svg
             .querySelectorAll("[data-region]")

@@ -440,17 +440,10 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     text-anchor: middle;
     dominant-baseline: central;
   }
-  .case.onvoid circle {
-    fill: var(--signal);
-    stroke: var(--signal);
-  }
-  .case.onvoid text {
-    fill: var(--paper);
-  }
   /* a case on hatching is red, filled: only once it has landed there. a
      void case travels in ink like any other, and the red comes after the
      travel, so no red balloon ever crosses a box */
-  .case.onvoid circle,
+  .case.onvoid[data-landed="true"] circle,
   [data-stage="prototype"] .case.credit circle,
   .case[data-lost="true"] circle {
     fill: var(--signal);
@@ -460,7 +453,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       fill 0.3s var(--ease) 0.75s,
       stroke 0.3s var(--ease) 0.75s;
   }
-  .case.onvoid text,
+  .case.onvoid[data-landed="true"] text,
   [data-stage="prototype"] .case.credit text,
   .case[data-lost="true"] text {
     fill: var(--paper);

@@ -35,7 +35,7 @@ const stages: Stage[] = [
     name: "Declare",
     premise: "The people doing the work are the authority on the judgment.",
     notes: [
-      "Dana runs the returns desk. The policy binder says finance approves, a manager signs off, unpaid means decline. What she says is on the drawing, in her words, and it is the true version.",
+      "The binder says finance approves, a manager signs off, unpaid means decline. On the drawing is what Dana says, and it is the true version.",
       "It’s done when Dana reads it and says: yes, that’s what I do.",
     ],
   },
@@ -472,7 +472,8 @@ const innerClose = {
   @media (min-width: 900px) {
     .cycle.interactive {
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 300px minmax(0, 1fr);
       column-gap: clamp(2rem, 4vw, 3.5rem);
       align-items: start;
     }
@@ -482,13 +483,14 @@ const innerClose = {
     }
     .interactive .loop {
       width: 200px;
+      margin-inline: auto;
     }
     .interactive .stage {
       display: contents;
     }
     .interactive .plate {
       grid-column: 2;
-      grid-row: 1;
+      grid-row: 1 / span 2;
     }
     .interactive .loop-band {
       grid-column: 1;
@@ -497,8 +499,14 @@ const innerClose = {
     .interactive .words {
       grid-column: 1;
       grid-row: 2;
-      max-width: 22rem;
-      margin-top: 1.25rem;
+      margin-top: 1rem;
+    }
+    .interactive .premise {
+      font-size: 1.22rem;
+    }
+    .interactive .notes {
+      font-size: 1rem;
+      line-height: 1.38;
     }
   }
 
