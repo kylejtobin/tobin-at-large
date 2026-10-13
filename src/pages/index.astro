@@ -39,8 +39,9 @@ const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
     kind: "code",
     code: [
-      "Refund(order, proof, reason)     # built",
-      "FeeWaiver(order, proof, reason)  # built",
+      "Refund(order, proof, reason)",
+      "FeeWaiver(order, proof, reason)",
+      "# both built",
     ].join("\n"),
   },
   { kind: "struck", as: "code", lines: ["Refund(order=unpaid)  # not built"] },
