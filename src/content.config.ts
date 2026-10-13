@@ -28,6 +28,12 @@ const table = z.object({
   // on a phone, each row stacks its cells; for tables whose cells strike
   stack: z.boolean().optional(),
 });
+// the outcome space, drawn, with a control: the reader lands a case, or
+// moves the limit
+const space = z.object({
+  kind: z.literal("space"),
+  mode: z.enum(["cases", "limit"]),
+});
 const stream = z.object({
   kind: z.literal("stream"),
   from: z.string(),
@@ -70,7 +76,14 @@ const positions = defineCollection({
     key: z.string().optional(),
     proof: z
       .array(
-        z.discriminatedUnion("kind", [table, code, struck, stream, speech]),
+        z.discriminatedUnion("kind", [
+          table,
+          code,
+          struck,
+          stream,
+          speech,
+          space,
+        ]),
       )
       .min(1),
   }),

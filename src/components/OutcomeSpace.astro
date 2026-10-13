@@ -1,0 +1,438 @@
+---
+// The outcome space: the one drawing the method evolves and the ideas are
+// taught on. Drawn in the cover's hand: construction lines, hairline
+// regions, numbered balloons, mono lettering, the plates' red only for a
+// proof's mark.
+//
+// A region is an outcome that can exist, with what it exists only with as
+// its edge. Hatched ground is void: an outcome with no type to be. The
+// limit is an edge inside the refund. Cases are balloons that land in a
+// region; one that lands on void is the proof that the void is real.
+//
+// The drawing has states, chosen by `data-stage` on its root: every element
+// carries the stages it belongs to in `data-s`, and the stylesheet shows the
+// ones that match. The method page steps the stages with the loop; the
+// home page's sheets set one state and add a control.
+interface Props {
+  stage: "declare" | "refactor" | "prototype" | "scale" | "cases" | "limit";
+  id?: string;
+}
+const { stage, id } = Astro.props;
+
+// ---- geometry ------------------------------------------------------------
+// four regions on a 520 × 340 sheet, the refund wide, the limit inside it
+const refund = { x: 24, y: 48, w: 280, h: 150 };
+const limitX = 214; // the limit: refunds exist to the left of it
+const credit = { x: 322, y: 48, w: 174, h: 70 };
+const replacement = { x: 322, y: 128, w: 174, h: 70 };
+const waived = { x: 24, y: 216, w: 280, h: 62 };
+const unpaid = { x: 322, y: 216, w: 174, h: 62 }; // void: no refund of an unpaid order
+
+// the cases, numbered as the cover's index is, each landing in a region
+const cases = [
+  { no: "01", x: 184, y: 168, region: "refund" },
+  { no: "02", x: 278, y: 256, region: "waived" },
+  { no: "03", x: 470, y: 178, region: "replacement" },
+  { no: "04", x: 470, y: 96, region: "credit" },
+];
+const f = (n: number) => n.toFixed(1);
+---
+
+<svg
+  class="space"
+  viewBox="0 0 520 340"
+  data-stage={stage}
+  id={id}
+  role="img"
+  aria-label="The outcomes a case can land in, each with what it exists only with; the refund's limit; and the cases of the month landing in them"
+>
+  <defs>
+    <pattern
+      id="void-hatch"
+      width="7"
+      height="7"
+      patternUnits="userSpaceOnUse"
+      patternTransform="rotate(-45)"
+    >
+      <line x1="0" y1="0" x2="0" y2="7" class="hatch-line"></line>
+    </pattern>
+  </defs>
+
+  <!-- construction: the sheet's centre line, as the cover draws it -->
+  <g class="construct">
+    <path class="centre" d={`M -20 ${refund.y + refund.h + 9} H 540`}></path>
+    <path class="centre" d={`M ${refund.x + refund.w + 9} 20 V 320`}></path>
+  </g>
+
+  <!-- the regions: dashed where they are only what the desk said, solid once
+       they are what each outcome exists only with -->
+  <g class="regions">
+    <!-- refund -->
+    <rect
+      class="region"
+      data-s="declare"
+      x={refund.x}
+      y={refund.y}
+      width={refund.w}
+      height={refund.h}
+      stroke-dasharray="3 5"></rect>
+    <rect
+      class="region"
+      data-s="refactor prototype scale cases limit"
+      data-region="refund"
+      x={refund.x}
+      y={refund.y}
+      width={refund.w}
+      height={refund.h}></rect>
+    <text class="name" x={refund.x + 12} y={refund.y + 22}>Refund</text>
+    <text class="said" data-s="declare" x={refund.x + 12} y={refund.y + 44}>
+      “Order’s paid, customer’s waiting,
+    </text>
+    <text class="said" data-s="declare" x={refund.x + 12} y={refund.y + 60}>
+      it’s under what I’d sign.”
+    </text>
+    <text
+      class="edge"
+      data-s="refactor prototype scale cases limit"
+      x={refund.x + 12}
+      y={refund.y + 44}>a paid order · a reason</text
+    >
+    <text
+      class="edge"
+      data-s="refactor prototype scale cases limit"
+      x={refund.x + 12}
+      y={refund.y + 60}>an amount under the limit</text
+    >
+
+    <!-- the limit, and the void beyond it -->
+    <g class="limit-group" data-s="refactor prototype scale cases limit">
+      <rect
+        class="void"
+        data-void="over"
+        x={limitX}
+        y={refund.y + 1}
+        width={refund.x + refund.w - limitX - 1}
+        height={refund.h - 2}></rect>
+      <line
+        class="limit"
+        x1={limitX}
+        x2={limitX}
+        y1={refund.y - 10}
+        y2={refund.y + refund.h + 10}></line>
+      <text
+        class="limit-label"
+        x={limitX}
+        y={refund.y - 16}
+        text-anchor="middle">the limit</text
+      >
+      <text
+        class="void-label"
+        x={(limitX + refund.x + refund.w) / 2}
+        y={refund.y + refund.h / 2 + 4}
+        text-anchor="middle">no refund</text
+      >
+    </g>
+
+    <!-- credit: void until a manager adds it; on the home sheets it exists -->
+    <rect
+      class="void"
+      data-s="refactor prototype"
+      data-void="credit"
+      x={credit.x}
+      y={credit.y}
+      width={credit.w}
+      height={credit.h}></rect>
+    <rect
+      class="region added"
+      data-s="prototype"
+      x={credit.x}
+      y={credit.y}
+      width={credit.w}
+      height={credit.h}
+      stroke-dasharray="3 5"></rect>
+    <rect
+      class="region"
+      data-s="scale cases limit"
+      data-region="credit"
+      x={credit.x}
+      y={credit.y}
+      width={credit.w}
+      height={credit.h}></rect>
+    <text
+      class="name"
+      data-s="prototype scale cases limit"
+      x={credit.x + 12}
+      y={credit.y + 22}>Credit</text
+    >
+    <text
+      class="edge"
+      data-s="prototype scale cases limit"
+      x={credit.x + 12}
+      y={credit.y + 42}>a paid order</text
+    >
+    <text
+      class="edge"
+      data-s="prototype scale cases limit"
+      x={credit.x + 12}
+      y={credit.y + 56}>a reason</text
+    >
+    <text
+      class="added-label"
+      data-s="prototype"
+      x={credit.x + 86}
+      y={credit.y + 56}>added by a manager</text
+    >
+
+    <!-- replacement -->
+    <rect
+      class="region"
+      data-s="declare"
+      x={replacement.x}
+      y={replacement.y}
+      width={replacement.w}
+      height={replacement.h}
+      stroke-dasharray="3 5"></rect>
+    <rect
+      class="region"
+      data-s="refactor prototype scale cases limit"
+      data-region="replacement"
+      x={replacement.x}
+      y={replacement.y}
+      width={replacement.w}
+      height={replacement.h}></rect>
+    <text class="name" x={replacement.x + 12} y={replacement.y + 22}
+      >Replacement</text
+    >
+    <text
+      class="said"
+      data-s="declare"
+      x={replacement.x + 12}
+      y={replacement.y + 44}>“Invoice isn’t due. She still gets it.”</text
+    >
+    <text
+      class="edge"
+      data-s="refactor prototype scale cases limit"
+      x={replacement.x + 12}
+      y={replacement.y + 44}>proven stock</text
+    >
+
+    <!-- fee waived -->
+    <rect
+      class="region"
+      data-s="declare"
+      x={waived.x}
+      y={waived.y}
+      width={waived.w}
+      height={waived.h}
+      stroke-dasharray="3 5"></rect>
+    <rect
+      class="region"
+      data-s="refactor prototype scale cases limit"
+      data-region="waived"
+      x={waived.x}
+      y={waived.y}
+      width={waived.w}
+      height={waived.h}></rect>
+    <text class="name" x={waived.x + 12} y={waived.y + 22}>Fee waived</text>
+    <text class="said" data-s="declare" x={waived.x + 12} y={waived.y + 44}
+      >“Three years with us. I’m not charging her forty dollars.”</text
+    >
+    <text
+      class="edge"
+      data-s="refactor prototype scale cases limit"
+      x={waived.x + 12}
+      y={waived.y + 44}>the fee · how long she has paid</text
+    >
+
+    <!-- the void that is always void: a refund of an unpaid order -->
+    <g data-s="refactor prototype scale cases limit">
+      <rect
+        class="void"
+        x={unpaid.x}
+        y={unpaid.y}
+        width={unpaid.w}
+        height={unpaid.h}></rect>
+      <text
+        class="void-label"
+        x={unpaid.x + unpaid.w / 2}
+        y={unpaid.y + unpaid.h / 2 - 4}
+        text-anchor="middle">refund of an unpaid order</text
+      >
+      <text
+        class="void-label"
+        x={unpaid.x + unpaid.w / 2}
+        y={unpaid.y + unpaid.h / 2 + 12}
+        text-anchor="middle">not there</text
+      >
+    </g>
+  </g>
+
+  <!-- the cases: balloons landing in their regions. on the month's run the
+       credit case lands on void, in red; once the region exists it is ink -->
+  <g class="cases">
+    {
+      cases.map((c) => (
+        <g
+          class:list={["case", { onvoid: c.region === "credit" }]}
+          data-s={
+            c.region === "credit"
+              ? "prototype scale cases"
+              : "prototype scale cases"
+          }
+          data-case={c.no}
+        >
+          <circle cx={f(c.x)} cy={f(c.y)} r="12" />
+          <text x={f(c.x)} y={f(c.y)}>
+            {c.no}
+          </text>
+        </g>
+      ))
+    }
+  </g>
+</svg>
+
+<style>
+  .space {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .space :global(rect),
+  .space :global(line),
+  .space :global(path),
+  .space :global(circle) {
+    vector-effect: non-scaling-stroke;
+  }
+  .space text {
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+  .hatch-line {
+    stroke: rgba(26, 26, 26, 0.16);
+    stroke-width: 1;
+  }
+  .centre {
+    fill: none;
+    stroke: rgba(26, 26, 26, 0.24);
+    stroke-width: 1;
+    stroke-dasharray: 14 4 2 4;
+  }
+  .region {
+    fill: none;
+    stroke: rgba(26, 26, 26, 0.7);
+    stroke-width: 1;
+  }
+  .region.added {
+    stroke: var(--ink);
+  }
+  .void {
+    fill: url(#void-hatch);
+    stroke: none;
+  }
+  .name {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    fill: var(--ink);
+  }
+  .edge {
+    font-size: 10px;
+    fill: var(--ink-quiet);
+  }
+  .said {
+    font-size: 10px;
+    font-family: var(--font-body);
+    font-style: italic;
+    letter-spacing: 0;
+    fill: var(--ink);
+  }
+  .limit {
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+  .limit-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    fill: var(--ink);
+  }
+  .void-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    fill: var(--ink-quiet);
+  }
+  .added-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    fill: var(--signal-text);
+  }
+  .case circle {
+    fill: var(--paper);
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+  .case text {
+    font-size: 10px;
+    fill: var(--ink);
+    text-anchor: middle;
+    dominant-baseline: central;
+  }
+  /* the case that landed on void, on the month's run */
+  [data-stage="prototype"] .case.onvoid circle {
+    fill: var(--signal);
+    stroke: var(--signal);
+  }
+  [data-stage="prototype"] .case.onvoid text {
+    fill: var(--paper);
+  }
+
+  /* ---- states: an element shows in the stages it names ---- */
+  [data-s] {
+    opacity: 0;
+    transition: opacity 0.45s var(--ease);
+  }
+  [data-stage="declare"] [data-s~="declare"],
+  [data-stage="refactor"] [data-s~="refactor"],
+  [data-stage="prototype"] [data-s~="prototype"],
+  [data-stage="scale"] [data-s~="scale"],
+  [data-stage="cases"] [data-s~="cases"],
+  [data-stage="limit"] [data-s~="limit"] {
+    opacity: 1;
+  }
+  /* on the home sheets the cases wait for the reader */
+  [data-stage="cases"] .case,
+  [data-stage="limit"] .case {
+    opacity: 0;
+  }
+  [data-stage="cases"] .case[data-shown="true"] {
+    opacity: 1;
+  }
+  [data-stage="cases"] .region[data-lit="true"] {
+    stroke: var(--ink);
+    stroke-width: 2;
+  }
+
+  @media (max-width: 600px) {
+    .name {
+      font-size: 14px;
+    }
+    .edge,
+    .said {
+      font-size: 11.5px;
+    }
+    .case text {
+      font-size: 12.5px;
+    }
+    .limit-label,
+    .void-label,
+    .added-label {
+      font-size: 11px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-s] {
+      transition: none;
+    }
+  }
+</style>

@@ -1,181 +1,93 @@
 ---
-// How we do it: one stream of work followed through the cycle. Each stage's
-// plate is the artifact the stage produces, drawn in the same grammar as the
-// positions' proofs and reusing their instances. Only Scale carries a pencil
-// scene: the working floor, which no table can show. In a toned table a pale
-// row is done by hand and a dark row runs on its own; the legend sits under
-// the tables it explains.
+// The method, one stream of work at a time: five stages on one drawing. The
+// loop is the control; a stage is chosen from it (click, tap, arrow keys),
+// and the drawing beside it moves to that stage's state in place. See is
+// the stream with its wait; the other four are the outcome space, drawn
+// from the desk's words, filled with the month's cases, finished.
 //
-// A stage is the premise the reader can check against their own company, the
-// plate, one or two sentences, notes only for what the plate cannot show, and
-// the way on. The last step is the door.
-//
-// Every stage is on the page. The loop is an index: beside the stages on wide
-// screens, following them as they scroll; above them on a phone.
+// Without script every stage's words read in order under one still drawing.
 import type { CollectionEntry } from "astro:content";
 import Proof from "./Proof.astro";
+import OutcomeSpace from "./OutcomeSpace.astro";
 
 interface Props {
-  // the door: where the last step leads
+  // the door: where the last stage leads
   door: string;
 }
 const { door } = Astro.props;
 
-// ---- the stages ------------------------------------------------------------
-type Plate = CollectionEntry<"positions">["data"]["proof"];
 type Stage = {
-  id: string;
+  id: "see" | "declare" | "refactor" | "prototype" | "scale";
   name: string;
   premise: string;
-  // only what the plate cannot show
+  // only what the drawing cannot show
   notes: string[];
-  // the artifact the stage produces, or (Scale) the one pencil scene
-  plate?: Plate;
 };
 const stages: Stage[] = [
   {
     id: "see",
     name: "See",
     premise: "Where a case waits, it’s waiting for someone to decide.",
-    plate: [
-      {
-        kind: "stream",
-        from: "Order placed",
-        to: "Case settled",
-        across: ["Service", "Finance", "Billing"],
-        marks: [{ at: 1, label: "" }],
-      },
+    notes: [
+      "At Halden Supply a return waits at Finance for a signature on any refund over five hundred dollars. Start with the stream where customers wait longest.",
     ],
-    notes: ["Start with the stream where customers wait longest."],
   },
   {
     id: "declare",
     name: "Declare",
     premise: "The people doing the work are the authority on the judgment.",
-    plate: [
-      {
-        kind: "table",
-        columns: ["Outcome", "As written", "As practiced"],
-        stack: true,
-        rows: [
-          [
-            "Refund",
-            "~~Over $500, finance approves~~",
-            "“Order’s paid, customer’s waiting. Refund it. Tell finance after.”",
-          ],
-          [
-            "Fee waived",
-            "~~A manager signs off~~",
-            "“Three years with us. I’m not charging her forty dollars over this.”",
-          ],
-          [
-            "Replacement",
-            "~~Unpaid: decline~~",
-            "“Invoice isn’t paid yet? She still gets the replacement.”",
-          ],
-        ],
-      },
-    ],
     notes: [
-      "It’s done when the desk reads it and says: yes, that’s what I do.",
+      "Dana runs the returns desk. The policy binder says finance approves, a manager signs off, unpaid means decline. What she says is on the drawing, in her words, and it is the true version.",
+      "It’s done when Dana reads it and says: yes, that’s what I do.",
     ],
   },
   {
     id: "refactor",
     name: "Refactor",
     premise: "Give each outcome what it needs to exist.",
-    plate: [
-      {
-        kind: "table",
-        columns: ["Outcome", "The desk said", "Exists only with"],
-        rows: [
-          [
-            "Refund",
-            "“Order’s paid, customer’s waiting.”",
-            "A paid order, a reason",
-          ],
-          [
-            "Fee waived",
-            "“Three years with us.”",
-            "The fee, how long she has paid us",
-          ],
-          [
-            "Replacement",
-            "“Invoice isn’t paid yet? She still gets it.”",
-            "Proven stock, the order it replaces",
-          ],
-        ],
-      },
+    notes: [
+      "Each of Dana’s sentences becomes an edge: a refund exists only with a paid order, a reason, and an amount under the limit. The hatched ground is what has no outcome to be. Nothing there can be chosen.",
     ],
-    notes: [],
   },
   {
     id: "prototype",
     name: "Prototype",
     premise: "Run last month’s cases through it.",
-    plate: [
-      {
-        kind: "table",
-        columns: ["Case", "The agent", "The desk, last month"],
-        rows: [
-          ["Paid, waiting", "Refunds, tells finance", "Refunded, told finance"],
-          [
-            "Asks for the fee back too",
-            "Refunds, waives the fee",
-            "Refunded, waived the fee",
-          ],
-          [
-            "Invoice unpaid, arrived broken",
-            "Sends the replacement",
-            "Sent the replacement",
-          ],
-          [
-            "Asks for credit instead",
-            "~~Refunds in full~~ Credits her",
-            "Credited her",
-          ],
-        ],
-      },
-    ],
     notes: [
-      "Where the two differ, a manager adds the outcome and the case runs again.",
+      "Four of Dana’s cases from last month, placed where the agent lands them. Three land where she did. The fourth, a contractor who wanted credit on account instead of cash, lands on void: there was no credit to give. A manager adds the outcome. The case runs again.",
     ],
   },
   {
     id: "scale",
     name: "Scale",
     premise: "The whole stream runs, and no one is in it.",
-    plate: [
-      {
-        kind: "table",
-        columns: ["Case", "The agent"],
-        rows: [
-          ["Paid, waiting", "Refunds, tells finance"],
-          ["Asks for the fee back too", "Refunds, waives the fee"],
-          ["Invoice unpaid, arrived broken", "Sends the replacement"],
-          ["Asks for credit instead", "Credits her"],
-        ],
-      },
-      {
-        kind: "stream",
-        from: "Order placed",
-        to: "Case settled",
-        across: ["Service", "Finance", "Billing"],
-        done: "",
-      },
-    ],
     notes: [
-      "Retire the old stream the day the new one carries every case.",
-      "Measure one thing: time from placed to settled.",
+      "Every case lands inside. Retire the old stream the day the new one carries every case. Measure one thing: time from return requested to case settled.",
     ],
   },
 ];
-
+const stream = (
+  done: boolean,
+): CollectionEntry<"positions">["data"]["proof"] => [
+  done
+    ? {
+        kind: "stream",
+        from: "Return requested",
+        to: "Case settled",
+        across: ["Returns", "Finance", "Warehouse"],
+        done: "",
+      }
+    : {
+        kind: "stream",
+        from: "Return requested",
+        to: "Case settled",
+        across: ["Returns", "Finance", "Warehouse"],
+        marks: [{ at: 1, label: "" }],
+      },
+];
 const f = (n: number) => n.toFixed(1);
 
 // ---- the loop control ----------------------------------------------------
-// five balloons on a circle, clockwise from the top; prototype carries its
-// own small loop, because it turns until it holds
 const R = 92;
 const C = 120;
 const loop = stages.map((s, i) => {
@@ -184,7 +96,6 @@ const loop = stages.map((s, i) => {
     ...s,
     x: C + R * Math.cos(a),
     y: C + R * Math.sin(a),
-    // label sits outside the circle
     lx: C + (R + 26) * Math.cos(a),
     ly: C + (R + 26) * Math.sin(a),
     anchor: Math.cos(a) > 0.2 ? "start" : Math.cos(a) < -0.2 ? "end" : "middle",
@@ -195,8 +106,6 @@ const innerC = {
   x: C + (R - 34) * Math.cos((-90 + 3 * 72) * (Math.PI / 180)),
   y: C + (R - 34) * Math.sin((-90 + 3 * 72) * (Math.PI / 180)),
 };
-// the arrowhead that closes the loop, just before SEE; the small loop's
-// head is the same mark at the same place on its own circle, smaller
 const closeA = (-90 - 14) * (Math.PI / 180);
 const close = { x: C + R * Math.cos(closeA), y: C + R * Math.sin(closeA) };
 const innerClose = {
@@ -222,7 +131,7 @@ const innerClose = {
           transform={`rotate(-14 ${f(innerClose.x)} ${f(innerClose.y)})`}
         ></path>
       </svg>
-      <div class="balloons" role="group" aria-label="Stages of the cycle">
+      <div class="balloons" role="group" aria-label="Stages of the method">
         {
           loop.map((s, i) => (
             <button
@@ -243,136 +152,152 @@ const innerClose = {
     </div>
   </div>
 
-  <div class="states" data-states>
-    {
-      stages.map((s, i) => (
-        <figure
-          class:list={["state", `state-${s.id}`]}
-          data-state={s.id}
-          data-active={i === 0 ? "true" : "false"}
-        >
-          <div class="enunciation">
+  <div class="stage" data-stagebox>
+    <div class="plate">
+      <div class="plate-stream" data-plate="see">
+        <Proof proof={stream(false)} />
+      </div>
+      <div class="plate-space" data-plate="space">
+        <OutcomeSpace stage="declare" id="method-space" />
+      </div>
+      <div class="plate-stream" data-plate="scale-stream">
+        <Proof proof={stream(true)} />
+      </div>
+    </div>
+    <div class="words">
+      {
+        stages.map((s, i) => (
+          <div
+            class="state"
+            data-state={s.id}
+            data-active={i === 0 ? "true" : "false"}
+          >
             <span class="mono-label">
               {String(i + 1).padStart(2, "0")} · {s.name}
             </span>
-            <span class="premise">{s.premise}</span>
-          </div>
-          <div class="exhibit">
-            <Proof proof={s.plate ?? []} />
-          </div>
-          <figcaption class="commentary">
-            {s.notes.length > 0 && (
-              <ol class="notes">
-                {s.notes.map((n) => (
-                  <li>
-                    <span>{n}</span>
-                  </li>
-                ))}
-              </ol>
+            <p class="premise">{s.premise}</p>
+            <ol class="notes">
+              {s.notes.map((n) => (
+                <li>
+                  <span>{n}</span>
+                </li>
+              ))}
+            </ol>
+            {i + 1 < stages.length ? (
+              <button
+                type="button"
+                class="next go"
+                data-next={stages[i + 1].id}
+              >
+                Next: {stages[i + 1].name}
+              </button>
+            ) : (
+              <a class="next go" href={door}>
+                Email us about one stream
+              </a>
             )}
-          </figcaption>
-        </figure>
-      ))
-    }
+          </div>
+        ))
+      }
+    </div>
   </div>
-  <a class="door go" href={door}>
-    Email us about one stream
-    <svg viewBox="0 0 12 12" width="0.62em" height="0.62em" aria-hidden="true">
-      <path
-        d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.1"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-    </svg>
-  </a>
 </div>
 
 <script is:inline>
-  // the loop is an index. every stage is on the page; a balloon scrolls to
-  // its stage, and the balloon of the stage in view is drawn in full ink.
+  // the loop is the control: a stage is chosen from it, by the next button,
+  // or by arrow keys; the drawing and the words move to that stage in place.
   (() => {
     const root = document.querySelector("[data-cycle]");
     if (!root) return;
-    const still = matchMedia("(prefers-reduced-motion: reduce)");
     const buttons = [...root.querySelectorAll("[data-stage]")];
     const states = [...root.querySelectorAll("[data-state]")];
-    const bar = () => document.querySelector(".bar")?.offsetHeight ?? 0;
-    const mark = (id) =>
+    const space = root.querySelector("#method-space");
+    const plates = [...root.querySelectorAll("[data-plate]")];
+    const order = buttons.map((b) => b.dataset.stage);
+    let selected = order[0];
+    const select = (id) => {
+      selected = id;
       buttons.forEach((b) =>
         b.setAttribute("aria-pressed", String(b.dataset.stage === id)),
       );
-    buttons.forEach((b) =>
-      b.addEventListener("click", () => {
-        const s = root.querySelector(`[data-state="${b.dataset.stage}"]`);
-        if (!s) return;
-        const top = s.getBoundingClientRect().top + scrollY - bar() - 16;
-        scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
-        mark(b.dataset.stage);
-      }),
-    );
-    if ("IntersectionObserver" in window) {
-      const seen = new Map();
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => seen.set(e.target, e.intersectionRatio));
-          const best = [...seen.entries()].sort((a, b) => b[1] - a[1])[0];
-          if (best && best[1] > 0) mark(best[0].dataset.state);
-        },
-        { threshold: [0, 0.25, 0.5, 0.75, 1] },
+      states.forEach(
+        (s) => (s.dataset.active = String(s.dataset.state === id)),
       );
-      states.forEach((s) => io.observe(s));
-    }
+      const plate = id === "see" ? "see" : id === "scale" ? "space" : "space";
+      plates.forEach(
+        (p) => (p.dataset.shown = String(p.dataset.plate === plate)),
+      );
+      if (id !== "see") space.dataset.stage = id;
+      root.dataset.current = id;
+    };
+    buttons.forEach((b) => {
+      b.addEventListener("click", () => select(b.dataset.stage));
+      b.addEventListener("keydown", (e) => {
+        const delta = {
+          ArrowRight: 1,
+          ArrowDown: 1,
+          ArrowLeft: -1,
+          ArrowUp: -1,
+        }[e.key];
+        if (!delta) return;
+        e.preventDefault();
+        const next = order[order.indexOf(selected) + delta];
+        if (next) {
+          select(next);
+          root
+            .querySelector(`[data-stage="${next}"]`)
+            ?.focus({ preventScroll: true });
+        }
+      });
+    });
+    root
+      .querySelectorAll("[data-next]")
+      .forEach((n) =>
+        n.addEventListener("click", () => select(n.dataset.next)),
+      );
     root.classList.add("interactive");
+    select(selected);
   })();
 </script>
 
 <style>
-  /* ---- the stage: enunciation across the top, then the plate and its
-     commentary hanging from one edge, as a plate and its notes do in a
-     folio. as small multiples (no script) every stage reads in order ---- */
-  .states {
+  /* ---- without script: the drawing still, every stage's words in order ---- */
+  .stage {
     display: grid;
-    gap: 3rem;
+    gap: 2rem;
+  }
+  .plate-stream[data-plate="scale-stream"] {
+    display: none;
+  }
+  .words {
+    display: grid;
+    gap: 2rem;
   }
   .state {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 1.1rem;
+    gap: 0.6rem;
+    align-content: start;
   }
-  .enunciation {
-    display: grid;
-    gap: 0.45rem;
-  }
-  /* the premise: what the reader checks against their own organization */
   .premise {
     font-family: var(--font-display);
     font-size: clamp(1.35rem, 2vw, 1.7rem);
     line-height: 1.22;
     color: var(--ink);
-    max-width: 34ch;
+    max-width: 24ch;
     text-wrap: balance;
+    margin: 0;
   }
-  .commentary {
+  .notes {
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
     display: grid;
-    gap: 0;
-    align-content: start;
-    max-width: 34rem;
+    gap: 0.6rem;
+    counter-reset: note;
     font-size: clamp(1rem, 1.2vw, 1.08rem);
     line-height: 1.45;
     color: var(--ink-light);
     text-wrap: pretty;
-  }
-  /* the rules, numbered as a sheet's general notes: the rule dark and
-     short, its reason after it in the lighter face */
-  .notes {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.5rem;
-    counter-reset: note;
   }
   .notes li {
     counter-increment: note;
@@ -380,22 +305,18 @@ const innerClose = {
     grid-template-columns: 1.25rem minmax(0, 1fr);
     column-gap: 0.25rem;
     align-items: baseline;
-    line-height: 1.42;
   }
-  /* plain numerals: the two-digit form belongs to the sheets and their keys */
   .notes li::before {
     content: counter(note);
     font-family: var(--font-mono);
     font-size: 0.62rem;
     letter-spacing: 0.06em;
     color: var(--ink-quiet);
-    /* the numeral is a label, not reading: it sits off the baseline a hair */
     transform: translateY(-0.1em);
   }
   .notes li > span {
     grid-column: 2;
   }
-  /* the way on: the question the reader's own reasoning asks next */
   .next {
     justify-self: start;
     margin-top: 0.9rem;
@@ -409,68 +330,46 @@ const innerClose = {
     font-size: 0.78rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
   }
-  /* as small multiples every stage is visible at once and the loop drawing
-     already returns to See, so no question is a control */
   .state button.next {
     display: none;
   }
   .interactive .state button.next {
     display: inline-flex;
   }
-  .state a.next {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
-    color: var(--ink);
-    text-decoration: none;
-  }
 
-  /* ---- the legend: the one rule every drawn map follows, stated once ---- */
-  .legend {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    margin: 0.6rem 0 0;
+  /* ---- interactive: one stage at a time, the drawing moving in place ---- */
+  .interactive .words {
+    display: grid;
   }
-  .swatch {
-    display: inline-block;
-    width: 0.8em;
-    height: 0.62em;
-    border: 1px solid var(--line);
+  .interactive .state {
+    grid-area: 1 / 1;
+    transition: opacity 0.35s var(--ease);
   }
-  .swatch.dark {
-    margin-left: 1em;
-    background: var(--ink);
-    border-color: var(--ink);
+  .interactive .state[data-active="false"] {
+    opacity: 0;
+    visibility: hidden;
   }
-
-  /* ---- the exhibits: the plates, drawn in the proofs' grammar, set a
-     little smaller than on a position sheet; the one scene dissolves into
-     the sheet at its edges ---- */
-  .exhibit :global(table) {
-    font-size: 1.02rem;
-    line-height: 1.3;
+  .interactive .plate {
+    display: grid;
   }
-  .exhibit :global(td),
-  .exhibit :global(th) {
-    padding-right: 0.75rem;
+  .interactive [data-plate] {
+    grid-area: 1 / 1;
+    transition: opacity 0.45s var(--ease);
   }
-  .exhibit :global(.code) {
-    font-size: 0.78rem;
-    padding: 0.85rem 1rem;
+  .interactive [data-plate][data-shown="false"] {
+    opacity: 0;
+    visibility: hidden;
   }
-  .scene :global(img) {
+  .interactive .plate-stream[data-plate="scale-stream"] {
     display: block;
-    width: 100%;
-    height: auto;
-    mask-image:
-      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
-      linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
-    mask-composite: intersect;
+  }
+  .plate-stream :global(.stream) {
+    max-width: 36rem;
   }
 
-  /* ---- interactive: the loop is the control; one state shows at a time ---- */
   .loop-band {
     display: none;
   }
@@ -605,80 +504,44 @@ const innerClose = {
     text-decoration: none;
   }
 
-  /* wide: the loop beside the stage, the legend under the loop. the
-     enunciation runs across the stage; under it the plate and its
-     commentary hang from one edge, so the whole step reads on one screen */
+  /* wide: the loop beside, the drawing over the words */
   @media (min-width: 900px) {
     .cycle.interactive {
       display: grid;
       grid-template-columns: 236px minmax(0, 1fr);
-      grid-template-rows: auto 1fr;
       column-gap: clamp(2rem, 4vw, 3.5rem);
       align-items: start;
     }
     .interactive .loop-band {
-      grid-column: 1;
-      grid-row: 1;
       position: sticky;
       top: calc(var(--bar) + 1.5rem);
-    }
-    .interactive .states {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-    }
-    .interactive .door {
-      grid-column: 2;
-      grid-row: 3;
     }
     .interactive .loop {
       width: 236px;
     }
-    .interactive .state {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        "head"
-        "plate"
-        "notes";
-      row-gap: 1.1rem;
+    .interactive .stage {
+      grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+      column-gap: clamp(1.5rem, 3vw, 2.75rem);
+      align-items: start;
     }
-    .interactive .enunciation {
-      grid-area: head;
-    }
-    .interactive .premise {
-      max-width: 30ch;
-    }
-    .interactive .exhibit {
-      grid-area: plate;
-      align-self: start;
-    }
-    .interactive .commentary {
-      grid-area: notes;
-      max-width: none;
-      /* the notes start level with the enunciation's cap line */
-      margin-top: 0.15rem;
-    }
-    .interactive .exhibit {
-      max-width: 54rem;
-    }
-    .interactive .commentary {
-      margin-top: 0.5rem;
-    }
-    /* scale, the one scene with no map in it, is the working floor: cropped
-       to the people in it */
-    .interactive .state-scale .exhibit :global(img) {
-      aspect-ratio: 1.45;
-      object-fit: cover;
-      object-position: 42% 55%;
+    .interactive .plate {
+      max-width: 40rem;
     }
   }
 
-  /* phone: the loop is pinned above the stage as one strip. the premise,
-     the scene and the start of the commentary sit on the first screen, and
-     the rest reads on under the loop. each scene is held to one height so
-     the stages do not jump */
+  /* phone: the loop pinned above, the drawing under it, the words after */
   @media (max-width: 899px) {
-    .interactive {
-      --scene: min(24svh, 15rem);
+    .interactive .loop-band {
+      position: sticky;
+      top: var(--bar);
+      z-index: 2;
+      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
+      padding: 1rem 0 0.5rem;
+      background: linear-gradient(
+        to bottom,
+        rgb(238, 227, 208) 84%,
+        rgba(238, 227, 208, 0)
+      );
     }
     .interactive .loop-band {
       padding: 0.5rem 0 1rem;
@@ -692,7 +555,6 @@ const innerClose = {
       height: 30px;
       font-size: 0.62rem;
     }
-    /* a fingertip's reach around each balloon */
     .interactive .balloon::before {
       content: "";
       position: absolute;
@@ -712,62 +574,18 @@ const innerClose = {
     .interactive .balloon .anchor-middle {
       bottom: calc(100% + 0.35rem);
     }
-    /* a sideways swipe belongs to the stage, never to the browser's back
-       gesture; vertical scrolling and pinch zoom stay the browser's */
-    .interactive .states {
-      margin-top: 0.25rem;
-      touch-action: pan-y pinch-zoom;
-      overscroll-behavior-x: contain;
+
+    .interactive .stage {
+      margin-top: 0.5rem;
     }
-    /* the states share one cell, so a shorter stage is stretched to the
-       tallest; its rows must not take the slack as gaps */
-    .interactive .state {
-      row-gap: 0.9rem;
-      align-content: start;
-    }
-    /* a grid item with auto margins shrinks to its content, so the scene is
-       given its width and centred */
-    .interactive .exhibit {
-      width: 100%;
-      justify-self: center;
-    }
-    /* scale opens out to the frame */
-    .interactive .state-scale .exhibit {
-      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
-    }
-    .interactive .state-scale .exhibit :global(img) {
-      aspect-ratio: 1.9;
-      object-fit: cover;
-      object-position: 50% 55%;
-    }
-    .interactive .premise {
+    .premise {
       font-size: 1.25rem;
-    }
-    .interactive .commentary {
-      font-size: 1.02rem;
-    }
-    /* the plates are set tighter so the premise and the plate share the
-       first screen with the pinned loop */
-    .exhibit :global(table) {
-      font-size: 0.9rem;
-      line-height: 1.25;
-    }
-    .exhibit :global(td) {
-      padding-top: 0.4rem;
-      padding-bottom: 0.4rem;
-    }
-    .exhibit :global(.code) {
-      font-size: 0.72rem;
-      padding: 0.7rem 0.8rem;
-    }
-    /* the way on, tall enough to tap */
-    .interactive .next {
-      padding-top: 0.7rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .interactive .state,
+    .interactive [data-plate],
     .dot,
     .balloon .name {
       transition: none;

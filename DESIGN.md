@@ -112,9 +112,8 @@ explicit:
   off the paper's edge. **Speech**, unstruck, in italic with a quiet label,
   is what the desk knows, in the desk's words: kept, never crossed out, and
   never rewritten as a rule.
-- **Code** blocks are framed. There is one on the page, the refund construct
-  in the architecture's own shape; its config lines and any comment are set
-  in the quiet ink so the docstring and the fields are the dark ink.
+- **No code on the page.** Every claim is drawn: tables, struck cells, the
+  desk's words, the stream.
 - **The stream** is a line with its two ends fixed as filled terminals, the
   departments it crosses as faint rules with quiet labels, and nothing drawn
   between the ends but the dashed line itself. A handoff where a person
@@ -124,6 +123,23 @@ explicit:
 The cycle's plates are drawn in this grammar, the same as the positions', and
 reuse the positions' instances. No pencil scene: every plate is in the
 grammar.
+
+## The outcome space
+
+The one drawing, in the cover's hand: hairline regions, a dashed limit,
+hatched void, numbered balloons, mono lettering, the plates' red only for
+the case that lands on void. It has states (declare, refactor, prototype,
+scale) chosen by `data-stage`; every element names the stages it belongs
+to. On the method page the loop steps it; on the home page a row of cases
+lands one (03) and a range control moves the limit (06). Lettering is set
+larger on a phone, where the drawing scales with the sheet.
+
+## The method page
+
+`/method`: the loop is the control again, beside the drawing on a wide
+screen and pinned above it on a phone. The drawing and the stage's words
+move in place. Without script every stage's words read in order under one
+still drawing.
 
 ## What it takes: the cycle
 

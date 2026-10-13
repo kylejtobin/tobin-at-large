@@ -15,12 +15,48 @@ body of work: the products are the problems met in every organization,
 solved once and given away; the engagements apply the same thinking inside
 one organization, one stream of work at a time.
 
-## What the desk may say
+## The limit
 
-The desk's line carries no ceiling ("under what I'd sign") until the
-architecture has a kind for it that the page can show; a limit the page
-names and no type honors is the one contradiction a sceptical reader holds
-against the whole argument.
+The limit is in the world, never in a person. What a refund exists only
+with includes an amount under the stream's limit; the desk knows it ("under
+what I'd sign"); managers set it and move it, after. Above it there is no
+refund to choose, only the outcomes that do exist, a credit or a
+replacement. The agent judges inside the limit. Nothing is escalated.
+
+## The scenario
+
+Halden Supply, a regional distributor of tools and safety gear, selling to
+contractors on account, net thirty. One desk, returns, where Dana decides
+refunds, credits, replacements and fee waivers. A hypothetical, kept
+realistic: contractors on account make an unpaid invoice ordinary, and a
+returns desk holds the most judgment per case. Every case on both pages is
+hers.
+
+## The two pages
+
+The home page teaches the ideas, six positions on Dana's cases, with the
+tools under them and the address at the end. The method is on its own
+page, `/method`, five stages on one drawing. The home page links to it once.
+
+## The drawing
+
+The outcome space: the one drawing the method evolves and the ideas are
+taught on, in the cover's hand. Regions are the outcomes that can exist,
+each with what it exists only with as its edge; hatched ground is void, an
+outcome with no type to be; the limit is an edge inside the refund; cases
+are numbered balloons that land in a region, and one that lands on void is
+the proof the void is real. It has states: the desk's words (Declare), the
+edges (Refactor), the month's cases with one on void and the region a
+manager adds (Prototype), every case inside (Scale). On the home page the
+reader lands a case (03) and moves the limit (06).
+
+## No code
+
+There is no code on the page. The claims that code once carried (a refund
+is of a paid order; a refund over the limit isn't there) are drawn in the
+proof grammar: an outcome struck in the table of what can exist, a case
+beside the agent's call. The site demonstrates the idea; it does not show
+the implementation.
 
 ## The framing above every line
 
@@ -145,14 +181,12 @@ gets a column note instead.
    attempts, each longer; the desk waives at three years where the rule
    said five.)
 3. The agent chooses an outcome that can exist, and nothing else.
-   (Outcomes and what each exists only with. No count: a manager adds one
-   later.)
-4. A refund is of a paid order. An unpaid one has no refund to decide. (The
-   Refund construct in TCA's own shape: a frozen model, a docstring, fields
-   that are the proven kinds, the docstring in TCA's own form, "The intended
-   refunding of a paid order." No constructor calls, no wrappers, no comment
-   doing a type's work, no kind invented for the page, no narrative in a
-   docstring. This is the one code block on the page.)
+   (Outcomes and what each exists only with, the refund's including an
+   amount under the limit; two outcomes struck that don't exist: a refund
+   of an unpaid order, a refund over the limit.)
+4. A refund over the limit isn't declined. It isn't there. (The desk's line
+   with its limit; the case under the limit beside the agent refunding; the
+   case over it beside the agent crediting or replacing. No code.)
 5. Three systems say how long she's been with us. One of them means what
    the desk means. (The desk's words and the table with two meanings
    struck; no code. The fee waiver on 03 and Refactor needs "how long she

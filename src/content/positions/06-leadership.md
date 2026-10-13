@@ -8,15 +8,17 @@ proof:
     stack: true
     rows:
       - [
-          "~~Signs off on every fee waiver~~",
-          Changes what a fee waiver needs to exist,
+          "~~Signs every refund over $500~~",
+          Sets the limit a refund can exist within,
         ]
       - [
-          "~~Asks Service how many are waiting~~",
-          Reads the time from placed to settled,
+          "~~Asks Returns how many are waiting~~",
+          Reads the time from requested to settled,
         ]
       - [
           "~~Settles the exception at the next desk~~",
           Adds the outcome the exception needed,
         ]
+  - kind: space
+    mode: limit
 ---

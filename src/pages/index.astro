@@ -12,21 +12,20 @@ import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
-import Cycle from "../components/Cycle.astro";
 import Proof from "../components/Proof.astro";
 import type { CollectionEntry } from "astro:content";
 
 const view = "A stream of work can now run with no one in it.";
 const consequence =
-  "People keep work moving with judgment no rule ever caught. The judgment is knowledge: the people at the desk know how the work runs, and an AI agent can exercise that knowledge now. Before a stream runs, the people at the desk say what they know, and we build the world the agent decides in: which outcomes can exist and what each needs. A wrong outcome isn’t there to choose. After, managers change what can exist. During, no one touches a case.";
+  "The cases on this page are one desk at Halden Supply, a distributor that sells tools and safety gear to contractors on account. People like Dana keep work moving with judgment no rule ever caught, and that judgment is knowledge: she knows how the work runs. An AI agent can exercise that knowledge now. Before a stream runs, Dana says what she knows and we build the world the agent decides in: which outcomes can exist and what each needs. A wrong outcome isn’t there to choose. After, managers change what can exist. During, no one touches a case.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
     kind: "speech",
-    label: "The desk",
+    label: "Dana, at the returns desk",
     lines: [
-      "“Order’s paid, customer’s waiting. Refund it. Tell finance after.”",
+      "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
       "“Three years with us. I’m not charging her forty dollars over this.”",
     ],
   },
@@ -35,7 +34,7 @@ const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
     columns: ["The next case", "The agent"],
     rows: [
       [
-        "Paid, waiting, three years with us, and she asks for the fee back too",
+        "Paid, waiting, under the limit, three years with Halden, and she asks for the fee back too",
         "Refunds, waives the fee, tells finance",
       ],
     ],
@@ -157,7 +156,12 @@ const structuredData = {
     <div class="method">
       <p class="mono-label">How we do it</p>
       <h2>One stream of work at a time.</h2>
-      <Cycle door={oneStream} />
+      <p class="lead">
+        Five stages, on one drawing, with Halden’s returns desk as the stream:
+        where the cases wait, what Dana says, what each outcome needs to exist,
+        last month’s cases run through it, and the stream with no one in it.
+      </p>
+      <a class="go" href="/method">The method, stage by stage</a>
     </div>
   </Drawing>
 
@@ -531,7 +535,7 @@ const structuredData = {
 
   /* ---- what it takes: the claim, then the cycle taught ---- */
   .method h2 {
-    margin: 0.4rem 0 2.25rem;
+    margin: 0.4rem 0 1rem;
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2rem, 3.6vw, 3.1rem);
@@ -539,6 +543,14 @@ const structuredData = {
     letter-spacing: -0.008em;
     max-width: 24ch;
     text-wrap: balance;
+  }
+  .method .lead {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.12rem, 1.45vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-light);
+    max-width: 44rem;
+    text-wrap: pretty;
   }
 
   /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */

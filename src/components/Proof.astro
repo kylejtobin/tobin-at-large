@@ -3,6 +3,7 @@
 // captioned. A sequence of blocks: tables, code, and struck lines, the way
 // that is replaced, struck through in red.
 import type { CollectionEntry } from "astro:content";
+import OutcomeSpace from "./OutcomeSpace.astro";
 
 interface Props {
   proof: CollectionEntry<"positions">["data"]["proof"];
@@ -157,6 +158,41 @@ const streamGeometry = (across: readonly string[]) => {
             {block.to}
           </text>
         </svg>
+      ) : block.kind === "space" ? (
+        <div class="space-plate" data-space={block.mode}>
+          <OutcomeSpace stage={block.mode} />
+          {block.mode === "cases" ? (
+            <div class="control" role="group" aria-label="Land a case">
+              <span class="mono-label">Land a case</span>
+              <button type="button" data-land="01" data-region="refund">
+                Paid, waiting, under the limit
+              </button>
+              <button type="button" data-land="04" data-region="credit">
+                Paid, waiting, over the limit, wants credit
+              </button>
+              <button type="button" data-land="03" data-region="replacement">
+                Invoice not due yet, arrived broken
+              </button>
+              <button type="button" data-land="02" data-region="waived">
+                Three years with us, asks for the fee back
+              </button>
+            </div>
+          ) : (
+            <div class="control">
+              <label class="mono-label" for="limit-range">
+                Move the limit
+              </label>
+              <input
+                id="limit-range"
+                type="range"
+                min="90"
+                max="290"
+                value="214"
+                step="2"
+              />
+            </div>
+          )}
+        </div>
       ) : block.kind === "speech" ? (
         <div class="speech">
           {block.label && <span class="mono-label">{block.label}</span>}
@@ -320,6 +356,42 @@ const streamGeometry = (across: readonly string[]) => {
     border-color: var(--ink);
   }
 
+  /* the outcome space and its control: a row of cases to land, or the
+     limit to move */
+  .space-plate {
+    display: grid;
+    gap: 0.9rem;
+  }
+  .control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.6rem;
+  }
+  .control .mono-label {
+    width: 100%;
+  }
+  .control button {
+    background: none;
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.7rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease);
+  }
+  .control button[aria-pressed="true"],
+  .control button:hover,
+  .control button:focus-visible {
+    border-color: var(--ink);
+    outline: none;
+  }
+  .control input[type="range"] {
+    width: min(100%, 22rem);
+    accent-color: var(--ink);
+  }
+
   /* what someone says, kept: judgment as it is exercised */
   .speech {
     display: grid;
@@ -410,3 +482,49 @@ const streamGeometry = (across: readonly string[]) => {
     }
   }
 </style>
+
+<script is:inline>
+  // the two controls: land a case in its region; move the limit and watch
+  // the void beyond it grow and shrink
+  document.querySelectorAll("[data-space='cases']").forEach((plate) => {
+    const svg = plate.querySelector("svg");
+    const buttons = [...plate.querySelectorAll("[data-land]")];
+    buttons.forEach((b) =>
+      b.addEventListener("click", () => {
+        buttons.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+        svg
+          .querySelectorAll(".case")
+          .forEach(
+            (c) =>
+              (c.dataset.shown = String(c.dataset.case === b.dataset.land)),
+          );
+        svg
+          .querySelectorAll("[data-region]")
+          .forEach(
+            (r) =>
+              (r.dataset.lit = String(r.dataset.region === b.dataset.region)),
+          );
+      }),
+    );
+  });
+  document.querySelectorAll("[data-space='limit']").forEach((plate) => {
+    const svg = plate.querySelector("svg");
+    const range = plate.querySelector("input[type='range']");
+    const line = svg.querySelector(".limit");
+    const label = svg.querySelector(".limit-label");
+    const voidRect = svg.querySelector("[data-void='over']");
+    const voidLabel =
+      voidRect && voidRect.parentElement.querySelector(".void-label");
+    const right = 24 + 280 - 1;
+    const set = (x) => {
+      line.setAttribute("x1", x);
+      line.setAttribute("x2", x);
+      label.setAttribute("x", x);
+      voidRect.setAttribute("x", x);
+      voidRect.setAttribute("width", Math.max(0, right - x));
+      if (voidLabel) voidLabel.setAttribute("x", (x + right) / 2);
+    };
+    range.addEventListener("input", () => set(Number(range.value)));
+    set(Number(range.value));
+  });
+</script>

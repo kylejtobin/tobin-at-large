@@ -11,7 +11,7 @@ proof:
       - "waive if years > 5 and first and not disputed"
       - "waive if years > 5 and first and not disputed and …"
   - kind: speech
-    label: The desk
+    label: Dana, at the returns desk
     lines:
       - "“Three years with us. I’m not charging her forty dollars over this.”"
 ---
