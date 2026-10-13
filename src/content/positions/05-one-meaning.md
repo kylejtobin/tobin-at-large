@@ -15,7 +15,9 @@ proof:
       - [Product, "~~Logged in this month~~"]
   - kind: code
     code: |
-      class ActiveCustomer(State):
+      class ActiveCustomer(BaseModel):
+          """A customer who has paid us."""
+
           customer: Customer
-          paid: Proven[Payment]
+          payment: SettledPayment
 ---

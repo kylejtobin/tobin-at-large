@@ -134,8 +134,10 @@ gets a column note instead.
 3. The types say what can exist. The agent decides which, for this case.
    (Outcomes and what each needs to exist, every row dark; the agent chooses
    among them.)
-4. What an agent can't build, it can't decide. (The Refund type; one
-   construction struck, one built.)
+4. A refund holds a paid order; there is no refund of an unpaid one. (The
+   Refund construct, in TCA's own shape: a frozen model whose field is the
+   proven kind. No constructor calls, no invented wrappers, no comment doing
+   a type's work.)
 5. One word, three meanings. The agent gets the proven one.
 6. Managers stop touching cases. They decide what can exist. (Struck before
    beside after.)
@@ -214,10 +216,14 @@ system.
 - **The Automated Organization** (book): how an organization, not just its
   software, becomes the thing that runs.
 - **ONTOK** (open-source language): an organization's kinds as types and its
-  facts as values that exist only once proven. Shown by a Payment fact.
-- **Type Construction Architecture** (open-source architecture): the type is
-  the limit; what it does not admit, no agent can build. Shown by an
-  Approval fact, required above the limit.
+  facts as values that exist only once proven. No code on the page for it;
+  its syntax is not to be guessed at.
+- **Type Construction Architecture** (open-source architecture): no agent can
+  build what its types don't admit. Any code shown for it is in TCA's own
+  shape: a frozen strict model, a docstring naming the intended effect,
+  fields typed as the proven kinds (PaidOrder, SettledPayment). Never a
+  positional construction, never an Optional, never a comment standing in
+  for a type.
 
 ## Working rules learned the hard way
 
