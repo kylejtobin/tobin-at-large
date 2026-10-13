@@ -95,7 +95,13 @@ const streamGeometry = (across: readonly string[]) => {
               <text class="dept" x={x} y="26" text-anchor="middle">
                 {name}
               </text>
-              <line class="dept-rule" x1={x} x2={x} y1="44" y2="134" />
+              <line
+                class="dept-rule"
+                x1={x}
+                x2={x}
+                y1="44"
+                y2={block.done ? "100" : "134"}
+              />
             </>
           ))}
           {block.done ? (
