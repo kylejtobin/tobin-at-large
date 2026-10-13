@@ -345,9 +345,14 @@ const streamGeometry = (across: readonly string[]) => {
     text-decoration-thickness: 1.5px;
     color: var(--ink-quiet);
   }
+  /* the clause that never ends runs off the paper's edge */
+  .struck.as-code {
+    overflow-x: clip;
+  }
   .struck.as-code s {
     font-family: var(--font-mono);
     font-size: 0.84rem;
+    white-space: nowrap;
   }
   .struck.as-speech s {
     font-style: italic;

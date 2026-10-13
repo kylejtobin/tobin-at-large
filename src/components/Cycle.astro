@@ -41,7 +41,7 @@ const stages: Stage[] = [
       {
         kind: "stream",
         from: "Order placed",
-        to: "Refund settled",
+        to: "Case settled",
         across: ["Service", "Finance", "Billing"],
         marks: [{ at: 1, label: "" }],
       },
@@ -159,7 +159,7 @@ const stages: Stage[] = [
       {
         kind: "stream",
         from: "Order placed",
-        to: "Refund settled",
+        to: "Case settled",
         across: ["Service", "Finance", "Billing"],
         done: "",
       },
