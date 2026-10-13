@@ -1,7 +1,7 @@
 ---
 sheet: 5
 short: Three systems, three definitions
-position: One word, three meanings. The agent gets the desk’s, proven.
+position: Three systems say active. The agent gets the desk’s meaning, proven.
 proof:
   - kind: speech
     label: The desk

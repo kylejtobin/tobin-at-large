@@ -54,11 +54,11 @@ const stages: Stage[] = [
     id: "declare",
     name: "Declare",
     premise:
-      "Only the people doing the work know what the judgment is. We write it as they say it, and they read it back.",
+      "The people doing the work are the authority on the judgment. We write it in their words.",
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "As written", "As practiced"],
+        columns: ["Judgment", "As written", "As practiced"],
         rows: [
           [
             "Refund",
@@ -68,7 +68,7 @@ const stages: Stage[] = [
           [
             "Fee waived",
             "~~A manager signs off~~",
-            "“Ten years with us. I’m not charging her forty dollars over this.”",
+            "“Three years with us. I’m not charging her forty dollars over this.”",
           ],
           [
             "Active customer",
@@ -85,32 +85,22 @@ const stages: Stage[] = [
   {
     id: "refactor",
     name: "Refactor",
-    premise:
-      "Give each outcome what it needs to exist. Every one of them is the agent’s to make.",
+    premise: "Give each outcome what it needs to exist.",
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "As practiced", "What it needs to exist"],
+        columns: ["Judgment", "What it needs to exist"],
         rows: [
           [
             "Refund",
-            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
-            "A proven payment, a reason; finance told by the agent",
+            "A proven payment, an amount the desk would sign, a reason; finance told",
           ],
-          [
-            "Fee waived",
-            "“Ten years with us. I’m not charging her forty dollars over this.”",
-            "The fee, a reason",
-          ],
-          [
-            "Active customer",
-            "“Active means they’ve paid us.”",
-            "A proven payment within 90 days",
-          ],
+          ["Fee waived", "The fee, a reason"],
+          ["Active customer", "A proven payment"],
         ],
       },
     ],
-    notes: ["The desk reads this table before anyone builds from it."],
+    notes: [],
   },
   {
     id: "prototype",
@@ -133,31 +123,30 @@ const stages: Stage[] = [
             "As the desk would",
           ],
           [
-            "Asks for part of it back",
-            "~~Refunds in full~~ Refunds the part",
-            "Wrong: there was no partial refund to give. A manager added one.",
+            "Asks for credit instead of cash",
+            "~~Refunds in full~~ Credits her",
+            "Not as the desk would. No credit existed; a manager added one.",
           ],
         ],
       },
     ],
-    notes: ["The desk signs this table. Nothing else gets written."],
+    notes: ["The desk signs this table."],
   },
   {
     id: "scale",
     name: "Scale",
-    premise:
-      "A pilot takes a slice. The rest of the cases still wait at Finance.",
+    premise: "Every case runs through it, and no one is in it.",
     plate: [
       {
         kind: "stream",
         from: "Order placed",
         to: "Refund settled",
         across: ["Service", "Finance", "Billing"],
-        done: "no one in it",
+        done: "",
       },
     ],
     notes: [
-      "Retire the old stream the day the new one holds. Two streams is two answers to the same case.",
+      "Don’t pilot a slice; the rest of the cases still wait at Finance. Retire the old stream the day the new one holds.",
       "Measure one thing: time from placed to settled.",
       "What a refund needs to exist is now the managers’ to change.",
     ],
@@ -627,19 +616,18 @@ const innerClose = {
       width: 236px;
     }
     .interactive .state {
-      grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
-      grid-template-rows: auto 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-areas:
-        "head notes"
-        "plate notes";
-      column-gap: clamp(1.5rem, 3vw, 2.75rem);
+        "head"
+        "plate"
+        "notes";
       row-gap: 1.1rem;
     }
     .interactive .enunciation {
       grid-area: head;
     }
     .interactive .premise {
-      max-width: 22ch;
+      max-width: 30ch;
     }
     .interactive .exhibit {
       grid-area: plate;
@@ -651,22 +639,10 @@ const innerClose = {
       /* the notes start level with the enunciation's cap line */
       margin-top: 0.15rem;
     }
-    /* See has nothing the plate cannot show: the stream takes the width and
-       the way on sits under it */
-    .interactive .state-see,
-    .interactive .state-scale {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        "head"
-        "plate"
-        "notes";
-    }
-    .interactive .state-see .exhibit,
-    .interactive .state-scale .exhibit {
+    .interactive .exhibit {
       max-width: 42rem;
     }
-    .interactive .state-see .commentary,
-    .interactive .state-scale .commentary {
+    .interactive .commentary {
       margin-top: 0.5rem;
     }
     /* scale, the one scene with no map in it, is the working floor: cropped

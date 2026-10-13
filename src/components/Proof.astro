@@ -104,7 +104,7 @@ const streamGeometry = (across: readonly string[]) => {
               />
             </>
           ))}
-          {block.done ? (
+          {block.done !== undefined ? (
             <line
               class="done-line"
               x1="60"

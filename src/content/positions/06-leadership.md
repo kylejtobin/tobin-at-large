@@ -7,9 +7,12 @@ proof:
     columns: [Before, After]
     rows:
       - ["~~Approves refunds over $500~~", Changes what a refund needs to exist]
-      - ["~~Asks Service how many are waiting~~", Reads the stream]
       - [
-          "~~Relays the policy down the chain~~",
-          Changes one line of what a refund needs; every case after it follows,
+          "~~Asks Service how many are waiting~~",
+          Reads the time from placed to settled,
+        ]
+      - [
+          "~~Settles the exception at the next desk~~",
+          Adds the outcome the exception needed. Every case after can have it.,
         ]
 ---
