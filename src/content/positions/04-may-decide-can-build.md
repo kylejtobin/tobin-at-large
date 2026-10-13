@@ -2,7 +2,7 @@
 sheet: 4
 short: What an agent cannot build
 position: What an agent can’t build, it can’t decide.
-key: "Decision: an outcome the agent may produce · Proven: a fact the agent can’t assert, only receive"
+key: "Decision: an outcome the agent may produce · Proven: a fact the agent is handed and cannot make up"
 proof:
   - kind: code
     code: |

@@ -2,10 +2,10 @@
 sheet: 1
 short: The company on paper and the one that runs
 position: "Every company runs twice: on paper, and in practice."
+key: "Hatched: the version on paper"
 proof:
   - kind: table
     columns: [On paper, In practice]
-    columnNotes: [What automation was built from, Where the work runs]
     rows:
       - [The approver on the org chart, The person whose judgment is trusted]
       - [The threshold in the policy, The threshold that is honored]

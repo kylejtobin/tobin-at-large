@@ -1,18 +1,18 @@
 ---
 sheet: 5
 short: Three systems, three definitions
-position: One word, three meanings. The agent gets the proven one.
+position: One word, three meanings. The agent gets the desk’s, proven.
 proof:
   - kind: table
     columns: [System, An active customer]
     rows:
-      - [CRM, Signed in the last year]
+      - [CRM, "~~Signed in the last year~~"]
       - [Billing, Paid in the last 90 days]
-      - [Product, Logged in this month]
+      - [Product, "~~Logged in this month~~"]
   - kind: code
     code: |
       class ActiveCustomer(State):
           customer: Customer
           paid: Proven[Payment]
-          # proven, not asserted
+          # the desk’s meaning, proven
 ---

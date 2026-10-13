@@ -2,14 +2,10 @@
 sheet: 3
 short: What can exist, and who decides which
 position: The types say what can exist. The agent decides which, for this case.
+key: "Type: one of the company’s kinds, written so the agent can build one"
 proof:
   - kind: table
     columns: [Outcome, Exists only with]
-    columnNotes:
-      [
-        "The agent chooses among these, every case",
-        Set by the people whose judgment it was,
-      ]
     rows:
       - [Refund, "A proven payment, a reason"]
       - [Partial refund, "A proven payment, the amount owed"]

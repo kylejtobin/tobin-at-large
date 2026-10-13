@@ -13,5 +13,5 @@ proof:
   - kind: speech
     label: What the desk actually does
     lines:
-      - "“Ten years with us, first time it’s happened. Waive it. I’ll note why.”"
+      - "“Ten years with us and it’s the first time. I’m waiving it.”"
 ---

@@ -63,7 +63,7 @@ const stages: Stage[] = [
           [
             "Refund",
             "~~Over $500, finance approves~~",
-            "If the order’s paid and the customer’s waiting, refund it and tell finance after",
+            "“Paid and waiting? Refund it. Finance can hear after.”",
           ],
           [
             "Active customer",
@@ -80,13 +80,15 @@ const stages: Stage[] = [
         legend: true,
       },
     ],
-    notes: ["It’s done when the people whose judgment it is say it’s right."],
+    notes: [
+      "It’s done when the desk reads it and says: yes, that’s what I do.",
+    ],
   },
   {
     id: "refactor",
     name: "Refactor",
     premise:
-      "Decide what each outcome needs to exist. The agent holds all of them.",
+      "Give each outcome what it needs to exist. The agent holds all of them.",
     plate: [
       {
         kind: "table",
@@ -94,7 +96,7 @@ const stages: Stage[] = [
         rows: [
           [
             "Refund",
-            "If the order’s paid and the customer’s waiting, refund it and tell finance after",
+            "“Paid and waiting? Refund it. Finance can hear after.”",
             "A proven payment, a reason; finance told by the agent",
           ],
           [
@@ -112,7 +114,7 @@ const stages: Stage[] = [
         legend: true,
       },
     ],
-    notes: ["The people whose judgment it is see this table first."],
+    notes: ["The desk reads this table before anyone builds from it."],
   },
   {
     id: "prototype",
@@ -137,7 +139,7 @@ const stages: Stage[] = [
           [
             "Asks for part of it back",
             "~~Refunds in full~~ Refunds the part",
-            "Wrong once: no partial refund existed. Now it does.",
+            "Wrong once: no partial refund existed. A manager added it.",
           ],
         ],
       },
@@ -161,7 +163,7 @@ const stages: Stage[] = [
     ],
     notes: [
       "Retire the old stream. While both run, people hand-sort cases between them.",
-      "Measure two things: time from placed to settled, and the share of cases no person touched, which is all of them.",
+      "Measure one thing: time from placed to settled.",
     ],
   },
 ];

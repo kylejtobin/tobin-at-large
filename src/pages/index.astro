@@ -18,7 +18,7 @@ import type { CollectionEntry } from "astro:content";
 
 const view = "A stream of work can now run with no one in it.";
 const consequence =
-  "TAL finds the judgment that really runs your work, and builds the world the agent decides in.";
+  "TAL finds the judgment the work runs on, and builds the world the agent decides in: the company’s kinds, and its facts once proven.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
@@ -39,10 +39,11 @@ const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
     kind: "code",
     code: [
-      "Refund(order, proof, why)     # built",
-      "FeeWaiver(order, proof, why)  # built",
+      "Refund(order, proof, reason)     # built",
+      "FeeWaiver(order, proof, reason)  # built",
     ].join("\n"),
   },
+  { kind: "struck", as: "code", lines: ["Refund(order=unpaid)  # not built"] },
 ];
 const email = "contact@talco.dev";
 // the same first step the cycle ends on
@@ -254,8 +255,8 @@ const structuredData = {
       <div class="founder-text">
         <p class="statement-lead">
           <strong>Kyle J. Tobin</strong> sits at the desks where the work gets decided,
-          finds the judgment the people there actually use, and builds the agent that
-          holds it inside the limit they set.
+          finds the judgment the people there actually use, and builds the world the
+          agent then decides in.
         </p>
         <div class="start-actions">
           <a class="cta" href={oneStream}>Start with one stream</a>
@@ -315,7 +316,7 @@ const structuredData = {
     padding: 0.8rem 1rem;
   }
   .cover-exhibit :global(.proof) {
-    gap: 0.9rem;
+    gap: 0.7rem;
   }
   .cover-exhibit :global(.speech p) {
     font-size: 1.15rem;
