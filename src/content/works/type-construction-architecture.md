@@ -4,11 +4,10 @@ label: Open-source architecture
 title: Type Construction Architecture
 line: "The type is the limit. What it does not admit, no agent can build."
 code: |
-  class Approval(Fact):
-      decision: Refund
-      by: Person
-      # required above the limit
-      recorded: Timestamp
+  Refund(order=unpaid)
+  # cannot be built
+  Refund(amount=over_limit)
+  # not without approved_by
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png

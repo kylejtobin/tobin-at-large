@@ -97,13 +97,14 @@ gets a column note instead.
    by plain titles.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
-3. **How we do it.** The headline, _One stream of work at a time_, then the
-   loop and the stages. Each stage is a premise, the plate, and at most one
-   or two notes for what the plate cannot show. The See plate draws what a
-   stream is, with a claim waiting at a handoff; Declare's table notes that
-   practice was declared the true version first; Refactor's table is the
-   triage; Prototype's run shows the fault in the table and the case that
-   can no longer be built. The last step is the door.
+3. **How we do it.** The headline, _One stream of work at a time_, the loop
+   as an index, and all five stages on the page, each a premise, the plate,
+   and at most one or two notes for what the plate cannot show. One case,
+   the refund, runs through every plate: the stream with the case waiting
+   at Finance (See); as written struck beside as practiced (Declare); as
+   practiced with who holds it after (Refactor); the run, one case wrong and
+   the type corrected (Prototype); the limit moved by a person, in struck
+   cells (Scale). After Scale, the door.
 4. **Work.** The book's one line; under ONTOK and TCA, the thing itself: the
    fact type and the refund type, in which no payment means no refund and
    the amount carries the limit.
@@ -111,16 +112,17 @@ gets a column note instead.
 
 ### Current positions
 
-1. Every company runs twice: on paper, and in practice.
-2. The judgment that keeps work moving is not a rule nobody got around to
-   writing. (Three struck attempts to write it, each longer; the desk's
-   sentence, kept.)
-3. An agent can hold judgment now. It can hold it only inside a limit.
-   (Judgment, held by, within, beyond; the beyond moved by a person.)
-4. What an agent may decide is exactly what it can build. (The Refund type;
-   the refund on an unpaid order, struck: cannot be built.)
-5. People quietly fix what systems disagree on. Agents can't.
-6. Most management is relaying decisions nobody else can see.
+1. Every company runs twice: on paper, and in practice. (The paper column
+   hatched: what the pilot was built from; the practice column: where the
+   work runs.)
+2. Every rule written for it needs one more clause. (Four struck attempts,
+   each longer; the desk's sentence, kept, a different case from the cover's.)
+3. The agent's judgment stops at a limit. A person moves it. (Judgment, held
+   by, within, beyond; "a person sets this"; the legend under the table.)
+4. The wrong refund cannot be made. (The Refund type, the same one as the
+   cover's; two struck constructions: cannot be built.)
+5. One word, three meanings. The type keeps the proven one.
+6. What remains for managers is the limit. They set it, and they move it.
 
 ## How we do it: the method
 

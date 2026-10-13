@@ -18,7 +18,7 @@ import type { CollectionEntry } from "astro:content";
 
 const view = "Agents can judge now.";
 const consequence =
-  "The question is which judgment to hand over, and where it stops. TAL studies how your work really runs, then builds that boundary as types.";
+  "People keep work moving with judgment no rule ever caught. An agent can hold that judgment now. So the question is not which rules to automate but which judgment to hand over, and where it stops. TAL finds that edge in how your work really runs, and builds it into the agent as a type a person can move.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
@@ -251,14 +251,9 @@ const structuredData = {
       </div>
       <div class="founder-text">
         <p class="statement-lead">
-          <strong>Kyle J. Tobin</strong> founded TAL to build organizations the way
-          they will now have to run: whole, explicit, and executable, from the authority
-          at the top to the code underneath.
-        </p>
-        <p class="statement-body">
-          He thinks in both directions at once. Every decision about an
-          organization is already a design for its software, and every line of
-          software is already a decision about the organization.
+          <strong>Kyle J. Tobin</strong> sits at the desks where the work gets decided,
+          finds the judgment the people there actually use, and builds the agent that
+          holds it inside the limit they set.
         </p>
         <div class="start-actions">
           <a class="cta" href={oneStream}>Start with one stream</a>
@@ -317,20 +312,21 @@ const structuredData = {
     line-height: 1.5;
     padding: 0.8rem 1rem;
   }
+
   .cover :global(.mark) {
     justify-self: start;
   }
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.8rem, 5.4vw, 5rem);
+    font-size: clamp(2.6rem, 4.8vw, 4.6rem);
     line-height: 1.02;
     letter-spacing: -0.014em;
-    max-width: 14ch;
-    text-wrap: balance;
+    max-width: 22ch;
+    text-wrap: pretty;
   }
   .consequence {
-    font-size: clamp(1.2rem, 1.7vw, 1.42rem);
+    font-size: clamp(1.1rem, 1.4vw, 1.28rem);
     line-height: 1.5;
     color: var(--ink-light);
     max-width: 34rem;
@@ -342,6 +338,8 @@ const structuredData = {
   }
   .index :global(.cover-drawing) {
     margin-top: 0.5rem;
+    width: 100%;
+    max-height: 250px;
   }
   .index ol {
     list-style: none;

@@ -23,6 +23,8 @@ const table = z.object({
   tones: z.array(z.enum(["hand", "auto"])).optional(),
   // a note under a column head, set in the signal red, like the hatch's
   columnNotes: z.array(z.string().nullable()).optional(),
+  // the tone legend under the table: pale by hand, dark runs on its own
+  legend: z.boolean().optional(),
 });
 const stream = z.object({
   kind: z.literal("stream"),
@@ -60,6 +62,8 @@ const positions = defineCollection({
     position: z.string(),
     // only what the proof cannot show
     consequence: z.string().optional(),
+    // a key to the words in a code block, one mono line under the proof
+    key: z.string().optional(),
     proof: z
       .array(
         z.discriminatedUnion("kind", [table, code, struck, stream, speech]),

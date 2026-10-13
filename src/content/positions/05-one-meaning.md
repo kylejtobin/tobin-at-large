@@ -1,7 +1,7 @@
 ---
 sheet: 5
 short: Three systems, three definitions
-position: People quietly fix what systems disagree on. Agents can’t.
+position: One word, three meanings. The type keeps the proven one.
 proof:
   - kind: table
     columns: [System, An active customer]

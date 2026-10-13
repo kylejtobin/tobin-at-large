@@ -14,10 +14,8 @@
 // small multiples. With script the loop is the control at every width: beside
 // the stage on wide screens, pinned above it on a phone, where a swipe also
 // turns the stage.
-import { Picture } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Proof from "./Proof.astro";
-import scale from "../assets/cycle/scale.jpg";
 
 interface Props {
   // the door: where the last step leads
@@ -35,24 +33,19 @@ type Stage = {
   notes: string[];
   // the artifact the stage produces, or (Scale) the one pencil scene
   plate?: Plate;
-  legend?: boolean;
-  alt?: string;
 };
 const stages: Stage[] = [
   {
     id: "see",
     name: "See",
-    premise: "Every handoff is a judgment call nobody wrote down.",
+    premise: "Where a case waits, someone’s judgment is holding it.",
     plate: [
       {
         kind: "stream",
-        from: "Claim filed",
-        to: "Claim settled",
-        across: ["Sales", "Underwriting", "Finance", "Service"],
-        marks: [
-          { at: 1, label: "decided on the spot" },
-          { at: 2, label: "decided on the spot" },
-        ],
+        from: "Order placed",
+        to: "Refund settled",
+        across: ["Service", "Finance", "Billing"],
+        marks: [{ at: 1, label: "waits here" }],
       },
     ],
     notes: [
@@ -68,7 +61,6 @@ const stages: Stage[] = [
       {
         kind: "table",
         columns: ["Decision", "As written", "As practiced"],
-        columnNotes: [null, null, "Declared the true version first"],
         rows: [
           [
             "Refund",
@@ -87,33 +79,36 @@ const stages: Stage[] = [
           ],
         ],
         tones: ["hand", "hand", "hand"],
+        legend: true,
       },
     ],
-    legend: true,
     notes: ["It’s done when the people whose judgment it is say it’s right."],
   },
   {
     id: "refactor",
     name: "Refactor",
-    premise: "Automating one step of a tangled stream only tangles it faster.",
+    premise: "Decide who holds each judgment before anything is built.",
     plate: [
       {
         kind: "table",
-        columns: ["Judgment", "Held by", "Within", "Beyond"],
+        columns: ["Decision", "As practiced", "Held after"],
         rows: [
           [
             "Refund",
-            "The agent",
-            "A paid order, a reason recorded, the desk’s limit",
-            "A person’s approval",
+            "If the order’s paid and the customer’s waiting, refund it and tell finance after",
+            "The agent, up to the desk’s limit",
           ],
-          ["Active customer", "Software", "The fact decides", "—"],
-          ["Exception to policy", "A named person", "Every case", "—"],
+          ["Active customer", "Whatever billing shows", "Software"],
+          [
+            "Exception to policy",
+            "Whoever’s next desk; nothing recorded",
+            "A named person, reason recorded",
+          ],
         ],
         tones: ["auto", "auto", "hand"],
+        legend: true,
       },
     ],
-    legend: true,
     notes: [
       "Everyone who holds one of these judgments today sees the table before anything is built.",
     ],
@@ -127,9 +122,17 @@ const stages: Stage[] = [
         kind: "table",
         columns: ["Case", "The agent", "Result"],
         rows: [
-          ["Paid, waiting, under the limit", "Refunds, tells finance", "Held"],
-          ["Paid, waiting, over the limit", "Asks a person", "Held"],
-          ["Unpaid, waiting", "Refund(…) cannot be built", "Held"],
+          [
+            "Paid, waiting, under the limit",
+            "Refunds, tells finance",
+            "As the desk would",
+          ],
+          [
+            "Paid, waiting, over the limit",
+            "Asks a person",
+            "As the desk would",
+          ],
+          ["Unpaid, waiting", "Cannot make the refund", "As the desk would"],
           [
             "Paid, not waiting",
             "Refunds",
@@ -145,12 +148,28 @@ const stages: Stage[] = [
   {
     id: "scale",
     name: "Scale",
-    premise:
-      "A pilot can succeed for a year without a single customer noticing.",
-    alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
+    premise: "A pilot handles a slice. Your customers are in the rest.",
+    plate: [
+      {
+        kind: "table",
+        columns: ["Limit", "Set by", "Moved when"],
+        rows: [
+          [
+            "~~Under $500~~ Under $2,000",
+            "Head of Service",
+            "The desk’s judgment held",
+          ],
+          [
+            "~~Asks a person~~ Refunds and tells finance",
+            "Head of Service",
+            "The desk’s judgment held",
+          ],
+        ],
+      },
+    ],
     notes: [
       "Retire the old stream. While both run, people hand-sort cases between them.",
-      "Measure two things: time from filed to settled, and the share of cases no person touched.",
+      "Measure two things: time from placed to settled, and the share of cases no person touched.",
       "Managers keep the limits. They set them and move them.",
     ],
   },
@@ -242,29 +261,9 @@ const innerClose = {
             </span>
             <span class="premise">{s.premise}</span>
           </div>
-          {s.plate ? (
-            <div class="exhibit">
-              <Proof proof={s.plate} />
-              {s.legend && (
-                <p class="legend mono-label">
-                  <span class="swatch pale" aria-hidden="true" /> by hand
-                  <span class="swatch dark" aria-hidden="true" /> runs on its
-                  own
-                </p>
-              )}
-            </div>
-          ) : (
-            <div class="exhibit scene" role="img" aria-label={s.alt}>
-              <Picture
-                src={scale}
-                alt=""
-                widths={[720, 1440]}
-                sizes="(max-width: 899px) 100vw, 60rem"
-                formats={["avif", "webp"]}
-                loading="lazy"
-              />
-            </div>
-          )}
+          <div class="exhibit">
+            <Proof proof={s.plate ?? []} />
+          </div>
           <figcaption class="commentary">
             {s.notes.length > 0 && (
               <ol class="notes">
@@ -275,174 +274,61 @@ const innerClose = {
                 ))}
               </ol>
             )}
-            {i + 1 < stages.length ? (
-              <button
-                type="button"
-                class="next go"
-                data-next={stages[i + 1].id}
-              >
-                Next: {stages[i + 1].name}
-                <svg
-                  viewBox="0 0 12 12"
-                  width="0.62em"
-                  height="0.62em"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            ) : (
-              <a class="next go" href={door}>
-                Start with one stream
-                <svg
-                  viewBox="0 0 12 12"
-                  width="0.62em"
-                  height="0.62em"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </a>
-            )}
           </figcaption>
         </figure>
       ))
     }
   </div>
+  <a class="door go" href={door}>
+    Start with one stream
+    <svg viewBox="0 0 12 12" width="0.62em" height="0.62em" aria-hidden="true">
+      <path
+        d="M2 6h8M6.5 2.5 10 6l-3.5 3.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.1"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </a>
 </div>
 
 <script is:inline>
-  // the loop is the control. a stage is chosen from the loop (click, tap, or
-  // arrow keys), by its own next question, or on a phone by a swipe; it
-  // changes in place and enters from the side it was reached from. hover
-  // previews a stage only where there is a pointer to hover with.
+  // the loop is an index. every stage is on the page; a balloon scrolls to
+  // its stage, and the balloon of the stage in view is drawn in full ink.
   (() => {
     const root = document.querySelector("[data-cycle]");
     if (!root) return;
-    const hover = matchMedia("(hover: hover)");
-    const narrow = matchMedia("(max-width: 899px)");
     const still = matchMedia("(prefers-reduced-motion: reduce)");
     const buttons = [...root.querySelectorAll("[data-stage]")];
     const states = [...root.querySelectorAll("[data-state]")];
-    const order = buttons.map((b) => b.dataset.stage);
-    let selected = order[0];
-    const visited = new Set();
-    const show = (id) =>
-      states.forEach(
-        (s) => (s.dataset.active = String(s.dataset.state === id)),
+    const bar = () => document.querySelector(".bar")?.offsetHeight ?? 0;
+    const mark = (id) =>
+      buttons.forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.stage === id)),
       );
-    const enter = (id, dir) => {
-      if (!dir || still.matches) return;
-      root.querySelector(`[data-state="${id}"]`)?.animate(
-        [
-          { opacity: 0, transform: `translateX(${dir * 24}px)` },
-          { opacity: 1, transform: "none" },
-        ],
-        { duration: 380, easing: "cubic-bezier(0.2, 0.6, 0.2, 1)" },
-      );
-    };
-    // the next stage is drawn in full ink: the way on. after Scale, See.
-    const select = (id) => {
-      const dir = Math.sign(order.indexOf(id) - order.indexOf(selected));
-      selected = id;
-      visited.add(id);
-      const next = order[(order.indexOf(id) + 1) % order.length];
-      buttons.forEach((b) => {
-        const stage = b.dataset.stage;
-        b.setAttribute("aria-pressed", String(stage === id));
-        b.dataset.visited = String(visited.has(stage) && stage !== id);
-        b.dataset.next = String(stage === next);
-      });
-      show(id);
-      enter(id, dir);
-    };
-    // on a phone the loop is pinned above the stage; a new stage is brought
-    // back up under it, so it is read from its top
-    const settle = () => {
-      if (!narrow.matches) return;
-      const bar = document.querySelector(".bar")?.offsetHeight ?? 0;
-      const top = root.getBoundingClientRect().top - bar;
-      if (top < 0)
-        scrollBy({ top, behavior: still.matches ? "auto" : "smooth" });
-    };
-    const step = (delta) => {
-      const id = order[order.indexOf(selected) + delta];
-      if (!id) return false;
-      select(id);
-      settle();
-      return true;
-    };
-    root.querySelectorAll("[data-next]").forEach((n) =>
-      n.addEventListener("click", () => {
-        select(n.dataset.next);
-        settle();
-        root
-          .querySelector(`[data-stage="${n.dataset.next}"]`)
-          ?.focus({ preventScroll: true });
+    buttons.forEach((b) =>
+      b.addEventListener("click", () => {
+        const s = root.querySelector(`[data-state="${b.dataset.stage}"]`);
+        if (!s) return;
+        const top = s.getBoundingClientRect().top + scrollY - bar() - 16;
+        scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
+        mark(b.dataset.stage);
       }),
     );
-    buttons.forEach((b) => {
-      b.addEventListener("click", () => select(b.dataset.stage));
-      b.addEventListener("mouseenter", () => {
-        if (hover.matches) show(b.dataset.stage);
-      });
-      b.addEventListener("mouseleave", () => {
-        if (hover.matches) show(selected);
-      });
-      b.addEventListener("focus", () => {
-        if (b.dataset.stage !== selected) select(b.dataset.stage);
-      });
-      b.addEventListener("keydown", (e) => {
-        const delta = {
-          ArrowRight: 1,
-          ArrowDown: 1,
-          ArrowLeft: -1,
-          ArrowUp: -1,
-        }[e.key];
-        if (!delta) return;
-        e.preventDefault();
-        if (step(delta))
-          root
-            .querySelector(`[data-stage="${selected}"]`)
-            ?.focus({ preventScroll: true });
-      });
-    });
-    // a sideways swipe across the stage turns it; a vertical one scrolls
-    const field = root.querySelector("[data-states]");
-    let from = null;
-    field.addEventListener(
-      "touchstart",
-      (e) => (from = { x: e.touches[0].clientX, y: e.touches[0].clientY }),
-      { passive: true },
-    );
-    field.addEventListener(
-      "touchend",
-      (e) => {
-        if (!from) return;
-        const dx = e.changedTouches[0].clientX - from.x;
-        const dy = e.changedTouches[0].clientY - from.y;
-        from = null;
-        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5)
-          step(dx < 0 ? 1 : -1);
-      },
-      { passive: true },
-    );
+    if ("IntersectionObserver" in window) {
+      const seen = new Map();
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => seen.set(e.target, e.intersectionRatio));
+          const best = [...seen.entries()].sort((a, b) => b[1] - a[1])[0];
+          if (best && best[1] > 0) mark(best[0].dataset.state);
+        },
+        { threshold: [0, 0.25, 0.5, 0.75, 1] },
+      );
+      states.forEach((s) => io.observe(s));
+    }
     root.classList.add("interactive");
-    select(selected);
   })();
 </script>
 
@@ -705,15 +591,22 @@ const innerClose = {
 
   .interactive .states {
     display: grid;
-    gap: 0;
+    gap: 3.5rem;
   }
-  .interactive .state {
-    grid-area: 1 / 1;
-    transition: opacity 0.35s var(--ease);
-  }
-  .interactive .state[data-active="false"] {
-    opacity: 0;
-    visibility: hidden;
+  /* the way out, after the last stage */
+  .door {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
   }
 
   /* wide: the loop beside the stage, the legend under the loop. the
@@ -730,10 +623,16 @@ const innerClose = {
     .interactive .loop-band {
       grid-column: 1;
       grid-row: 1;
+      position: sticky;
+      top: calc(var(--bar) + 1.5rem);
     }
     .interactive .states {
       grid-column: 2;
       grid-row: 1 / span 2;
+    }
+    .interactive .door {
+      grid-column: 2;
+      grid-row: 3;
     }
     .interactive .loop {
       width: 236px;
@@ -796,18 +695,7 @@ const innerClose = {
       --scene: min(24svh, 15rem);
     }
     .interactive .loop-band {
-      position: sticky;
-      top: var(--bar);
-      z-index: 2;
-      /* the strip spans the sheet inside its frame; content scrolling under
-         it fades out rather than being cut */
-      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
-      padding: 1.5rem 0 0.75rem;
-      background: linear-gradient(
-        to bottom,
-        rgb(238, 227, 208) 84%,
-        rgba(238, 227, 208, 0)
-      );
+      padding: 0.5rem 0 1rem;
     }
     .interactive .loop {
       width: min(156px, 20svh);

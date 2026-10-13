@@ -1,6 +1,6 @@
 # Cycle illustrations
 
-Pencil scenes for the cycle, generated with OpenAI. Only the Scale scene is on the page; the other prompts are kept here.
+Pencil scenes for the cycle, generated with OpenAI. None is on the page now; the prompts are kept here.
 `gpt-image-2.5-sunburst` at `quality=high` through `/v1/images/edits`, using the
 founder portrait as the style reference so every image shares its hand and
 paper.
@@ -15,6 +15,6 @@ room and map stay the same. Every scene prompt describes its people explicitly
 and says none resembles the man in the reference, so the founder's likeness
 never carries over: he appears only in his portrait.
 
-Finished images live in `src/assets/cycle/` as JPEG masters; Astro serves
+Finished images lived in `src/assets/cycle/` as JPEG masters; Astro served
 them as AVIF/WebP. The key is read from the repo's `.env` (`OPENAI_API_KEY`),
 which is git-ignored.

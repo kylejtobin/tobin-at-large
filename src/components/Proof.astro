@@ -43,41 +43,46 @@ const streamGeometry = (across: readonly string[]) => {
   {
     proof.map((block) =>
       block.kind === "table" ? (
-        <table>
-          <thead>
-            <tr>
-              {block.columns.map((column, c) => (
-                <th
-                  class:list={[
-                    "mono-label",
-                    { unreachable: block.unreachable === c },
-                  ]}
-                  scope="col"
-                >
-                  {column}
-                  {block.unreachable === c && (
-                    <span class="note">Out of an agent’s reach</span>
-                  )}
-                  {block.columnNotes?.[c] && (
-                    <span class="note">{block.columnNotes[c]}</span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {block.rows.map((row, r) => (
-              <tr class={block.tones?.[r]}>
-                {row.map((cell, c) => (
-                  <td
-                    class:list={{ unreachable: block.unreachable === c }}
-                    set:html={cellHtml(cell)}
-                  />
+        <div class="plate">
+          <table>
+            <thead>
+              <tr>
+                {block.columns.map((column, c) => (
+                  <th
+                    class:list={[
+                      "mono-label",
+                      { unreachable: block.unreachable === c },
+                    ]}
+                    scope="col"
+                  >
+                    {column}
+                    {block.columnNotes?.[c] && (
+                      <span class="note">{block.columnNotes[c]}</span>
+                    )}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {block.rows.map((row, r) => (
+                <tr class={block.tones?.[r]}>
+                  {row.map((cell, c) => (
+                    <td
+                      class:list={{ unreachable: block.unreachable === c }}
+                      set:html={cellHtml(cell)}
+                    />
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {block.legend && (
+            <p class="legend mono-label">
+              <span class="swatch pale" aria-hidden="true" /> by hand
+              <span class="swatch dark" aria-hidden="true" /> runs on its own
+            </p>
+          )}
+        </div>
       ) : block.kind === "stream" ? (
         <svg
           class="stream"
@@ -253,6 +258,25 @@ const streamGeometry = (across: readonly string[]) => {
   .stream .end-label {
     font-size: 10.5px;
     fill: var(--ink);
+  }
+
+  /* the legend: the one rule every toned table follows */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0.6rem 0 0;
+  }
+  .swatch {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.62em;
+    border: 1px solid var(--line);
+  }
+  .swatch.dark {
+    margin-left: 1em;
+    background: var(--ink);
+    border-color: var(--ink);
   }
 
   /* what someone says, kept: judgment as it is exercised */

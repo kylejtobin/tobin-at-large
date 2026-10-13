@@ -1,11 +1,11 @@
 ---
 sheet: 3
-short: What an agent may hold
-position: An agent can hold judgment now. It can hold it only inside a limit.
+short: Where the agent’s judgment stops
+position: The agent’s judgment stops at a limit. A person moves it.
 proof:
   - kind: table
     columns: [Judgment, Held by, Within, Beyond]
-    columnNotes: [null, null, null, Moved by a person]
+    columnNotes: [null, null, null, A person sets this]
     rows:
       - [
           Refund,
@@ -13,7 +13,8 @@ proof:
           "A paid order, a reason recorded, the desk’s limit",
           A person’s approval,
         ]
+      - [Active customer, Software, Whatever billing proves, "—"]
       - [Exception to policy, A named person, Every case, "—"]
-      - [Active customer, Software, The fact decides, "—"]
-    tones: [auto, hand, auto]
+    tones: [auto, auto, hand]
+    legend: true
 ---

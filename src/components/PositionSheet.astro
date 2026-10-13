@@ -9,7 +9,7 @@ interface Props {
   position: CollectionEntry<"positions">;
 }
 
-const { sheet, position, consequence, proof } = Astro.props.position.data;
+const { sheet, position, consequence, proof, key } = Astro.props.position.data;
 const mirrored = sheet % 2 === 0;
 ---
 
@@ -20,6 +20,7 @@ const mirrored = sheet % 2 === 0;
   </div>
   <div class="exhibit">
     <Proof proof={proof} />
+    {key && <p class="mono-label key">{key}</p>}
   </div>
 </div>
 
@@ -59,6 +60,12 @@ const mirrored = sheet % 2 === 0;
     letter-spacing: -0.008em;
     max-width: 20ch;
     text-wrap: balance;
+  }
+  /* a key to the words in the code, set like a drawing's key */
+  .key {
+    margin-top: 0.7rem;
+    font-size: 0.62rem;
+    line-height: 1.6;
   }
   .consequence {
     margin-top: 1.25rem;
