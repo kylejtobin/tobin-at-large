@@ -15,6 +15,15 @@ body of work: the products are the problems met in every organization,
 solved once and given away; the engagements apply the same thinking inside
 one organization, one stream of work at a time.
 
+## The framing above every line
+
+The judgment is knowledge the people at the desk have. The page shows that
+knowledge found, written in their words, read back by them, and built into
+the world the agent decides in. Nothing on the page may read as judgment
+taken off a person, or as a person replaced; the desk is the authority
+before and reads the agent's call back, and the managers are the after.
+No label, key, column note or caption narrates what a plate should prove.
+
 ## The rule above every rule
 
 No person in the stream. The agent runs every case; the wrong outcome has
@@ -97,11 +106,10 @@ gets a column note instead.
 ## The arc
 
 1. **Cover.** The claim: _A stream of work can now run with no one in it._
-   The exhibit is the synergy as a triad: the desk's judgment on one case,
-   the agent's judgment on the next in the same voice, and the two outcomes
-   it built, typed. The line: TAL finds the judgment that really runs the
-   work, and builds the world the agent decides in. The index lists the six
-   positions by plain titles.
+   The exhibit: the desk on one case, the agent on the next in the same
+   voice, and the desk reading it back: "Yes. That's what I'd do." The
+   line: TAL finds what the people at the desk know, and builds it as the
+   world the agent decides in. The index lists the six positions.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
 3. **How we do it.** The headline, _One stream of work at a time_, the loop

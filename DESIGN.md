@@ -28,9 +28,9 @@ to rewrite to fit what was built.
   mark stands down while the cover's mark is on screen, so identity never
   appears twice at once.
 - **Cover** (full screen): the mark, the claim as the largest type on the
-  site, the exhibit under it (the desk's judgment, the agent's judgment on
-  the next case, and the outcomes it built), one supporting line, and the
-  one drawing on the site keying the index of positions.
+  site, the exhibit under it (the desk on one case, the agent on the next,
+  the desk reading it back), one supporting line, and the one drawing on
+  the site keying the index of positions. No label over the index.
 - **Position sheets**: a mirrored spread. The position as headline beside its
   proof, both hanging from one top edge. Alternate sheets mirror. A
   consequence line appears only for what the proof cannot show; none of the
@@ -103,15 +103,13 @@ the tooth too. Warm drafting stock, never parchment mottling.
 A proof is drawn, never captioned, and shows the move from implicit to
 explicit:
 
-- **Tables** may hatch one column as out of an agent's reach, and any column
-  head may carry a note in the signal red (the hatch's "out of an agent's
-  reach", 02's "moved by a person", Declare's "declared the true version
-  first"). A row may carry a tone at its head, the legend's swatch: pale is
-  done by hand, dark runs on its own. A cell may strike the replaced way
-  beside what replaces it.
+- **Tables** may hatch one column as the version on paper. A cell may strike
+  the replaced way beside what replaces it. A cell may carry the desk's own
+  words in quotes: the judgment as said, never rewritten as a rule.
 - **Struck lines** show the replaced way (speech or code), struck in red above
   what replaces it. **Speech**, unstruck, in italic with a quiet label, is
-  judgment as it is exercised: kept, never crossed out.
+  what the desk knows, in the desk's words: kept, never crossed out, and
+  never rewritten as a rule.
 - **Code** blocks are framed; a comment is set in the quiet ink. A run log is
   code.
 - **The stream** is a line with its two ends fixed as filled terminals, the
@@ -134,10 +132,11 @@ outcome needs to exist, every row dark (Refactor); the run, the agent
 judging and one missing kind found (Prototype); the same stream drawn solid
 end to end with its caption, every case, no one in it (Scale).
 
-- **Tone means automation.** In every toned table a pale row is done by hand
-  and a dark row runs on its own. Every row is pale through Declare, and the
-  balance turns in Refactor. The legend, a pale swatch, a dark swatch, four
-  words, sits under every toned table, on the position sheets too.
+- **No legends, keys or column notes.** A plate proves its claim on its own
+  or it is redrawn. The one exception is the hatch on sheet 01, which reads
+  as a void without a key. Row tones and their legend were tried and cut:
+  a table whose rows are all one tone draws no contrast, so the swatches
+  only narrated.
 - **A stage is set out as a demonstration**, the way a plate and its notes sit
   in a folio. On a wide screen the enunciation, the stage number and the
   premise, sits over the plate in the plate's column, and the commentary runs
