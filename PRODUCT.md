@@ -245,12 +245,12 @@ Scale is about the business: the organization doing what it exists to do.
 - **Never put the founder's résumé on the page.**
 - Never fill a slot by **copying existing text**. Synthesize and say it
   newly.
-- The founder is identified by what he does, in two plain sentences a
-  stranger can picture, and nothing the cover already said:
+- The founder is identified by a **declaration of how he thinks**, in one
+  sentence, never by what he does on a Tuesday:
 
-  > **Kyle J. Tobin** sits at the desks where the work gets decided and finds
-  > the judgment the people there use. Then he builds what the agent can
-  > decide.
+  > **Kyle J. Tobin** founded TAL to build organizations the way they will now
+  > have to run: whole, explicit, and executable, from the authority at the top
+  > to the code underneath.
 
 ## Less is more, quality over quantity
 
