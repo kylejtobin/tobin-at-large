@@ -61,7 +61,7 @@ const stages: Stage[] = [
           [
             "Refund",
             "~~Over $500, finance approves~~",
-            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
+            "“Order’s paid, customer’s waiting. Refund it. Tell finance after.”",
           ],
           [
             "Fee waived",
@@ -87,11 +87,19 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Outcome", "Exists only with"],
+        columns: ["Outcome", "The desk said", "Exists only with"],
         rows: [
-          ["Refund", "A paid order, a reason"],
-          ["Fee waived", "The fee, a reason"],
-          ["Replacement", "Proven stock, the order it replaces"],
+          ["Refund", "“Order’s paid.”", "A paid order, a reason"],
+          [
+            "Fee waived",
+            "“Three years with us.”",
+            "The fee, how long she has paid us",
+          ],
+          [
+            "Replacement",
+            "“Invoice isn’t paid yet? She still gets it.”",
+            "Proven stock, the order it replaces",
+          ],
         ],
       },
     ],
@@ -118,7 +126,7 @@ const stages: Stage[] = [
             "Sent the replacement",
           ],
           [
-            "Asks for credit instead of cash",
+            "Asks for credit instead",
             "~~Refunds in full~~ Credits her",
             "Credited her",
           ],
@@ -132,7 +140,7 @@ const stages: Stage[] = [
   {
     id: "scale",
     name: "Scale",
-    premise: "Every case runs through it, and no one is in it.",
+    premise: "The whole stream runs, and no one is in it.",
     plate: [
       {
         kind: "table",
@@ -144,7 +152,7 @@ const stages: Stage[] = [
             "Invoice unpaid, arrived broken",
             "Can’t refund what wasn’t paid; sends the replacement",
           ],
-          ["Asks for credit instead of cash", "Credits her"],
+          ["Asks for credit instead", "Credits her"],
         ],
       },
       {

@@ -7,8 +7,8 @@ proof:
     columns: [Outcome, Exists only with]
     rows:
       - [Refund, "A paid order, a reason"]
-      - [Partial refund, "A proven payment, the amount owed"]
+      - [Credit, "A paid order, a reason"]
       - [Replacement, "Proven stock, the order it replaces"]
-      - [Fee waived, "The fee, a reason"]
+      - [Fee waived, "The fee, how long she has paid us"]
       - [Decline, A reason]
 ---
