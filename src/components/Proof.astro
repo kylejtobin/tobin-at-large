@@ -189,7 +189,7 @@ const streamGeometry = (across: readonly string[]) => {
                 id="limit-range"
                 type="range"
                 min="160"
-                max="284"
+                max="240"
                 value="214"
                 step="2"
               />
@@ -560,7 +560,7 @@ const streamGeometry = (across: readonly string[]) => {
       if (tick) {
         tick.querySelector("line").setAttribute("x1", x);
         tick.querySelector("line").setAttribute("x2", x);
-        tick.querySelector("text").setAttribute("x", x);
+        tick.querySelector("text").setAttribute("x", x + 4);
       }
       // the month's first case sits at 170: left of the limit it is a refund,
       // right of it there is no refund to be

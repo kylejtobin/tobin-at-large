@@ -48,7 +48,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     box: refund,
     at: [
       { x: 50, label: "paid order" },
-      { x: 110, label: "reason" },
+      { x: 118, label: "reason" },
       { x: limitX, label: "under the limit" },
     ],
   },
@@ -254,7 +254,12 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
               y1={box.y - 5}
               y2={box.y + 5}
             />
-            <text class="tick-label" x={t.x} y={box.y - 9} text-anchor="middle">
+            <text
+              class="tick-label"
+              x={t.x === limitX ? t.x + 4 : t.x}
+              y={box.y - 9}
+              text-anchor={t.x === limitX ? "start" : "middle"}
+            >
               {t.label}
             </text>
           </g>
@@ -287,7 +292,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="01"
       data-region="refund"
     >
-      <circle cx="170" cy="156" r="12"></circle>
+      <circle cx="170" cy="156" r="12" pathLength="100"></circle>
       <text x="170" y="156">01</text>
     </g>
     <g
@@ -296,7 +301,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="02"
       data-region="waived"
     >
-      <circle cx="262" cy="252" r="12"></circle>
+      <circle cx="262" cy="252" r="12" pathLength="100"></circle>
       <text x="262" y="252">02</text>
     </g>
     <g
@@ -305,12 +310,12 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="03"
       data-region="replacement"
     >
-      <circle cx="440" cy="178" r="12"></circle>
+      <circle cx="440" cy="178" r="12" pathLength="100"></circle>
       <text x="440" y="178">03</text>
     </g>
     <!-- the credit case: on void in the month's run, inside credit once it exists -->
     <g class="case onvoid" data-s="prototype" data-case="04v">
-      <circle cx="409" cy="96" r="12"></circle>
+      <circle cx="409" cy="96" r="12" pathLength="100"></circle>
       <text x="409" y="96">04</text>
     </g>
     <g
@@ -319,12 +324,12 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="04"
       data-region="credit"
     >
-      <circle cx="440" cy="98" r="12"></circle>
+      <circle cx="440" cy="98" r="12" pathLength="100"></circle>
       <text x="440" y="98">04</text>
     </g>
     <!-- a refund of an unpaid invoice: nowhere to land -->
     <g class="case onvoid" data-s="cases" data-case="05">
-      <circle cx="409" cy="244" r="12"></circle>
+      <circle cx="409" cy="244" r="12" pathLength="100"></circle>
       <text x="409" y="244">05</text>
     </g>
   </g>
@@ -338,8 +343,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     overflow: visible;
   }
   .space :global(rect),
-  .space :global(line),
-  .space :global(circle) {
+  .space :global(line) {
     vector-effect: non-scaling-stroke;
   }
   .space text {
@@ -422,8 +426,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     fill: var(--paper);
     stroke: var(--ink);
     stroke-width: 1;
-    stroke-dasharray: 76;
-    stroke-dashoffset: 76;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
     transition: stroke-dashoffset 0.35s var(--ease) 0.1s;
   }
   .case text {
@@ -490,7 +494,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       font-size: 11px;
     }
     .tick-label {
-      font-size: 10.5px;
+      font-size: 9.5px;
     }
     .said-text {
       font-size: 11.5px;
