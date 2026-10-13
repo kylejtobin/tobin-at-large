@@ -9,6 +9,13 @@ proof:
           """The intended refunding
           of a paid order."""
 
+          model_config = ConfigDict(
+              frozen=True,
+              extra="forbid",
+              strict=True,
+              validate_default=True,
+              revalidate_instances="never",
+          )
           order: PaidOrder
           reason: Reason
 ---

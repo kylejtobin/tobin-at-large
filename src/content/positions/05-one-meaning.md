@@ -1,7 +1,7 @@
 ---
 sheet: 5
 short: Three systems, one meaning
-position: Three systems say how long she’s been with us. The agent gets the desk’s meaning.
+position: Three systems say how long she’s been with us. The agent uses the desk’s meaning.
 proof:
   - kind: speech
     label: The desk

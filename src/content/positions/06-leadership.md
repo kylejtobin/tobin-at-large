@@ -14,6 +14,6 @@ proof:
         ]
       - [
           "~~Settles the exception at the next desk~~",
-          Adds the outcome the exception needed. Every case after can have it.,
+          Adds the outcome the exception needed,
         ]
 ---

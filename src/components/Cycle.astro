@@ -89,7 +89,11 @@ const stages: Stage[] = [
         kind: "table",
         columns: ["Outcome", "The desk said", "Exists only with"],
         rows: [
-          ["Refund", "“Order’s paid.”", "A paid order, a reason"],
+          [
+            "Refund",
+            "“Order’s paid, customer’s waiting.”",
+            "A paid order, a reason",
+          ],
           [
             "Fee waived",
             "“Three years with us.”",
@@ -122,7 +126,7 @@ const stages: Stage[] = [
           ],
           [
             "Invoice unpaid, arrived broken",
-            "Can’t refund what wasn’t paid; sends the replacement",
+            "Sends the replacement",
             "Sent the replacement",
           ],
           [
@@ -148,10 +152,7 @@ const stages: Stage[] = [
         rows: [
           ["Paid, waiting", "Refunds, tells finance"],
           ["Asks for the fee back too", "Refunds, waives the fee"],
-          [
-            "Invoice unpaid, arrived broken",
-            "Can’t refund what wasn’t paid; sends the replacement",
-          ],
+          ["Invoice unpaid, arrived broken", "Sends the replacement"],
           ["Asks for credit instead", "Credits her"],
         ],
       },
@@ -164,7 +165,7 @@ const stages: Stage[] = [
       },
     ],
     notes: [
-      "Pilot a slice and the rest of the cases still wait at Finance. Retire the old stream the day the new one carries every case.",
+      "Retire the old stream the day the new one carries every case.",
       "Measure one thing: time from placed to settled.",
     ],
   },
