@@ -127,7 +127,14 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     ></circle>
     <line
       class="run"
-      data-s="scale"
+      data-s="scale cases limit"
+      x1={frame.x}
+      x2={frame.x + frame.w}
+      y1={streamY}
+      y2={streamY}></line>
+    <line
+      class="run waits"
+      data-s="declare refactor prototype"
       x1={frame.x}
       x2={frame.x + frame.w}
       y1={streamY}
@@ -137,7 +144,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   <!-- the ground: void, everywhere an outcome is not -->
   <rect
     class="void"
-    data-s="refactor prototype scale cases limit"
+    data-s="see declare refactor prototype scale cases limit"
     x={frame.x}
     y={frame.y}
     width={frame.w}
@@ -259,6 +266,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
               x={t.x === limitX ? t.x + 4 : t.x}
               y={box.y - 9}
               text-anchor={t.x === limitX ? "start" : "middle"}
+              data-limit-label={t.x === limitX ? "true" : undefined}
             >
               {t.label}
             </text>
@@ -284,13 +292,15 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     </g>
   </g>
 
-  <!-- the cases -->
+  <!-- the cases: each arrives from its station on the stream and lands -->
   <g class="cases">
     <g
       class="case"
       data-s="prototype scale cases limit"
       data-case="01"
       data-region="refund"
+      data-from="110"
+      style="--lx: 170; --ly: 156"
     >
       <circle cx="170" cy="156" r="12" pathLength="100"></circle>
       <text x="170" y="156">01</text>
@@ -300,6 +310,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-s="prototype scale cases limit"
       data-case="02"
       data-region="waived"
+      data-from="110"
+      style="--lx: 262; --ly: 252"
     >
       <circle cx="262" cy="252" r="12" pathLength="100"></circle>
       <text x="262" y="252">02</text>
@@ -309,26 +321,32 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-s="prototype scale cases limit"
       data-case="03"
       data-region="replacement"
+      data-from="410"
+      style="--lx: 440; --ly: 178"
     >
       <circle cx="440" cy="178" r="12" pathLength="100"></circle>
       <text x="440" y="178">03</text>
     </g>
-    <!-- the credit case: on void in the month's run, inside credit once it exists -->
-    <g class="case onvoid" data-s="prototype" data-case="04v">
+    <!-- the credit case: on void in the month's run, then inside Credit once it exists -->
+    <g
+      class="case onvoid moves"
+      data-s="prototype scale cases limit"
+      data-case="04"
+      data-region="credit"
+      data-from="260"
+      style="--lx: 409; --ly: 96"
+    >
       <circle cx="409" cy="96" r="12" pathLength="100"></circle>
       <text x="409" y="96">04</text>
     </g>
-    <g
-      class="case"
-      data-s="scale cases limit"
-      data-case="04"
-      data-region="credit"
-    >
-      <circle cx="440" cy="98" r="12" pathLength="100"></circle>
-      <text x="440" y="98">04</text>
-    </g>
     <!-- a refund of an unpaid invoice: nowhere to land -->
-    <g class="case onvoid" data-s="cases" data-case="05">
+    <g
+      class="case onvoid"
+      data-s="cases"
+      data-case="05"
+      data-from="260"
+      style="--lx: 409; --ly: 244"
+    >
       <circle cx="409" cy="244" r="12" pathLength="100"></circle>
       <text x="409" y="244">05</text>
     </g>
@@ -351,7 +369,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     letter-spacing: 0.06em;
   }
   .hatch-line {
-    stroke: rgba(26, 26, 26, 0.14);
+    stroke: rgba(26, 26, 26, 0.2);
     stroke-width: 1;
   }
   .centre {
@@ -413,7 +431,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     stroke-width: 1;
   }
   .tick-label {
-    font-size: 8.5px;
+    font-size: 9.5px;
     fill: var(--ink-quiet);
   }
   .limit {
@@ -443,6 +461,32 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   .case.onvoid text {
     fill: var(--paper);
   }
+  /* the credit case, once a manager has added the box it lands in */
+  [data-stage="scale"] .case.moves circle,
+  [data-stage="cases"] .case.moves circle,
+  [data-stage="limit"] .case.moves circle {
+    fill: var(--paper);
+    stroke: var(--ink);
+  }
+  [data-stage="scale"] .case.moves text,
+  [data-stage="cases"] .case.moves text,
+  [data-stage="limit"] .case.moves text {
+    fill: var(--ink);
+  }
+  /* arrival: a case comes down from its station on the stream and lands.
+     the group is moved with a transform from the station to its place */
+  .case {
+    transform-box: view-box;
+    transition: transform 0.6s var(--ease);
+  }
+  .case.moves {
+    transition:
+      transform 0.6s var(--ease),
+      opacity 0.45s var(--ease);
+  }
+  [data-stage="prototype"] .case.moves {
+    transform: translate(0, -10px);
+  }
   /* a case the moved limit left on void */
   .case[data-lost="true"] circle {
     fill: none;
@@ -450,6 +494,9 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   }
   .case[data-lost="true"] text {
     fill: var(--signal-text);
+  }
+  .case[data-lost="true"] {
+    transform: translate(var(--lost-dx, 0px), 0);
   }
 
   /* ---- states ---- */
@@ -470,6 +517,18 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   [data-stage="scale"] [data-s~="scale"] circle,
   [data-stage="limit"] [data-s~="limit"] circle {
     stroke-dashoffset: 0;
+  }
+  [data-stage="prototype"] .case[data-case="01"] {
+    transition-delay: 0s;
+  }
+  [data-stage="prototype"] .case[data-case="02"] {
+    transition-delay: 0.3s;
+  }
+  [data-stage="prototype"] .case[data-case="03"] {
+    transition-delay: 0.6s;
+  }
+  [data-stage="prototype"] .case[data-case="04"] {
+    transition-delay: 1.1s;
   }
   /* on the sheet that lands a case, the cases wait for the reader */
   [data-stage="cases"] .case {
@@ -494,7 +553,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       font-size: 11px;
     }
     .tick-label {
-      font-size: 9.5px;
+      font-size: 10.5px;
     }
     .said-text {
       font-size: 11.5px;

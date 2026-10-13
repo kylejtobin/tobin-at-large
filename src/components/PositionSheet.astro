@@ -11,9 +11,11 @@ interface Props {
 
 const { sheet, position, consequence, proof, key } = Astro.props.position.data;
 const mirrored = sheet % 2 === 0;
+// a sheet whose proof is the outcome space gives the drawing the full width
+const wide = proof.some((block) => block.kind === "space");
 ---
 
-<div class:list={["spread", { mirrored }]}>
+<div class:list={["spread", { mirrored, wide }]}>
   <div class="argument">
     <h2>{position}</h2>
     {consequence && <p class="consequence">{consequence}</p>}
@@ -49,6 +51,19 @@ const mirrored = sheet % 2 === 0;
   }
   .mirrored .exhibit {
     grid-column: 1 / span 5;
+  }
+  /* the drawing under the headline, at the sheet's full width */
+  .wide .argument,
+  .wide.mirrored .argument {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+  }
+  .wide .exhibit,
+  .wide.mirrored .exhibit {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding-top: 0;
+    max-width: 56rem;
   }
 
   /* the position: the largest type on the sheet, stated as fact */

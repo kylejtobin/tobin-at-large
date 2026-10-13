@@ -529,12 +529,23 @@ const streamGeometry = (across: readonly string[]) => {
     buttons.forEach((b) =>
       b.addEventListener("click", () => {
         buttons.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
-        svg
-          .querySelectorAll(".case")
-          .forEach(
-            (c) =>
-              (c.dataset.shown = String(c.dataset.case === b.dataset.land)),
+        // the case arrives from its station on the stream, then lands; the
+        // month accumulates on the drawing
+        const c = svg.querySelector(`.case[data-case="${b.dataset.land}"]`);
+        if (c && c.dataset.shown !== "true") {
+          const from = Number(c.dataset.from);
+          const dx = from - Number(c.style.getPropertyValue("--lx"));
+          const dy = 26 - Number(c.style.getPropertyValue("--ly"));
+          c.style.transition = "none";
+          c.style.transform = `translate(${dx}px, ${dy}px)`;
+          c.dataset.shown = "true";
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+              c.style.transition = "";
+              c.style.transform = "";
+            }),
           );
+        }
         svg
           .querySelectorAll("[data-region]")
           .forEach(
@@ -564,7 +575,22 @@ const streamGeometry = (across: readonly string[]) => {
       }
       // the month's first case sits at 170: left of the limit it is a refund,
       // right of it there is no refund to be
-      if (stranded) stranded.dataset.lost = String(x < 170);
+      // past the first case, that case is stranded: moved clear into the void
+      if (stranded) {
+        const lost = x < 170;
+        stranded.dataset.lost = String(lost);
+        stranded.style.setProperty(
+          "--lost-dx",
+          lost ? `${Math.max(0, x + 30 - 170)}px` : "0px",
+        );
+      }
+      // the limit's label hangs right while there is room, left when there isn't
+      const label = tick && tick.querySelector("text");
+      if (label) {
+        const left = x > 232;
+        label.setAttribute("x", left ? x - 4 : x + 4);
+        label.setAttribute("text-anchor", left ? "end" : "start");
+      }
     };
     range.addEventListener("input", () => set(Number(range.value)));
     set(Number(range.value));
