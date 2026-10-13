@@ -31,7 +31,7 @@ type Stage = {
   id: string;
   name: string;
   premise: string;
-  body: string;
+  // only what the plate cannot show
   notes: string[];
   // the artifact the stage produces, or (Scale) the one pencil scene
   plate?: Plate;
@@ -50,13 +50,10 @@ const stages: Stage[] = [
         from: "Claim filed",
         to: "Claim settled",
         across: ["Sales", "Underwriting", "Finance", "Service"],
+        wait: { at: 2, label: "A claim, waiting on a decision" },
       },
     ],
-    body: "Each department decided its own part in advance. At every handoff, someone decides on the spot.",
-    notes: [
-      "Start where customers wait longest. That’s where the most is decided on the spot.",
-      "Don’t reorganize. A reorg moves the boxes; the handoffs stay.",
-    ],
+    notes: [],
   },
   {
     id: "declare",
@@ -67,6 +64,7 @@ const stages: Stage[] = [
       {
         kind: "table",
         columns: ["Decision", "As written", "As made"],
+        columnNotes: [null, null, "Declared the true version first"],
         rows: [
           [
             "Refund above $500",
@@ -88,11 +86,8 @@ const stages: Stage[] = [
       },
     ],
     legend: true,
-    body: "The written rule was set by someone who never saw the cases. The real rule is in the cases: who decided, on what, up to how much.",
     notes: [
-      "Declare the real version the true one before you ask, or nobody reports a workaround.",
-      "It’s done when the people who make the decisions say the table is right, not when it’s signed.",
-      "Automate nothing yet. An agent built from the written column runs the wrong version at full speed, with the person who used to override it gone.",
+      "It’s done when the people whose decisions it holds say it’s right.",
     ],
   },
   {
@@ -128,10 +123,8 @@ const stages: Stage[] = [
       },
     ],
     legend: true,
-    body: "Speed up one step and cases just reach the next approver sooner. So the stream is redesigned whole, and every decision gets one holder, the facts it’s decided on, and a limit.",
     notes: [
-      "One definition per term, checked by the system, not typed by a person.",
-      "The people who hold these decisions today review the table before anything is built.",
+      "Every role that holds one of these decisions sees the table before anything is built.",
     ],
   },
   {
@@ -154,10 +147,8 @@ const stages: Stage[] = [
         ],
       },
     ],
-    body: "Run it live, beside the old stream, on one case type. It holds when every case goes through with no person deciding except at a limit.",
     notes: [
-      "Build from the table, not from a spec written about it. Two documents drift.",
-      "When a run fails the table is wrong: a limit that let something through, or a fact nobody checked. Fix it and run again. Once ‘paid’ is a type, a refund can’t be built without one.",
+      "The table is what gets built. A document written about it is a second version, and the two drift.",
     ],
   },
   {
@@ -166,11 +157,9 @@ const stages: Stage[] = [
     premise:
       "A pilot can succeed for a year without a single customer noticing.",
     alt: "The working floor of a healthy company: people settling things on the spot, deciding standing up, teaching one another; technology small and far back.",
-    body: "A pilot handles a slice. For every other customer the wait is unchanged. The stream has moved when every case goes through it, exceptions included.",
     notes: [
-      "Retire the old stream. While both run, people hand-sort cases between them and the definitions drift again. That’s the sponsor’s call.",
-      "Measure two things: time from the event to what the customer asked for, and the share of cases no person touched.",
-      "Managers keep the limits. They set them and move them. The approving and chasing is gone.",
+      "Retire the old stream. While both run, people hand-sort cases between them.",
+      "Measure two things: time from filed to settled, and the share of cases no person touched.",
     ],
   },
 ];
@@ -285,14 +274,15 @@ const innerClose = {
             </div>
           )}
           <figcaption class="commentary">
-            <p class="body">{s.body}</p>
-            <ol class="notes">
-              {s.notes.map((n) => (
-                <li>
-                  <span>{n}</span>
-                </li>
-              ))}
-            </ol>
+            {s.notes.length > 0 && (
+              <ol class="notes">
+                {s.notes.map((n) => (
+                  <li>
+                    <span>{n}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
             {i + 1 < stages.length ? (
               <button
                 type="button"
@@ -500,14 +490,11 @@ const innerClose = {
     color: var(--ink-light);
     text-wrap: pretty;
   }
-  .body {
-    margin: 0;
-  }
   /* the rules, numbered as a sheet's general notes: the rule dark and
      short, its reason after it in the lighter face */
   .notes {
     list-style: none;
-    margin: 0.95rem 0 0;
+    margin: 0;
     padding: 0;
     display: grid;
     gap: 0.5rem;
@@ -783,6 +770,21 @@ const innerClose = {
       max-width: none;
       /* the notes start level with the enunciation's cap line */
       margin-top: 0.15rem;
+    }
+    /* See has nothing the plate cannot show: the stream takes the width and
+       the way on sits under it */
+    .interactive .state-see {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "head"
+        "plate"
+        "notes";
+    }
+    .interactive .state-see .exhibit {
+      max-width: 42rem;
+    }
+    .interactive .state-see .commentary {
+      margin-top: 0.5rem;
     }
     /* scale, the one scene with no map in it, is the working floor: cropped
        to the people in it */

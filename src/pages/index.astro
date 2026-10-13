@@ -13,11 +13,32 @@ import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
 import CoverDrawing from "../components/CoverDrawing.astro";
 import Cycle from "../components/Cycle.astro";
+import Proof from "../components/Proof.astro";
+import type { CollectionEntry } from "astro:content";
 
-const view =
-  "Your company runs on judgment. AI can only run what’s been decided.";
+const view = "Every decision in your company is one of these two.";
 const consequence =
-  "TAL studies how your work actually flows, finds the judgment that keeps it moving, and engineers it into agents with typed limits. What an agent may decide is exactly what it can build.";
+  "TAL turns the first into the second, one stream of work at a time.";
+// the cover's exhibit: one decision, by judgment, and the same decision as
+// something an agent can hold
+const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
+  {
+    kind: "struck",
+    as: "speech",
+    lines: ["“Check with finance if it’s a big one.”"],
+  },
+  {
+    kind: "table",
+    columns: ["Decision", "Decided by", "Limit"],
+    rows: [
+      [
+        "Refund",
+        "The agent, on the order and its payment from billing",
+        "Up to $2,000; a person above",
+      ],
+    ],
+  },
+];
 const email = "contact@talco.dev";
 const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 // the same first step the cycle ends on
@@ -96,6 +117,9 @@ const structuredData = {
       <div class="statement">
         <Mark />
         <h1>{view}</h1>
+        <div class="cover-exhibit">
+          <Proof proof={coverProof} />
+        </div>
         <p class="consequence">{consequence}</p>
       </div>
       <nav class="index" aria-label="What we find in every company">
@@ -133,15 +157,6 @@ const structuredData = {
     <div class="method">
       <p class="mono-label">How we do it</p>
       <h2>One stream of work at a time.</h2>
-      <p class="lead">
-        A stream is one kind of work followed end to end, claim filed to claim
-        settled.
-      </p>
-      <p class="triage">
-        If the facts decide it, software does it. If the facts decide it within
-        a range, an agent does, inside a typed limit, with a person beyond it.
-        If no one can yet say what decides it, a person keeps it.
-      </p>
       <Cycle door={oneStream} />
     </div>
   </Drawing>
@@ -207,6 +222,11 @@ const structuredData = {
                   <Arrow />
                 </a>
                 <span class="line">{data.line}</span>
+                {data.code && (
+                  <div class="thing">
+                    <Proof proof={[{ kind: "code", code: data.code }]} />
+                  </div>
+                )}
               </figcaption>
             </figure>
           ))
@@ -279,7 +299,12 @@ const structuredData = {
   .statement {
     grid-column: 1 / span 7;
     display: grid;
-    gap: clamp(1.5rem, 4vh, 2.75rem);
+    gap: clamp(1.25rem, 3vh, 2rem);
+  }
+  /* the cover's exhibit: the decision by judgment, struck, and the same
+     decision as a row an agent can hold */
+  .cover-exhibit {
+    max-width: 36rem;
   }
   .cover :global(.mark) {
     justify-self: start;
@@ -287,10 +312,10 @@ const structuredData = {
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.6rem, 5vw, 4.5rem);
+    font-size: clamp(2.4rem, 4.4vw, 4rem);
     line-height: 1.04;
     letter-spacing: -0.014em;
-    max-width: 15ch;
+    max-width: 16ch;
     text-wrap: balance;
   }
   .consequence {
@@ -298,6 +323,7 @@ const structuredData = {
     line-height: 1.5;
     color: var(--ink-light);
     max-width: 34rem;
+    text-wrap: pretty;
   }
 
   .index {
@@ -472,6 +498,11 @@ const structuredData = {
     line-height: 1.45;
     color: var(--ink-light);
   }
+  /* the thing itself, a few lines of it */
+  .thing {
+    margin-top: 0.8rem;
+    width: 100%;
+  }
   .title-link :global(svg) {
     margin-left: 0.3em;
     vertical-align: 0.12em;
@@ -484,7 +515,7 @@ const structuredData = {
 
   /* ---- what it takes: the claim, then the cycle taught ---- */
   .method h2 {
-    margin: 0.4rem 0 1rem;
+    margin: 0.4rem 0 2.25rem;
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2rem, 3.6vw, 3.1rem);
@@ -492,22 +523,6 @@ const structuredData = {
     letter-spacing: -0.008em;
     max-width: 24ch;
     text-wrap: balance;
-  }
-  .method .lead,
-  .method .triage {
-    font-size: clamp(1.15rem, 1.5vw, 1.32rem);
-    line-height: 1.5;
-    color: var(--ink-light);
-    max-width: 44rem;
-    text-wrap: pretty;
-  }
-  .method .lead {
-    margin: 0 0 0.75rem;
-  }
-  /* the method's core, on the sheet before any stage is opened */
-  .method .triage {
-    margin: 0 0 2.25rem;
-    color: var(--ink);
   }
 
   /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */

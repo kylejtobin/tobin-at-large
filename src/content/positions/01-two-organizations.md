@@ -2,7 +2,6 @@
 sheet: 1
 short: The company on paper vs. the one that runs
 position: "Every company runs twice: on paper, and in practice."
-consequence: An agent reads the paper. Your customers get the practice.
 proof:
   - kind: table
     columns: [On paper, In practice]

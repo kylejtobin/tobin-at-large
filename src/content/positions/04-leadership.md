@@ -2,7 +2,6 @@
 sheet: 4
 short: What managers do after
 position: Most management is relaying decisions nobody else can see.
-consequence: Once the work runs on its own, the relaying is gone. What’s left is setting the limits, and moving them.
 proof:
   - kind: table
     columns: [Coordination, Leadership]

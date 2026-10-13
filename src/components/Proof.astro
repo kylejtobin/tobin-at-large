@@ -58,6 +58,9 @@ const streamGeometry = (across: readonly string[]) => {
                   {block.unreachable === c && (
                     <span class="note">Out of an agent’s reach</span>
                   )}
+                  {block.columnNotes?.[c] && (
+                    <span class="note">{block.columnNotes[c]}</span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -91,6 +94,24 @@ const streamGeometry = (across: readonly string[]) => {
             </>
           ))}
           <line class="between" x1="60" x2="460" y1="90" y2="90" />
+          {block.wait && (
+            <>
+              <circle
+                class="wait"
+                cx={streamGeometry(block.across)[block.wait.at].x}
+                cy="90"
+                r="5"
+              />
+              <text
+                class="wait-label"
+                x={streamGeometry(block.across)[block.wait.at].x}
+                y="114"
+                text-anchor="middle"
+              >
+                {block.wait.label}
+              </text>
+            </>
+          )}
           <circle class="end" cx="60" cy="90" r="4.5" />
           <circle class="end" cx="460" cy="90" r="4.5" />
           <text class="end-label" x="60" y="156">
@@ -214,6 +235,14 @@ const streamGeometry = (across: readonly string[]) => {
   .stream .end {
     fill: var(--ink);
   }
+  /* a case sitting at a handoff: the plates' red, for the proof's mark */
+  .stream .wait {
+    fill: var(--signal);
+  }
+  .stream .wait-label {
+    font-size: 9.5px;
+    fill: var(--signal-text);
+  }
   .stream .end-label {
     font-size: 10.5px;
     fill: var(--ink);
@@ -253,5 +282,12 @@ const streamGeometry = (across: readonly string[]) => {
   }
   .code :global(.comment) {
     color: var(--ink-quiet);
+  }
+  /* on a phone the block is set smaller so its lines fit the sheet */
+  @media (max-width: 899px) {
+    .code {
+      font-size: 0.68rem;
+      padding: 0.7rem 0.8rem;
+    }
   }
 </style>

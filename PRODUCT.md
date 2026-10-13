@@ -72,34 +72,43 @@ company, so the page never needs a case of its own.
 Never: threatened, flattered, told they were wrong, or handed a hypothetical
 about someone else's company.
 
-## Show, never caption
+## Show, never tell
 
-Everything valuable on the page has a drawn form in the page's own proof
-grammar: a table, a struck line or cell, a hatched column, a code block, a
-stream line. Where a thing is drawn, no sentence restates it. A consequence
-line says what the proof cannot show; a note says what the plate cannot show.
-The method's plates use the same grammar as the positions and reuse their
-instances (the refund and its limit, the active customer, the policy
-exception), so the reader meets the same decision being made explicit stage
-by stage.
+The page does the work in front of the reader. One decision, the refund,
+runs from the cover to the code: by judgment, as written and as made, with
+its holder and limit, run live, and finally as a type that cannot be built
+without the payment. The reader watches it happen and knows the method
+because they followed it. Everything valuable has a drawn form in the page's
+own proof grammar: a table, a struck line or cell, a hatched column, a column
+note in the signal red, a code block, the stream line with a case waiting at
+a handoff. Where a thing is drawn, no sentence restates it. The only prose is
+a claim the exhibit proves, or the one thing an exhibit cannot show. No
+consequence lines under the positions; where a proof needed a sentence it
+gets a column note instead.
 
 ## The arc
 
-1. **Cover.** The claim: _Your company runs on judgment. AI can only run
-   what's been decided._ Under it, what TAL does, in one sentence. The index,
-   _What we find in every company_, lists the four positions by plain titles.
-2. **Positions 01–04.** Each a claim, a drawn proof, and one line for what
-   the proof cannot show: every rule exists twice, on paper and in practice
-   (01); an agent can be given a limit, not judgment (02); three systems,
-   three definitions, and the one definition is code (03); management was
-   relaying, and what remains is setting the limits (04).
-3. **How we do it.** The headline, _One stream of work at a time_, what a
-   stream is, and the triage on the sheet before any stage is opened: if the
-   facts decide it, software; within a range, an agent inside a typed limit
-   and a person beyond; if no one can yet say, a person. Then five stages,
-   each a premise, a plate, one or two sentences, and notes only for what the
-   plate cannot show. The last step is the door.
-4. **Work.** The book and the code, one plain line each.
+1. **Cover.** The exhibit: the decision by judgment, struck ("Check with
+   finance if it's a big one"), and under it the same decision as a row an
+   agent can hold. The claim over it: _Every decision in your company is one
+   of these two._ The one line the exhibit cannot show: _TAL turns the first
+   into the second, one stream of work at a time._ The index lists the four
+   positions by plain titles.
+2. **Positions 01–04.** Claim and drawn proof, no caption: every rule exists
+   twice, on paper and in practice (01); an agent can be given a limit, not
+   judgment, with the moved limit noted in red (02); three systems, three
+   definitions, and the one definition is code, "a fact, not a flag" (03);
+   management was relaying, and what remains is setting the limits (04).
+3. **How we do it.** The headline, _One stream of work at a time_, then the
+   loop and the stages. Each stage is a premise, the plate, and at most one
+   or two notes for what the plate cannot show. The See plate draws what a
+   stream is, with a claim waiting at a handoff; Declare's table notes that
+   practice was declared the true version first; Refactor's table is the
+   triage; Prototype's run shows the fault in the table and the case that
+   can no longer be built. The last step is the door.
+4. **Work.** The book's one line; under ONTOK and TCA, the thing itself: the
+   fact type and the refund type, in which no payment means no refund and
+   the amount carries the limit.
 5. **Founder.** One sentence, the portrait, the door.
 
 ### Current positions
@@ -113,10 +122,9 @@ by stage.
 
 Each stage (See, Declare, Refactor, Prototype, Scale) carries a premise the
 reader can check against their own company; the plate, which is the artifact
-the stage produces; one or two sentences; notes for what the plate cannot
-show; and the way on. No reason is given for a rule unless the reason is a
-surprise. No term is defined in italics; _stream_ is defined once, on the
-sheet, in plain words. Each stage is a decision only the sponsor can make,
+the stage produces; at most one or two notes for what the plate cannot show;
+and the way on. No body copy, no reasons, no definitions: the plates are the
+teaching. Each stage is a decision only the sponsor can make,
 and the plate shows it made: the two ends of a stream (See), practice as the
 true version (Declare), who decides what and up to where (Refactor), what
 counts as proof (Prototype), what counts as done (Scale).
@@ -181,10 +189,11 @@ system.
 
 - **The Automated Organization** (book): why the organization, not its
   software, is what becomes executable, and how to get there.
-- **ONTOK** (open-source language): an organization's facts as types; a fact
-  doesn't exist until it's proven.
-- **Type Construction Architecture** (open-source architecture): the type is
-  the limit; if the type won't admit it, the agent can't build it.
+- **ONTOK** (open-source language): an organization's facts as types. Shown
+  by the fact type from sheet 03.
+- **Type Construction Architecture** (open-source architecture): what an
+  agent may decide is what it can build. Shown by the refund type: the
+  payment is required and the amount carries the limit.
 
 ## Working rules learned the hard way
 

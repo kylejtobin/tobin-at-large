@@ -27,9 +27,10 @@ to rewrite to fit what was built.
 - **Bar** (sticky): the mark and one action, _Start a conversation_. The bar's
   mark stands down while the cover's mark is on screen, so identity never
   appears twice at once.
-- **Cover** (full screen): the mark, the point of view as the largest type on
-  the site, one supporting line, and the one drawing on the site keying the
-  index of positions.
+- **Cover** (full screen): the mark, the claim as the largest type on the
+  site, the exhibit under it (the struck line of judgment and the one row an
+  agent can hold), one supporting line, and the one drawing on the site
+  keying the index of positions.
 - **Position sheets**: a mirrored spread. The position as headline beside its
   proof, both hanging from one top edge. Alternate sheets mirror. A
   consequence line appears only for what the proof cannot show; none of the
@@ -37,7 +38,8 @@ to rewrite to fit what was built.
 - **Founder sheet**: the portrait, one sentence, and the door. The page above
   is how he thinks; nothing on the sheet describes it.
 - **Work sheet**: one composed exhibit. The book leads at full scale; the tools
-  stack beside it at half its weight.
+  stack beside it at half its weight, each with a few lines of the thing
+  itself under its line.
 - **Founder sheet**: the portrait as a plate, one statement beside it, and
   the door under the statement: one action and the address. It is the last
   sheet.
@@ -101,16 +103,20 @@ the tooth too. Warm drafting stock, never parchment mottling.
 A proof is drawn, never captioned, and shows the move from implicit to
 explicit:
 
-- **Tables** may hatch one column as out of an agent's reach. A row may carry
-  a tone at its head, the legend's swatch: pale is done by hand, dark runs on
-  its own. A cell may strike the replaced way beside what replaces it.
+- **Tables** may hatch one column as out of an agent's reach, and any column
+  head may carry a note in the signal red (the hatch's "out of an agent's
+  reach", 02's "moved by a person", Declare's "declared the true version
+  first"). A row may carry a tone at its head, the legend's swatch: pale is
+  done by hand, dark runs on its own. A cell may strike the replaced way
+  beside what replaces it.
 - **Struck lines** show the replaced way (speech or code), struck in red above
   what replaces it.
 - **Code** blocks are framed; a comment is set in the quiet ink. A run log is
   code.
 - **The stream** is a line with its two ends fixed as filled terminals, the
   departments it crosses as faint rules with quiet labels, and nothing drawn
-  between the ends but the dashed line itself.
+  between the ends but the dashed line itself. A case waiting at a handoff
+  is a red point on the line with its label under it.
 
 The cycle's plates are drawn in this grammar, the same as the positions', and
 reuse the positions' instances. Only Scale carries a pencil scene.
@@ -135,11 +141,10 @@ far back (Scale).
   in a folio. On a wide screen the enunciation, the stage number and the
   premise, sits over the plate in the plate's column, and the commentary runs
   the stage's full height beside them, starting level with the enunciation.
-  The commentary is one or two sentences in the reading face, numbered notes
-  only for what the plate cannot show, and the way on in mono: "Next:
-  Declare", and on the last stage the door, "Start with one stream". The
-  decision the stage fixes is in the plate, never captioned. No keys, no
-  italic definitions.
+  The commentary is numbered notes only for what the plate cannot show, at
+  most two, and the way on in mono: "Next: Declare", and on the last stage
+  the door, "Start with one stream". The decision the stage fixes is in the
+  plate, never captioned. No body copy, no keys, no italic definitions.
 - The founder appears only in the founder portrait, never in the Scale
   scene. The scene shows the client's people at work; a recurring face would
   read as a one-person shop.
@@ -150,9 +155,8 @@ far back (Scale).
   is drawn in full ink; visited stages keep an ink ring.
 - **No red dots.** Red appears only as the plates' accent, the struck line, and
   the label of the column out of an agent's reach.
-- The sheet opens with the headline, one line saying what a stream is, and
-  the triage (software, agent inside a limit, person) in the ink, before the
-  loop and the first stage.
+- The sheet opens with the headline and nothing else before the loop: the
+  See plate draws what a stream is.
 - A whole step (loop, enunciation, plate, commentary, next question) fits on
   one screen at 1440×900 and 1280×800. On a phone (390×844, 360×740) the
   pinned loop, the premise and the scene sit on the first screen, and the

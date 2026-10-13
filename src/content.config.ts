@@ -21,12 +21,16 @@ const table = z.object({
   unreachable: z.number().int().optional(),
   // one tone per row
   tones: z.array(z.enum(["hand", "auto"])).optional(),
+  // a note under a column head, set in the signal red, like the hatch's
+  columnNotes: z.array(z.string().nullable()).optional(),
 });
 const stream = z.object({
   kind: z.literal("stream"),
   from: z.string(),
   to: z.string(),
   across: z.array(z.string()).min(1),
+  // a case sitting at one of the departments, waiting on a decision
+  wait: z.object({ at: z.number().int(), label: z.string() }).optional(),
 });
 const struck = z.object({
   kind: z.literal("struck"),
@@ -65,6 +69,8 @@ const works = defineCollection({
       title: z.string(),
       // what it is, in one line, for the reader who will vet it
       line: z.string(),
+      // the thing itself, where a few lines of it show more than the line
+      code: z.string().optional(),
       url: z.string().url(),
       linkLabel: z.string(),
       cover: image(),
