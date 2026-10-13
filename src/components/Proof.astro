@@ -465,6 +465,11 @@ const streamGeometry = (across: readonly string[]) => {
     font-size: 0.84rem;
     white-space: nowrap;
   }
+  @media (max-width: 600px) {
+    .struck.as-code s {
+      font-size: 0.7rem;
+    }
+  }
   .struck.as-speech s {
     font-style: italic;
     font-size: 1.2rem;
@@ -533,18 +538,16 @@ const streamGeometry = (across: readonly string[]) => {
         // month accumulates on the drawing
         const c = svg.querySelector(`.case[data-case="${b.dataset.land}"]`);
         if (c && c.dataset.shown !== "true") {
-          const from = Number(c.dataset.from);
-          const dx = from - Number(c.style.getPropertyValue("--lx"));
-          const dy = 26 - Number(c.style.getPropertyValue("--ly"));
+          const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
           c.style.transition = "none";
-          c.style.transform = `translate(${dx}px, ${dy}px)`;
+          c.style.setProperty("--dx", c.style.getPropertyValue("--from-dx"));
+          c.style.setProperty("--dy", c.style.getPropertyValue("--from-dy"));
           c.dataset.shown = "true";
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => {
-              c.style.transition = "";
-              c.style.transform = "";
-            }),
-          );
+          // flush the start state, then let the transition carry it home
+          void c.getBoundingClientRect();
+          c.style.transition = still ? "none" : "";
+          c.style.setProperty("--dx", "0px");
+          c.style.setProperty("--dy", "0px");
         }
         svg
           .querySelectorAll("[data-region]")
@@ -587,7 +590,7 @@ const streamGeometry = (across: readonly string[]) => {
       // the limit's label hangs right while there is room, left when there isn't
       const label = tick && tick.querySelector("text");
       if (label) {
-        const left = x > 232;
+        const left = x > 236;
         label.setAttribute("x", left ? x - 4 : x + 4);
         label.setAttribute("text-anchor", left ? "end" : "start");
       }

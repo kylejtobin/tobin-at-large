@@ -52,7 +52,7 @@ const stages: Stage[] = [
     name: "Prototype",
     premise: "Run last month’s cases through it.",
     notes: [
-      "Four of Dana’s cases from last month, placed where the agent lands them. Three land where she did. The fourth, a contractor who wanted credit on account instead of cash, lands on void: there was no credit to give. A manager adds the outcome. The case runs again.",
+      "Four of Dana’s cases from last month, placed where the agent lands them. Three land where she did. The fourth, a contractor who wanted credit on account instead of cash, lands on void: there was no credit to give.",
     ],
   },
   {
@@ -60,7 +60,7 @@ const stages: Stage[] = [
     name: "Scale",
     premise: "The whole stream runs, and no one is in it.",
     notes: [
-      "Every case lands inside. Retire the old stream the day the new one carries every case. Measure one thing: time from return requested to case settled.",
+      "A manager adds the outcome, and the case runs again. Every case lands inside. Retire the old stream the day the new one carries every case. Measure one thing: time from return requested to case settled.",
     ],
   },
 ];
@@ -206,11 +206,18 @@ const innerClose = {
       const top = root.getBoundingClientRect().top + scrollY - bar - 32;
       scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
     };
-    buttons.forEach((b) => {
-      b.addEventListener("click", () => {
-        select(b.dataset.stage);
+    // on a phone the page scrolls first, then the drawing changes in view
+    const go = (id) => {
+      if (narrow.matches && !still.matches) {
         settle();
-      });
+        setTimeout(() => select(id), 420);
+      } else {
+        select(id);
+        settle();
+      }
+    };
+    buttons.forEach((b) => {
+      b.addEventListener("click", () => go(b.dataset.stage));
       b.addEventListener("keydown", (e) => {
         const delta = {
           ArrowRight: 1,
@@ -229,12 +236,9 @@ const innerClose = {
         }
       });
     });
-    root.querySelectorAll("[data-next]").forEach((n) =>
-      n.addEventListener("click", () => {
-        select(n.dataset.next);
-        settle();
-      }),
-    );
+    root
+      .querySelectorAll("[data-next]")
+      .forEach((n) => n.addEventListener("click", () => go(n.dataset.next)));
     root.classList.add("interactive");
     select(selected);
   })();
@@ -468,7 +472,7 @@ const innerClose = {
   @media (min-width: 900px) {
     .cycle.interactive {
       display: grid;
-      grid-template-columns: 236px minmax(0, 1fr);
+      grid-template-columns: 200px minmax(0, 1fr);
       column-gap: clamp(2rem, 4vw, 3.5rem);
       align-items: start;
     }
@@ -477,14 +481,16 @@ const innerClose = {
       top: calc(var(--bar) + 1.5rem);
     }
     .interactive .loop {
-      width: 236px;
+      width: 200px;
     }
     .interactive .stage {
-      grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
-      column-gap: clamp(1.5rem, 3vw, 2.75rem);
-      align-items: start;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 1.25rem;
     }
     .interactive .plate {
+      max-width: 56rem;
+    }
+    .interactive .words {
       max-width: 40rem;
     }
   }

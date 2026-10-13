@@ -28,12 +28,12 @@ interface Props {
 const { stage, id } = Astro.props;
 
 // ---- geometry ------------------------------------------------------------
-const frame = { x: 24, y: 40, w: 472, h: 252 };
+const frame = { x: 24, y: 40, w: 472, h: 268 };
 const refund = { x: 24, y: 56, w: 280, h: 140 };
 const limitX = 214;
 const credit = { x: 322, y: 56, w: 174, h: 60 };
-const replacement = { x: 322, y: 134, w: 174, h: 62 };
-const waived = { x: 24, y: 214, w: 280, h: 60 };
+const replacement = { x: 322, y: 140, w: 174, h: 56 };
+const waived = { x: 24, y: 222, w: 280, h: 56 };
 // the stream's stations along the top
 const stations = [
   { name: "Returns", x: 110 },
@@ -49,7 +49,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     at: [
       { x: 50, label: "paid order" },
       { x: 118, label: "reason" },
-      { x: limitX, label: "under the limit" },
+      { x: limitX, label: "the limit" },
     ],
   },
   {
@@ -154,8 +154,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     data-s="declare refactor prototype scale cases limit"
     x1={frame.x - 20}
     x2={frame.x + frame.w + 20}
-    y1={refund.y + refund.h + 4}
-    y2={refund.y + refund.h + 4}></line>
+    y1={refund.y + refund.h + 6}
+    y2={refund.y + refund.h + 6}></line>
   <line
     class="centre"
     data-s="declare refactor prototype scale cases limit"
@@ -295,60 +295,60 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   <!-- the cases: each arrives from its station on the stream and lands -->
   <g class="cases">
     <g
-      class="case"
+      class="case moves"
       data-s="prototype scale cases limit"
       data-case="01"
       data-region="refund"
       data-from="110"
-      style="--lx: 170; --ly: 156"
+      style="--lx: 170; --ly: 156; --from-dx: -60px; --from-dy: -130px"
     >
       <circle cx="170" cy="156" r="12" pathLength="100"></circle>
       <text x="170" y="156">01</text>
     </g>
     <g
-      class="case"
+      class="case moves"
       data-s="prototype scale cases limit"
       data-case="02"
       data-region="waived"
       data-from="110"
-      style="--lx: 262; --ly: 252"
+      style="--lx: 262; --ly: 254; --from-dx: -152px; --from-dy: -228px"
     >
-      <circle cx="262" cy="252" r="12" pathLength="100"></circle>
-      <text x="262" y="252">02</text>
+      <circle cx="262" cy="254" r="12" pathLength="100"></circle>
+      <text x="262" y="254">02</text>
     </g>
     <g
-      class="case"
+      class="case moves"
       data-s="prototype scale cases limit"
       data-case="03"
       data-region="replacement"
       data-from="410"
-      style="--lx: 440; --ly: 178"
+      style="--lx: 450; --ly: 176; --from-dx: -40px; --from-dy: -150px"
     >
-      <circle cx="440" cy="178" r="12" pathLength="100"></circle>
-      <text x="440" y="178">03</text>
+      <circle cx="450" cy="176" r="12" pathLength="100"></circle>
+      <text x="450" y="176">03</text>
     </g>
     <!-- the credit case: on void in the month's run, then inside Credit once it exists -->
     <g
-      class="case onvoid moves"
+      class="case moves credit"
       data-s="prototype scale cases limit"
       data-case="04"
       data-region="credit"
       data-from="260"
-      style="--lx: 409; --ly: 96"
+      style="--lx: 409; --ly: 96; --from-dx: -149px; --from-dy: -70px"
     >
       <circle cx="409" cy="96" r="12" pathLength="100"></circle>
       <text x="409" y="96">04</text>
     </g>
     <!-- a refund of an unpaid invoice: nowhere to land -->
     <g
-      class="case onvoid"
+      class="case moves onvoid"
       data-s="cases"
       data-case="05"
-      data-from="260"
-      style="--lx: 409; --ly: 244"
+      data-from="110"
+      style="--lx: 150; --ly: 294; --from-dx: -40px; --from-dy: -268px"
     >
-      <circle cx="409" cy="244" r="12" pathLength="100"></circle>
-      <text x="409" y="244">05</text>
+      <circle cx="150" cy="294" r="12" pathLength="100"></circle>
+      <text x="150" y="294">05</text>
     </g>
   </g>
 </svg>
@@ -461,48 +461,47 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   .case.onvoid text {
     fill: var(--paper);
   }
-  /* the credit case, once a manager has added the box it lands in */
-  [data-stage="scale"] .case.moves circle,
-  [data-stage="cases"] .case.moves circle,
-  [data-stage="limit"] .case.moves circle {
-    fill: var(--paper);
-    stroke: var(--ink);
-  }
-  [data-stage="scale"] .case.moves text,
-  [data-stage="cases"] .case.moves text,
-  [data-stage="limit"] .case.moves text {
-    fill: var(--ink);
-  }
-  /* arrival: a case comes down from its station on the stream and lands.
-     the group is moved with a transform from the station to its place */
-  .case {
-    transform-box: view-box;
-    transition: transform 0.6s var(--ease);
-  }
-  .case.moves {
-    transition:
-      transform 0.6s var(--ease),
-      opacity 0.45s var(--ease);
-  }
-  [data-stage="prototype"] .case.moves {
-    transform: translate(0, -10px);
-  }
-  /* a case the moved limit left on void */
+  /* a case on hatching: red, filled */
+  .case.onvoid circle,
+  [data-stage="prototype"] .case.credit circle,
   .case[data-lost="true"] circle {
-    fill: none;
+    fill: var(--signal);
     stroke: var(--signal);
   }
+  .case.onvoid text,
+  [data-stage="prototype"] .case.credit text,
   .case[data-lost="true"] text {
-    fill: var(--signal-text);
+    fill: var(--paper);
   }
+  /* arrival: a case comes down from its station on the stream and lands.
+     the stages set --from-dx/--from-dy so the case starts on the stream and
+     travels to its place; the sheet's control sets them by hand */
+  .case {
+    transform-box: view-box;
+    transform: translate(var(--dx, 0px), var(--dy, 0px));
+    transition:
+      transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s var(--ease);
+  }
+  /* in the month's run the credit case lands on void, clear of where the
+     box will be; in Scale it moves into the box that now exists */
+  [data-stage="prototype"] .case.credit {
+    --dy: -22px;
+  }
+  /* a case the moved limit left on void */
+  /* a case the moved limit left on void travels clear into it */
   .case[data-lost="true"] {
-    transform: translate(var(--lost-dx, 0px), 0);
+    --dx: var(--lost-dx, 0px);
+    transition: transform 0.4s var(--ease);
   }
 
   /* ---- states ---- */
-  [data-s] {
+  [data-s]:not(.case) {
     opacity: 0;
     transition: opacity 0.45s var(--ease);
+  }
+  .case[data-s] {
+    opacity: 0;
   }
   [data-stage="see"] [data-s~="see"],
   [data-stage="declare"] [data-s~="declare"],
@@ -518,17 +517,45 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   [data-stage="limit"] [data-s~="limit"] circle {
     stroke-dashoffset: 0;
   }
+  /* the cases wait on the stream until their stage, then land in turn */
+  [data-stage="see"] .case,
+  [data-stage="declare"] .case,
+  [data-stage="refactor"] .case {
+    --dx: var(--from-dx);
+    --dy: var(--from-dy);
+    transition: none;
+  }
   [data-stage="prototype"] .case[data-case="01"] {
     transition-delay: 0s;
   }
   [data-stage="prototype"] .case[data-case="02"] {
-    transition-delay: 0.3s;
+    transition-delay: 0.35s;
   }
   [data-stage="prototype"] .case[data-case="03"] {
-    transition-delay: 0.6s;
+    transition-delay: 0.7s;
   }
   [data-stage="prototype"] .case[data-case="04"] {
-    transition-delay: 1.1s;
+    transition-delay: 1.3s;
+  }
+  /* Scale: the box first, then the case moves in, then loses its red */
+  [data-stage="scale"] .box[data-region="credit"],
+  [data-stage="scale"] .edges g[data-s~="scale"]:not([data-s~="refactor"]) {
+    transition-delay: 0s;
+  }
+  [data-stage="scale"] .case.credit {
+    transition:
+      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.45s,
+      opacity 0.3s var(--ease);
+  }
+  [data-stage="scale"] .case.credit circle,
+  [data-stage="scale"] .case.credit text {
+    transition:
+      fill 0.3s var(--ease) 1.05s,
+      stroke 0.3s var(--ease) 1.05s,
+      stroke-dashoffset 0.35s var(--ease);
+  }
+  [data-stage="scale"] .stream-line .run[data-s~="scale"] {
+    transition-delay: 1.2s;
   }
   /* on the sheet that lands a case, the cases wait for the reader */
   [data-stage="cases"] .case {
@@ -564,8 +591,10 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   }
   @media (prefers-reduced-motion: reduce) {
     [data-s],
-    .case circle {
-      transition: none;
+    .case,
+    .case circle,
+    .case text {
+      transition: none !important;
     }
   }
 </style>
