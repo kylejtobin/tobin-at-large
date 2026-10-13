@@ -141,10 +141,18 @@ scales with the sheet.
 ## The method page
 
 `/method`: the loop is the control again, beside the drawing on a wide
-screen; on a phone it sits above the drawing, unpinned, and a step scrolls
-the drawing back under the bar so the change is seen. The drawing and the
-stage's words move in place. Without script every stage's words read in
-order under one still drawing.
+screen, where the drawing takes the full width and the stage's words sit
+under it; on a phone the loop sits above the drawing, unpinned, and a step
+scrolls the page first and changes the drawing once it is in view. Without
+script every stage's words read in order under one still drawing.
+
+Motion in the drawing is the teaching, so it is drawn, not cut: a case
+travels down from its station on the stream and lands, its stroke drawing
+in, over about seven tenths of a second; in Prototype the cases land in
+turn and the credit case last and alone; in Scale the Credit box and its
+ticks come first, then the case moves in, then its red goes, then the
+stream runs solid; a case the limit strands travels clear into the void.
+Under reduced motion every state is a cut.
 
 ## What it takes: the cycle
 
