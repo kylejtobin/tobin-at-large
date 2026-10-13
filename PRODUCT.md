@@ -15,6 +15,13 @@ body of work: the products are the problems met in every organization,
 solved once and given away; the engagements apply the same thinking inside
 one organization, one stream of work at a time.
 
+## What the desk may say
+
+The desk's line carries no ceiling ("under what I'd sign") until the
+architecture has a kind for it that the page can show; a limit the page
+names and no type honors is the one contradiction a sceptical reader holds
+against the whole argument.
+
 ## The framing above every line
 
 The judgment is knowledge the people at the desk have. The page shows that
@@ -106,13 +113,12 @@ gets a column note instead.
 ## The arc
 
 1. **Cover.** The claim: _A stream of work can now run with no one in it._
-   The exhibit: the desk and the agent, each on a case, in the same voice,
-   labelled only "The desk" and "The agent": never "on the next case",
-   which reads as succession, and never a third beat where the desk
-   approves, which reads as a check. The paragraph says before and after
-   plainly: before it runs, the people at the desk say what they know; TAL
-   builds the world the agent decides in; after, managers change what can
-   exist; no one touches a case.
+   The exhibit: the desk's words on one case, and under them the next case
+   as a row in the case grammar, the agent's call beside it. The agent never
+   speaks in the desk's voice; that read as the desk's judgment lifted into
+   a bot. No third beat where the desk approves. The paragraph says the
+   judgment is knowledge, who works before, who after, and that no one
+   touches a case.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
 3. **How we do it.** The headline, _One stream of work at a time_, the loop
@@ -120,7 +126,8 @@ gets a column note instead.
    and at most one or two notes for what the plate cannot show. One case
    runs through every plate: the stream, solid to the red dot at Finance and
    nothing after (See); the written rule struck beside the desk's words
-   (Declare); each outcome and what it exists only with (Refactor); last
+   (Declare); each outcome, the desk's words, and what it exists only with
+   (Refactor); last
    month's cases, the agent's call beside what the desk did, the one that
    differs struck (Prototype); the same cases with the desk's column gone,
    and the stream drawn solid end to end (Scale). The manager's act, adding
@@ -147,7 +154,8 @@ gets a column note instead.
    docstring. This is the one code block on the page.)
 5. Three systems say how long she's been with us. The agent gets the desk's
    meaning. (The desk's words and the table with two meanings struck; no
-   code.)
+   code. The fee waiver on 03 and Refactor needs "how long she has paid
+   us", so the sheet is on the case.)
 6. Managers stop touching cases. They change what can exist. (Struck before
    beside after; the third row is the outcome the exception needed.)
 
