@@ -10,10 +10,8 @@
 // plate, one or two sentences, notes only for what the plate cannot show, and
 // the way on. The last step is the door.
 //
-// One DOM serves every reader. Without script the stages read in order as
-// small multiples. With script the loop is the control at every width: beside
-// the stage on wide screens, pinned above it on a phone, where a swipe also
-// turns the stage.
+// Every stage is on the page. The loop is an index: beside the stages on wide
+// screens, following them as they scroll; above them on a phone.
 import type { CollectionEntry } from "astro:content";
 import Proof from "./Proof.astro";
 
@@ -73,7 +71,7 @@ const stages: Stage[] = [
           [
             "Replacement",
             "~~Unpaid: decline~~",
-            "“Unpaid? She still gets the replacement.”",
+            "“Invoice isn’t paid yet? She still gets the replacement.”",
           ],
         ],
       },
@@ -89,17 +87,11 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["As practiced", "Exists only with"],
+        columns: ["Outcome", "Exists only with"],
         rows: [
-          [
-            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
-            "A proven payment, an amount the desk would sign, a reason",
-          ],
-          [
-            "“Three years with us. I’m not charging her forty dollars over this.”",
-            "The fee, a reason",
-          ],
-          ["“Unpaid? She still gets the replacement.”", "Proven stock"],
+          ["Refund", "A paid order, a reason"],
+          ["Fee waived", "The fee, a reason"],
+          ["Replacement", "Proven stock, the order it replaces"],
         ],
       },
     ],
@@ -112,25 +104,29 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Case", "The agent", "The desk"],
+        columns: ["Case", "The agent", "The desk, last month"],
         rows: [
-          ["Paid, waiting", "Refunds, tells finance", "“Yes.”"],
-          ["Asks for the fee back too", "Refunds, waives the fee", "“Yes.”"],
+          ["Paid, waiting", "Refunds, tells finance", "Refunded, told finance"],
           [
-            "Unpaid, waiting",
-            "Can’t make the refund; offers the replacement",
-            "“Yes.”",
+            "Asks for the fee back too",
+            "Refunds, waives the fee",
+            "Refunded, waived the fee",
+          ],
+          [
+            "Invoice unpaid, arrived broken",
+            "Can’t refund what wasn’t paid; sends the replacement",
+            "Sent the replacement",
           ],
           [
             "Asks for credit instead of cash",
             "~~Refunds in full~~ Credits her",
-            "“No. I’d have credited her.”",
+            "Credited her",
           ],
         ],
       },
     ],
     notes: [
-      "The desk signs this table. Where it says no, a manager adds the outcome and the case runs again.",
+      "Where the two differ, a manager adds the outcome and the case runs again.",
     ],
   },
   {
@@ -144,7 +140,10 @@ const stages: Stage[] = [
         rows: [
           ["Paid, waiting", "Refunds, tells finance"],
           ["Asks for the fee back too", "Refunds, waives the fee"],
-          ["Unpaid, waiting", "Can’t make the refund; offers the replacement"],
+          [
+            "Invoice unpaid, arrived broken",
+            "Can’t refund what wasn’t paid; sends the replacement",
+          ],
           ["Asks for credit instead of cash", "Credits her"],
         ],
       },
@@ -650,7 +649,7 @@ const innerClose = {
       margin-top: 0.15rem;
     }
     .interactive .exhibit {
-      max-width: 42rem;
+      max-width: 54rem;
     }
     .interactive .commentary {
       margin-top: 0.5rem;
