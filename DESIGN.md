@@ -152,7 +152,15 @@ in, over about seven tenths of a second; in Prototype the cases land in
 turn and the credit case last and alone; in Scale the Credit box and its
 ticks come first, then the case moves in, then its red goes, then the
 stream runs solid; a case the limit strands travels clear into the void.
-Under reduced motion every state is a cut.
+Under reduced motion every state is a cut. A case on hatching reddens only
+after it lands: no red balloon ever crosses a box.
+
+The drawing is checked for collisions at both widths in every state (every
+stage, every case landed, the limit at both ends): no tick label, box name,
+station, quote or balloon may overlap another. The cases are one list in the
+component, so a balloon's travel is computed from where it lands. The limit
+range stops where its label still fits; moved left of "reason", the label
+drops inside the box, into the void it bounds.
 
 ## What it takes: the cycle
 

@@ -189,7 +189,7 @@ const streamGeometry = (across: readonly string[]) => {
                 id="limit-range"
                 type="range"
                 min="160"
-                max="240"
+                max="222"
                 value="214"
                 step="2"
               />
@@ -623,9 +623,11 @@ const streamGeometry = (across: readonly string[]) => {
         // the limit's label hangs right while there is room, left when there isn't
         const label = tick && tick.querySelector("text");
         if (label) {
-          const left = x > 236;
-          label.setAttribute("x", left ? x - 4 : x + 4);
-          label.setAttribute("text-anchor", left ? "end" : "start");
+          // left of "reason" the label drops inside, into the void it bounds
+          const inside = x < 186;
+          label.setAttribute("x", inside ? x + 6 : x + 4);
+          label.setAttribute("y", inside ? 74 : 47);
+          label.setAttribute("text-anchor", "start");
         }
       };
       range.addEventListener("input", () => set(Number(range.value)));

@@ -28,12 +28,12 @@ interface Props {
 const { stage, id } = Astro.props;
 
 // ---- geometry ------------------------------------------------------------
-const frame = { x: 24, y: 40, w: 472, h: 276 };
+const frame = { x: 24, y: 40, w: 472, h: 292 };
 const refund = { x: 24, y: 56, w: 280, h: 156 };
 const limitX = 214;
-const credit = { x: 322, y: 86, w: 174, h: 56 };
-const replacement = { x: 322, y: 156, w: 174, h: 56 };
-const waived = { x: 24, y: 226, w: 280, h: 62 };
+const credit = { x: 322, y: 104, w: 174, h: 48 };
+const replacement = { x: 322, y: 180, w: 174, h: 56 };
+const waived = { x: 24, y: 240, w: 280, h: 60 };
 // the stream's stations along the top
 const stations = [
   { name: "Returns", x: 110 },
@@ -41,30 +41,79 @@ const stations = [
   { name: "Warehouse", x: 410 },
 ];
 const streamY = 26;
+// the month's cases: where each lands, the station it comes from, and the
+// stages it appears in. the travel is computed from these, so it can't drift
+const cases = [
+  {
+    no: "01",
+    x: 170,
+    y: 156,
+    from: 110,
+    region: "refund",
+    s: "prototype scale cases limit",
+    cls: "",
+  },
+  {
+    no: "02",
+    x: 262,
+    y: 276,
+    from: 110,
+    region: "waived",
+    s: "prototype scale cases limit",
+    cls: "",
+  },
+  {
+    no: "03",
+    x: 472,
+    y: 222,
+    from: 410,
+    region: "replacement",
+    s: "prototype scale cases limit",
+    cls: "",
+  },
+  {
+    no: "04",
+    x: 462,
+    y: 132,
+    from: 260,
+    region: "credit",
+    s: "prototype scale cases limit",
+    cls: "credit",
+  },
+  {
+    no: "05",
+    x: 150,
+    y: 318,
+    from: 110,
+    region: "",
+    s: "cases",
+    cls: "onvoid",
+  },
+];
 // what each outcome exists only with: ticks on its top edge
 type Tick = { x: number; label: string };
 const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   {
     box: refund,
     at: [
-      { x: 50, label: "paid order" },
-      { x: 118, label: "reason" },
+      { x: 56, label: "paid order" },
+      { x: 150, label: "reason" },
       { x: limitX, label: "the limit" },
     ],
   },
   {
     box: credit,
     at: [
-      { x: 352, label: "paid order" },
-      { x: 430, label: "reason" },
+      { x: 366, label: "paid order" },
+      { x: 460, label: "reason" },
     ],
   },
-  { box: replacement, at: [{ x: 352, label: "proven stock" }] },
+  { box: replacement, at: [{ x: 372, label: "proven stock" }] },
   {
     box: waived,
     at: [
-      { x: 60, label: "the fee" },
-      { x: 150, label: "years paying" },
+      { x: 58, label: "the fee" },
+      { x: 176, label: "years paying" },
     ],
   },
 ];
@@ -211,81 +260,41 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     <text class="said-text" x={refund.x + 12} y={refund.y + 44}
       >“Order’s paid, customer’s waiting,</text
     >
-    <text class="said-text" x={refund.x + 12} y={refund.y + 58}
+    <text class="said-text" x={refund.x + 12} y={refund.y + 59}
       >it’s under what I’d sign.”</text
     >
-    <text class="said-text" x={replacement.x + 12} y={replacement.y + 36}
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 38}
       >“Invoice isn’t due.</text
     >
-    <text class="said-text" x={replacement.x + 12} y={replacement.y + 48}
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 52}
       >She still gets it.”</text
     >
     <text class="said-text" x={waived.x + 12} y={waived.y + 38}
       >“Three years with us.</text
     >
-    <text class="said-text" x={waived.x + 12} y={waived.y + 50}
+    <text class="said-text" x={waived.x + 12} y={waived.y + 52}
       >I’m not charging her forty dollars.”</text
     >
   </g>
 
   <!-- the cases: each arrives from its station on the stream and lands -->
   <g class="cases">
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="01"
-      data-region="refund"
-      data-from="110"
-      style="--lx: 170; --ly: 156; --from-dx: -60px; --from-dy: -130px"
-    >
-      <circle cx="170" cy="156" r="12" pathLength="100"></circle>
-      <text x="170" y="156">01</text>
-    </g>
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="02"
-      data-region="waived"
-      data-from="110"
-      style="--lx: 262; --ly: 254; --from-dx: -152px; --from-dy: -228px"
-    >
-      <circle cx="262" cy="262" r="12" pathLength="100"></circle>
-      <text x="262" y="262">02</text>
-    </g>
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="03"
-      data-region="replacement"
-      data-from="410"
-      style="--lx: 450; --ly: 176; --from-dx: -40px; --from-dy: -150px"
-    >
-      <circle cx="450" cy="190" r="12" pathLength="100"></circle>
-      <text x="450" y="190">03</text>
-    </g>
-    <!-- the credit case: on void in the month's run, then inside Credit once it exists -->
-    <g
-      class="case moves credit"
-      data-s="prototype scale cases limit"
-      data-case="04"
-      data-region="credit"
-      data-from="260"
-      style="--lx: 409; --ly: 96; --from-dx: -149px; --from-dy: -70px"
-    >
-      <circle cx="409" cy="120" r="12" pathLength="100"></circle>
-      <text x="409" y="120">04</text>
-    </g>
-    <!-- a refund of an unpaid invoice: nowhere to land -->
-    <g
-      class="case moves onvoid"
-      data-s="cases"
-      data-case="05"
-      data-from="110"
-      style="--lx: 150; --ly: 294; --from-dx: -40px; --from-dy: -268px"
-    >
-      <circle cx="150" cy="304" r="12" pathLength="100"></circle>
-      <text x="150" y="304">05</text>
-    </g>
+    {
+      cases.map((c) => (
+        <g
+          class:list={["case", "moves", c.cls]}
+          data-s={c.s}
+          data-case={c.no}
+          data-region={c.region || undefined}
+          style={`--lx: ${c.x}; --ly: ${c.y}; --from-dx: ${c.from - c.x}px; --from-dy: ${streamY - c.y}px`}
+        >
+          <circle cx={c.x} cy={c.y} r="12" pathLength="100" />
+          <text x={c.x} y={c.y}>
+            {c.no}
+          </text>
+        </g>
+      ))
+    }
   </g>
 
   <!-- the edges: what each outcome exists only with, as ticks -->
@@ -489,7 +498,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   /* in the month's run the credit case lands on void, clear of where the
      box will be; in Scale it moves into the box that now exists */
   [data-stage="prototype"] .case.credit {
-    --dy: -56px;
+    --dy: -70px;
   }
   /* a case the moved limit left on void */
   /* a case the moved limit left on void travels clear into it */
@@ -587,7 +596,7 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       stroke-linejoin: round;
     }
     .said-text {
-      font-size: 12px;
+      font-size: 10.5px;
     }
     .case text {
       font-size: 16px;
