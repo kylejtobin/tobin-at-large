@@ -113,11 +113,12 @@ gets a column note instead.
 ## The arc
 
 1. **Cover.** The claim: _A stream of work can now run with no one in it._
-   The exhibit: the desk's words on one case, and under them the next case
-   as a row in the case grammar, the agent's call beside it. The agent never
-   speaks in the desk's voice; that read as the desk's judgment lifted into
-   a bot. No third beat where the desk approves. The paragraph says the
-   judgment is knowledge, who works before, who after, and that no one
+   The exhibit: the desk's two lines (the refund, the fee), then the next
+   case as a row with the agent's call beside it, every clause of which
+   traces to a line the desk said. No agent voice, no approval. The
+   paragraph: the judgment is knowledge, before the desk says what it
+   knows, we build the world the agent decides in, a wrong outcome isn't
+   there to choose, after managers change what can exist, during no one
    touches a case.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
@@ -152,10 +153,10 @@ gets a column note instead.
    refunding of a paid order." No constructor calls, no wrappers, no comment
    doing a type's work, no kind invented for the page, no narrative in a
    docstring. This is the one code block on the page.)
-5. Three systems say how long she's been with us. The agent gets the desk's
-   meaning. (The desk's words and the table with two meanings struck; no
-   code. The fee waiver on 03 and Refactor needs "how long she has paid
-   us", so the sheet is on the case.)
+5. Three systems say how long she's been with us. One of them means what
+   the desk means. (The desk's words and the table with two meanings
+   struck; no code. The fee waiver on 03 and Refactor needs "how long she
+   has paid us", so the sheet is on the case.)
 6. Managers stop touching cases. They change what can exist. (Struck before
    beside after; the third row is the outcome the exception needed.)
 
@@ -210,13 +211,12 @@ Scale is about the business: the organization doing what it exists to do.
 - **Never put the founder's résumé on the page.**
 - Never fill a slot by **copying existing text**. Synthesize and say it
   newly.
-- The founder is identified by a **declaration of how he thinks**, which is
-  the idea itself: a decision about an organization is a design for its
-  software, and the reverse.
+- The founder is identified by what he does, in two plain sentences a
+  stranger can picture, and nothing the cover already said:
 
-  > **Kyle J. Tobin** founded TAL to build organizations the way they will now
-  > have to run: whole, explicit, and executable, from the authority at the top
-  > to the code underneath. He thinks in both directions at once.
+  > **Kyle J. Tobin** sits at the desks where the work gets decided and finds
+  > the judgment the people there use. Then he builds what the agent can
+  > decide.
 
 ## Less is more, quality over quantity
 
@@ -241,6 +241,12 @@ system.
   fields typed as the proven kinds (PaidOrder, SettledPayment). Never a
   positional construction, never an Optional, never a comment standing in
   for a type.
+
+## Verification
+
+Twelve cold reviews by agents with no history and the full idea in hand,
+each told to improve, not defend. The page passed on the twelfth. Every
+copy change from here goes out for the same read before it ships.
 
 ## Working rules learned the hard way
 

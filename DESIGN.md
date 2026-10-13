@@ -108,11 +108,13 @@ explicit:
   the replaced way beside what replaces it. A cell may carry the desk's own
   words in quotes: the judgment as said, never rewritten as a rule.
 - **Struck lines** show the replaced way (speech or code), struck in red above
-  what replaces it. **Speech**, unstruck, in italic with a quiet label, is
-  what the desk knows, in the desk's words: kept, never crossed out, and
+  what replaces it. Struck code never wraps: the clause that never ends runs
+  off the paper's edge. **Speech**, unstruck, in italic with a quiet label,
+  is what the desk knows, in the desk's words: kept, never crossed out, and
   never rewritten as a rule.
-- **Code** blocks are framed; a comment is set in the quiet ink. A run log is
-  code.
+- **Code** blocks are framed. There is one on the page, the refund construct
+  in the architecture's own shape; its config lines and any comment are set
+  in the quiet ink so the docstring and the fields are the dark ink.
 - **The stream** is a line with its two ends fixed as filled terminals, the
   departments it crosses as faint rules with quiet labels, and nothing drawn
   between the ends but the dashed line itself. A handoff where a person
