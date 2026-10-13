@@ -47,8 +47,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   {
     box: refund,
     at: [
-      { x: 60, label: "paid order" },
-      { x: 132, label: "reason" },
+      { x: 50, label: "paid order" },
+      { x: 110, label: "reason" },
       { x: limitX, label: "under the limit" },
     ],
   },
@@ -287,8 +287,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="01"
       data-region="refund"
     >
-      <circle cx="170" cy="150" r="12"></circle>
-      <text x="170" y="150">01</text>
+      <circle cx="170" cy="156" r="12"></circle>
+      <text x="170" y="156">01</text>
     </g>
     <g
       class="case"
@@ -296,8 +296,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="02"
       data-region="waived"
     >
-      <circle cx="250" cy="250" r="12"></circle>
-      <text x="250" y="250">02</text>
+      <circle cx="262" cy="252" r="12"></circle>
+      <text x="262" y="252">02</text>
     </g>
     <g
       class="case"
@@ -305,13 +305,13 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="03"
       data-region="replacement"
     >
-      <circle cx="409" cy="170" r="12"></circle>
-      <text x="409" y="170">03</text>
+      <circle cx="440" cy="178" r="12"></circle>
+      <text x="440" y="178">03</text>
     </g>
     <!-- the credit case: on void in the month's run, inside credit once it exists -->
     <g class="case onvoid" data-s="prototype" data-case="04v">
-      <circle cx="409" cy="86" r="12"></circle>
-      <text x="409" y="86">04</text>
+      <circle cx="409" cy="96" r="12"></circle>
+      <text x="409" y="96">04</text>
     </g>
     <g
       class="case"
@@ -319,8 +319,8 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
       data-case="04"
       data-region="credit"
     >
-      <circle cx="409" cy="90" r="12"></circle>
-      <text x="409" y="90">04</text>
+      <circle cx="440" cy="98" r="12"></circle>
+      <text x="440" y="98">04</text>
     </g>
     <!-- a refund of an unpaid invoice: nowhere to land -->
     <g class="case onvoid" data-s="cases" data-case="05">
