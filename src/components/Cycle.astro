@@ -45,7 +45,7 @@ const stages: Stage[] = [
         from: "Order placed",
         to: "Refund settled",
         across: ["Service", "Finance", "Billing"],
-        marks: [{ at: 1, label: "waits for a signature" }],
+        marks: [{ at: 1, label: "" }],
       },
     ],
     notes: ["Start with the stream where customers wait longest."],
@@ -58,6 +58,7 @@ const stages: Stage[] = [
       {
         kind: "table",
         columns: ["Judgment", "As written", "As practiced"],
+        stack: true,
         rows: [
           [
             "Refund",
@@ -68,6 +69,11 @@ const stages: Stage[] = [
             "Fee waived",
             "~~A manager signs off~~",
             "“Three years with us. I’m not charging her forty dollars over this.”",
+          ],
+          [
+            "Replacement",
+            "~~Unpaid: decline~~",
+            "“Unpaid? She still gets the replacement.”",
           ],
         ],
       },
@@ -83,13 +89,17 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Outcome", "What it needs to exist"],
+        columns: ["As practiced", "Exists only with"],
         rows: [
           [
-            "Refund",
+            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
             "A proven payment, an amount the desk would sign, a reason",
           ],
-          ["Fee waived", "The fee, a reason"],
+          [
+            "“Three years with us. I’m not charging her forty dollars over this.”",
+            "The fee, a reason",
+          ],
+          ["“Unpaid? She still gets the replacement.”", "Proven stock"],
         ],
       },
     ],
@@ -114,12 +124,14 @@ const stages: Stage[] = [
           [
             "Asks for credit instead of cash",
             "~~Refunds in full~~ Credits her",
-            "“No. I’d have credited her.” A manager added Credit.",
+            "“No. I’d have credited her.”",
           ],
         ],
       },
     ],
-    notes: ["The desk signs this table."],
+    notes: [
+      "The desk signs this table. Where it says no, a manager adds the outcome and the case runs again.",
+    ],
   },
   {
     id: "scale",
@@ -132,6 +144,7 @@ const stages: Stage[] = [
         rows: [
           ["Paid, waiting", "Refunds, tells finance"],
           ["Asks for the fee back too", "Refunds, waives the fee"],
+          ["Unpaid, waiting", "Can’t make the refund; offers the replacement"],
           ["Asks for credit instead of cash", "Credits her"],
         ],
       },
@@ -144,7 +157,7 @@ const stages: Stage[] = [
       },
     ],
     notes: [
-      "Don’t pilot a slice; the rest of the cases still wait at Finance. Retire the old stream the day the new one carries every case.",
+      "Pilot a slice and the rest of the cases still wait at Finance. Retire the old stream the day the new one carries every case.",
       "Measure one thing: time from placed to settled.",
     ],
   },

@@ -9,5 +9,4 @@ proof:
       - [The approver on the org chart, The person whose judgment is trusted]
       - [The threshold in the policy, The threshold that is honored]
       - [The process map, The exception settled at the next desk]
-    unreachable: 0
 ---

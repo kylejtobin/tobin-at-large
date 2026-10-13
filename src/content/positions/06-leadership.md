@@ -5,6 +5,7 @@ position: Managers stop touching cases. They change what can exist.
 proof:
   - kind: table
     columns: [Before, After]
+    stack: true
     rows:
       - ["~~Approves refunds over $500~~", Changes what a refund needs to exist]
       - [

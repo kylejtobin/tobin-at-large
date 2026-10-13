@@ -1,6 +1,6 @@
 ---
 sheet: 2
-short: What keeps the work moving
+short: One more clause
 position: Every rule written for a judgment needs one more clause.
 proof:
   - kind: struck

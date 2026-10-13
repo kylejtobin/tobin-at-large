@@ -44,7 +44,7 @@ const streamGeometry = (across: readonly string[]) => {
     proof.map((block) =>
       block.kind === "table" ? (
         <div class="plate">
-          <table>
+          <table class:list={{ stack: block.stack }}>
             <thead>
               <tr>
                 {block.columns.map((column, c) => (
@@ -104,7 +104,17 @@ const streamGeometry = (across: readonly string[]) => {
               />
             </>
           ))}
-          {block.done !== undefined ? (
+          {block.marks?.length ? (
+            <line
+              class="done-line"
+              x1="60"
+              x2={streamGeometry(block.across)[block.marks[0].at].x}
+              y1="90"
+              y2="90"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          ) : block.done !== undefined ? (
             <line
               class="done-line"
               x1="60"
@@ -122,23 +132,13 @@ const streamGeometry = (across: readonly string[]) => {
               {block.done}
             </text>
           )}
-          {block.marks?.map((m, i) => (
-            <>
-              <circle
-                class="wait"
-                cx={streamGeometry(block.across)[m.at].x}
-                cy="90"
-                r="5"
-              />
-              <text
-                class="wait-label"
-                x={streamGeometry(block.across)[m.at].x}
-                y={114 + (i % 2) * 16}
-                text-anchor="middle"
-              >
-                {m.label}
-              </text>
-            </>
+          {block.marks?.map((m) => (
+            <circle
+              class="wait"
+              cx={streamGeometry(block.across)[m.at].x}
+              cy="90"
+              r="5"
+            />
           ))}
           <circle class="end" cx="60" cy="90" r="4.5" />
           <circle class="end" cx="460" cy="90" r="4.5" />
@@ -369,12 +369,28 @@ const streamGeometry = (across: readonly string[]) => {
   }
   @media (max-width: 600px) {
     .stream .dept,
-    .stream .wait-label,
     .stream .done-label {
-      font-size: 18px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
     }
     .stream .end-label {
-      font-size: 19px;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+    }
+    /* a table whose cells strike stacks each row: the struck line above
+       what replaces it already says replaced, so the heads can go */
+    table.stack thead {
+      display: none;
+    }
+    table.stack tr {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--line-faint);
+    }
+    table.stack td {
+      border: 0;
+      padding: 0.1rem 0;
     }
   }
 </style>

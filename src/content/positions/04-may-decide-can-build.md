@@ -1,6 +1,6 @@
 ---
 sheet: 4
-short: What an agent cannot build
+short: The refund that can’t be made
 position: A refund holds a paid order. There is no refund of an unpaid one, so none can be decided.
 proof:
   - kind: code

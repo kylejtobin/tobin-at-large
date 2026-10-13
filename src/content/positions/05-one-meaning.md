@@ -1,23 +1,24 @@
 ---
 sheet: 5
-short: Three systems, three definitions
-position: Three systems say active. The agent gets the desk’s meaning, proven.
+short: Three systems, one meaning
+position: Three systems say how long she’s been with us. The agent gets the desk’s meaning, proven.
 proof:
   - kind: speech
     label: The desk
     lines:
-      - "“Active means they’ve paid us. I don’t care who logged in.”"
+      - "“Three years means three years paying us. I don’t care when she signed up.”"
   - kind: table
-    columns: [System, An active customer]
+    columns: [System, Three years with us]
+    stack: true
     rows:
-      - [CRM, "~~Signed in the last year~~"]
-      - [Billing, Paid us]
-      - [Product, "~~Logged in this month~~"]
+      - [CRM, "~~Account created~~"]
+      - [Billing, First payment]
+      - [Product, "~~First login~~"]
   - kind: code
     code: |
-      class ActiveCustomer(BaseModel):
-          """A customer who has paid us."""
+      class Tenure(BaseModel):
+          """How long a customer has paid us."""
 
           customer: Customer
-          payment: SettledPayment
+          first_payment: SettledPayment
 ---

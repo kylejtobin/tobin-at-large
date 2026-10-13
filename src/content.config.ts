@@ -25,6 +25,8 @@ const table = z.object({
   columnNotes: z.array(z.string().nullable()).optional(),
   // the tone legend under the table: pale by hand, dark runs on its own
   legend: z.boolean().optional(),
+  // on a phone, each row stacks its cells; for tables whose cells strike
+  stack: z.boolean().optional(),
 });
 const stream = z.object({
   kind: z.literal("stream"),
