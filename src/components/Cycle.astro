@@ -203,7 +203,7 @@ const innerClose = {
     const settle = () => {
       if (!narrow.matches) return;
       const bar = document.querySelector(".bar")?.offsetHeight ?? 0;
-      const top = root.getBoundingClientRect().top + scrollY - bar - 8;
+      const top = root.getBoundingClientRect().top + scrollY - bar - 32;
       scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
     };
     buttons.forEach((b) => {

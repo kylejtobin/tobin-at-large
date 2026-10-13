@@ -48,11 +48,15 @@ each labelled; the refund's third tick, the limit, runs down through the
 box, and beyond it is void. The stream's three stations run along the top
 as construction, so See is a state of the same drawing: the case waiting as
 a red dot at Finance; in Scale the line is solid end to end. Cases are
-numbered balloons whose stroke draws in as they land. One that lands on
-hatching is red: in Prototype the credit case lands on void where no Credit
-box exists, and in Scale the box exists and the case is inside it. On the
-home page the reader lands a case (03), including one that has nowhere to
-land, and moves the limit (05), stranding a case when it passes it.
+numbered balloons that arrive from their station on the stream and land,
+their stroke drawing in. One that lands on hatching is red: in Prototype
+the month's cases land one after another and the credit case lands last,
+alone, on void where no Credit box exists; in Scale the box exists and the
+case moves into it. On the home page the reader lands a case (03), the
+month accumulating on the drawing, including one that has nowhere to land,
+and moves the limit (05), which strands the first case clear into the void
+when it passes it. The drawing takes the sheet's full width under its
+headline.
 
 ## No code
 

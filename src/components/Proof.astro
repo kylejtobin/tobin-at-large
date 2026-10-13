@@ -581,7 +581,7 @@ const streamGeometry = (across: readonly string[]) => {
         stranded.dataset.lost = String(lost);
         stranded.style.setProperty(
           "--lost-dx",
-          lost ? `${Math.max(0, x + 30 - 170)}px` : "0px",
+          lost ? `${Math.max(0, x + 40 - 170)}px` : "0px",
         );
       }
       // the limit's label hangs right while there is room, left when there isn't
