@@ -11,7 +11,7 @@ proof:
       - "waive the fee if tenure > 5y and first_time and not disputed"
       - "waive the fee if tenure > 5y and first_time and not disputed and …"
   - kind: speech
-    label: What the desk actually does
+    label: The desk, on the same case
     lines:
-      - "“Ten years with us and it’s the first time. I’m waiving it.”"
+      - "“Ten years with us. I’m not charging her forty dollars over this.”"
 ---

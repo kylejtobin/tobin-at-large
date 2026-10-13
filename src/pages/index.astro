@@ -18,7 +18,7 @@ import type { CollectionEntry } from "astro:content";
 
 const view = "A stream of work can now run with no one in it.";
 const consequence =
-  "TAL finds the judgment the work runs on, and builds the world the agent decides in: the company’s kinds, and its facts once proven.";
+  "TAL finds what the people at the desk know, and builds it as the world the agent decides in: what can exist in the company, and what it has proven.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
@@ -33,18 +33,14 @@ const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
     kind: "speech",
     label: "The agent, on the next",
     lines: [
-      "“Paid, waiting, and she’s asking for the restocking fee back too. Refund both. Note why. Tell finance.”",
+      "“Paid, waiting, and she’s asking for the restocking fee back too. Refund both. Tell finance.”",
     ],
   },
   {
-    kind: "code",
-    code: [
-      "Refund(order, proof, reason)",
-      "FeeWaiver(order, proof, reason)",
-      "# both built",
-    ].join("\n"),
+    kind: "speech",
+    label: "The desk, reading it",
+    lines: ["“Yes. That’s what I’d do.”"],
   },
-  { kind: "struck", as: "code", lines: ["Refund(order=unpaid)  # not built"] },
 ];
 const email = "contact@talco.dev";
 // the same first step the cycle ends on
@@ -129,7 +125,6 @@ const structuredData = {
         <p class="consequence">{consequence}</p>
       </div>
       <nav class="index" aria-label="What we find in every company">
-        <p class="mono-label">What we find in every company</p>
         <CoverDrawing count={positions.length} />
         <ol>
           {

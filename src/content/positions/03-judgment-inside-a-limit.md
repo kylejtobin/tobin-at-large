@@ -1,8 +1,7 @@
 ---
 sheet: 3
 short: What can exist, and who decides which
-position: The types say what can exist. The agent decides which, for this case.
-key: "Type: one of the company’s kinds, written so the agent can build one"
+position: Five outcomes can exist. For this case, the agent decides which.
 proof:
   - kind: table
     columns: [Outcome, Exists only with]
@@ -11,7 +10,5 @@ proof:
       - [Partial refund, "A proven payment, the amount owed"]
       - [Replacement, "Stock, proven"]
       - [Fee waived, "The fee, a reason"]
-      - [Decline, The clause it rests on]
-    tones: [auto, auto, auto, auto, auto]
-    legend: true
+      - [Decline, A reason]
 ---

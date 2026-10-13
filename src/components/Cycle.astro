@@ -38,14 +38,14 @@ const stages: Stage[] = [
   {
     id: "see",
     name: "See",
-    premise: "Where a case waits, someone’s judgment is holding it.",
+    premise: "Where a case waits, it’s waiting for someone to decide.",
     plate: [
       {
         kind: "stream",
         from: "Order placed",
         to: "Refund settled",
         across: ["Service", "Finance", "Billing"],
-        marks: [{ at: 1, label: "waits here" }],
+        marks: [{ at: 1, label: "waits for a signature" }],
       },
     ],
     notes: ["Start with the stream where customers wait longest."],
@@ -54,7 +54,7 @@ const stages: Stage[] = [
     id: "declare",
     name: "Declare",
     premise:
-      "The people doing the work are the only ones who know the judgment. They show it once it’s safe to.",
+      "Only the people doing the work know what the judgment is. We write it as they say it, and they read it back.",
     plate: [
       {
         kind: "table",
@@ -63,21 +63,19 @@ const stages: Stage[] = [
           [
             "Refund",
             "~~Over $500, finance approves~~",
-            "“Paid and waiting? Refund it. Finance can hear after.”",
+            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
+          ],
+          [
+            "Fee waived",
+            "~~A manager signs off~~",
+            "“Ten years with us. I’m not charging her forty dollars over this.”",
           ],
           [
             "Active customer",
             "~~Signed in the last year~~",
-            "Whatever billing shows",
-          ],
-          [
-            "Exception to policy",
-            "~~A named person, reason recorded~~",
-            "Whoever’s next desk; nothing recorded",
+            "“Active means they’ve paid us.”",
           ],
         ],
-        tones: ["hand", "hand", "hand"],
-        legend: true,
       },
     ],
     notes: [
@@ -88,7 +86,7 @@ const stages: Stage[] = [
     id: "refactor",
     name: "Refactor",
     premise:
-      "Give each outcome what it needs to exist. The agent holds all of them.",
+      "Give each outcome what it needs to exist. Every one of them is the agent’s to make.",
     plate: [
       {
         kind: "table",
@@ -96,22 +94,20 @@ const stages: Stage[] = [
         rows: [
           [
             "Refund",
-            "“Paid and waiting? Refund it. Finance can hear after.”",
+            "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
             "A proven payment, a reason; finance told by the agent",
           ],
           [
-            "Active customer",
-            "Whatever billing shows",
-            "A proven payment within 90 days",
+            "Fee waived",
+            "“Ten years with us. I’m not charging her forty dollars over this.”",
+            "The fee, a reason",
           ],
           [
-            "Exception to policy",
-            "Whoever’s next desk; nothing recorded",
-            "A reason and its clause, recorded",
+            "Active customer",
+            "“Active means they’ve paid us.”",
+            "A proven payment within 90 days",
           ],
         ],
-        tones: ["auto", "auto", "auto"],
-        legend: true,
       },
     ],
     notes: ["The desk reads this table before anyone builds from it."],
@@ -119,7 +115,7 @@ const stages: Stage[] = [
   {
     id: "prototype",
     name: "Prototype",
-    premise: "Every redesign looks right on the wall.",
+    premise: "Run last month’s cases through it. The desk marks every one.",
     plate: [
       {
         kind: "table",
@@ -128,7 +124,7 @@ const stages: Stage[] = [
           ["Paid, waiting", "Refunds, tells finance", "As the desk would"],
           [
             "Asks for the fee back too",
-            "Refunds, waives the fee, notes why",
+            "Refunds, waives the fee",
             "As the desk would",
           ],
           [
@@ -139,31 +135,31 @@ const stages: Stage[] = [
           [
             "Asks for part of it back",
             "~~Refunds in full~~ Refunds the part",
-            "Wrong once: no partial refund existed. A manager added it.",
+            "Wrong: there was no partial refund to give. A manager added one.",
           ],
         ],
       },
     ],
-    notes: [
-      "This table is the spec. A document written about it would be a second version, and the two would drift.",
-    ],
+    notes: ["The desk signs this table. Nothing else gets written."],
   },
   {
     id: "scale",
     name: "Scale",
-    premise: "A pilot handles a slice. Your customers are in the rest.",
+    premise:
+      "A pilot takes a slice. The rest of the cases still wait at Finance.",
     plate: [
       {
         kind: "stream",
         from: "Order placed",
         to: "Refund settled",
         across: ["Service", "Finance", "Billing"],
-        done: "every case, no one in it",
+        done: "no one in it",
       },
     ],
     notes: [
-      "Retire the old stream. While both run, people hand-sort cases between them.",
+      "Retire the old stream the day the new one holds. Two streams is two answers to the same case.",
       "Measure one thing: time from placed to settled.",
+      "What a refund needs to exist is now the managers’ to change.",
     ],
   },
 ];

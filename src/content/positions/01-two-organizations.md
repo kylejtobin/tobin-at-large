@@ -2,7 +2,6 @@
 sheet: 1
 short: The company on paper and the one that runs
 position: "Every company runs twice: on paper, and in practice."
-key: "Hatched: the version on paper"
 proof:
   - kind: table
     columns: [On paper, In practice]

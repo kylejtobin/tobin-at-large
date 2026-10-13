@@ -10,6 +10,6 @@ proof:
       - ["~~Asks Service how many are waiting~~", Reads the stream]
       - [
           "~~Relays the policy down the chain~~",
-          Changes one clause; every case after it follows,
+          Changes one line of what a refund needs; every case after it follows,
         ]
 ---
