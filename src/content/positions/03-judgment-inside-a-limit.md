@@ -1,20 +1,21 @@
 ---
 sheet: 3
-short: Where the agent’s judgment stops
-position: The agent’s judgment stops at a limit. A person moves it.
+short: What can exist, and who decides which
+position: The types say what can exist. The agent decides which, for this case.
 proof:
   - kind: table
-    columns: [Judgment, Held by, Within, Beyond]
-    columnNotes: [null, null, null, A person sets this]
+    columns: [Outcome, Exists only with]
+    columnNotes:
+      [
+        "The agent chooses among these, every case",
+        Set by the people whose judgment it was,
+      ]
     rows:
-      - [
-          Refund,
-          The agent,
-          "A paid order, a reason recorded, the desk’s limit",
-          A person’s approval,
-        ]
-      - [Active customer, Software, Whatever billing proves, "—"]
-      - [Exception to policy, A named person, Every case, "—"]
-    tones: [auto, auto, hand]
+      - [Refund, "A proven payment, a reason"]
+      - [Partial refund, "A proven payment, the amount owed"]
+      - [Replacement, "Stock, proven"]
+      - [Fee waived, "The fee, a reason"]
+      - [Decline, The clause it rests on]
+    tones: [auto, auto, auto, auto, auto]
     legend: true
 ---

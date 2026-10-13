@@ -48,9 +48,7 @@ const stages: Stage[] = [
         marks: [{ at: 1, label: "waits here" }],
       },
     ],
-    notes: [
-      "Start with the stream where customers wait longest. A wait is a case sitting on someone’s judgment.",
-    ],
+    notes: ["Start with the stream where customers wait longest."],
   },
   {
     id: "declare",
@@ -87,31 +85,34 @@ const stages: Stage[] = [
   {
     id: "refactor",
     name: "Refactor",
-    premise: "Decide who holds each judgment before anything is built.",
+    premise:
+      "Decide what each outcome needs to exist. The agent holds all of them.",
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "As practiced", "Held after"],
+        columns: ["Decision", "As practiced", "What it needs to exist"],
         rows: [
           [
             "Refund",
             "If the order’s paid and the customer’s waiting, refund it and tell finance after",
-            "The agent, up to the desk’s limit",
+            "A proven payment, a reason; finance told by the agent",
           ],
-          ["Active customer", "Whatever billing shows", "Software"],
+          [
+            "Active customer",
+            "Whatever billing shows",
+            "A proven payment within 90 days",
+          ],
           [
             "Exception to policy",
             "Whoever’s next desk; nothing recorded",
-            "A named person, reason recorded",
+            "A reason and its clause, recorded",
           ],
         ],
-        tones: ["auto", "auto", "hand"],
+        tones: ["auto", "auto", "auto"],
         legend: true,
       },
     ],
-    notes: [
-      "Everyone who holds one of these judgments today sees the table before anything is built.",
-    ],
+    notes: ["The people whose judgment it is see this table first."],
   },
   {
     id: "prototype",
@@ -122,27 +123,27 @@ const stages: Stage[] = [
         kind: "table",
         columns: ["Case", "The agent", "Result"],
         rows: [
+          ["Paid, waiting", "Refunds, tells finance", "As the desk would"],
           [
-            "Paid, waiting, under the limit",
-            "Refunds, tells finance",
+            "Asks for the fee back too",
+            "Refunds, waives the fee, notes why",
             "As the desk would",
           ],
           [
-            "Paid, waiting, over the limit",
-            "Asks a person",
+            "Unpaid, waiting",
+            "Can’t make the refund; offers the replacement",
             "As the desk would",
           ],
-          ["Unpaid, waiting", "Cannot make the refund", "As the desk would"],
           [
-            "Paid, not waiting",
-            "Refunds",
-            "Wrong. The judgment said when waiting; the type didn’t. Now it does.",
+            "Asks for part of it back",
+            "~~Refunds in full~~ Refunds the part",
+            "Wrong once: no partial refund existed. Now it does.",
           ],
         ],
       },
     ],
     notes: [
-      "The table is what gets built. A document written about it is a second version, and the two drift.",
+      "This table is the spec. A document written about it would be a second version, and the two would drift.",
     ],
   },
   {
@@ -151,26 +152,16 @@ const stages: Stage[] = [
     premise: "A pilot handles a slice. Your customers are in the rest.",
     plate: [
       {
-        kind: "table",
-        columns: ["Limit", "Set by", "Moved when"],
-        rows: [
-          [
-            "~~Under $500~~ Under $2,000",
-            "Head of Service",
-            "The desk’s judgment held",
-          ],
-          [
-            "~~Asks a person~~ Refunds and tells finance",
-            "Head of Service",
-            "The desk’s judgment held",
-          ],
-        ],
+        kind: "stream",
+        from: "Order placed",
+        to: "Refund settled",
+        across: ["Service", "Finance", "Billing"],
+        done: "every case, no one in it",
       },
     ],
     notes: [
       "Retire the old stream. While both run, people hand-sort cases between them.",
-      "Measure two things: time from placed to settled, and the share of cases no person touched.",
-      "Managers keep the limits. They set them and move them.",
+      "Measure two things: time from placed to settled, and the share of cases no person touched, which is all of them.",
     ],
   },
 ];
@@ -664,17 +655,20 @@ const innerClose = {
     }
     /* See has nothing the plate cannot show: the stream takes the width and
        the way on sits under it */
-    .interactive .state-see {
+    .interactive .state-see,
+    .interactive .state-scale {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas:
         "head"
         "plate"
         "notes";
     }
-    .interactive .state-see .exhibit {
+    .interactive .state-see .exhibit,
+    .interactive .state-scale .exhibit {
       max-width: 42rem;
     }
-    .interactive .state-see .commentary {
+    .interactive .state-see .commentary,
+    .interactive .state-scale .commentary {
       margin-top: 0.5rem;
     }
     /* scale, the one scene with no map in it, is the working floor: cropped

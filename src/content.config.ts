@@ -35,6 +35,8 @@ const stream = z.object({
   marks: z
     .array(z.object({ at: z.number().int(), label: z.string() }))
     .optional(),
+  // the stream finished: drawn solid end to end, with its caption
+  done: z.string().optional(),
 });
 const struck = z.object({
   kind: z.literal("struck"),

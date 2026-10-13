@@ -28,9 +28,9 @@ to rewrite to fit what was built.
   mark stands down while the cover's mark is on screen, so identity never
   appears twice at once.
 - **Cover** (full screen): the mark, the claim as the largest type on the
-  site, the exhibit under it (the desk's judgment, kept, and the type the
-  agent holds the same judgment in), one supporting line, and the one drawing
-  on the site keying the index of positions.
+  site, the exhibit under it (the desk's judgment, the agent's judgment on
+  the next case, and the outcomes it built), one supporting line, and the
+  one drawing on the site keying the index of positions.
 - **Position sheets**: a mirrored spread. The position as headline beside its
   proof, both hanging from one top edge. Alternate sheets mirror. A
   consequence line appears only for what the proof cannot show; none of the
@@ -118,6 +118,7 @@ explicit:
   departments it crosses as faint rules with quiet labels, and nothing drawn
   between the ends but the dashed line itself. A handoff where a person
   decides on the spot is a red point on the line with its label under it.
+  Finished, the stream is drawn solid in ink end to end, with its caption.
 
 The cycle's plates are drawn in this grammar, the same as the positions', and
 reuse the positions' instances. No pencil scene: every plate is in the
@@ -128,10 +129,10 @@ grammar.
 One stream of work, the refund, followed through the cycle, each stage's
 plate the artifact the stage produces, drawn in the proofs' grammar: the
 stream with its two ends fixed and the case waiting at a handoff (See); as
-written struck beside as practiced (Declare); as practiced with who holds
-it after, rows dark where they now run on their own (Refactor); the run,
-one case wrong and the type corrected (Prototype); the limit moved by a
-person, struck cells (Scale).
+written struck beside as practiced (Declare); as practiced with what each
+outcome needs to exist, every row dark (Refactor); the run, the agent
+judging and one missing kind found (Prototype); the same stream drawn solid
+end to end with its caption, every case, no one in it (Scale).
 
 - **Tone means automation.** In every toned table a pale row is done by hand
   and a dark row runs on its own. Every row is pale through Declare, and the

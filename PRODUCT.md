@@ -15,6 +15,13 @@ body of work: the products are the problems met in every organization,
 solved once and given away; the engagements apply the same thinking inside
 one organization, one stream of work at a time.
 
+## The rule above every rule
+
+No person in the stream. The agent runs every case; the wrong outcome has
+no type to be. People build the world the agent decides in before, and
+change it after. Every approval, escalation, threshold, or hand-off to a
+person on the page is a failure of the idea, however reasonable it sounds.
+
 ## The seed
 
 Work flows through an organization as cases, and people keep it moving with
@@ -89,12 +96,12 @@ gets a column note instead.
 
 ## The arc
 
-1. **Cover.** The claim: _Agents can judge now._ The exhibit: the desk's
-   judgment, kept, and the same judgment as the type the agent holds it in.
-   The line: the question is no longer which rules to automate but which
-   judgment to hand over and where it stops; TAL studies how the work really
-   runs and builds that boundary as types. The index lists the six positions
-   by plain titles.
+1. **Cover.** The claim: _A stream of work can now run with no one in it._
+   The exhibit is the synergy as a triad: the desk's judgment on one case,
+   the agent's judgment on the next in the same voice, and the two outcomes
+   it built, typed. The line: TAL finds the judgment that really runs the
+   work, and builds the world the agent decides in. The index lists the six
+   positions by plain titles.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
 3. **How we do it.** The headline, _One stream of work at a time_, the loop
@@ -102,9 +109,10 @@ gets a column note instead.
    and at most one or two notes for what the plate cannot show. One case,
    the refund, runs through every plate: the stream with the case waiting
    at Finance (See); as written struck beside as practiced (Declare); as
-   practiced with who holds it after (Refactor); the run, one case wrong and
-   the type corrected (Prototype); the limit moved by a person, in struck
-   cells (Scale). After Scale, the door.
+   practiced with what each outcome needs to exist, every row dark
+   (Refactor); the run, the agent judging on what no clause wrote, and one
+   missing kind found and added (Prototype); the same stream drawn solid end
+   to end, every case, no one in it (Scale). After Scale, the door.
 4. **Work.** The book's one line; under ONTOK and TCA, the thing itself: the
    fact type and the refund type, in which no payment means no refund and
    the amount carries the limit.
@@ -112,17 +120,17 @@ gets a column note instead.
 
 ### Current positions
 
-1. Every company runs twice: on paper, and in practice. (The paper column
-   hatched: what the pilot was built from; the practice column: where the
-   work runs.)
-2. Every rule written for it needs one more clause. (Four struck attempts,
-   each longer; the desk's sentence, kept, a different case from the cover's.)
-3. The agent's judgment stops at a limit. A person moves it. (Judgment, held
-   by, within, beyond; "a person sets this"; the legend under the table.)
-4. The wrong refund cannot be made. (The Refund type, the same one as the
-   cover's; two struck constructions: cannot be built.)
-5. One word, three meanings. The type keeps the proven one.
-6. What remains for managers is the limit. They set it, and they move it.
+1. Every company runs twice: on paper, and in practice.
+2. Every rule written for a judgment needs one more clause. (Four struck
+   attempts, each longer; the desk's sentence, kept.)
+3. The types say what can exist. The agent decides which, for this case.
+   (Outcomes and what each needs to exist, every row dark; the agent chooses
+   among them.)
+4. What an agent can't build, it can't decide. (The Refund type; one
+   construction struck, one built.)
+5. One word, three meanings. The agent gets the proven one.
+6. Managers stop touching cases. They decide what can exist. (Struck before
+   beside after.)
 
 ## How we do it: the method
 

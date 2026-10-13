@@ -98,7 +98,24 @@ const streamGeometry = (across: readonly string[]) => {
               <line class="dept-rule" x1={x} x2={x} y1="44" y2="134" />
             </>
           ))}
-          <line class="between" x1="60" x2="460" y1="90" y2="90" />
+          {block.done ? (
+            <line
+              class="done-line"
+              x1="60"
+              x2="460"
+              y1="90"
+              y2="90"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          ) : (
+            <line class="between" x1="60" x2="460" y1="90" y2="90" />
+          )}
+          {block.done && (
+            <text class="done-label" x="260" y="114" text-anchor="middle">
+              {block.done}
+            </text>
+          )}
           {block.marks?.map((m, i) => (
             <>
               <circle
@@ -243,6 +260,14 @@ const streamGeometry = (across: readonly string[]) => {
     stroke: rgba(26, 26, 26, 0.45);
     stroke-width: 1;
     stroke-dasharray: 3 5;
+  }
+  /* the stream finished: solid ink, end to end */
+  .stream .done-line {
+    color: var(--ink);
+  }
+  .stream .done-label {
+    font-size: 9.5px;
+    fill: var(--ink);
   }
   .stream .end {
     fill: var(--ink);

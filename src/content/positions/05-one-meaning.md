@@ -1,7 +1,7 @@
 ---
 sheet: 5
 short: Three systems, three definitions
-position: One word, three meanings. The type keeps the proven one.
+position: One word, three meanings. The agent gets the proven one.
 proof:
   - kind: table
     columns: [System, An active customer]
@@ -14,5 +14,5 @@ proof:
       class ActiveCustomer(State):
           customer: Customer
           paid: Proven[Payment]
-          # a fact, not a flag
+          # proven, not asserted
 ---

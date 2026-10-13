@@ -5,7 +5,7 @@ position: "Every company runs twice: on paper, and in practice."
 proof:
   - kind: table
     columns: [On paper, In practice]
-    columnNotes: [What the pilot was built from, Where the work runs]
+    columnNotes: [What automation was built from, Where the work runs]
     rows:
       - [The approver on the org chart, The person whose judgment is trusted]
       - [The threshold in the policy, The threshold that is honored]

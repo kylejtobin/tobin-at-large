@@ -1,18 +1,15 @@
 ---
 sheet: 6
-short: What managers do after
-position: What remains for managers is the limit. They set it, and they move it.
+short: What managers do instead
+position: Managers stop touching cases. They decide what can exist.
 proof:
   - kind: table
-    columns: [Coordination, Leadership]
+    columns: [Before, After]
     rows:
+      - ["~~Approves refunds over $500~~", Decides what a refund needs to exist]
+      - ["~~Asks Service how many are waiting~~", Reads the stream]
       - [
-          Relaying intent down the chain,
-          The judgment is declared once; the agent holds it in every case,
-        ]
-      - [Carrying status back up, Reading the state of the work directly]
-      - [
-          Approving what the front line could decide,
-          Setting the limits the front line decides within,
+          "~~Relays the policy down the chain~~",
+          Changes what exists when the judgment changes,
         ]
 ---

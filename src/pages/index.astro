@@ -16,33 +16,35 @@ import Cycle from "../components/Cycle.astro";
 import Proof from "../components/Proof.astro";
 import type { CollectionEntry } from "astro:content";
 
-const view = "Agents can judge now.";
+const view = "A stream of work can now run with no one in it.";
 const consequence =
-  "People keep work moving with judgment no rule ever caught. An agent can hold that judgment now. So the question is not which rules to automate but which judgment to hand over, and where it stops. TAL finds that edge in how your work really runs, and builds it into the agent as a type a person can move.";
+  "TAL finds the judgment that really runs your work, and builds the world the agent decides in.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
     kind: "speech",
-    label: "The desk",
+    label: "The desk, on one case",
     lines: [
       "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
     ],
   },
   {
+    kind: "speech",
+    label: "The agent, on the next",
+    lines: [
+      "“Paid, waiting, and she’s asking for the restocking fee back too. Refund both. Note why. Tell finance.”",
+    ],
+  },
+  {
     kind: "code",
     code: [
-      "class Refund(Decision):  # the agent",
-      "    order: Order",
-      "    payment: Proven[Payment]",
-      "    customer_waiting: bool",
-      "    approved_by: Person | None",
-      "    # required above the limit",
+      "Refund(order, proof, why)     # built",
+      "FeeWaiver(order, proof, why)  # built",
     ].join("\n"),
   },
 ];
 const email = "contact@talco.dev";
-const inquiry = `mailto:${email}?subject=${encodeURIComponent("Conversation")}`;
 // the same first step the cycle ends on
 const oneStream = `mailto:${email}?subject=${encodeURIComponent("One stream")}`;
 
@@ -111,7 +113,7 @@ const structuredData = {
     <a class="home" href="#cover" aria-label="TAL Company, top of page"
       ><Mark /></a
     >
-    <a class="cta" href={inquiry}>Start a conversation</a>
+    <a class="cta" href={oneStream}>Start with one stream</a>
   </header>
 
   <Drawing id="cover" label="TAL Company" full>
@@ -312,6 +314,13 @@ const structuredData = {
     line-height: 1.5;
     padding: 0.8rem 1rem;
   }
+  .cover-exhibit :global(.proof) {
+    gap: 0.9rem;
+  }
+  .cover-exhibit :global(.speech p) {
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
 
   .cover :global(.mark) {
     justify-self: start;
@@ -319,7 +328,7 @@ const structuredData = {
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.6rem, 4.8vw, 4.6rem);
+    font-size: clamp(2.4rem, 4.4vw, 4.2rem);
     line-height: 1.02;
     letter-spacing: -0.014em;
     max-width: 22ch;
