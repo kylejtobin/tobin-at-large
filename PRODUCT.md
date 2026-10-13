@@ -106,21 +106,25 @@ gets a column note instead.
 ## The arc
 
 1. **Cover.** The claim: _A stream of work can now run with no one in it._
-   The exhibit: the desk on one case, the agent on the next in the same
-   voice, and the desk reading it back: "Yes. That's what I'd do." The
-   line: TAL finds what the people at the desk know, and builds it as the
-   world the agent decides in. The index lists the six positions.
+   The exhibit: the desk and the agent, each on a case, in the same voice,
+   labelled only "The desk" and "The agent": never "on the next case",
+   which reads as succession, and never a third beat where the desk
+   approves, which reads as a check. The paragraph says before and after
+   plainly: before it runs, the people at the desk say what they know; TAL
+   builds the world the agent decides in; after, managers change what can
+   exist; no one touches a case.
 2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
    the seed in the order above.
 3. **How we do it.** The headline, _One stream of work at a time_, the loop
    as an index, and all five stages on the page, each a premise, the plate,
-   and at most one or two notes for what the plate cannot show. One case,
-   the refund, runs through every plate: the stream with the case waiting
-   at Finance (See); as written struck beside as practiced (Declare); as
-   practiced with what each outcome needs to exist, every row dark
-   (Refactor); the run, the agent judging on what no clause wrote, and one
-   missing kind found and added (Prototype); the same stream drawn solid end
-   to end, every case, no one in it (Scale). After Scale, the door.
+   and at most one or two notes for what the plate cannot show. One case
+   runs through every plate: the stream, solid to the red dot at Finance and
+   nothing after (See); the written rule struck beside the desk's words
+   (Declare); each outcome and what it exists only with (Refactor); last
+   month's cases, the agent's call beside what the desk did, the one that
+   differs struck (Prototype); the same cases with the desk's column gone,
+   and the stream drawn solid end to end (Scale). The manager's act, adding
+   the outcome, is the one note. After Scale, the door.
 4. **Work.** The book's one line; under ONTOK and TCA, the thing itself: the
    fact type and the refund type, in which no payment means no refund and
    the amount carries the limit.
@@ -130,17 +134,19 @@ gets a column note instead.
 
 1. Every company runs twice: on paper, and in practice.
 2. Every rule written for a judgment needs one more clause. (Four struck
-   attempts, each longer; the desk's sentence, kept.)
-3. The types say what can exist. The agent decides which, for this case.
-   (Outcomes and what each needs to exist, every row dark; the agent chooses
-   among them.)
-4. A refund holds a paid order; there is no refund of an unpaid one. (The
-   Refund construct, in TCA's own shape: a frozen model whose field is the
-   proven kind. No constructor calls, no invented wrappers, no comment doing
-   a type's work.)
-5. One word, three meanings. The agent gets the proven one.
-6. Managers stop touching cases. They decide what can exist. (Struck before
-   beside after.)
+   attempts, each longer; the desk waives at three years where the rule
+   said five.)
+3. The agent chooses an outcome that can exist, and nothing else.
+   (Outcomes and what each exists only with. No count: a manager adds one
+   later.)
+4. A refund is of a paid order. An unpaid one has no refund to decide. (The
+   Refund construct in TCA's own shape: a frozen model, a docstring, fields
+   that are the proven kinds. No constructor calls, no wrappers, no comment
+   doing a type's work, no kind invented for the page.)
+5. Three systems say how long she's been with us. The agent gets the desk's
+   meaning. (Tenure, the fact the fee waiver turns on.)
+6. Managers stop touching cases. They change what can exist. (Struck before
+   beside after; the third row is the outcome the exception needed.)
 
 ## How we do it: the method
 
