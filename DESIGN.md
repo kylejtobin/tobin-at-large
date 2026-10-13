@@ -24,9 +24,10 @@ to rewrite to fit what was built.
 
 ## Structure
 
-- **Bar** (sticky): the mark and one action, _Start a conversation_. The bar's
-  mark stands down while the cover's mark is on screen, so identity never
-  appears twice at once.
+- **Bar** (sticky): the mark and one action, _Email us_, which is what the
+  link does: a mailto, never labelled as if it led to a page. The bar's mark
+  stands down while the cover's mark is on screen, so identity never appears
+  twice at once.
 - **Cover** (full screen): the mark, the claim as the largest type on the
   site, the exhibit under it (the desk on one case, the agent on the next,
   the desk reading it back), one supporting line, and the one drawing on
@@ -142,8 +143,8 @@ end to end with its caption, every case, no one in it (Scale).
   premise, sits over the plate in the plate's column, and the commentary runs
   the stage's full height beside them, starting level with the enunciation.
   The commentary is numbered notes only for what the plate cannot show, at
-  most three. After the last stage, the door, "Start with one stream", in
-  mono. The decision the stage fixes is in the plate, never captioned. No
+  most three. After the last stage, the door, "Email us about one stream",
+  in mono: a mailto, labelled as one. The decision the stage fixes is in the plate, never captioned. No
   body copy, no sheet keys, no italic definitions.
 - Every stage is on the page. The loop is an index: it sits beside the
   stages on wide screens and follows them as they scroll; a balloon scrolls

@@ -141,10 +141,13 @@ gets a column note instead.
    later.)
 4. A refund is of a paid order. An unpaid one has no refund to decide. (The
    Refund construct in TCA's own shape: a frozen model, a docstring, fields
-   that are the proven kinds. No constructor calls, no wrappers, no comment
-   doing a type's work, no kind invented for the page.)
+   that are the proven kinds, the docstring in TCA's own form, "The intended
+   refunding of a paid order." No constructor calls, no wrappers, no comment
+   doing a type's work, no kind invented for the page, no narrative in a
+   docstring. This is the one code block on the page.)
 5. Three systems say how long she's been with us. The agent gets the desk's
-   meaning. (Tenure, the fact the fee waiver turns on.)
+   meaning. (The desk's words and the table with two meanings struck; no
+   code.)
 6. Managers stop touching cases. They change what can exist. (Struck before
    beside after; the third row is the outcome the exception needed.)
 
