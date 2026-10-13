@@ -94,24 +94,24 @@ const streamGeometry = (across: readonly string[]) => {
             </>
           ))}
           <line class="between" x1="60" x2="460" y1="90" y2="90" />
-          {block.wait && (
+          {block.marks?.map((m, i) => (
             <>
               <circle
                 class="wait"
-                cx={streamGeometry(block.across)[block.wait.at].x}
+                cx={streamGeometry(block.across)[m.at].x}
                 cy="90"
                 r="5"
               />
               <text
                 class="wait-label"
-                x={streamGeometry(block.across)[block.wait.at].x}
-                y="114"
+                x={streamGeometry(block.across)[m.at].x}
+                y={114 + (i % 2) * 16}
                 text-anchor="middle"
               >
-                {block.wait.label}
+                {m.label}
               </text>
             </>
-          )}
+          ))}
           <circle class="end" cx="60" cy="90" r="4.5" />
           <circle class="end" cx="460" cy="90" r="4.5" />
           <text class="end-label" x="60" y="156">
@@ -121,6 +121,13 @@ const streamGeometry = (across: readonly string[]) => {
             {block.to}
           </text>
         </svg>
+      ) : block.kind === "speech" ? (
+        <div class="speech">
+          {block.label && <span class="mono-label">{block.label}</span>}
+          {block.lines.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
       ) : block.kind === "struck" ? (
         <ul class:list={["struck", `as-${block.as}`]}>
           {block.lines.map((line) => (
@@ -246,6 +253,20 @@ const streamGeometry = (across: readonly string[]) => {
   .stream .end-label {
     font-size: 10.5px;
     fill: var(--ink);
+  }
+
+  /* what someone says, kept: judgment as it is exercised */
+  .speech {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .speech p {
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 30rem;
+    text-wrap: pretty;
   }
 
   /* the replaced way, struck through in red */

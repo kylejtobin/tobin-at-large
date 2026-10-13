@@ -2,13 +2,13 @@
 kind: software
 label: Open-source architecture
 title: Type Construction Architecture
-line: "What an agent may decide is what it can build."
+line: "The type is the limit. What it does not admit, no agent can build."
 code: |
-  class Refund(Decision):
-      order: Order
-      paid: Payment    # none, no refund
-      amount: Money = Field(le=2_000)
-      # above it, a person
+  class Approval(Fact):
+      decision: Refund
+      by: Person
+      # required above the limit
+      recorded: Timestamp
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png

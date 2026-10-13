@@ -16,27 +16,29 @@ import Cycle from "../components/Cycle.astro";
 import Proof from "../components/Proof.astro";
 import type { CollectionEntry } from "astro:content";
 
-const view = "Every decision in your company is one of these two.";
+const view = "Agents can judge now.";
 const consequence =
-  "TAL turns the first into the second, one stream of work at a time.";
+  "The question is which judgment to hand over, and where it stops. TAL studies how your work really runs, then builds that boundary as types.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
-    kind: "struck",
-    as: "speech",
-    lines: ["“Check with finance if it’s a big one.”"],
+    kind: "speech",
+    label: "The desk",
+    lines: [
+      "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
+    ],
   },
   {
-    kind: "table",
-    columns: ["Decision", "Decided by", "Limit"],
-    rows: [
-      [
-        "Refund",
-        "The agent, on the order and its payment from billing",
-        "Up to $2,000; a person above",
-      ],
-    ],
+    kind: "code",
+    code: [
+      "class Refund(Decision):  # the agent",
+      "    order: Order",
+      "    payment: Proven[Payment]",
+      "    customer_waiting: bool",
+      "    approved_by: Person | None",
+      "    # required above the limit",
+    ].join("\n"),
   },
 ];
 const email = "contact@talco.dev";
@@ -249,9 +251,14 @@ const structuredData = {
       </div>
       <div class="founder-text">
         <p class="statement-lead">
-          <strong>Kyle J. Tobin</strong> founded TAL to study how a company’s work
-          actually runs, find the judgment that keeps it moving, and write it as typed
-          limits an agent can hold.
+          <strong>Kyle J. Tobin</strong> founded TAL to build organizations the way
+          they will now have to run: whole, explicit, and executable, from the authority
+          at the top to the code underneath.
+        </p>
+        <p class="statement-body">
+          He thinks in both directions at once. Every decision about an
+          organization is already a design for its software, and every line of
+          software is already a decision about the organization.
         </p>
         <div class="start-actions">
           <a class="cta" href={oneStream}>Start with one stream</a>
@@ -299,12 +306,16 @@ const structuredData = {
   .statement {
     grid-column: 1 / span 7;
     display: grid;
-    gap: clamp(1.25rem, 3vh, 2rem);
+    gap: clamp(0.9rem, 2vh, 1.4rem);
   }
   /* the cover's exhibit: the decision by judgment, struck, and the same
      decision as a row an agent can hold */
   .cover-exhibit {
     max-width: 36rem;
+  }
+  .cover-exhibit :global(.code) {
+    line-height: 1.5;
+    padding: 0.8rem 1rem;
   }
   .cover :global(.mark) {
     justify-self: start;
@@ -312,10 +323,10 @@ const structuredData = {
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.4rem, 4.4vw, 4rem);
-    line-height: 1.04;
+    font-size: clamp(2.8rem, 5.4vw, 5rem);
+    line-height: 1.02;
     letter-spacing: -0.014em;
-    max-width: 16ch;
+    max-width: 14ch;
     text-wrap: balance;
   }
   .consequence {
@@ -330,7 +341,7 @@ const structuredData = {
     grid-column: 8 / span 5;
   }
   .index :global(.cover-drawing) {
-    margin-top: 1.25rem;
+    margin-top: 0.5rem;
   }
   .index ol {
     list-style: none;
@@ -343,8 +354,8 @@ const structuredData = {
     display: grid;
     grid-template-columns: 2.25rem 1fr;
     align-items: baseline;
-    padding: 0.7rem 0;
-    min-height: 44px;
+    padding: 0.35rem 0;
+    min-height: 38px;
     color: var(--ink);
     text-decoration: none;
   }
@@ -557,6 +568,13 @@ const structuredData = {
   .statement-lead strong {
     font-weight: 500;
   }
+  .statement-body {
+    margin-top: 1.25rem;
+    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
+    line-height: 1.55;
+    color: var(--ink-light);
+  }
+
   /* the door sits under the founder's statement */
   .start-actions {
     margin-top: 2rem;

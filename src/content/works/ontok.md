@@ -2,11 +2,13 @@
 kind: software
 label: Open-source language
 title: ONTOK
-line: "An organization’s facts as types."
+line: "An organization’s kinds as types, and its facts as values that exist only once proven."
 code: |
-  class ActiveCustomer(State):
-      customer: Customer
-      paid: Payment  # a fact, not a flag
+  class Payment(Fact):
+      # exists only once proven
+      order: Order
+      amount: Money
+      settled: Timestamp
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png

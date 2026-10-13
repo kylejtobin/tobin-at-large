@@ -28,15 +28,15 @@ to rewrite to fit what was built.
   mark stands down while the cover's mark is on screen, so identity never
   appears twice at once.
 - **Cover** (full screen): the mark, the claim as the largest type on the
-  site, the exhibit under it (the struck line of judgment and the one row an
-  agent can hold), one supporting line, and the one drawing on the site
-  keying the index of positions.
+  site, the exhibit under it (the desk's judgment, kept, and the type the
+  agent holds the same judgment in), one supporting line, and the one drawing
+  on the site keying the index of positions.
 - **Position sheets**: a mirrored spread. The position as headline beside its
   proof, both hanging from one top edge. Alternate sheets mirror. A
   consequence line appears only for what the proof cannot show; none of the
   current four needs one.
-- **Founder sheet**: the portrait, one sentence, and the door. The page above
-  is how he thinks; nothing on the sheet describes it.
+- **Founder sheet**: the portrait, the declaration of how he thinks, and the
+  door.
 - **Work sheet**: one composed exhibit. The book leads at full scale; the tools
   stack beside it at half its weight, each with a few lines of the thing
   itself under its line.
@@ -110,13 +110,14 @@ explicit:
   done by hand, dark runs on its own. A cell may strike the replaced way
   beside what replaces it.
 - **Struck lines** show the replaced way (speech or code), struck in red above
-  what replaces it.
+  what replaces it. **Speech**, unstruck, in italic with a quiet label, is
+  judgment as it is exercised: kept, never crossed out.
 - **Code** blocks are framed; a comment is set in the quiet ink. A run log is
   code.
 - **The stream** is a line with its two ends fixed as filled terminals, the
   departments it crosses as faint rules with quiet labels, and nothing drawn
-  between the ends but the dashed line itself. A case waiting at a handoff
-  is a red point on the line with its label under it.
+  between the ends but the dashed line itself. A handoff where a person
+  decides on the spot is a red point on the line with its label under it.
 
 The cycle's plates are drawn in this grammar, the same as the positions', and
 reuse the positions' instances. Only Scale carries a pencil scene.

@@ -1,5 +1,5 @@
 ---
-sheet: 3
+sheet: 5
 short: Three systems, three definitions
 position: People quietly fix what systems disagree on. Agents can’t.
 proof:
@@ -13,5 +13,6 @@ proof:
     code: |
       class ActiveCustomer(State):
           customer: Customer
-          paid: Payment  # a fact, not a flag
+          paid: Proven[Payment]
+          # a fact, not a flag
 ---

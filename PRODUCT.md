@@ -17,20 +17,21 @@ one organization, one stream of work at a time.
 
 ## The seed
 
-An organization is a set of decisions. Most of them are made when the case
-arrives, by whoever it arrives to: that is judgment, and it is what keeps the
-work moving. A decision has been made when one named holder may make it, the
-facts it is made on resolve to one proven answer, and the limit past which it
-returns to a person can be checked. A rule written for a person to interpret
-is not that, however much of it is written down. Only a decision that has
-been made can be run by something other than the person who would have made
-it. Judgment is neither transcribed nor removed: it is engineered into agents
-as limits, and the limits are types, so what an agent may decide is also what
-it can build. A limit is the one form in which authority is handed to an
-agent and taken back, by moving it. The people who run the work are the
-authority on what the work is.
+Work flows through an organization as cases, and people keep it moving with
+judgment: contextual, case-by-case reasoning that was never a rule and never
+could be, because every attempt to write it as one needs one more clause.
+That judgment is where the organization actually runs. What changed is that
+an agent can exercise judgment now, so the question is no longer which rules
+to automate but which judgment to hand over, and where it stops. That
+boundary is authority, and authority is handed to an agent in one form, a
+limit, moved by a person. The limit is built as a type, over an ontology of
+the organization's kinds and its proven facts, so the agent has real
+autonomy inside the space the types admit and the wrong state cannot be
+constructed: what an agent may decide is exactly what it can build. The
+people who do the work are the authority on what the judgment is.
 
-_Explicit_ never means _written down_. Documented is not decided.
+More automation, of the organization itself, is the point. It can never be
+said, because everyone says it; the page shows what it means.
 
 The positions are the parts of the seed. The method makes one stream explicit.
 The works are the instruments: the book is the argument at length, ONTOK is
@@ -88,17 +89,14 @@ gets a column note instead.
 
 ## The arc
 
-1. **Cover.** The exhibit: the decision by judgment, struck ("Check with
-   finance if it's a big one"), and under it the same decision as a row an
-   agent can hold. The claim over it: _Every decision in your company is one
-   of these two._ The one line the exhibit cannot show: _TAL turns the first
-   into the second, one stream of work at a time._ The index lists the four
-   positions by plain titles.
-2. **Positions 01–04.** Claim and drawn proof, no caption: every rule exists
-   twice, on paper and in practice (01); an agent can be given a limit, not
-   judgment, with the moved limit noted in red (02); three systems, three
-   definitions, and the one definition is code, "a fact, not a flag" (03);
-   management was relaying, and what remains is setting the limits (04).
+1. **Cover.** The claim: _Agents can judge now._ The exhibit: the desk's
+   judgment, kept, and the same judgment as the type the agent holds it in.
+   The line: the question is no longer which rules to automate but which
+   judgment to hand over and where it stops; TAL studies how the work really
+   runs and builds that boundary as types. The index lists the six positions
+   by plain titles.
+2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
+   the seed in the order above.
 3. **How we do it.** The headline, _One stream of work at a time_, then the
    loop and the stages. Each stage is a premise, the plate, and at most one
    or two notes for what the plate cannot show. The See plate draws what a
@@ -113,10 +111,16 @@ gets a column note instead.
 
 ### Current positions
 
-- Every company runs twice: on paper, and in practice.
-- An agent can be given a limit. It can't be given judgment.
-- People quietly fix what systems disagree on. Agents can't.
-- Most management is relaying decisions nobody else can see.
+1. Every company runs twice: on paper, and in practice.
+2. The judgment that keeps work moving is not a rule nobody got around to
+   writing. (Three struck attempts to write it, each longer; the desk's
+   sentence, kept.)
+3. An agent can hold judgment now. It can hold it only inside a limit.
+   (Judgment, held by, within, beyond; the beyond moved by a person.)
+4. What an agent may decide is exactly what it can build. (The Refund type;
+   the refund on an unpaid order, struck: cannot be built.)
+5. People quietly fix what systems disagree on. Agents can't.
+6. Most management is relaying decisions nobody else can see.
 
 ## How we do it: the method
 
@@ -169,11 +173,13 @@ Scale is about the business: the organization doing what it exists to do.
 - **Never put the founder's résumé on the page.**
 - Never fill a slot by **copying existing text**. Synthesize and say it
   newly.
-- The founder is identified by one sentence that says what TAL does:
+- The founder is identified by a **declaration of how he thinks**, which is
+  the idea itself: a decision about an organization is a design for its
+  software, and the reverse.
 
-  > **Kyle J. Tobin** founded TAL to study how a company's work actually
-  > runs, find the judgment that keeps it moving, and write it as typed
-  > limits an agent can hold.
+  > **Kyle J. Tobin** founded TAL to build organizations the way they will now
+  > have to run: whole, explicit, and executable, from the authority at the top
+  > to the code underneath. He thinks in both directions at once.
 
 ## Less is more, quality over quantity
 
@@ -187,13 +193,13 @@ Scale is about the business: the organization doing what it exists to do.
 They share a conviction, not a pipeline. Never present them as layers of one
 system.
 
-- **The Automated Organization** (book): why the organization, not its
-  software, is what becomes executable, and how to get there.
-- **ONTOK** (open-source language): an organization's facts as types. Shown
-  by the fact type from sheet 03.
-- **Type Construction Architecture** (open-source architecture): what an
-  agent may decide is what it can build. Shown by the refund type: the
-  payment is required and the amount carries the limit.
+- **The Automated Organization** (book): how an organization, not just its
+  software, becomes the thing that runs.
+- **ONTOK** (open-source language): an organization's kinds as types and its
+  facts as values that exist only once proven. Shown by a Payment fact.
+- **Type Construction Architecture** (open-source architecture): the type is
+  the limit; what it does not admit, no agent can build. Shown by an
+  Approval fact, required above the limit.
 
 ## Working rules learned the hard way
 

@@ -1,5 +1,5 @@
 ---
-sheet: 4
+sheet: 6
 short: What managers do after
 position: Most management is relaying decisions nobody else can see.
 proof:
@@ -13,6 +13,6 @@ proof:
       - [Carrying status back up, "Status is on the screen, not in a meeting"]
       - [
           Approving what the front line could decide,
-          The manager sets the limit; the front line decides under it,
+          Setting the limits the front line decides within,
         ]
 ---

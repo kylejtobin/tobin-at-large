@@ -42,34 +42,38 @@ const stages: Stage[] = [
   {
     id: "see",
     name: "See",
-    premise:
-      "A customer’s request crosses four departments. Nobody owns the path.",
+    premise: "Every handoff is a judgment call nobody wrote down.",
     plate: [
       {
         kind: "stream",
         from: "Claim filed",
         to: "Claim settled",
         across: ["Sales", "Underwriting", "Finance", "Service"],
-        wait: { at: 2, label: "A claim, waiting on a decision" },
+        marks: [
+          { at: 1, label: "decided on the spot" },
+          { at: 2, label: "decided on the spot" },
+        ],
       },
     ],
-    notes: [],
+    notes: [
+      "Start with the stream where customers wait longest. A wait is a case sitting on someone’s judgment.",
+    ],
   },
   {
     id: "declare",
     name: "Declare",
     premise:
-      "Only the people doing the work know how it runs. They’ll show you once it’s safe to.",
+      "The people doing the work are the only ones who know the judgment. They show it once it’s safe to.",
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "As written", "As made"],
+        columns: ["Decision", "As written", "As practiced"],
         columnNotes: [null, null, "Declared the true version first"],
         rows: [
           [
-            "Refund above $500",
-            "~~Finance lead approves~~",
-            "The desk, up to $2,000, when the customer is waiting; finance told after",
+            "Refund",
+            "~~Over $500, finance approves~~",
+            "If the order’s paid and the customer’s waiting, refund it and tell finance after",
           ],
           [
             "Active customer",
@@ -79,16 +83,14 @@ const stages: Stage[] = [
           [
             "Exception to policy",
             "~~A named person, reason recorded~~",
-            "The next desk, nothing recorded",
+            "Whoever’s next desk; nothing recorded",
           ],
         ],
         tones: ["hand", "hand", "hand"],
       },
     ],
     legend: true,
-    notes: [
-      "It’s done when the people whose decisions it holds say it’s right.",
-    ],
+    notes: ["It’s done when the people whose judgment it is say it’s right."],
   },
   {
     id: "refactor",
@@ -97,34 +99,23 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Decision", "Who decides", "On what", "Limit"],
+        columns: ["Judgment", "Held by", "Within", "Beyond"],
         rows: [
           [
             "Refund",
             "The agent",
-            "The order and its payment, from billing",
-            "Up to $2,000",
+            "A paid order, a reason recorded, the desk’s limit",
+            "A person’s approval",
           ],
-          ["Refund", "Service lead", "The case", "Above $2,000"],
-          [
-            "Active customer",
-            "Software",
-            "A payment within 90 days",
-            "The fact decides",
-          ],
-          [
-            "Exception to policy",
-            "A named person",
-            "The reason, logged",
-            "Any case",
-          ],
+          ["Active customer", "Software", "The fact decides", "—"],
+          ["Exception to policy", "A named person", "Every case", "—"],
         ],
-        tones: ["auto", "hand", "auto", "hand"],
+        tones: ["auto", "auto", "hand"],
       },
     ],
     legend: true,
     notes: [
-      "Every role that holds one of these decisions sees the table before anything is built.",
+      "Everyone who holds one of these judgments today sees the table before anything is built.",
     ],
   },
   {
@@ -134,16 +125,16 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Case", "Decided by", "Result"],
+        columns: ["Case", "The agent", "Result"],
         rows: [
-          ["Inside the limit", "The agent", "Correct"],
-          ["Past the limit", "A person", "Correct"],
+          ["Paid, waiting, under the limit", "Refunds, tells finance", "Held"],
+          ["Paid, waiting, over the limit", "Asks a person", "Held"],
+          ["Unpaid, waiting", "Refund(…) cannot be built", "Held"],
           [
-            "A refund on an unpaid order",
-            "The agent",
-            "Wrong. The limit was an amount; the fact was the payment.",
+            "Paid, not waiting",
+            "Refunds",
+            "Wrong. The judgment said when waiting; the type didn’t. Now it does.",
           ],
-          ["The same order, again", "Can’t be built", "Correct"],
         ],
       },
     ],
@@ -160,6 +151,7 @@ const stages: Stage[] = [
     notes: [
       "Retire the old stream. While both run, people hand-sort cases between them.",
       "Measure two things: time from filed to settled, and the share of cases no person touched.",
+      "Managers keep the limits. They set them and move them.",
     ],
   },
 ];

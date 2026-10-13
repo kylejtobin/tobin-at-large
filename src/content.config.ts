@@ -29,8 +29,10 @@ const stream = z.object({
   from: z.string(),
   to: z.string(),
   across: z.array(z.string()).min(1),
-  // a case sitting at one of the departments, waiting on a decision
-  wait: z.object({ at: z.number().int(), label: z.string() }).optional(),
+  // the handoffs where a person decides on the spot
+  marks: z
+    .array(z.object({ at: z.number().int(), label: z.string() }))
+    .optional(),
 });
 const struck = z.object({
   kind: z.literal("struck"),
@@ -41,6 +43,12 @@ const struck = z.object({
 const code = z.object({
   kind: z.literal("code"),
   code: z.string(),
+});
+// a thing someone says, kept: the judgment as it is actually exercised
+const speech = z.object({
+  kind: z.literal("speech"),
+  lines: z.array(z.string()).min(1),
+  label: z.string().optional(),
 });
 
 const positions = defineCollection({
@@ -53,7 +61,9 @@ const positions = defineCollection({
     // only what the proof cannot show
     consequence: z.string().optional(),
     proof: z
-      .array(z.discriminatedUnion("kind", [table, code, struck, stream]))
+      .array(
+        z.discriminatedUnion("kind", [table, code, struck, stream, speech]),
+      )
       .min(1),
   }),
 });

@@ -1,6 +1,6 @@
 ---
 sheet: 1
-short: The company on paper vs. the one that runs
+short: The company on paper and the one that runs
 position: "Every company runs twice: on paper, and in practice."
 proof:
   - kind: table
