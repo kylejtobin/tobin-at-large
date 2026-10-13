@@ -41,14 +41,18 @@ page, `/method`, five stages on one drawing. The home page links to it once.
 ## The drawing
 
 The outcome space: the one drawing the method evolves and the ideas are
-taught on, in the cover's hand. Regions are the outcomes that can exist,
-each with what it exists only with as its edge; hatched ground is void, an
-outcome with no type to be; the limit is an edge inside the refund; cases
-are numbered balloons that land in a region, and one that lands on void is
-the proof the void is real. It has states: the desk's words (Declare), the
-edges (Refactor), the month's cases with one on void and the region a
-manager adds (Prototype), every case inside (Scale). On the home page the
-reader lands a case (03) and moves the limit (06).
+taught on, in the cover's hand. Everything inside the frame that is not an
+outcome is hatched void: an outcome with no type to be. An outcome is a box
+on paper, and what it exists only with is drawn as ticks on its top edge,
+each labelled; the refund's third tick, the limit, runs down through the
+box, and beyond it is void. The stream's three stations run along the top
+as construction, so See is a state of the same drawing: the case waiting as
+a red dot at Finance; in Scale the line is solid end to end. Cases are
+numbered balloons whose stroke draws in as they land. One that lands on
+hatching is red: in Prototype the credit case lands on void where no Credit
+box exists, and in Scale the box exists and the case is inside it. On the
+home page the reader lands a case (03), including one that has nowhere to
+land, and moves the limit (05), stranding a case when it passes it.
 
 ## No code
 
@@ -178,21 +182,17 @@ gets a column note instead.
 
 1. Every company runs twice: on paper, and in practice.
 2. Every rule written for a judgment needs one more clause. (Four struck
-   attempts, each longer; the desk waives at three years where the rule
-   said five.)
-3. The agent chooses an outcome that can exist, and nothing else.
-   (Outcomes and what each exists only with, the refund's including an
-   amount under the limit; two outcomes struck that don't exist: a refund
-   of an unpaid order, a refund over the limit.)
-4. A refund over the limit isn't declined. It isn't there. (The desk's line
-   with its limit; the case under the limit beside the agent refunding; the
-   case over it beside the agent crediting or replacing. No code.)
-5. Three systems say how long she's been with us. One of them means what
-   the desk means. (The desk's words and the table with two meanings
-   struck; no code. The fee waiver on 03 and Refactor needs "how long she
-   has paid us", so the sheet is on the case.)
-6. Managers stop touching cases. They change what can exist. (Struck before
-   beside after; the third row is the outcome the exception needed.)
+   attempts, each longer; Dana waives at three years where the rule said
+   five.)
+3. The agent chooses an outcome that can exist, and nothing else. (The
+   outcome space, with a row of cases to land; the fifth, a refund of an
+   unpaid invoice, lands red on the hatching: nowhere to be.)
+4. Three systems say how long she's been with us. One of them means what
+   the desk means.
+5. Managers stop touching cases. They change what can exist. (Struck before
+   beside after; the outcome space with the month's cases on it and the
+   limit to move: moved left past the first case, that case is stranded on
+   void, in red.)
 
 ## How we do it: the method
 

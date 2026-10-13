@@ -17,13 +17,13 @@ import type { CollectionEntry } from "astro:content";
 
 const view = "A stream of work can now run with no one in it.";
 const consequence =
-  "The cases here are one desk at Halden Supply, a distributor selling to contractors on account. Dana keeps the work moving with judgment no rule ever caught, and that judgment is knowledge: she knows how the work runs. An AI agent can exercise it now. Before a stream runs, Dana says what she knows and we build the world the agent decides in: which outcomes can exist and what each needs. A wrong outcome isn’t there to choose. After, managers change what can exist. During, no one touches a case.";
+  "An AI agent can hold what Dana knows and run her whole stream. Before it runs she says what she knows; after, managers change what can exist; during, no one touches a case.";
 // the cover's exhibit: one decision, by judgment, and the same decision as
 // something an agent can hold
 const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
   {
     kind: "speech",
-    label: "Dana, at the returns desk",
+    label: "Dana, at Halden Supply’s returns desk",
     lines: [
       "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
       "“Three years with us. I’m not charging her forty dollars over this.”",
@@ -157,11 +157,9 @@ const structuredData = {
       <p class="mono-label">How we do it</p>
       <h2>One stream of work at a time.</h2>
       <p class="lead">
-        Five stages, on one drawing, with Halden’s returns desk as the stream:
-        where the cases wait, what Dana says, what each outcome needs to exist,
-        last month’s cases run through it, and the stream with no one in it.
+        Five stages on one drawing, with Dana’s desk as the stream.
       </p>
-      <a class="go" href="/method">The method, stage by stage</a>
+      <a class="cta" href="/method">The method, stage by stage</a>
     </div>
   </Drawing>
 
@@ -477,10 +475,17 @@ const structuredData = {
     display: block;
     width: 100%;
     height: auto;
+    /* quiet on the sheet; the plates come up under the hand */
+    filter: grayscale(1) opacity(0.82);
+    transition: filter 0.4s var(--ease);
     box-shadow:
       0 0 0 1px rgba(26, 26, 26, 0.08),
       0 1px 1px rgba(26, 26, 26, 0.14),
       0 18px 32px -14px rgba(40, 30, 15, 0.34);
+  }
+  .plate:hover :global(img),
+  .plate:focus-visible :global(img) {
+    filter: none;
   }
   figcaption {
     margin-top: 0.9rem;

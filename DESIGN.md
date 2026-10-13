@@ -39,8 +39,8 @@ to rewrite to fit what was built.
 - **Founder sheet**: the portrait, one sentence a stranger can picture, and
   the door.
 - **Work sheet**: one composed exhibit. The book leads at full scale; the tools
-  stack beside it at half its weight, each with a few lines of the thing
-  itself under its line.
+  stack beside it at half its weight. The plates sit quiet, in the paper's
+  greys, and come up in colour under the hand.
 - **Founder sheet**: the portrait as a plate, one statement beside it, and
   the door under the statement: one action and the address. It is the last
   sheet.
@@ -126,20 +126,25 @@ grammar.
 
 ## The outcome space
 
-The one drawing, in the cover's hand: hairline regions, a dashed limit,
-hatched void, numbered balloons, mono lettering, the plates' red only for
-the case that lands on void. It has states (declare, refactor, prototype,
-scale) chosen by `data-stage`; every element names the stages it belongs
-to. On the method page the loop steps it; on the home page a row of cases
-lands one (03) and a range control moves the limit (06). Lettering is set
-larger on a phone, where the drawing scales with the sheet.
+The one drawing, in the cover's hand: hatched ground, hairline boxes on
+paper, ticks on the top edge for what each outcome exists only with, the
+limit as a dashed line down through the refund, the stream's stations as
+construction along the top, numbered balloons whose stroke draws in, the
+plates' red only for the waiting case and the case with nowhere to land.
+It has states (see, declare, refactor, prototype, scale) chosen by
+`data-stage`; every element names the stages it belongs to. On the method
+page the loop steps it; on the home page a row of cases lands one (03) and
+a drawn range control moves the limit (05), clamped so the line never runs
+under lettering. Lettering is set larger on a phone, where the drawing
+scales with the sheet.
 
 ## The method page
 
 `/method`: the loop is the control again, beside the drawing on a wide
-screen and pinned above it on a phone. The drawing and the stage's words
-move in place. Without script every stage's words read in order under one
-still drawing.
+screen; on a phone it sits above the drawing, unpinned, and a step scrolls
+the drawing back under the bar so the change is seen. The drawing and the
+stage's words move in place. Without script every stage's words read in
+order under one still drawing.
 
 ## What it takes: the cycle
 

@@ -1,5 +1,5 @@
 ---
-sheet: 6
+sheet: 5
 short: What managers do instead
 position: Managers stop touching cases. They change what can exist.
 proof:

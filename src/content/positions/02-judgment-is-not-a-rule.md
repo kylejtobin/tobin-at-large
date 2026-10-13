@@ -6,10 +6,10 @@ proof:
   - kind: struck
     as: code
     lines:
-      - "waive if years > 5"
-      - "waive if years > 5 and first"
-      - "waive if years > 5 and first and not disputed"
-      - "waive if years > 5 and first and not disputed and …"
+      - "waive if yrs > 5"
+      - "waive if yrs > 5 and first"
+      - "waive if yrs > 5 and first and not disputed"
+      - "waive if yrs > 5 and first and not disputed and …"
   - kind: speech
     label: Dana, at the returns desk
     lines:

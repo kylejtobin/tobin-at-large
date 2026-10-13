@@ -1,41 +1,73 @@
 ---
 // The outcome space: the one drawing the method evolves and the ideas are
-// taught on. Drawn in the cover's hand: construction lines, hairline
-// regions, numbered balloons, mono lettering, the plates' red only for a
-// proof's mark.
+// taught on, in the cover's hand. Everything inside the frame that is not
+// an outcome is void, hatched. An outcome is a box on paper; what it
+// exists only with is drawn as ticks on its top edge, each labelled. The
+// refund's third tick, the limit, is extended down through the box, and
+// the ground beyond it is void. Cases are numbered balloons that land in
+// an outcome; one that lands on hatching has nowhere to be, and is red.
 //
-// A region is an outcome that can exist, with what it exists only with as
-// its edge. Hatched ground is void: an outcome with no type to be. The
-// limit is an edge inside the refund. Cases are balloons that land in a
-// region; one that lands on void is the proof that the void is real.
+// The stream runs along the top as construction: the three stations of the
+// returns desk's work, with the waiting case as a red dot at Finance in
+// See, and the line solid end to end in Scale.
 //
 // The drawing has states, chosen by `data-stage` on its root: every element
 // carries the stages it belongs to in `data-s`, and the stylesheet shows the
-// ones that match. The method page steps the stages with the loop; the
-// home page's sheets set one state and add a control.
+// ones that match.
 interface Props {
-  stage: "declare" | "refactor" | "prototype" | "scale" | "cases" | "limit";
+  stage:
+    | "see"
+    | "declare"
+    | "refactor"
+    | "prototype"
+    | "scale"
+    | "cases"
+    | "limit";
   id?: string;
 }
 const { stage, id } = Astro.props;
 
 // ---- geometry ------------------------------------------------------------
-// four regions on a 520 × 340 sheet, the refund wide, the limit inside it
-const refund = { x: 24, y: 48, w: 280, h: 150 };
-const limitX = 214; // the limit: refunds exist to the left of it
-const credit = { x: 322, y: 48, w: 174, h: 70 };
-const replacement = { x: 322, y: 128, w: 174, h: 70 };
-const waived = { x: 24, y: 216, w: 280, h: 62 };
-const unpaid = { x: 322, y: 216, w: 174, h: 62 }; // void: no refund of an unpaid order
-
-// the cases, numbered as the cover's index is, each landing in a region
-const cases = [
-  { no: "01", x: 184, y: 168, region: "refund" },
-  { no: "02", x: 286, y: 262, region: "waived" },
-  { no: "03", x: 470, y: 178, region: "replacement" },
-  { no: "04", x: 470, y: 66, region: "credit" },
+const frame = { x: 24, y: 40, w: 472, h: 252 };
+const refund = { x: 24, y: 56, w: 280, h: 140 };
+const limitX = 214;
+const credit = { x: 322, y: 56, w: 174, h: 60 };
+const replacement = { x: 322, y: 134, w: 174, h: 62 };
+const waived = { x: 24, y: 214, w: 280, h: 60 };
+// the stream's stations along the top
+const stations = [
+  { name: "Returns", x: 110 },
+  { name: "Finance", x: 260 },
+  { name: "Warehouse", x: 410 },
 ];
-const f = (n: number) => n.toFixed(1);
+const streamY = 26;
+// what each outcome exists only with: ticks on its top edge
+type Tick = { x: number; label: string };
+const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
+  {
+    box: refund,
+    at: [
+      { x: 60, label: "paid order" },
+      { x: 132, label: "reason" },
+      { x: limitX, label: "under the limit" },
+    ],
+  },
+  {
+    box: credit,
+    at: [
+      { x: 352, label: "paid order" },
+      { x: 430, label: "reason" },
+    ],
+  },
+  { box: replacement, at: [{ x: 352, label: "proven stock" }] },
+  {
+    box: waived,
+    at: [
+      { x: 60, label: "the fee" },
+      { x: 150, label: "years paying" },
+    ],
+  },
+];
 ---
 
 <svg
@@ -44,7 +76,7 @@ const f = (n: number) => n.toFixed(1);
   data-stage={stage}
   id={id}
   role="img"
-  aria-label="The outcomes a case can land in, each with what it exists only with; the refund's limit; and the cases of the month landing in them"
+  aria-label="The outcomes a case can land in, each with what it exists only with drawn as ticks on its edge; the limit inside the refund; hatched void where no outcome exists; and the cases of the month landing"
 >
   <defs>
     <pattern
@@ -58,56 +90,181 @@ const f = (n: number) => n.toFixed(1);
     </pattern>
   </defs>
 
-  <!-- construction: the sheet's centre line, as the cover draws it -->
-  <g class="construct">
-    <path class="centre" d={`M -20 ${refund.y + refund.h + 9} H 540`}></path>
-    <path class="centre" d={`M ${refund.x + refund.w + 9} 20 V 320`}></path>
+  <!-- the stream along the top: stations as construction, the line in See
+       and Scale -->
+  <g class="stream-line">
+    {
+      stations.map((s) => (
+        <>
+          <text class="station" x={s.x} y={streamY - 10} text-anchor="middle">
+            {s.name}
+          </text>
+          <line
+            class="station-tick"
+            x1={s.x}
+            x2={s.x}
+            y1={streamY - 4}
+            y2={streamY + 4}
+          />
+        </>
+      ))
+    }
+    <line
+      class="run"
+      data-s="see"
+      x1={frame.x}
+      x2={stations[1].x}
+      y1={streamY}
+      y2={streamY}></line>
+    <line
+      class="run waits"
+      data-s="see"
+      x1={stations[1].x}
+      x2={frame.x + frame.w}
+      y1={streamY}
+      y2={streamY}></line>
+    <circle class="wait" data-s="see" cx={stations[1].x} cy={streamY} r="5"
+    ></circle>
+    <line
+      class="run"
+      data-s="scale"
+      x1={frame.x}
+      x2={frame.x + frame.w}
+      y1={streamY}
+      y2={streamY}></line>
   </g>
 
-  <!-- the regions: dashed where they are only what the desk said, solid once
-       they are what each outcome exists only with -->
-  <g class="regions">
-    <!-- refund -->
-    <rect
-      class="region"
-      data-s="declare"
-      x={refund.x}
-      y={refund.y}
-      width={refund.w}
-      height={refund.h}
-      stroke-dasharray="3 5"></rect>
-    <rect
-      class="region"
-      data-s="refactor prototype scale cases limit"
-      data-region="refund"
-      x={refund.x}
-      y={refund.y}
-      width={refund.w}
-      height={refund.h}></rect>
-    <text class="name" x={refund.x + 12} y={refund.y + 22}>Refund</text>
-    <text class="said" data-s="declare" x={refund.x + 12} y={refund.y + 44}>
-      “Order’s paid, customer’s waiting,
-    </text>
-    <text class="said" data-s="declare" x={refund.x + 12} y={refund.y + 60}>
-      it’s under what I’d sign.”
-    </text>
-    <text
-      class="edge"
-      data-s="refactor prototype scale cases limit"
-      x={refund.x + 12}
-      y={refund.y + 44}>a paid order · a reason</text
-    >
-    <text
-      class="edge"
-      data-s="refactor prototype scale cases limit"
-      x={refund.x + 12}
-      y={refund.y + 60}>an amount under the limit</text
-    >
+  <!-- the ground: void, everywhere an outcome is not -->
+  <rect
+    class="void"
+    data-s="refactor prototype scale cases limit"
+    x={frame.x}
+    y={frame.y}
+    width={frame.w}
+    height={frame.h}></rect>
+  <line
+    class="centre"
+    data-s="declare refactor prototype scale cases limit"
+    x1={frame.x - 20}
+    x2={frame.x + frame.w + 20}
+    y1={refund.y + refund.h + 4}
+    y2={refund.y + refund.h + 4}></line>
+  <line
+    class="centre"
+    data-s="declare refactor prototype scale cases limit"
+    x1={refund.x + refund.w + 9}
+    x2={refund.x + refund.w + 9}
+    y1={frame.y - 4}
+    y2={frame.y + frame.h + 4}></line>
 
-    <!-- the limit, and the void beyond it -->
+  <!-- the outcomes: dashed on paper while they are only what the desk said,
+       solid once they have their edges -->
+  <g class="boxes">
+    {
+      [
+        { box: refund, name: "Refund", key: "refund" },
+        { box: replacement, name: "Replacement", key: "replacement" },
+        { box: waived, name: "Fee waived", key: "waived" },
+      ].map(({ box, name, key }) => (
+        <>
+          <rect
+            class="box said"
+            data-s="declare"
+            x={box.x}
+            y={box.y}
+            width={box.w}
+            height={box.h}
+            stroke-dasharray="3 5"
+          />
+          <rect
+            class="box"
+            data-s="refactor prototype scale cases limit"
+            data-region={key}
+            x={box.x}
+            y={box.y}
+            width={box.w}
+            height={box.h}
+          />
+          <text
+            class="name"
+            data-s="declare refactor prototype scale cases limit"
+            x={box.x + 12}
+            y={box.y + 21}
+          >
+            {name}
+          </text>
+        </>
+      ))
+    }
+    <!-- credit exists only after a manager adds it -->
+    <rect
+      class="box"
+      data-s="scale cases limit"
+      data-region="credit"
+      x={credit.x}
+      y={credit.y}
+      width={credit.w}
+      height={credit.h}></rect>
+    <text
+      class="name"
+      data-s="scale cases limit"
+      x={credit.x + 12}
+      y={credit.y + 21}>Credit</text
+    >
+  </g>
+
+  <!-- the desk's words, before they are edges -->
+  <g class="words" data-s="declare">
+    <text class="said-text" x={refund.x + 12} y={refund.y + 46}
+      >“Order’s paid, customer’s waiting,</text
+    >
+    <text class="said-text" x={refund.x + 12} y={refund.y + 62}
+      >it’s under what I’d sign.”</text
+    >
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 40}
+      >“Invoice isn’t due.</text
+    >
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 54}
+      >She still gets it.”</text
+    >
+    <text class="said-text" x={waived.x + 12} y={waived.y + 40}
+      >“Three years with us. I’m not</text
+    >
+    <text class="said-text" x={waived.x + 12} y={waived.y + 54}
+      >charging her forty dollars.”</text
+    >
+  </g>
+
+  <!-- the edges: what each outcome exists only with, as ticks -->
+  <g class="edges">
+    {
+      ticks.map(({ box, at }) =>
+        at.map((t) => (
+          <g
+            data-s={
+              box === credit
+                ? "scale cases limit"
+                : "refactor prototype scale cases limit"
+            }
+          >
+            <line
+              class="tick"
+              x1={t.x}
+              x2={t.x}
+              y1={box.y - 5}
+              y2={box.y + 5}
+            />
+            <text class="tick-label" x={t.x} y={box.y - 9} text-anchor="middle">
+              {t.label}
+            </text>
+          </g>
+        )),
+      )
+    }
+    <!-- the limit: the refund's third tick, extended; beyond it, void -->
     <g class="limit-group" data-s="refactor prototype scale cases limit">
       <rect
-        class="void"
+        class="void inner"
         data-void="over"
         x={limitX}
         y={refund.y + 1}
@@ -117,177 +274,59 @@ const f = (n: number) => n.toFixed(1);
         class="limit"
         x1={limitX}
         x2={limitX}
-        y1={refund.y - 10}
-        y2={refund.y + refund.h + 10}></line>
-      <text
-        class="limit-label"
-        x={limitX}
-        y={refund.y - 16}
-        text-anchor="middle">the limit</text
-      >
-      <text
-        class="void-label"
-        x={(limitX + refund.x + refund.w) / 2}
-        y={refund.y + refund.h / 2 + 4}
-        text-anchor="middle">no refund</text
-      >
-    </g>
-
-    <!-- credit: void until a manager adds it; on the home sheets it exists -->
-    <rect
-      class="void"
-      data-s="refactor prototype"
-      data-void="credit"
-      x={credit.x}
-      y={credit.y}
-      width={credit.w}
-      height={credit.h}></rect>
-    <rect
-      class="region added"
-      data-s="prototype"
-      x={credit.x}
-      y={credit.y}
-      width={credit.w}
-      height={credit.h}
-      stroke-dasharray="3 5"></rect>
-    <rect
-      class="region"
-      data-s="scale cases limit"
-      data-region="credit"
-      x={credit.x}
-      y={credit.y}
-      width={credit.w}
-      height={credit.h}></rect>
-    <text
-      class="name"
-      data-s="prototype scale cases limit"
-      x={credit.x + 12}
-      y={credit.y + 22}>Credit</text
-    >
-    <text
-      class="edge"
-      data-s="prototype scale cases limit"
-      x={credit.x + 12}
-      y={credit.y + 42}>a paid order</text
-    >
-    <text
-      class="edge"
-      data-s="prototype scale cases limit"
-      x={credit.x + 12}
-      y={credit.y + 56}>a reason</text
-    >
-    <text
-      class="added-label"
-      data-s="prototype"
-      x={credit.x + 86}
-      y={credit.y + 56}>added by a manager</text
-    >
-
-    <!-- replacement -->
-    <rect
-      class="region"
-      data-s="declare"
-      x={replacement.x}
-      y={replacement.y}
-      width={replacement.w}
-      height={replacement.h}
-      stroke-dasharray="3 5"></rect>
-    <rect
-      class="region"
-      data-s="refactor prototype scale cases limit"
-      data-region="replacement"
-      x={replacement.x}
-      y={replacement.y}
-      width={replacement.w}
-      height={replacement.h}></rect>
-    <text class="name" x={replacement.x + 12} y={replacement.y + 22}
-      >Replacement</text
-    >
-    <text
-      class="said"
-      data-s="declare"
-      x={replacement.x + 12}
-      y={replacement.y + 44}>“Invoice isn’t due. She still gets it.”</text
-    >
-    <text
-      class="edge"
-      data-s="refactor prototype scale cases limit"
-      x={replacement.x + 12}
-      y={replacement.y + 44}>proven stock</text
-    >
-
-    <!-- fee waived -->
-    <rect
-      class="region"
-      data-s="declare"
-      x={waived.x}
-      y={waived.y}
-      width={waived.w}
-      height={waived.h}
-      stroke-dasharray="3 5"></rect>
-    <rect
-      class="region"
-      data-s="refactor prototype scale cases limit"
-      data-region="waived"
-      x={waived.x}
-      y={waived.y}
-      width={waived.w}
-      height={waived.h}></rect>
-    <text class="name" x={waived.x + 12} y={waived.y + 22}>Fee waived</text>
-    <text class="said" data-s="declare" x={waived.x + 12} y={waived.y + 44}
-      >“Three years with us. I’m not charging her forty dollars.”</text
-    >
-    <text
-      class="edge"
-      data-s="refactor prototype scale cases limit"
-      x={waived.x + 12}
-      y={waived.y + 44}>the fee · how long she has paid</text
-    >
-
-    <!-- the void that is always void: a refund of an unpaid order -->
-    <g data-s="refactor prototype scale cases limit">
-      <rect
-        class="void"
-        x={unpaid.x}
-        y={unpaid.y}
-        width={unpaid.w}
-        height={unpaid.h}></rect>
-      <text
-        class="void-label"
-        x={unpaid.x + unpaid.w / 2}
-        y={unpaid.y + unpaid.h / 2 - 4}
-        text-anchor="middle">refund of an unpaid order</text
-      >
-      <text
-        class="void-label"
-        x={unpaid.x + unpaid.w / 2}
-        y={unpaid.y + unpaid.h / 2 + 12}
-        text-anchor="middle">not there</text
-      >
+        y1={refund.y}
+        y2={refund.y + refund.h}></line>
     </g>
   </g>
 
-  <!-- the cases: balloons landing in their regions. on the month's run the
-       credit case lands on void, in red; once the region exists it is ink -->
+  <!-- the cases -->
   <g class="cases">
-    {
-      cases.map((c) => (
-        <g
-          class:list={["case", { onvoid: c.region === "credit" }]}
-          data-s={
-            c.region === "credit"
-              ? "prototype scale cases"
-              : "prototype scale cases"
-          }
-          data-case={c.no}
-        >
-          <circle cx={f(c.x)} cy={f(c.y)} r="12" />
-          <text x={f(c.x)} y={f(c.y)}>
-            {c.no}
-          </text>
-        </g>
-      ))
-    }
+    <g
+      class="case"
+      data-s="prototype scale cases limit"
+      data-case="01"
+      data-region="refund"
+    >
+      <circle cx="170" cy="150" r="12"></circle>
+      <text x="170" y="150">01</text>
+    </g>
+    <g
+      class="case"
+      data-s="prototype scale cases limit"
+      data-case="02"
+      data-region="waived"
+    >
+      <circle cx="250" cy="250" r="12"></circle>
+      <text x="250" y="250">02</text>
+    </g>
+    <g
+      class="case"
+      data-s="prototype scale cases limit"
+      data-case="03"
+      data-region="replacement"
+    >
+      <circle cx="409" cy="170" r="12"></circle>
+      <text x="409" y="170">03</text>
+    </g>
+    <!-- the credit case: on void in the month's run, inside credit once it exists -->
+    <g class="case onvoid" data-s="prototype" data-case="04v">
+      <circle cx="409" cy="86" r="12"></circle>
+      <text x="409" y="86">04</text>
+    </g>
+    <g
+      class="case"
+      data-s="scale cases limit"
+      data-case="04"
+      data-region="credit"
+    >
+      <circle cx="409" cy="90" r="12"></circle>
+      <text x="409" y="90">04</text>
+    </g>
+    <!-- a refund of an unpaid invoice: nowhere to land -->
+    <g class="case onvoid" data-s="cases" data-case="05">
+      <circle cx="409" cy="244" r="12"></circle>
+      <text x="409" y="244">05</text>
+    </g>
   </g>
 </svg>
 
@@ -300,7 +339,6 @@ const f = (n: number) => n.toFixed(1);
   }
   .space :global(rect),
   .space :global(line),
-  .space :global(path),
   .space :global(circle) {
     vector-effect: non-scaling-stroke;
   }
@@ -309,68 +347,84 @@ const f = (n: number) => n.toFixed(1);
     letter-spacing: 0.06em;
   }
   .hatch-line {
-    stroke: rgba(26, 26, 26, 0.16);
+    stroke: rgba(26, 26, 26, 0.14);
     stroke-width: 1;
   }
   .centre {
-    fill: none;
-    stroke: rgba(26, 26, 26, 0.24);
+    stroke: rgba(26, 26, 26, 0.26);
     stroke-width: 1;
     stroke-dasharray: 14 4 2 4;
   }
-  .region {
-    fill: none;
-    stroke: rgba(26, 26, 26, 0.7);
+  /* the stream */
+  .station {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    fill: var(--ink-quiet);
+  }
+  .station-tick {
+    stroke: rgba(26, 26, 26, 0.3);
     stroke-width: 1;
   }
-  .region.added {
+  .run {
     stroke: var(--ink);
+    stroke-width: 2;
   }
+  .run.waits {
+    stroke: rgba(26, 26, 26, 0.3);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+  }
+  .wait {
+    fill: var(--signal);
+  }
+  /* void and outcomes */
   .void {
     fill: url(#void-hatch);
     stroke: none;
   }
+  .box {
+    fill: var(--paper);
+    stroke: rgba(26, 26, 26, 0.72);
+    stroke-width: 1;
+  }
+  .box.said {
+    fill: none;
+  }
   .name {
-    font-size: 12px;
+    font-size: 11.5px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     fill: var(--ink);
   }
-  .edge {
-    font-size: 10px;
-    fill: var(--ink-quiet);
-  }
-  .said {
+  .said-text {
     font-size: 10px;
     font-family: var(--font-body);
     font-style: italic;
     letter-spacing: 0;
     fill: var(--ink);
   }
+  .tick {
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+  .tick-label {
+    font-size: 8.5px;
+    fill: var(--ink-quiet);
+  }
   .limit {
     stroke: var(--ink);
     stroke-width: 1;
     stroke-dasharray: 2 3;
   }
-  .limit-label {
-    font-size: 9.5px;
-    text-transform: uppercase;
-    fill: var(--ink);
-  }
-  .void-label {
-    font-size: 9.5px;
-    text-transform: uppercase;
-    fill: var(--ink-quiet);
-  }
-  .added-label {
-    font-size: 9.5px;
-    text-transform: uppercase;
-    fill: var(--signal-text);
-  }
+  /* cases: a balloon's stroke draws in as it lands */
   .case circle {
     fill: var(--paper);
     stroke: var(--ink);
     stroke-width: 1;
+    stroke-dasharray: 76;
+    stroke-dashoffset: 76;
+    transition: stroke-dashoffset 0.35s var(--ease) 0.1s;
   }
   .case text {
     font-size: 10px;
@@ -378,20 +432,28 @@ const f = (n: number) => n.toFixed(1);
     text-anchor: middle;
     dominant-baseline: central;
   }
-  /* the case that landed on void, on the month's run */
-  [data-stage="prototype"] .case.onvoid circle {
+  .case.onvoid circle {
     fill: var(--signal);
     stroke: var(--signal);
   }
-  [data-stage="prototype"] .case.onvoid text {
+  .case.onvoid text {
     fill: var(--paper);
   }
+  /* a case the moved limit left on void */
+  .case[data-lost="true"] circle {
+    fill: none;
+    stroke: var(--signal);
+  }
+  .case[data-lost="true"] text {
+    fill: var(--signal-text);
+  }
 
-  /* ---- states: an element shows in the stages it names ---- */
+  /* ---- states ---- */
   [data-s] {
     opacity: 0;
     transition: opacity 0.45s var(--ease);
   }
+  [data-stage="see"] [data-s~="see"],
   [data-stage="declare"] [data-s~="declare"],
   [data-stage="refactor"] [data-s~="refactor"],
   [data-stage="prototype"] [data-s~="prototype"],
@@ -400,15 +462,22 @@ const f = (n: number) => n.toFixed(1);
   [data-stage="limit"] [data-s~="limit"] {
     opacity: 1;
   }
-  /* on the home sheets the cases wait for the reader */
-  [data-stage="cases"] .case,
-  [data-stage="limit"] .case {
+  [data-stage="prototype"] [data-s~="prototype"] circle,
+  [data-stage="scale"] [data-s~="scale"] circle,
+  [data-stage="limit"] [data-s~="limit"] circle {
+    stroke-dashoffset: 0;
+  }
+  /* on the sheet that lands a case, the cases wait for the reader */
+  [data-stage="cases"] .case {
     opacity: 0;
   }
   [data-stage="cases"] .case[data-shown="true"] {
     opacity: 1;
   }
-  [data-stage="cases"] .region[data-lit="true"] {
+  [data-stage="cases"] .case[data-shown="true"] circle {
+    stroke-dashoffset: 0;
+  }
+  [data-stage="cases"] .box[data-lit="true"] {
     stroke: var(--ink);
     stroke-width: 2;
   }
@@ -417,21 +486,22 @@ const f = (n: number) => n.toFixed(1);
     .name {
       font-size: 14px;
     }
-    .edge,
-    .said {
+    .station {
       font-size: 11px;
+    }
+    .tick-label {
+      font-size: 10.5px;
+    }
+    .said-text {
+      font-size: 11.5px;
     }
     .case text {
       font-size: 12.5px;
     }
-    .limit-label,
-    .void-label,
-    .added-label {
-      font-size: 11px;
-    }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-s] {
+    [data-s],
+    .case circle {
       transition: none;
     }
   }

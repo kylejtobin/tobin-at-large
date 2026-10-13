@@ -176,6 +176,9 @@ const streamGeometry = (across: readonly string[]) => {
               <button type="button" data-land="02" data-region="waived">
                 Three years with us, asks for the fee back
               </button>
+              <button type="button" data-land="05" data-region="">
+                Invoice unpaid, wants a refund
+              </button>
             </div>
           ) : (
             <div class="control">
@@ -185,8 +188,8 @@ const streamGeometry = (across: readonly string[]) => {
               <input
                 id="limit-range"
                 type="range"
-                min="90"
-                max="290"
+                min="140"
+                max="284"
                 value="214"
                 step="2"
               />
@@ -387,9 +390,43 @@ const streamGeometry = (across: readonly string[]) => {
     border-color: var(--ink);
     outline: none;
   }
+  /* the slider, drawn: a hairline track, a balloon for a thumb */
   .control input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
     width: min(100%, 22rem);
-    accent-color: var(--ink);
+    height: 24px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .control input[type="range"]::-webkit-slider-runnable-track {
+    height: 1px;
+    background: var(--line);
+  }
+  .control input[type="range"]::-moz-range-track {
+    height: 1px;
+    background: var(--line);
+  }
+  .control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -8.5px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  .control input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  .control input[type="range"]:focus-visible {
+    outline: 1.5px solid var(--ink);
+    outline-offset: 4px;
   }
 
   /* what someone says, kept: judgment as it is exercised */
@@ -511,18 +548,23 @@ const streamGeometry = (across: readonly string[]) => {
     const svg = plate.querySelector("svg");
     const range = plate.querySelector("input[type='range']");
     const line = svg.querySelector(".limit");
-    const label = svg.querySelector(".limit-label");
     const voidRect = svg.querySelector("[data-void='over']");
-    const voidLabel =
-      voidRect && voidRect.parentElement.querySelector(".void-label");
     const right = 24 + 280 - 1;
+    const tick = svg.querySelectorAll(".edges > g")[2];
+    const stranded = svg.querySelector('.case[data-case="01"]');
     const set = (x) => {
       line.setAttribute("x1", x);
       line.setAttribute("x2", x);
-      label.setAttribute("x", x);
       voidRect.setAttribute("x", x);
       voidRect.setAttribute("width", Math.max(0, right - x));
-      if (voidLabel) voidLabel.setAttribute("x", (x + right) / 2);
+      if (tick) {
+        tick.querySelector("line").setAttribute("x1", x);
+        tick.querySelector("line").setAttribute("x2", x);
+        tick.querySelector("text").setAttribute("x", x);
+      }
+      // the month's first case sits at 170: left of the limit it is a refund,
+      // right of it there is no refund to be
+      if (stranded) stranded.dataset.lost = String(x < 170);
     };
     range.addEventListener("input", () => set(Number(range.value)));
     set(Number(range.value));

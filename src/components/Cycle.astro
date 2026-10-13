@@ -6,8 +6,6 @@
 // from the desk's words, filled with the month's cases, finished.
 //
 // Without script every stage's words read in order under one still drawing.
-import type { CollectionEntry } from "astro:content";
-import Proof from "./Proof.astro";
 import OutcomeSpace from "./OutcomeSpace.astro";
 
 interface Props {
@@ -65,25 +63,6 @@ const stages: Stage[] = [
       "Every case lands inside. Retire the old stream the day the new one carries every case. Measure one thing: time from return requested to case settled.",
     ],
   },
-];
-const stream = (
-  done: boolean,
-): CollectionEntry<"positions">["data"]["proof"] => [
-  done
-    ? {
-        kind: "stream",
-        from: "Return requested",
-        to: "Case settled",
-        across: ["Returns", "Finance", "Warehouse"],
-        done: "",
-      }
-    : {
-        kind: "stream",
-        from: "Return requested",
-        to: "Case settled",
-        across: ["Returns", "Finance", "Warehouse"],
-        marks: [{ at: 1, label: "" }],
-      },
 ];
 const f = (n: number) => n.toFixed(1);
 
@@ -154,15 +133,7 @@ const innerClose = {
 
   <div class="stage" data-stagebox>
     <div class="plate">
-      <div class="plate-stream" data-plate="see">
-        <Proof proof={stream(false)} />
-      </div>
-      <div class="plate-space" data-plate="space">
-        <OutcomeSpace stage="declare" id="method-space" />
-      </div>
-      <div class="plate-stream" data-plate="scale-stream">
-        <Proof proof={stream(true)} />
-      </div>
+      <OutcomeSpace stage="see" id="method-space" />
     </div>
     <div class="words">
       {
@@ -212,7 +183,8 @@ const innerClose = {
     const buttons = [...root.querySelectorAll("[data-stage]")];
     const states = [...root.querySelectorAll("[data-state]")];
     const space = root.querySelector("#method-space");
-    const plates = [...root.querySelectorAll("[data-plate]")];
+    const narrow = matchMedia("(max-width: 899px)");
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
     const order = buttons.map((b) => b.dataset.stage);
     let selected = order[0];
     const select = (id) => {
@@ -223,15 +195,22 @@ const innerClose = {
       states.forEach(
         (s) => (s.dataset.active = String(s.dataset.state === id)),
       );
-      const plate = id === "see" ? "see" : id === "scale" ? "space" : "space";
-      plates.forEach(
-        (p) => (p.dataset.shown = String(p.dataset.plate === plate)),
-      );
-      if (id !== "see") space.dataset.stage = id;
+      space.dataset.stage = id;
       root.dataset.current = id;
     };
+    // on a phone the drawing is brought back under the bar after a step, so
+    // the change is seen
+    const settle = () => {
+      if (!narrow.matches) return;
+      const bar = document.querySelector(".bar")?.offsetHeight ?? 0;
+      const top = space.getBoundingClientRect().top + scrollY - bar - 12;
+      scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
+    };
     buttons.forEach((b) => {
-      b.addEventListener("click", () => select(b.dataset.stage));
+      b.addEventListener("click", () => {
+        select(b.dataset.stage);
+        settle();
+      });
       b.addEventListener("keydown", (e) => {
         const delta = {
           ArrowRight: 1,
@@ -250,11 +229,12 @@ const innerClose = {
         }
       });
     });
-    root
-      .querySelectorAll("[data-next]")
-      .forEach((n) =>
-        n.addEventListener("click", () => select(n.dataset.next)),
-      );
+    root.querySelectorAll("[data-next]").forEach((n) =>
+      n.addEventListener("click", () => {
+        select(n.dataset.next);
+        settle();
+      }),
+    );
     root.classList.add("interactive");
     select(selected);
   })();
@@ -265,9 +245,6 @@ const innerClose = {
   .stage {
     display: grid;
     gap: 2rem;
-  }
-  .plate-stream[data-plate="scale-stream"] {
-    display: none;
   }
   .words {
     display: grid;
@@ -351,23 +328,6 @@ const innerClose = {
   .interactive .state[data-active="false"] {
     opacity: 0;
     visibility: hidden;
-  }
-  .interactive .plate {
-    display: grid;
-  }
-  .interactive [data-plate] {
-    grid-area: 1 / 1;
-    transition: opacity 0.45s var(--ease);
-  }
-  .interactive [data-plate][data-shown="false"] {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .interactive .plate-stream[data-plate="scale-stream"] {
-    display: block;
-  }
-  .plate-stream :global(.stream) {
-    max-width: 36rem;
   }
 
   .loop-band {
@@ -532,16 +492,7 @@ const innerClose = {
   /* phone: the loop pinned above, the drawing under it, the words after */
   @media (max-width: 899px) {
     .interactive .loop-band {
-      position: sticky;
-      top: var(--bar);
-      z-index: 2;
-      margin-inline: calc(var(--gutter) * -0.5 - 0.5rem + 1px);
-      padding: 1rem 0 0.5rem;
-      background: linear-gradient(
-        to bottom,
-        rgb(238, 227, 208) 84%,
-        rgba(238, 227, 208, 0)
-      );
+      padding: 0.5rem 0 1rem;
     }
     .interactive .loop-band {
       padding: 0.5rem 0 1rem;
@@ -585,7 +536,6 @@ const innerClose = {
 
   @media (prefers-reduced-motion: reduce) {
     .interactive .state,
-    .interactive [data-plate],
     .dot,
     .balloon .name {
       transition: none;
