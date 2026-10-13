@@ -16,5 +16,5 @@ proof:
       - "Refund(order=unpaid)  # no proven payment"
   - kind: code
     code: |
-      Refund(order, proof, reason)
+      Refund(order, payment, reason)
 ---

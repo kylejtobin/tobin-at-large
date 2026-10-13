@@ -53,8 +53,7 @@ const stages: Stage[] = [
   {
     id: "declare",
     name: "Declare",
-    premise:
-      "The people doing the work are the authority on the judgment. We write it in their words.",
+    premise: "The people doing the work are the authority on the judgment.",
     plate: [
       {
         kind: "table",
@@ -70,11 +69,6 @@ const stages: Stage[] = [
             "~~A manager signs off~~",
             "“Three years with us. I’m not charging her forty dollars over this.”",
           ],
-          [
-            "Active customer",
-            "~~Signed in the last year~~",
-            "“Active means they’ve paid us.”",
-          ],
         ],
       },
     ],
@@ -89,14 +83,13 @@ const stages: Stage[] = [
     plate: [
       {
         kind: "table",
-        columns: ["Judgment", "What it needs to exist"],
+        columns: ["Outcome", "What it needs to exist"],
         rows: [
           [
             "Refund",
-            "A proven payment, an amount the desk would sign, a reason; finance told",
+            "A proven payment, an amount the desk would sign, a reason",
           ],
           ["Fee waived", "The fee, a reason"],
-          ["Active customer", "A proven payment"],
         ],
       },
     ],
@@ -105,27 +98,23 @@ const stages: Stage[] = [
   {
     id: "prototype",
     name: "Prototype",
-    premise: "Run last month’s cases through it. The desk marks every one.",
+    premise: "Run last month’s cases through it.",
     plate: [
       {
         kind: "table",
-        columns: ["Case", "The agent", "Result"],
+        columns: ["Case", "The agent", "The desk"],
         rows: [
-          ["Paid, waiting", "Refunds, tells finance", "As the desk would"],
-          [
-            "Asks for the fee back too",
-            "Refunds, waives the fee",
-            "As the desk would",
-          ],
+          ["Paid, waiting", "Refunds, tells finance", "“Yes.”"],
+          ["Asks for the fee back too", "Refunds, waives the fee", "“Yes.”"],
           [
             "Unpaid, waiting",
             "Can’t make the refund; offers the replacement",
-            "As the desk would",
+            "“Yes.”",
           ],
           [
             "Asks for credit instead of cash",
             "~~Refunds in full~~ Credits her",
-            "Not as the desk would. No credit existed; a manager added one.",
+            "“No. I’d have credited her.” A manager added Credit.",
           ],
         ],
       },
@@ -138,6 +127,15 @@ const stages: Stage[] = [
     premise: "Every case runs through it, and no one is in it.",
     plate: [
       {
+        kind: "table",
+        columns: ["Case", "The agent"],
+        rows: [
+          ["Paid, waiting", "Refunds, tells finance"],
+          ["Asks for the fee back too", "Refunds, waives the fee"],
+          ["Asks for credit instead of cash", "Credits her"],
+        ],
+      },
+      {
         kind: "stream",
         from: "Order placed",
         to: "Refund settled",
@@ -146,9 +144,8 @@ const stages: Stage[] = [
       },
     ],
     notes: [
-      "Don’t pilot a slice; the rest of the cases still wait at Finance. Retire the old stream the day the new one holds.",
+      "Don’t pilot a slice; the rest of the cases still wait at Finance. Retire the old stream the day the new one carries every case.",
       "Measure one thing: time from placed to settled.",
-      "What a refund needs to exist is now the managers’ to change.",
     ],
   },
 ];

@@ -11,7 +11,7 @@ proof:
     columns: [System, An active customer]
     rows:
       - [CRM, "~~Signed in the last year~~"]
-      - [Billing, Paid in the last 90 days]
+      - [Billing, Paid us]
       - [Product, "~~Logged in this month~~"]
   - kind: code
     code: |

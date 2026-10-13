@@ -359,11 +359,22 @@ const streamGeometry = (across: readonly string[]) => {
   .code :global(.comment) {
     color: var(--ink-quiet);
   }
-  /* on a phone the block is set smaller so its lines fit the sheet */
+  /* on a phone the block is set smaller so its lines fit the sheet, and the
+     stream's lettering larger, since the drawing scales down with the sheet */
   @media (max-width: 899px) {
     .code {
       font-size: 0.68rem;
       padding: 0.7rem 0.8rem;
+    }
+  }
+  @media (max-width: 600px) {
+    .stream .dept,
+    .stream .wait-label,
+    .stream .done-label {
+      font-size: 18px;
+    }
+    .stream .end-label {
+      font-size: 19px;
     }
   }
 </style>

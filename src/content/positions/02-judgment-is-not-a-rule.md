@@ -6,10 +6,10 @@ proof:
   - kind: struck
     as: code
     lines:
-      - "waive the fee if tenure > 5y"
-      - "waive the fee if tenure > 5y and first_time"
-      - "waive the fee if tenure > 5y and first_time and not disputed"
-      - "waive the fee if tenure > 5y and first_time and not disputed and …"
+      - "waive if years > 5"
+      - "waive if years > 5 and first"
+      - "waive if years > 5 and first and not disputed"
+      - "waive if years > 5 and first and not disputed and …"
   - kind: speech
     label: The desk
     lines:
