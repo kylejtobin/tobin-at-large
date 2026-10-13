@@ -31,9 +31,9 @@ const unpaid = { x: 322, y: 216, w: 174, h: 62 }; // void: no refund of an unpai
 // the cases, numbered as the cover's index is, each landing in a region
 const cases = [
   { no: "01", x: 184, y: 168, region: "refund" },
-  { no: "02", x: 278, y: 256, region: "waived" },
+  { no: "02", x: 286, y: 262, region: "waived" },
   { no: "03", x: 470, y: 178, region: "replacement" },
-  { no: "04", x: 470, y: 96, region: "credit" },
+  { no: "04", x: 470, y: 66, region: "credit" },
 ];
 const f = (n: number) => n.toFixed(1);
 ---
@@ -419,7 +419,7 @@ const f = (n: number) => n.toFixed(1);
     }
     .edge,
     .said {
-      font-size: 11.5px;
+      font-size: 11px;
     }
     .case text {
       font-size: 12.5px;
