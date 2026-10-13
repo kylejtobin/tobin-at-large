@@ -203,7 +203,7 @@ const innerClose = {
     const settle = () => {
       if (!narrow.matches) return;
       const bar = document.querySelector(".bar")?.offsetHeight ?? 0;
-      const top = root.getBoundingClientRect().top + scrollY - bar - 32;
+      const top = space.getBoundingClientRect().top + scrollY - bar - 10;
       scrollTo({ top, behavior: still.matches ? "auto" : "smooth" });
     };
     // on a phone the page scrolls first, then the drawing changes in view
@@ -484,14 +484,21 @@ const innerClose = {
       width: 200px;
     }
     .interactive .stage {
-      grid-template-columns: minmax(0, 1fr);
-      row-gap: 1.25rem;
+      display: contents;
     }
     .interactive .plate {
-      max-width: 56rem;
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .interactive .loop-band {
+      grid-column: 1;
+      grid-row: 1;
     }
     .interactive .words {
-      max-width: 40rem;
+      grid-column: 1;
+      grid-row: 2;
+      max-width: 22rem;
+      margin-top: 1.25rem;
     }
   }
 

@@ -28,12 +28,12 @@ interface Props {
 const { stage, id } = Astro.props;
 
 // ---- geometry ------------------------------------------------------------
-const frame = { x: 24, y: 40, w: 472, h: 268 };
-const refund = { x: 24, y: 56, w: 280, h: 140 };
+const frame = { x: 24, y: 40, w: 472, h: 276 };
+const refund = { x: 24, y: 56, w: 280, h: 156 };
 const limitX = 214;
-const credit = { x: 322, y: 56, w: 174, h: 60 };
-const replacement = { x: 322, y: 140, w: 174, h: 56 };
-const waived = { x: 24, y: 222, w: 280, h: 56 };
+const credit = { x: 322, y: 86, w: 174, h: 56 };
+const replacement = { x: 322, y: 156, w: 174, h: 56 };
+const waived = { x: 24, y: 226, w: 280, h: 62 };
 // the stream's stations along the top
 const stations = [
   { name: "Returns", x: 110 },
@@ -149,20 +149,6 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     y={frame.y}
     width={frame.w}
     height={frame.h}></rect>
-  <line
-    class="centre"
-    data-s="declare refactor prototype scale cases limit"
-    x1={frame.x - 20}
-    x2={frame.x + frame.w + 20}
-    y1={refund.y + refund.h + 6}
-    y2={refund.y + refund.h + 6}></line>
-  <line
-    class="centre"
-    data-s="declare refactor prototype scale cases limit"
-    x1={refund.x + refund.w + 9}
-    x2={refund.x + refund.w + 9}
-    y1={frame.y - 4}
-    y2={frame.y + frame.h + 4}></line>
 
   <!-- the outcomes: dashed on paper while they are only what the desk said,
        solid once they have their edges -->
@@ -222,24 +208,84 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
 
   <!-- the desk's words, before they are edges -->
   <g class="words" data-s="declare">
-    <text class="said-text" x={refund.x + 12} y={refund.y + 46}
+    <text class="said-text" x={refund.x + 12} y={refund.y + 44}
       >“Order’s paid, customer’s waiting,</text
     >
-    <text class="said-text" x={refund.x + 12} y={refund.y + 62}
+    <text class="said-text" x={refund.x + 12} y={refund.y + 58}
       >it’s under what I’d sign.”</text
     >
-    <text class="said-text" x={replacement.x + 12} y={replacement.y + 40}
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 36}
       >“Invoice isn’t due.</text
     >
-    <text class="said-text" x={replacement.x + 12} y={replacement.y + 54}
+    <text class="said-text" x={replacement.x + 12} y={replacement.y + 48}
       >She still gets it.”</text
     >
-    <text class="said-text" x={waived.x + 12} y={waived.y + 40}
-      >“Three years with us. I’m not</text
+    <text class="said-text" x={waived.x + 12} y={waived.y + 38}
+      >“Three years with us.</text
     >
-    <text class="said-text" x={waived.x + 12} y={waived.y + 54}
-      >charging her forty dollars.”</text
+    <text class="said-text" x={waived.x + 12} y={waived.y + 50}
+      >I’m not charging her forty dollars.”</text
     >
+  </g>
+
+  <!-- the cases: each arrives from its station on the stream and lands -->
+  <g class="cases">
+    <g
+      class="case moves"
+      data-s="prototype scale cases limit"
+      data-case="01"
+      data-region="refund"
+      data-from="110"
+      style="--lx: 170; --ly: 156; --from-dx: -60px; --from-dy: -130px"
+    >
+      <circle cx="170" cy="156" r="12" pathLength="100"></circle>
+      <text x="170" y="156">01</text>
+    </g>
+    <g
+      class="case moves"
+      data-s="prototype scale cases limit"
+      data-case="02"
+      data-region="waived"
+      data-from="110"
+      style="--lx: 262; --ly: 254; --from-dx: -152px; --from-dy: -228px"
+    >
+      <circle cx="262" cy="262" r="12" pathLength="100"></circle>
+      <text x="262" y="262">02</text>
+    </g>
+    <g
+      class="case moves"
+      data-s="prototype scale cases limit"
+      data-case="03"
+      data-region="replacement"
+      data-from="410"
+      style="--lx: 450; --ly: 176; --from-dx: -40px; --from-dy: -150px"
+    >
+      <circle cx="450" cy="190" r="12" pathLength="100"></circle>
+      <text x="450" y="190">03</text>
+    </g>
+    <!-- the credit case: on void in the month's run, then inside Credit once it exists -->
+    <g
+      class="case moves credit"
+      data-s="prototype scale cases limit"
+      data-case="04"
+      data-region="credit"
+      data-from="260"
+      style="--lx: 409; --ly: 96; --from-dx: -149px; --from-dy: -70px"
+    >
+      <circle cx="409" cy="120" r="12" pathLength="100"></circle>
+      <text x="409" y="120">04</text>
+    </g>
+    <!-- a refund of an unpaid invoice: nowhere to land -->
+    <g
+      class="case moves onvoid"
+      data-s="cases"
+      data-case="05"
+      data-from="110"
+      style="--lx: 150; --ly: 294; --from-dx: -40px; --from-dy: -268px"
+    >
+      <circle cx="150" cy="304" r="12" pathLength="100"></circle>
+      <text x="150" y="304">05</text>
+    </g>
   </g>
 
   <!-- the edges: what each outcome exists only with, as ticks -->
@@ -289,66 +335,6 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
         x2={limitX}
         y1={refund.y}
         y2={refund.y + refund.h}></line>
-    </g>
-  </g>
-
-  <!-- the cases: each arrives from its station on the stream and lands -->
-  <g class="cases">
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="01"
-      data-region="refund"
-      data-from="110"
-      style="--lx: 170; --ly: 156; --from-dx: -60px; --from-dy: -130px"
-    >
-      <circle cx="170" cy="156" r="12" pathLength="100"></circle>
-      <text x="170" y="156">01</text>
-    </g>
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="02"
-      data-region="waived"
-      data-from="110"
-      style="--lx: 262; --ly: 254; --from-dx: -152px; --from-dy: -228px"
-    >
-      <circle cx="262" cy="254" r="12" pathLength="100"></circle>
-      <text x="262" y="254">02</text>
-    </g>
-    <g
-      class="case moves"
-      data-s="prototype scale cases limit"
-      data-case="03"
-      data-region="replacement"
-      data-from="410"
-      style="--lx: 450; --ly: 176; --from-dx: -40px; --from-dy: -150px"
-    >
-      <circle cx="450" cy="176" r="12" pathLength="100"></circle>
-      <text x="450" y="176">03</text>
-    </g>
-    <!-- the credit case: on void in the month's run, then inside Credit once it exists -->
-    <g
-      class="case moves credit"
-      data-s="prototype scale cases limit"
-      data-case="04"
-      data-region="credit"
-      data-from="260"
-      style="--lx: 409; --ly: 96; --from-dx: -149px; --from-dy: -70px"
-    >
-      <circle cx="409" cy="96" r="12" pathLength="100"></circle>
-      <text x="409" y="96">04</text>
-    </g>
-    <!-- a refund of an unpaid invoice: nowhere to land -->
-    <g
-      class="case moves onvoid"
-      data-s="cases"
-      data-case="05"
-      data-from="110"
-      style="--lx: 150; --ly: 294; --from-dx: -40px; --from-dy: -268px"
-    >
-      <circle cx="150" cy="294" r="12" pathLength="100"></circle>
-      <text x="150" y="294">05</text>
     </g>
   </g>
 </svg>
@@ -461,17 +447,38 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   .case.onvoid text {
     fill: var(--paper);
   }
-  /* a case on hatching: red, filled */
+  /* a case on hatching is red, filled: only once it has landed there. a
+     void case travels in ink like any other, and the red comes after the
+     travel, so no red balloon ever crosses a box */
   .case.onvoid circle,
   [data-stage="prototype"] .case.credit circle,
   .case[data-lost="true"] circle {
     fill: var(--signal);
     stroke: var(--signal);
+    transition:
+      stroke-dashoffset 0.35s var(--ease) 0.1s,
+      fill 0.3s var(--ease) 0.75s,
+      stroke 0.3s var(--ease) 0.75s;
   }
   .case.onvoid text,
   [data-stage="prototype"] .case.credit text,
   .case[data-lost="true"] text {
     fill: var(--paper);
+    transition: fill 0.3s var(--ease) 0.75s;
+  }
+  /* the stranded case is already on void when the limit passes it */
+  .case[data-lost="true"] circle,
+  .case[data-lost="true"] text {
+    transition-delay: 0s;
+  }
+  [data-stage="prototype"] .case.credit circle {
+    transition:
+      stroke-dashoffset 0.35s var(--ease) 1.4s,
+      fill 0.3s var(--ease) 2.05s,
+      stroke 0.3s var(--ease) 2.05s;
+  }
+  [data-stage="prototype"] .case.credit text {
+    transition: fill 0.3s var(--ease) 2.05s;
   }
   /* arrival: a case comes down from its station on the stream and lands.
      the stages set --from-dx/--from-dy so the case starts on the stream and
@@ -481,12 +488,15 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
     transform: translate(var(--dx, 0px), var(--dy, 0px));
     transition:
       transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.3s var(--ease);
+      opacity 0.15s var(--ease);
+  }
+  .case circle {
+    stroke-dashoffset: 0;
   }
   /* in the month's run the credit case lands on void, clear of where the
      box will be; in Scale it moves into the box that now exists */
   [data-stage="prototype"] .case.credit {
-    --dy: -22px;
+    --dy: -56px;
   }
   /* a case the moved limit left on void */
   /* a case the moved limit left on void travels clear into it */
@@ -544,15 +554,14 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
   }
   [data-stage="scale"] .case.credit {
     transition:
-      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.45s,
-      opacity 0.3s var(--ease);
+      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s,
+      opacity 0.15s var(--ease);
   }
   [data-stage="scale"] .case.credit circle,
   [data-stage="scale"] .case.credit text {
     transition:
-      fill 0.3s var(--ease) 1.05s,
-      stroke 0.3s var(--ease) 1.05s,
-      stroke-dashoffset 0.35s var(--ease);
+      fill 0.3s var(--ease) 1.15s,
+      stroke 0.3s var(--ease) 1.15s;
   }
   [data-stage="scale"] .stream-line .run[data-s~="scale"] {
     transition-delay: 1.2s;
@@ -574,19 +583,21 @@ const ticks: { box: { x: number; y: number }; at: Tick[] }[] = [
 
   @media (max-width: 600px) {
     .name {
-      font-size: 14px;
+      font-size: 18px;
     }
-    .station {
-      font-size: 11px;
-    }
+    .station,
     .tick-label {
-      font-size: 10.5px;
+      font-size: 16px;
+      paint-order: stroke;
+      stroke: var(--paper);
+      stroke-width: 4px;
+      stroke-linejoin: round;
     }
     .said-text {
-      font-size: 11.5px;
+      font-size: 12px;
     }
     .case text {
-      font-size: 12.5px;
+      font-size: 16px;
     }
   }
   @media (prefers-reduced-motion: reduce) {

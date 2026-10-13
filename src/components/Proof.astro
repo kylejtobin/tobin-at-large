@@ -365,6 +365,22 @@ const streamGeometry = (across: readonly string[]) => {
     display: grid;
     gap: 0.9rem;
   }
+  /* on a wide screen the control stands beside the drawing */
+  @media (min-width: 1200px) {
+    .space-plate {
+      grid-template-columns: minmax(0, 1fr) 15rem;
+      column-gap: 2rem;
+      align-items: start;
+    }
+    .space-plate .control {
+      flex-direction: column;
+      align-items: stretch;
+      padding-top: 2.5rem;
+    }
+    .space-plate .control button {
+      text-align: left;
+    }
+  }
   .control {
     display: flex;
     flex-wrap: wrap;
@@ -528,74 +544,82 @@ const streamGeometry = (across: readonly string[]) => {
 <script is:inline>
   // the two controls: land a case in its region; move the limit and watch
   // the void beyond it grow and shrink
-  document.querySelectorAll("[data-space='cases']").forEach((plate) => {
-    const svg = plate.querySelector("svg");
-    const buttons = [...plate.querySelectorAll("[data-land]")];
-    buttons.forEach((b) =>
-      b.addEventListener("click", () => {
-        buttons.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
-        // the case arrives from its station on the stream, then lands; the
-        // month accumulates on the drawing
-        const c = svg.querySelector(`.case[data-case="${b.dataset.land}"]`);
-        if (c && c.dataset.shown !== "true") {
-          const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-          c.style.transition = "none";
-          c.style.setProperty("--dx", c.style.getPropertyValue("--from-dx"));
-          c.style.setProperty("--dy", c.style.getPropertyValue("--from-dy"));
-          c.dataset.shown = "true";
-          // flush the start state, then let the transition carry it home
-          void c.getBoundingClientRect();
-          c.style.transition = still ? "none" : "";
-          c.style.setProperty("--dx", "0px");
-          c.style.setProperty("--dy", "0px");
-        }
-        svg
-          .querySelectorAll("[data-region]")
-          .forEach(
-            (r) =>
-              (r.dataset.lit = String(r.dataset.region === b.dataset.region)),
+  // this script is printed once per proof; the work is done once
+  if (!window.__talSpace) {
+    window.__talSpace = true;
+    document.querySelectorAll("[data-space='cases']").forEach((plate) => {
+      const svg = plate.querySelector("svg");
+      const buttons = [...plate.querySelectorAll("[data-land]")];
+      buttons.forEach((b) =>
+        b.addEventListener("click", () => {
+          buttons.forEach((o) =>
+            o.setAttribute("aria-pressed", String(o === b)),
           );
-      }),
-    );
-  });
-  document.querySelectorAll("[data-space='limit']").forEach((plate) => {
-    const svg = plate.querySelector("svg");
-    const range = plate.querySelector("input[type='range']");
-    const line = svg.querySelector(".limit");
-    const voidRect = svg.querySelector("[data-void='over']");
-    const right = 24 + 280 - 1;
-    const tick = svg.querySelectorAll(".edges > g")[2];
-    const stranded = svg.querySelector('.case[data-case="01"]');
-    const set = (x) => {
-      line.setAttribute("x1", x);
-      line.setAttribute("x2", x);
-      voidRect.setAttribute("x", x);
-      voidRect.setAttribute("width", Math.max(0, right - x));
-      if (tick) {
-        tick.querySelector("line").setAttribute("x1", x);
-        tick.querySelector("line").setAttribute("x2", x);
-        tick.querySelector("text").setAttribute("x", x + 4);
-      }
-      // the month's first case sits at 170: left of the limit it is a refund,
-      // right of it there is no refund to be
-      // past the first case, that case is stranded: moved clear into the void
-      if (stranded) {
-        const lost = x < 170;
-        stranded.dataset.lost = String(lost);
-        stranded.style.setProperty(
-          "--lost-dx",
-          lost ? `${Math.max(0, x + 40 - 170)}px` : "0px",
-        );
-      }
-      // the limit's label hangs right while there is room, left when there isn't
-      const label = tick && tick.querySelector("text");
-      if (label) {
-        const left = x > 236;
-        label.setAttribute("x", left ? x - 4 : x + 4);
-        label.setAttribute("text-anchor", left ? "end" : "start");
-      }
-    };
-    range.addEventListener("input", () => set(Number(range.value)));
-    set(Number(range.value));
-  });
+          // the case arrives from its station on the stream, then lands; the
+          // month accumulates on the drawing
+          const c = svg.querySelector(`.case[data-case="${b.dataset.land}"]`);
+          if (c && c.dataset.shown !== "true") {
+            const still = matchMedia(
+              "(prefers-reduced-motion: reduce)",
+            ).matches;
+            c.style.transition = "none";
+            c.style.setProperty("--dx", c.style.getPropertyValue("--from-dx"));
+            c.style.setProperty("--dy", c.style.getPropertyValue("--from-dy"));
+            c.dataset.shown = "true";
+            // flush the start state, then let the transition carry it home
+            void c.getBoundingClientRect();
+            c.style.transition = still ? "none" : "";
+            c.style.setProperty("--dx", "0px");
+            c.style.setProperty("--dy", "0px");
+          }
+          svg
+            .querySelectorAll("[data-region]")
+            .forEach(
+              (r) =>
+                (r.dataset.lit = String(r.dataset.region === b.dataset.region)),
+            );
+        }),
+      );
+    });
+    document.querySelectorAll("[data-space='limit']").forEach((plate) => {
+      const svg = plate.querySelector("svg");
+      const range = plate.querySelector("input[type='range']");
+      const line = svg.querySelector(".limit");
+      const voidRect = svg.querySelector("[data-void='over']");
+      const right = 24 + 280 - 1;
+      const tick = svg.querySelectorAll(".edges > g")[2];
+      const stranded = svg.querySelector('.case[data-case="01"]');
+      const set = (x) => {
+        line.setAttribute("x1", x);
+        line.setAttribute("x2", x);
+        voidRect.setAttribute("x", x);
+        voidRect.setAttribute("width", Math.max(0, right - x));
+        if (tick) {
+          tick.querySelector("line").setAttribute("x1", x);
+          tick.querySelector("line").setAttribute("x2", x);
+          tick.querySelector("text").setAttribute("x", x + 4);
+        }
+        // the month's first case sits at 170: left of the limit it is a refund,
+        // right of it there is no refund to be
+        // past the first case, that case is stranded: moved clear into the void
+        if (stranded) {
+          const lost = x < 170;
+          stranded.dataset.lost = String(lost);
+          stranded.style.setProperty(
+            "--lost-dx",
+            lost ? `${Math.max(0, x + 40 - 170)}px` : "0px",
+          );
+        }
+        // the limit's label hangs right while there is room, left when there isn't
+        const label = tick && tick.querySelector("text");
+        if (label) {
+          const left = x > 236;
+          label.setAttribute("x", left ? x - 4 : x + 4);
+          label.setAttribute("text-anchor", left ? "end" : "start");
+        }
+      };
+      range.addEventListener("input", () => set(Number(range.value)));
+      set(Number(range.value));
+    });
+  }
 </script>
