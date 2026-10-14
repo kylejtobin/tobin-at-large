@@ -1,9 +1,9 @@
 ---
-// TAL Company, set as an imprint rather than a firm. The page states one
-// thesis and the three steps that carry a reader to it, each proven by a work
-// published under TAL's name: the title page with the thesis and its
-// contents, one sheet per work with the evidence a reader meets there, and
-// the author. Contact is correspondence, never a button.
+// TAL Company, set as an imprint rather than a firm. One thesis, and the
+// works under TAL's name that together make it true, each presented whole:
+// how an organization actually runs, what it is, and the software that runs
+// it. The title page with the thesis and its contents, one sheet per work,
+// and the author. Contact is correspondence, never a button.
 import { getCollection, render } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
@@ -86,16 +86,13 @@ const structuredData = {
     >
   </header>
 
-  <!-- the title page: the thesis, and the steps that carry a reader to it,
-       each with the work that proves it -->
+  <!-- the title page: the thesis, and the works that make it true, from
+       the organization down to the code -->
   <Drawing id="cover" label="TAL Company" full>
     <div class="cover">
       <div class="colophon"><Mark /></div>
       <h1>{thesis}</h1>
-      <ol
-        class="contents"
-        aria-label="The argument, and the works that prove it"
-      >
+      <ol class="contents" aria-label="The works">
         {
           sheets.map(({ data, number }) => (
             <li>
@@ -114,12 +111,12 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <!-- one sheet per work: the step it proves, the work itself, the evidence
-       a reader meets in it, and its entry -->
+  <!-- one sheet per work: what it holds, the work itself, the evidence a
+       reader meets in it, and its entry -->
   {
     sheets.map(({ data, number, Evidence }) => (
       <Drawing id={anchor(data.title)} number={number} label={data.title}>
-        <div class:list={["step", { book: data.kind === "book" }]}>
+        <div class:list={["sheet", { book: data.kind === "book" }]}>
           <h2>{data.claim}</h2>
           <div class="exhibit">
             <a
@@ -142,23 +139,25 @@ const structuredData = {
                 loading="lazy"
               />
             </a>
+            <div class="entry">
+              <span class="kind mono-label">
+                {[data.label, data.status, data.year]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </span>
+              <a class="title-link" href={data.url} rel="noopener">
+                {data.title.split(" ").slice(0, -1).join(" ")}{" "}
+                <span class="nw">
+                  {data.title.split(" ").at(-1)}
+                  <Arrow />
+                </span>
+              </a>
+              {data.kind === "book" && <span class="by">Kyle J. Tobin</span>}
+              {data.line && <span class="line">{data.line}</span>}
+            </div>
           </div>
           <div class="reading">
             <Evidence />
-          </div>
-          <div class="entry">
-            <span class="kind mono-label">
-              {[data.label, data.status, data.year].filter(Boolean).join(" · ")}
-            </span>
-            <a class="title-link" href={data.url} rel="noopener">
-              {data.title.split(" ").slice(0, -1).join(" ")}{" "}
-              <span class="nw">
-                {data.title.split(" ").at(-1)}
-                <Arrow />
-              </span>
-            </a>
-            {data.kind === "book" && <span class="by">Kyle J. Tobin</span>}
-            <span class="line">{data.line}</span>
           </div>
         </div>
       </Drawing>
@@ -240,7 +239,7 @@ const structuredData = {
     max-width: 16ch;
     text-wrap: balance;
   }
-  /* the contents: each step of the argument, and the work that proves it */
+  /* the contents: what each work holds, and the work */
   .contents {
     grid-column: 1 / span 9;
     list-style: none;
@@ -329,17 +328,16 @@ const structuredData = {
     height: auto;
     mix-blend-mode: multiply;
   }
-  /* ---- a step: the claim, the work that proves it, the evidence, the entry ---- */
-  .step {
+  /* ---- a work: what it holds, the plate, the evidence, the entry ---- */
+  .sheet {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    grid-template-areas: "h h" "x r" "e r";
-    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "h h" "x r";
     column-gap: clamp(2rem, 4.5vw, 4.5rem);
     row-gap: clamp(1.5rem, 3vw, 2.25rem);
     align-items: start;
   }
-  .step.book {
+  .sheet.book {
     grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
   }
   h2 {
@@ -352,11 +350,18 @@ const structuredData = {
     max-width: 24ch;
     text-wrap: balance;
   }
+  /* the work and its entry stay in view while its evidence is read */
   .exhibit {
     grid-area: x;
+    position: sticky;
+    top: calc(var(--bar) + 2rem);
+    display: grid;
+    row-gap: clamp(1.5rem, 3vw, 2.25rem);
+    /* sticking isolates the group, so the group itself is printed on the
+       paper; the plate's own blend would otherwise meet nothing */
+    mix-blend-mode: multiply;
   }
   .entry {
-    grid-area: e;
     display: grid;
     gap: 0.3rem;
     justify-items: start;
@@ -563,16 +568,18 @@ const structuredData = {
       grid-column: 2;
       text-align: left;
     }
-    .step,
-    .step.book,
+    .sheet,
+    .sheet.book,
     .author {
       grid-template-columns: minmax(0, 1fr);
     }
-    .step {
-      grid-template-areas: "h" "x" "r" "e";
-      grid-template-rows: none;
+    .sheet {
+      grid-template-areas: "h" "x" "r";
     }
-    .step.book .plate {
+    .exhibit {
+      position: static;
+    }
+    .sheet.book .plate {
       width: min(64vw, 300px);
     }
     .portrait {

@@ -2,8 +2,7 @@
 kind: software
 label: Open-source language
 title: ONTOK
-claim: "That knowledge can be made explicit, as the organization’s own kinds and proven facts."
-line: "An organization’s kinds and facts, written as types."
+claim: "An organization’s model of itself, written once as software."
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
@@ -11,8 +10,10 @@ year: 2026
 order: 2
 ---
 
-Each answer a case gives has a kind in ONTOK. The one who decided acts in a role, what mattered is a state, what set it off is an event, the authority is a rule, and the consequence is an event the decision caused.
+An organization already holds a model of itself: what exists in it, what happens, who does what through which office, toward which end, under which rules. That model lives in people, and every application rebuilds a fragment of it.
 
-ONTOK’s core is fourteen such kinds. An organization refines them into its own, a customer, a payment, a counterparty, and a fact exists only once every part of it is proven, the facts it rests on first. What cannot be proven never becomes a fact, so nothing has to be checked afterward.
+ONTOK gives it one home. Its core is fourteen kinds, of structure, reality, agency, meaning and governance, and an organization refines them into its own: a customer, a payment, a counterparty. A fact exists only once every part of it is proven, the facts it rests on first. Nothing invalid gets in, so nothing is checked afterward.
 
-Applications and agents then work over the organization’s own kinds, instead of each rebuilding a fragment of what the organization is.
+The book’s five questions each have a kind here. Who decided acts in a role, what mattered is a state, what set it off is an event, and the authority is a rule.
+
+Applications, agents and models then work over the organization’s own kinds, and none of them becomes the authority on what the organization is.

@@ -15,17 +15,18 @@ The page is set as an imprint: a title page, one sheet per work, an author.
 - **Bar** (sticky): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
 - **Title page** (full screen): the mark small, as a colophon; the thesis as
-  the largest type on the site; under it the contents: a mono number, the
-  step in the reading face, the work that proves it in italic, a hairline
+  the largest type on the site; under it the contents: a mono number, what
+  the work holds in the reading face, the work's title in italic, a hairline
   under each, linking to the sheet.
-- **01 to 03, the works**: the step as the sheet's headline in the display
-  face; the work's real image as a plate on the left with its entry under
-  it (kind, status and year in mono, title as link, one line); the evidence
-  on the right in the reading face. A quotation from the work hangs on a
-  hairline; a list sits between hairlines, numbered in mono where the work
-  numbers it, struck in red where it lists what cannot happen. The book's
-  tall cover takes a narrower column. Under 900px everything stacks:
-  headline, plate, evidence, entry.
+- **01 to 03, the works**: what the work holds as the sheet's headline in
+  the display face; on the left the work's real image as a plate with its
+  entry under it (kind, status and year in mono, title as link), held in
+  view while the evidence on the right, in the reading face, is read. A
+  quotation from the work hangs on a hairline; a list sits between
+  hairlines, numbered in mono where the work numbers it, struck in red where
+  it lists what cannot happen. The book's tall cover takes a narrower
+  column. Under 900px everything stacks: headline, plate and entry,
+  evidence.
 - **Author**: the portrait drawn on the sheet, one sentence in the reading
   face with the name in the display face, and correspondence: a mono label
   and the address as a plain link.
@@ -35,8 +36,8 @@ The page is set as an imprint: a title page, one sheet per work, an author.
 
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
    the cover holds the full first screen. Space is rhythm, never leftover.
-2. **One focal point per sheet.** The thesis on the cover, the step on each
-   work's sheet, the sentence on the author's.
+2. **One focal point per sheet.** The thesis on the cover, what each work
+   holds on its sheet, the sentence on the author's.
    Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
@@ -84,7 +85,9 @@ the tooth too. Warm drafting stock, never parchment mottling.
   each repo's README hero, in their own colour, never washed or redrawn.
   They are printed on the page's paper (`mix-blend-mode: multiply`): their
   own cool, near-white ground gives way to the warm paper, which otherwise
-  makes them read pale, and their ink keeps full strength. They sit as
+  makes them read pale, and their ink keeps full strength. Where the plate's
+  group sticks, the group carries the blend, since sticking isolates it from
+  the paper. They sit as
   objects: a contact edge and a soft fall of light, served as AVIF/WebP at
   2×.
 - Each work's plate sits on its own sheet beside the evidence it holds.
@@ -109,6 +112,8 @@ the tooth too. Warm drafting stock, never parchment mottling.
   the argument was gone: an empty pile of artifacts.
 - The argument restored as numbered propositions ahead of the works. Old
   headlines restacked as text; the claim and the work still apart.
+- Each work cut down to one step of a three-step argument. TCA read as agent
+  safety alone; each work must come through whole.
 - The works' plates in grey at rest: they read as washed-out copies.
 - A boxed "Email us" button in the bar and under the founder: it made the
   page a firm. Contact is correspondence.

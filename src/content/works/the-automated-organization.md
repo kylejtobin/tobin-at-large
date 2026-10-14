@@ -3,7 +3,7 @@ kind: book
 label: Book
 status: in progress
 title: The Automated Organization
-claim: "The judgment that keeps an organization moving is knowledge it already has."
+claim: "How an organization, not just its software, comes to run on its own."
 line: "Published on Leanpub as it is written."
 url: https://leanpub.com/the-automated-organization
 linkLabel: Read the book
@@ -16,7 +16,9 @@ order: 1
 
 > A reasoning system is now joining organizations at scale, and nobody points it at anyone. It is given the manual.
 
-The book’s test for what the manual leaves out: take one consequential case, trace it from trigger to outcome, and ask whether the documents say
+Every organization runs twice: as its documents describe it, and as it actually runs. The book finds the second, settles who has the authority to change it, governs only what binds, and leaves execution with the people and systems closest to the work.
+
+Its test for what the manual leaves out: take one consequential case, trace it from trigger to outcome, and ask whether the documents say
 
 1. who determined the result,
 2. what information mattered,

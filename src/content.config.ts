@@ -1,9 +1,9 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// What TAL has made: written and built, and given away. Each work carries
-// the step of the argument it proves, and its body is the evidence a reader
-// meets on the page.
+// What TAL has made: written and built, and given away. Each work is
+// presented whole: what it holds, in its own words, and in its body the
+// evidence a reader meets on the page.
 const works = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/works" }),
   schema: ({ image }) =>
@@ -14,10 +14,10 @@ const works = defineCollection({
       // e.g. "in progress"
       status: z.string().optional(),
       title: z.string(),
-      // the step of the argument this work proves
+      // what the work holds, whole, in its own words
       claim: z.string(),
-      // what it is, in one line, for the reader who will vet it
-      line: z.string(),
+      // a note on the entry, where the work needs one
+      line: z.string().optional(),
       // the year it was published
       year: z.number().int(),
       url: z.string().url(),
