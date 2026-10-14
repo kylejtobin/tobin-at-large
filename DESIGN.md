@@ -26,9 +26,9 @@ to rewrite to fit what was built.
 
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
    the cover holds the full first screen. Space is rhythm, never leftover.
-2. **One focal point per sheet.** The position's headline, the book on the work
-   sheet, the statement on the cover. Everything else steps back in scale and
-   tone.
+2. **One focal point per sheet.** The conviction on the cover, the book on its
+   sheet, the pair of tools on theirs, the declaration on the founder's.
+   Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
 4. **Evolve, never restart.** Improve what exists. Rebuilding from scratch has
