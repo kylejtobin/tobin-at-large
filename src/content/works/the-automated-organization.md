@@ -3,7 +3,7 @@ kind: book
 label: Book
 status: in progress
 title: The Automated Organization
-claim: "How an organization, not just its software, comes to run on its own."
+claim: "Your AI pilot worked in the demo. Then it met the organization."
 line: "Published on Leanpub as it is written."
 url: https://leanpub.com/the-automated-organization
 linkLabel: Read the book
@@ -12,13 +12,11 @@ year: 2026
 order: 1
 ---
 
-<p class="source">From chapter 2, The Program That Actually Runs</p>
+What stopped it was everything the documents never said: which approval permits what, who can really move the budget, which exception needs judgment, which two records are the same customer. Your people supply all of that every day without being asked. An AI agent is the first worker that gets only the manual.
 
-> A reasoning system is now joining organizations at scale, and nobody points it at anyone. It is given the manual.
+The book is the method for fixing the organization first. Find the organization that actually runs, settle who has the authority to change it, and govern only what binds. Each playbook chapter ends with something running.
 
-Every organization runs twice: as its documents describe it, and as it actually runs. The book finds the second, settles who has the authority to change it, governs only what binds, and leaves execution with the people and systems closest to the work.
-
-Its test for what the manual leaves out: take one consequential case, trace it from trigger to outcome, and ask whether the documents say
+It starts with a test you can run on one case. Trace it from trigger to outcome, and ask whether the documents say
 
 1. who determined the result,
 2. what information mattered,
@@ -26,4 +24,4 @@ Its test for what the manual leaves out: take one consequential case, trace it f
 4. what authority governed it,
 5. what consequence followed.
 
-Where they do not, the case shows what did decide it. That is knowledge the people doing the work hold, and the agent was never given it.
+Where they do not, you have found the knowledge the agent was never given.

@@ -14,7 +14,7 @@ const works = defineCollection({
       // e.g. "in progress"
       status: z.string().optional(),
       title: z.string(),
-      // what the work holds, whole, in its own words
+      // the situation the reader already lives with, which the work answers
       claim: z.string(),
       // a note on the entry, where the work needs one
       line: z.string().optional(),

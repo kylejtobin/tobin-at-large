@@ -2,7 +2,7 @@
 kind: software
 label: Open-source language
 title: ONTOK
-claim: "An organization’s model of itself, written once as software."
+claim: "Your CRM, your billing system and your support desk each have a customer, and no two agree."
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
@@ -10,10 +10,10 @@ year: 2026
 order: 2
 ---
 
-An organization already holds a model of itself: what exists in it, what happens, who does what through which office, toward which end, under which rules. That model lives in people, and every application rebuilds a fragment of it.
+Every application rebuilds its own piece of what the organization is, and people spend their days reconciling the pieces. An agent takes whichever piece it is handed.
 
-ONTOK gives it one home. Its core is fourteen kinds, of structure, reality, agency, meaning and governance, and an organization refines them into its own: a customer, a payment, a counterparty. A fact exists only once every part of it is proven, the facts it rests on first. Nothing invalid gets in, so nothing is checked afterward.
+ONTOK writes the organization as software, once: its customers and payments, its roles, events and rules, refined from fourteen core kinds into its own. Every application and agent works over the same kinds, and none of them becomes the authority on what the organization is.
 
-The book’s five questions each have a kind here. Who decided acts in a role, what mattered is a state, what set it off is an event, and the authority is a rule.
+A fact enters only once every part of it is proven. A payment that names no proven customer is never recorded, so there is no bad record to clean up later.
 
-Applications, agents and models then work over the organization’s own kinds, and none of them becomes the authority on what the organization is.
+The answers the book’s test finds each have a place here: who decided is a role, what triggered it is an event, the authority is a rule.

@@ -25,34 +25,36 @@ an organization can now be made to run on its own, because the work in front
 of them proves it, and they read the book, build with the tools, or write.
 
 The site is an imprint, not a firm. It states one thesis, and the works
-under TAL's name that together make it true. Each work is presented whole,
-as what it is, never cut down to one step of an argument: the thesis is the
-whole the three make, from how an organization actually runs, to what it is,
-to the software that runs it. The reader meets each work in its own words.
+under TAL's name that together make it true. The reader is a serious leader
+who has watched AI stall inside their organization. The thesis hooks them;
+each work then opens on a situation they already live with, in plain
+business terms, and answers it in its own words, whole. The value shows in
+the specifics, never in a list of benefits. Read in order the works run from
+the organization down to the code, and the last sheet closes back on the
+thesis.
 
 1. **Title page.** The imprint small, as a colophon; the thesis as the
-   largest type; under it the contents: what each work holds, in its own
-   words, with its title. Read in order they run from the organization down
-   to the code.
-2. **01, The Automated Organization.** "How an organization, not just its
-   software, comes to run on its own." The book's line on agents being given
-   the manual; every organization runs twice, and the book finds the one
-   that actually runs, settles who may change it, governs only what binds;
-   its five-question test for tracing a case.
-3. **02, ONTOK.** "An organization's model of itself, written once as
-   software." The model lives in people and every application rebuilds a
-   fragment; ONTOK gives it one home: fourteen core kinds refined into the
-   organization's own, facts that exist only once proven; the book's
-   questions each have a kind; applications, agents and models work over the
-   organization's kinds and none becomes the authority on it.
-4. **03, Type Construction Architecture.** "A program is a set of types.
-   Constructing them is the only operation." Read whole, not as agent
-   safety: each fact holds the one before it, order is depth; the types are
-   the domain, so nothing restates it and a wrong state has no type; the
-   five failures its worked example makes impossible; built for the agent
-   that writes the code; an agent acting through it can decide only what it
-   can build; one declaration is the specification, the program, the code
-   the agent writes and the limit of what it decides.
+   largest type; under it the contents: the situation each work opens on,
+   with its title. They are what pull the reader down the page.
+2. **01, The Automated Organization.** "Your AI pilot worked in the demo.
+   Then it met the organization." What stopped it was everything the
+   documents never said; an agent is the first worker that gets only the
+   manual. The book is the method for fixing the organization first, and it
+   starts with a five-question test the reader can run on one case.
+3. **02, ONTOK.** "Your CRM, your billing system and your support desk each
+   have a customer, and no two agree." Every application rebuilds a piece of
+   the organization and people reconcile the pieces; an agent takes whichever
+   piece it is handed. ONTOK writes the organization as software, once, from
+   fourteen core kinds; a fact enters only once proven, so there is no bad
+   record to clean up; the book's answers each have a place in it.
+4. **03, Type Construction Architecture.** "Type "Buy" with a capital B, and
+   the usual code books a sell." The code everyone and every coding agent
+   writes, and its four other failures. In TCA a program is a set of types
+   and constructing them is the only operation, so none of the five can
+   happen and nothing had to catch them. It is built for the agent that
+   writes the code; an agent acting through it can decide only what it can
+   build. The close: a whole stream of work runs with no one in it, the
+   agent judging each case and the types deciding which outcomes can exist.
 5. **Author.** Portrait, one sentence on what he works on, and
    correspondence: the address, plain, never a button.
 

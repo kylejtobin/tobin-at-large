@@ -15,11 +15,11 @@ The page is set as an imprint: a title page, one sheet per work, an author.
 - **Bar** (sticky): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
 - **Title page** (full screen): the mark small, as a colophon; the thesis as
-  the largest type on the site; under it the contents: a mono number, what
-  the work holds in the reading face, the work's title in italic, a hairline
+  the largest type on the site; under it the contents: a mono number, the
+  situation the work opens on in the reading face, the work's title in italic, a hairline
   under each, linking to the sheet.
-- **01 to 03, the works**: what the work holds as the sheet's headline in
-  the display face; on the left the work's real image as a plate with its
+- **01 to 03, the works**: the situation the work opens on as the sheet's
+  headline in the display face; on the left the work's real image as a plate with its
   entry under it (kind, status and year in mono, title as link), held in
   view while the evidence on the right, in the reading face, is read. A
   quotation from the work hangs on a hairline; a list sits between
@@ -36,8 +36,8 @@ The page is set as an imprint: a title page, one sheet per work, an author.
 
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
    the cover holds the full first screen. Space is rhythm, never leftover.
-2. **One focal point per sheet.** The thesis on the cover, what each work
-   holds on its sheet, the sentence on the author's.
+2. **One focal point per sheet.** The thesis on the cover, the situation
+   each work opens on, the sentence on the author's.
    Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
@@ -114,6 +114,8 @@ the tooth too. Warm drafting stock, never parchment mottling.
   headlines restacked as text; the claim and the work still apart.
 - Each work cut down to one step of a three-step argument. TCA read as agent
   safety alone; each work must come through whole.
+- Each work introduced in its own abstract terms. Accurate and whole, but it
+  read as talk; the reader's own situation has to open each sheet.
 - The works' plates in grey at rest: they read as washed-out copies.
 - A boxed "Email us" button in the bar and under the founder: it made the
   page a firm. Contact is correspondence.
