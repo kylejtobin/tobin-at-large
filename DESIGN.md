@@ -114,6 +114,9 @@ the tooth too. Warm drafting stock, never parchment mottling.
   headlines restacked as text; the claim and the work still apart.
 - Each work cut down to one step of a three-step argument. TCA read as agent
   safety alone; each work must come through whole.
+- TCA argued through its own worked example, a trading desk, first as a
+  list of failures and then as the desk's declarations. A demo stood in
+  for reasoning from what TCA is.
 - Each work introduced in its own abstract terms. Accurate and whole, but it
   read as talk; the reader's own situation has to open each sheet.
 - The works' plates in grey at rest: they read as washed-out copies.

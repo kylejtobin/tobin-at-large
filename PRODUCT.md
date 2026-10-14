@@ -47,14 +47,19 @@ thesis.
    piece it is handed. ONTOK writes the organization as software, once, from
    fourteen core kinds; a fact enters only once proven, so there is no bad
    record to clean up; the book's answers each have a place in it.
-4. **03, Type Construction Architecture.** "Type "Buy" with a capital B, and
-   the usual code books a sell." The code everyone and every coding agent
-   writes, and its four other failures. In TCA a program is a set of types
-   and constructing them is the only operation, so none of the five can
-   happen and nothing had to catch them. It is built for the agent that
-   writes the code; an agent acting through it can decide only what it can
-   build. The close: a whole stream of work runs with no one in it, the
-   agent judging each case and the types deciding which outcomes can exist.
+4. **03, Type Construction Architecture.** "The rules your business runs on
+   live in its code, where almost no one who owns them can read them." The
+   one fact every reader shares, whatever their seat: policy, people and
+   software each hold a version and the software's wins; the spec decays,
+   only an engineer can say what the system does, and the unanticipated is
+   settled by a default nobody chose. TCA makes the version that runs the
+   version anyone can read, written once in the business's words with every
+   way it can end; no second copy, so nothing drifts. A state the business
+   never allowed cannot exist; what is undecided arrives by name. Agents
+   remove the cost that kept this design rare and depend on it most. The
+   close returns to the thesis: agents do what the written knowledge covers,
+   the software shows where it ends, people decide what the business is.
+   No example stands in for the argument; no role is addressed by name.
 5. **Author.** Portrait, one sentence on what he works on, and
    correspondence: the address, plain, never a button.
 

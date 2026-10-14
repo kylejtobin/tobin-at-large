@@ -2,7 +2,7 @@
 kind: software
 label: Open-source architecture
 title: Type Construction Architecture
-claim: "Type “Buy” with a capital B, and the usual code books a sell."
+claim: "The rules your business runs on live in its code, where almost no one who owns them can read them."
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png
@@ -10,15 +10,12 @@ year: 2026
 order: 3
 ---
 
-It is the trading desk’s code as everyone writes it, and as every coding agent writes it by default. It holds four more failures:
+Policy, the people doing the work and the software each hold a version of them, and when they disagree, the software’s version is the one customers get. The spec describes last quarter’s product. Only an engineer can say what the system does today. Every case it was never built for is settled by a default nobody chose.
 
-- a fill accepted, then dropped halfway through
-- a position the program believes and the clearing house never recorded
-- a refusal the desk never hears about
-- every position lost on a restart
+It can be otherwise. In Type Construction Architecture, each thing the business deals with is written once, in the business’s own words, with every way it can end, and that writing is what runs. Anyone can read a rule there. A threshold carries its limits. With no second copy, nothing drifts.
 
-In TCA a program is a set of types, and constructing them is the only operation. “Buy” with a capital B is neither a buy nor a sell, so nothing is booked. Built this way, none of the five can happen, and no test or reviewer had to catch them.
+Written this way, a state the business never allowed has no way to exist, so it never ships. What the business has not decided yet arrives by name, where someone can decide it.
 
-TCA is built for the agent that writes your code, and refuses the procedural version until none is left. An agent acting through the program can build only what the types declare. What it cannot build, it cannot decide.
+This was always the better design and rarely the one chosen, because it took longer to write. Agents now write it as fast as the usual way, and they depend on it most. An agent works from what is written, so here it works from the real rules, and it cannot produce an outcome nobody declared.
 
-That is how a whole stream of work runs with no one in it: the agent judges each case, and the types decide which outcomes can exist.
+So agents do everything the written knowledge covers, the software shows where that knowledge ends, and people’s work becomes deciding what the business is.
