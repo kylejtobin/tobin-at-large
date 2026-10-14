@@ -10,29 +10,33 @@ to rewrite to fit what was built.
 
 ## Structure
 
-The page is set as an imprint: a title page, entries, an author.
+The page is set as an imprint: a title page, one sheet per work, an author.
 
 - **Bar** (sticky): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
 - **Title page** (full screen): the mark small, as a colophon; the thesis as
-  the largest type on the site; under it the contents, set like a journal's:
-  each work's title in the reading face, its kind and year in italic, a
-  hairline under each, linking to the entry.
-- **01, the book**: its own cover as a plate, large, with its entry beside
-  it: kind and year in mono, title, author, one line, the link.
-- **02, open source**: ONTOK and TCA side by side at equal weight, each
-  repo's own hero image as a plate, its entry under it.
-- **03, author**: the portrait drawn on the sheet, one sentence in the
-  reading face with the name in the display face, and correspondence: a mono
-  label and the address as a plain link.
+  the largest type on the site; under it the contents: a mono number, the
+  step in the reading face, the work that proves it in italic, a hairline
+  under each, linking to the sheet.
+- **01 to 03, the works**: the step as the sheet's headline in the display
+  face; the work's real image as a plate on the left with its entry under
+  it (kind, status and year in mono, title as link, one line); the evidence
+  on the right in the reading face. A quotation from the work hangs on a
+  hairline; a list sits between hairlines, numbered in mono where the work
+  numbers it, struck in red where it lists what cannot happen. The book's
+  tall cover takes a narrower column. Under 900px everything stacks:
+  headline, plate, evidence, entry.
+- **Author**: the portrait drawn on the sheet, one sentence in the reading
+  face with the name in the display face, and correspondence: a mono label
+  and the address as a plain link.
 - **Footer**: copyright and profile links, small.
 
 ## Principles
 
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
    the cover holds the full first screen. Space is rhythm, never leftover.
-2. **One focal point per sheet.** The conviction on the cover, the book on its
-   sheet, the pair of tools on theirs, the sentence on the author's.
+2. **One focal point per sheet.** The thesis on the cover, the step on each
+   work's sheet, the sentence on the author's.
    Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
@@ -83,8 +87,7 @@ the tooth too. Warm drafting stock, never parchment mottling.
   makes them read pale, and their ink keeps full strength. They sit as
   objects: a contact edge and a soft fall of light, served as AVIF/WebP at
   2×.
-- The tall book cover leads on its own sheet; the two wide tool plates sit
-  side by side on the next.
+- Each work's plate sits on its own sheet beside the evidence it holds.
 - The founder portrait is drawn in pencil on the site's paper and dissolves
   into the sheet at its edges; it is the style reference in
   `brand/illustrations/`.
@@ -99,9 +102,13 @@ the tooth too. Warm drafting stock, never parchment mottling.
 - An invented icon grid drawn to literally illustrate the headline.
 - Frames kept after they lost their reason; mono labels everywhere.
 - Three of everything, by reflex.
-- A teaching site: positions with drawn proofs, a five-stage method with
-  its own page, an interactive outcome-space drawing. It competed with the
-  book and was removed whole.
+- A teaching site of drawn positions, a five-stage method page and an
+  interactive outcome-space drawing. The argument was made in drawings and
+  the work sat to one side; removed by decision when the cycle went.
+- A catalogue of three works with one line each. Structurally right, but
+  the argument was gone: an empty pile of artifacts.
+- The argument restored as numbered propositions ahead of the works. Old
+  headlines restacked as text; the claim and the work still apart.
 - The works' plates in grey at rest: they read as washed-out copies.
 - A boxed "Email us" button in the bar and under the founder: it made the
   page a firm. Contact is correspondence.

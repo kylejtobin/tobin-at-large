@@ -1,9 +1,10 @@
 ---
-// TAL Company, set as an imprint rather than a firm. The page leads with a
-// thesis and the works that argue it, published under TAL's name: a title
-// page with the thesis and its contents, the book, the two open-source
-// works, and the author. Contact is correspondence, never a button.
-import { getCollection } from "astro:content";
+// TAL Company, set as an imprint rather than a firm. The page states one
+// thesis and the three steps that carry a reader to it, each proven by a work
+// published under TAL's name: the title page with the thesis and its
+// contents, one sheet per work with the evidence a reader meets there, and
+// the author. Contact is correspondence, never a button.
+import { getCollection, render } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
@@ -11,7 +12,7 @@ import Drawing from "../components/Drawing.astro";
 import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
 
-const thesis = "An organization can be made explicit enough to run on its own.";
+const thesis = "An organization can now be made to run on its own.";
 const email = "contact@talco.dev";
 const mailto = `mailto:${email}`;
 const linkedin = "https://www.linkedin.com/in/kyletobin/";
@@ -19,9 +20,15 @@ const linkedin = "https://www.linkedin.com/in/kyletobin/";
 const works = (await getCollection("works")).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const [book, ...tools] = works;
 const anchor = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const sheets = await Promise.all(
+  works.map(async (work, i) => ({
+    ...work,
+    number: String(i + 1).padStart(2, "0"),
+    Evidence: (await render(work)).Content,
+  })),
+);
 
 // What the page is, for search engines and link unfurlers.
 const ORIGIN = "https://talco.dev";
@@ -79,19 +86,25 @@ const structuredData = {
     >
   </header>
 
-  <!-- the title page: the thesis, and the works that argue it -->
+  <!-- the title page: the thesis, and the steps that carry a reader to it,
+       each with the work that proves it -->
   <Drawing id="cover" label="TAL Company" full>
     <div class="cover">
       <div class="colophon"><Mark /></div>
       <h1>{thesis}</h1>
-      <ol class="contents" aria-label="The works">
+      <ol
+        class="contents"
+        aria-label="The argument, and the works that prove it"
+      >
         {
-          works.map(({ data }) => (
+          sheets.map(({ data, number }) => (
             <li>
               <a href={`#${anchor(data.title)}`}>
-                <span class="entry-title">{data.title}</span>
-                <span class="entry-kind">
-                  {data.label}, {data.year}
+                <span class="no">{number}</span>
+                <span class="claim">{data.claim}</span>
+                <span class="work">
+                  {data.title},{" "}
+                  <span class="nw">{data.label.toLowerCase()}</span>
                 </span>
               </a>
             </li>
@@ -101,47 +114,14 @@ const structuredData = {
     </div>
   </Drawing>
 
+  <!-- one sheet per work: the step it proves, the work itself, the evidence
+       a reader meets in it, and its entry -->
   {
-    book && (
-      <Drawing id={anchor(book.data.title)} number="01" label={book.data.title}>
-        <figure class="book">
-          <a
-            class="plate"
-            href={book.data.url}
-            rel="noopener"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <Picture
-              src={book.data.cover}
-              alt=""
-              widths={[400, 800]}
-              sizes="(max-width: 900px) 70vw, 400px"
-              formats={["avif", "webp"]}
-              loading="lazy"
-            />
-          </a>
-          <figcaption>
-            <span class="kind mono-label">
-              {book.data.label} · {book.data.year}
-            </span>
-            <a class="title-link" href={book.data.url} rel="noopener">
-              {book.data.title}
-              <Arrow />
-            </a>
-            <span class="by">Kyle J. Tobin</span>
-            <span class="line">{book.data.line}</span>
-          </figcaption>
-        </figure>
-      </Drawing>
-    )
-  }
-
-  <Drawing id="open-source" number="02" label="Open source">
-    <div class="tools">
-      {
-        tools.map(({ data }) => (
-          <figure class="tool" id={anchor(data.title)}>
+    sheets.map(({ data, number, Evidence }) => (
+      <Drawing id={anchor(data.title)} number={number} label={data.title}>
+        <div class:list={["step", { book: data.kind === "book" }]}>
+          <h2>{data.claim}</h2>
+          <div class="exhibit">
             <a
               class="plate"
               href={data.url}
@@ -152,30 +132,41 @@ const structuredData = {
               <Picture
                 src={data.cover}
                 alt=""
-                widths={[560, 1120]}
-                sizes="(max-width: 900px) calc(100vw - 4rem), 560px"
+                widths={data.kind === "book" ? [320, 640] : [560, 1120]}
+                sizes={
+                  data.kind === "book"
+                    ? "(max-width: 900px) 64vw, 320px"
+                    : "(max-width: 900px) calc(100vw - 4rem), 560px"
+                }
                 formats={["avif", "webp"]}
                 loading="lazy"
               />
             </a>
-            <figcaption>
-              <span class="kind mono-label">
-                {data.label} · {data.year}
-              </span>
-              <a class="title-link" href={data.url} rel="noopener">
-                {data.title}
+          </div>
+          <div class="reading">
+            <Evidence />
+          </div>
+          <div class="entry">
+            <span class="kind mono-label">
+              {[data.label, data.status, data.year].filter(Boolean).join(" · ")}
+            </span>
+            <a class="title-link" href={data.url} rel="noopener">
+              {data.title.split(" ").slice(0, -1).join(" ")}{" "}
+              <span class="nw">
+                {data.title.split(" ").at(-1)}
                 <Arrow />
-              </a>
-              <span class="line">{data.line}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-  </Drawing>
+              </span>
+            </a>
+            {data.kind === "book" && <span class="by">Kyle J. Tobin</span>}
+            <span class="line">{data.line}</span>
+          </div>
+        </div>
+      </Drawing>
+    ))
+  }
 
   <!-- the author, and correspondence -->
-  <Drawing id="author" number="03" label="Author">
+  <Drawing id="author" label="Author">
     <div class="author">
       <div class="portrait">
         <Picture
@@ -240,18 +231,18 @@ const structuredData = {
     grid-column: 1 / -1;
   }
   h1 {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 9;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.5rem, 5.2vw, 4.7rem);
-    line-height: 1.05;
+    font-size: clamp(2.5rem, 5.4vw, 5rem);
+    line-height: 1.04;
     letter-spacing: -0.014em;
-    max-width: 17ch;
+    max-width: 16ch;
     text-wrap: balance;
   }
-  /* the contents, set like a journal's: title, then kind and year */
+  /* the contents: each step of the argument, and the work that proves it */
   .contents {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 9;
     list-style: none;
     border-top: 1px solid var(--line);
   }
@@ -259,27 +250,37 @@ const structuredData = {
     border-bottom: 1px solid var(--line-faint);
   }
   .contents a {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) minmax(0, 15rem);
+    column-gap: 1.25rem;
+    row-gap: 0.15rem;
     align-items: baseline;
-    gap: 0.25rem 1.5rem;
-    padding: 0.7rem 0;
+    padding: 0.85rem 0;
     min-height: 44px;
     color: var(--ink);
     text-decoration: none;
   }
-  .entry-title {
-    font-size: clamp(1.15rem, 1.5vw, 1.32rem);
-    transition: transform 0.4s var(--ease);
-  }
-  .entry-kind {
-    font-style: italic;
-    font-size: 1.02rem;
+  .contents .no {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
     color: var(--ink-quiet);
   }
-  .contents a:hover .entry-title,
-  .contents a:focus-visible .entry-title {
+  .contents .claim {
+    font-size: clamp(1.2rem, 1.55vw, 1.38rem);
+    line-height: 1.32;
+    text-wrap: pretty;
+    transition: transform 0.4s var(--ease);
+  }
+  .contents .work {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--ink-quiet);
+    text-align: right;
+  }
+  .contents a:hover .claim,
+  .contents a:focus-visible .claim {
     transform: translateX(4px);
   }
   .contents a:focus-visible {
@@ -328,9 +329,36 @@ const structuredData = {
     height: auto;
     mix-blend-mode: multiply;
   }
-  figcaption {
+  /* ---- a step: the claim, the work that proves it, the evidence, the entry ---- */
+  .step {
     display: grid;
-    gap: 0.35rem;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas: "h h" "x r" "e r";
+    grid-template-rows: auto auto 1fr;
+    column-gap: clamp(2rem, 4.5vw, 4.5rem);
+    row-gap: clamp(1.5rem, 3vw, 2.25rem);
+    align-items: start;
+  }
+  .step.book {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  }
+  h2 {
+    grid-area: h;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.85rem, 3.3vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  .exhibit {
+    grid-area: x;
+  }
+  .entry {
+    grid-area: e;
+    display: grid;
+    gap: 0.3rem;
     justify-items: start;
   }
   .kind {
@@ -362,47 +390,99 @@ const structuredData = {
     outline: none;
   }
   .line {
-    margin-top: 0.3rem;
-    max-width: 32ch;
-    font-size: 1.22rem;
-    line-height: 1.45;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--ink-light);
+    max-width: 34ch;
+  }
+
+  /* the evidence: what a reader meets in the work, in its own words */
+  .reading {
+    grid-area: r;
+    max-width: 36rem;
+  }
+  .reading :global(p),
+  .reading :global(li) {
+    font-size: clamp(1.2rem, 1.45vw, 1.32rem);
+    line-height: 1.5;
     color: var(--ink-light);
     text-wrap: pretty;
   }
-
-  /* the book leads: the cover large, its entry beside it */
-  .book {
-    display: grid;
-    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-    align-items: end;
+  .reading > :global(* + *) {
+    margin-top: 1.6rem;
   }
-  .book .title-link {
-    font-size: clamp(1.9rem, 3vw, 2.6rem);
+  .reading > :global(.source) {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
   }
-  .book .line {
-    font-size: clamp(1.25rem, 1.7vw, 1.45rem);
+  .reading > :global(.source + blockquote) {
+    margin-top: 0.7rem;
   }
-
-  /* the two open-source works, side by side at equal weight */
-  .tools {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(2rem, 4vw, 3.5rem);
-    row-gap: 3rem;
-    align-items: start;
+  .reading :global(blockquote) {
+    border-left: 1px solid var(--line);
+    padding-left: 1.25rem;
   }
-  .tool {
-    scroll-margin-top: calc(var(--bar) + 2rem);
+  .reading :global(blockquote p) {
+    color: var(--ink);
+    font-size: clamp(1.45rem, 2vw, 1.75rem);
+    line-height: 1.34;
   }
-  .tool figcaption {
-    margin-top: 1.1rem;
+  /* a list follows its sentence closely, and the next sentence follows it */
+  .reading > :global(p + ol),
+  .reading > :global(p + ul) {
+    margin-top: 0.9rem;
+  }
+  .reading > :global(ol + p),
+  .reading > :global(ul + p) {
+    margin-top: 1rem;
+  }
+  .reading :global(ol),
+  .reading :global(ul) {
+    list-style: none;
+    border-top: 1px solid var(--line-faint);
+    counter-reset: q;
+  }
+  .reading :global(li) {
+    position: relative;
+    padding: 0.45rem 0 0.45rem 1.5rem;
+    border-bottom: 1px solid var(--line-faint);
+    color: var(--ink);
+  }
+  /* the book's questions, numbered */
+  .reading :global(ol li) {
+    counter-increment: q;
+  }
+  .nw {
+    white-space: nowrap;
+  }
+  .reading :global(ol li::before) {
+    content: counter(q);
+    display: inline-block;
+    width: 1.5rem;
+    margin-left: -1.5rem;
+    padding-left: 0.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-quiet);
+  }
+  /* what the types make impossible, struck in the plates' red */
+  .reading :global(ul li::before) {
+    content: "";
+    position: absolute;
+    left: 0.1rem;
+    top: 1.05em;
+    width: 0.7rem;
+    height: 1.5px;
+    background: var(--signal);
   }
 
   /* ---- the author: portrait, one sentence, correspondence ---- */
   .author {
     display: grid;
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 220px minmax(0, 1fr);
     column-gap: clamp(2rem, 5vw, 4.5rem);
     row-gap: 2rem;
     align-items: center;
@@ -476,23 +556,31 @@ const structuredData = {
     .contents {
       grid-column: 1 / -1;
     }
-    .book,
-    .tools,
+    .contents a {
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+    }
+    .contents .work {
+      grid-column: 2;
+      text-align: left;
+    }
+    .step,
+    .step.book,
     .author {
       grid-template-columns: minmax(0, 1fr);
     }
-    .book {
-      row-gap: 1.5rem;
+    .step {
+      grid-template-areas: "h" "x" "r" "e";
+      grid-template-rows: none;
     }
-    .book .plate {
-      width: min(70vw, 320px);
+    .step.book .plate {
+      width: min(64vw, 300px);
     }
     .portrait {
       width: min(50vw, 220px);
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .entry-title {
+    .contents .claim {
       transition: none;
     }
   }
