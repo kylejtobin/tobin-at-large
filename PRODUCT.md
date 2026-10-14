@@ -1,299 +1,70 @@
 # TAL product and positioning
 
-This file is the record the page is built from. It is written before the
-page is touched and the page is checked against it, never the other way
-round.
+This file is the record the page is built from. The page is checked against
+it, never the other way round.
 
 ## What TAL is
 
-TAL studies how an organization's work actually flows, including the
-judgment that keeps it moving, and engineers that judgment into agents with
-typed limits, so what an agent may decide is also what it can build.
+TAL builds organizations the way they will now have to run: whole, explicit,
+and executable, from the authority at the top to the code underneath. TAL
+consults and builds products; the products are the problems met in every
+organization, solved once and given away.
 
-TAL consults and builds products. The products and the consulting are one
-body of work: the products are the problems met in every organization,
-solved once and given away; the engagements apply the same thinking inside
-one organization, one stream of work at a time.
+## The conviction
 
-## The limit
+An organization can be made explicit enough to run on its own. Work runs on
+judgment no rule ever caught; that judgment is knowledge the organization
+has; an AI agent can now act on it across a whole stream of work, safely,
+because the world it acts in is built so the wrong outcome cannot exist.
 
-The limit is in the world, never in a person. What a refund exists only
-with includes an amount under the stream's limit; the desk knows it ("under
-what I'd sign"); managers set it and move it, after. Above it there is no
-refund to choose, only the outcomes that do exist, a credit or a
-replacement. The agent judges inside the limit. Nothing is escalated.
+## The page
 
-## The scenario
+One page that presents the work and does not re-teach it. The book is the
+argument at length; ONTOK and TCA are the argument built. A visitor who
+wants the argument reads the book, one who wants to build reads the code,
+and one who wants it done in their organization writes.
 
-Halden Supply, a regional distributor of tools and safety gear, selling to
-contractors on account, net thirty. One desk, returns, where Dana decides
-refunds, credits, replacements and fee waivers. A hypothetical, kept
-realistic: contractors on account make an unpaid invoice ordinary, and a
-returns desk holds the most judgment per case. Every case on both pages is
-hers.
+1. **Cover.** The mark and the conviction in one sentence. Nothing else.
+2. **The book.** It leads, large: its own cover, title, author, one line
+   saying what it argues, the link.
+3. **The tools.** ONTOK and TCA side by side at equal weight: each repo's own
+   hero image, name, one line saying what it is, the link.
+4. **Founder.** Portrait, the declaration, the email.
 
-## The two pages
+No method, no cycle, no positions, no explainer drawings, no code. They were
+tried at length and removed: the site was competing with the book and
+losing. If a thing on the page could be lost without the page getting
+poorer, it goes.
 
-The home page teaches the ideas, six positions on Dana's cases, with the
-tools under them and the address at the end. The method is on its own
-page, `/method`, five stages on one drawing. The home page links to it once.
+### The works' lines
 
-## The drawing
+- **The Automated Organization:** how an organization, not just its
+  software, comes to run on its own.
+- **ONTOK:** an organization's kinds and facts, written as types.
+- **Type Construction Architecture:** software whose types are its limits.
 
-The outcome space: the one drawing the method evolves and the ideas are
-taught on, in the cover's hand. Everything inside the frame that is not an
-outcome is hatched void: an outcome with no type to be. An outcome is a box
-on paper, and what it exists only with is drawn as ticks on its top edge,
-each labelled; the refund's third tick, the limit, runs down through the
-box, and beyond it is void. The stream's three stations run along the top
-as construction, so See is a state of the same drawing: the case waiting as
-a red dot at Finance; in Scale the line is solid end to end. Cases are
-numbered balloons that arrive from their station on the stream and land,
-their stroke drawing in. One that lands on hatching is red: in Prototype
-the month's cases land one after another and the credit case lands last,
-alone, on void where no Credit box exists; in Scale the box exists and the
-case moves into it. On the home page the reader lands a case (03), the
-month accumulating on the drawing, including one that has nowhere to land,
-and moves the limit (05), which strands the first case clear into the void
-when it passes it. The drawing takes the sheet's full width under its
-headline.
+Each line says what the thing is. None re-argues the page.
 
-## No code
+## Voice
 
-There is no code on the page. The claims that code once carried (a refund
-is of a paid order; a refund over the limit isn't there) are drawn in the
-proof grammar: an outcome struck in the table of what can exist, a case
-beside the agent's call. The site demonstrates the idea; it does not show
-the implementation.
+- Declare, plainly. No hedging, no hype.
+- "We" and "our": TAL speaks as a company.
+- Never describe TAL or the founder with adjectives about quality, rarity,
+  or expertise. Never the founder's résumé.
+- No selling. The door is an email address, labelled as one, in the bar and
+  under the founder.
+- The remove-claudeish skill (`.agents/skills/remove-claudeish/SKILL.md`)
+  is run on every copy change.
 
-## The framing above every line
+## The founder
 
-The judgment is knowledge the people at the desk have. The page shows that
-knowledge found, written in their words, read back by them, and built into
-the world the agent decides in. Nothing on the page may read as judgment
-taken off a person, or as a person replaced; the desk is the authority
-before and reads the agent's call back, and the managers are the after.
-No label, key, column note or caption narrates what a plate should prove.
+> **Kyle J. Tobin** founded TAL to build organizations the way they will now
+> have to run: whole, explicit, and executable, from the authority at the top
+> to the code underneath.
 
-## The rule above every rule
-
-No person in the stream. The agent runs every case; the wrong outcome has
-no type to be. People build the world the agent decides in before, and
-change it after. Every approval, escalation, threshold, or hand-off to a
-person on the page is a failure of the idea, however reasonable it sounds.
-
-## The seed
-
-Work flows through an organization as cases, and people keep it moving with
-judgment: contextual, case-by-case reasoning that was never a rule and never
-could be, because every attempt to write it as one needs one more clause.
-That judgment is where the organization actually runs. What changed is that
-an agent can exercise judgment now, so the question is no longer which rules
-to automate but which judgment to hand over, and where it stops. That
-boundary is authority, and authority is handed to an agent in one form, a
-limit, moved by a person. The limit is built as a type, over an ontology of
-the organization's kinds and its proven facts, so the agent has real
-autonomy inside the space the types admit and the wrong state cannot be
-constructed: what an agent may decide is exactly what it can build. The
-people who do the work are the authority on what the judgment is.
-
-More automation, of the organization itself, is the point. It can never be
-said, because everyone says it; the page shows what it means.
-
-The positions are the parts of the seed. The method makes one stream explicit.
-The works are the instruments: the book is the argument at length, ONTOK is
-the organization's facts as types, TCA is software whose types are its limits.
-
-## The reader
-
-An operations, technology or transformation leader in a brownfield, often
-regulated enterprise. They arrive from a pilot that underperformed and a
-postmortem that blamed the model, or from the book or the repositories. They
-have seen every operating model and change program; hype and threat both
-read as amateur. They believe their organization is explicit because it is
-documented. They know it in particulars: which approval is really a phone
-call, which definition has three answers, which manager spends the day
-relaying. Every claim on the page is checked by the reader against their own
-company, so the page never needs a case of its own.
-
-## The work done on the reader
-
-1. Move the cause of the stalled pilot from the model to the organization,
-   without blame.
-2. Show that documented is not decided, with dignity: the paper was written
-   for people, and people were the resolver.
-3. Give them the decision as the unit of sight: who decides, on what, up to
-   where.
-4. A fact is proven, not asserted.
-5. Authority transfers in one form, a limit, which they already govern by.
-6. Judgment is located, not eliminated: at the limits, with the person whose
-   judgment it is.
-7. The workaround was the organization running; declaring practice the true
-   version is the sponsor's decision.
-8. Inside a limit built as a type, the wrong decision cannot be built. That
-   is the hope, and it is concrete.
-9. The organization and its software are one thing.
-10. The five decisions of the method are theirs.
-11. Authority is earned by never asking for it: every claim is checkable.
-12. They leave holding one question: which stream first.
-
-Never: threatened, flattered, told they were wrong, or handed a hypothetical
-about someone else's company.
-
-## Show, never tell
-
-The page does the work in front of the reader. One decision, the refund,
-runs from the cover to the code: by judgment, as written and as made, with
-its holder and limit, run live, and finally as a type that cannot be built
-without the payment. The reader watches it happen and knows the method
-because they followed it. Everything valuable has a drawn form in the page's
-own proof grammar: a table, a struck line or cell, a hatched column, a column
-note in the signal red, a code block, the stream line with a case waiting at
-a handoff. Where a thing is drawn, no sentence restates it. The only prose is
-a claim the exhibit proves, or the one thing an exhibit cannot show. No
-consequence lines under the positions; where a proof needed a sentence it
-gets a column note instead.
-
-## The arc
-
-1. **Cover.** The claim: _A stream of work can now run with no one in it._
-   The exhibit: the desk's two lines (the refund, the fee), then the next
-   case as a row with the agent's call beside it, every clause of which
-   traces to a line the desk said. No agent voice, no approval. The
-   paragraph: the judgment is knowledge, before the desk says what it
-   knows, we build the world the agent decides in, a wrong outcome isn't
-   there to choose, after managers change what can exist, during no one
-   touches a case.
-2. **Positions 01–06.** Claim and drawn proof, no caption, each one part of
-   the seed in the order above.
-3. **How we do it.** The headline, _One stream of work at a time_, the loop
-   as an index, and all five stages on the page, each a premise, the plate,
-   and at most one or two notes for what the plate cannot show. One case
-   runs through every plate: the stream, solid to the red dot at Finance and
-   nothing after (See); the written rule struck beside the desk's words
-   (Declare); each outcome, the desk's words, and what it exists only with
-   (Refactor); last
-   month's cases, the agent's call beside what the desk did, the one that
-   differs struck (Prototype); the same cases with the desk's column gone,
-   and the stream drawn solid end to end (Scale). The manager's act, adding
-   the outcome, is the one note. After Scale, the door.
-4. **Work.** The book's one line; under ONTOK and TCA, the thing itself: the
-   fact type and the refund type, in which no payment means no refund and
-   the amount carries the limit.
-5. **Founder.** One sentence, the portrait, the door.
-
-### Current positions
-
-1. Every company runs twice: on paper, and in practice.
-2. Every rule written for a judgment needs one more clause. (Four struck
-   attempts, each longer; Dana waives at three years where the rule said
-   five.)
-3. The agent chooses an outcome that can exist, and nothing else. (The
-   outcome space, with a row of cases to land; the fifth, a refund of an
-   unpaid invoice, lands red on the hatching: nowhere to be.)
-4. Three systems say how long she's been with us. One of them means what
-   the desk means.
-5. Managers stop touching cases. They change what can exist. (Struck before
-   beside after; the outcome space with the month's cases on it and the
-   limit to move: moved left past the first case, that case is stranded on
-   void, in red.)
-
-## How we do it: the method
-
-Each stage (See, Declare, Refactor, Prototype, Scale) carries a premise the
-reader can check against their own company; the plate, which is the artifact
-the stage produces; at most one or two notes for what the plate cannot show;
-and the way on. No body copy, no reasons, no definitions: the plates are the
-teaching. Each stage is a decision only the sponsor can make,
-and the plate shows it made: the two ends of a stream (See), practice as the
-true version (Declare), who decides what and up to where (Refactor), what
-counts as proof (Prototype), what counts as done (Scale).
-
-Scale is about the business: the organization doing what it exists to do.
-
-## Voice: quiet authority
-
-- **Declare.** Plain statements about the world, as fact. No hedging, no hype.
-- **We and our.** TAL speaks as a company and says what it does. The page
-  names the offer; teaching it is how the offer is made.
-- **Never describe TAL or the founder.** No adjectives about quality, rarity,
-  or expertise. No "leading", "expert", "one of the few".
-- **Never _written down_ for _explicit_.** Decided, proven, typed, made
-  explicit: the word names the mechanism.
-- **The words a COO would use at a whiteboard.** No private vocabulary, no
-  abstract noun carrying a sentence, no sentence a reader has to re-read.
-- **No size or modesty words.** No _independent_, _small_, _boutique_.
-- **No selling.** The method teaches the work; it is not a services list.
-  No tiers, no per-product asks. The last step of the method is the door.
-- **No performed significance.** The remove-claudeish skill
-  (`.agents/skills/remove-claudeish/SKILL.md`) is run on every copy change,
-  and so is a cold read by someone with no context. Patterns that have
-  failed here: rule-plus-because notes, koans, italic definitions, "X, not
-  Y" by reflex, triplets, rhetorical questions as controls, sheet keys that
-  make a page read as a paper.
-
-## Say the unsaid, with dignity
-
-- The workaround was the organization running. Say so once, and make
-  reporting it a decision to record rather than a rule broken.
-- Making the organization explicit changes management. Say what the relaying
-  was and what remains, with no villains and no flattery.
-- State consequences plainly; never perform candor.
-
-## Show, don't tell
-
-- Proofs and reasoning are from **first principles**: no case studies, no
-  company names, no statistics, no history, no hypotheticals. An instance
-  (a refund, a claim filed) is a particular the reader supplies from their
-  own organization, not a case.
-- **Never put the founder's résumé on the page.**
-- Never fill a slot by **copying existing text**. Synthesize and say it
-  newly.
-- The founder is identified by a **declaration of how he thinks**, in one
-  sentence, never by what he does on a Tuesday:
-
-  > **Kyle J. Tobin** founded TAL to build organizations the way they will now
-  > have to run: whole, explicit, and executable, from the authority at the top
-  > to the code underneath.
-
-## Less is more, quality over quantity
-
-- Each element has one job; say each idea once. Where a plate shows a fact,
-  no line restates it.
-- The headline argues, the proof shows, one line at most adds the rest.
-- Choose the strongest few; leave out what is merely true.
-
-## The works
-
-They share a conviction, not a pipeline. Never present them as layers of one
-system.
-
-- **The Automated Organization** (book): how an organization, not just its
-  software, becomes the thing that runs.
-- **ONTOK** (open-source language): an organization's kinds as types and its
-  facts as values that exist only once proven. No code on the page for it;
-  its syntax is not to be guessed at.
-- **Type Construction Architecture** (open-source architecture): no agent can
-  build what its types don't admit. Any code shown for it is in TCA's own
-  shape: a frozen strict model, a docstring naming the intended effect,
-  fields typed as the proven kinds (PaidOrder, SettledPayment). Never a
-  positional construction, never an Optional, never a comment standing in
-  for a type.
-
-## Verification
-
-Twelve cold reviews by agents with no history and the full idea in hand,
-each told to improve, not defend. The page passed on the twelfth. Every
-copy change from here goes out for the same read before it ships.
-
-## Working rules learned the hard way
+## Working rules
 
 - An instruction is a delta on this record, never a replacement for it.
-- Content wins over rule.
 - The answers come from reasoning and deciding here, not from other sources.
-- Rules invented in a session are not rules. The owner's rules are the ones
-  in this file.
 - Evolve the existing design; never wipe and restart.
-- Copy is verified like layout: after every change the whole page is read, top
-  to bottom, as a stranger would. A reviewer with no context is cheaper than
-  a week of drift.
+- Copy is verified like layout: read whole, as a stranger would.

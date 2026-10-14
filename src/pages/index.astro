@@ -1,60 +1,25 @@
 ---
-// TAL Company. The page is TAL's positions on what organizations are becoming,
-// drawn as a set: a cover that states the point of view and indexes the
-// positions, one sheet per position with its proof, what it takes, the work
-// TAL has made, and the founder, whose sheet is the door.
+// TAL Company. One page: the conviction, the three works that make it real,
+// the founder, and the address. The book is the argument; ONTOK and TCA are
+// the argument built. The page presents them and says nothing they say
+// better themselves.
 import { getCollection } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import Drawing from "../components/Drawing.astro";
-import PositionSheet from "../components/PositionSheet.astro";
 import Arrow from "../components/Arrow.astro";
 import portrait from "../assets/founder.png";
-import CoverDrawing from "../components/CoverDrawing.astro";
-import Proof from "../components/Proof.astro";
-import type { CollectionEntry } from "astro:content";
 
-const view = "A stream of work can now run with no one in it.";
-const consequence =
-  "An AI agent can hold what Dana knows and run her whole stream.";
-// the cover's exhibit: one decision, by judgment, and the same decision as
-// something an agent can hold
-const coverProof: CollectionEntry<"positions">["data"]["proof"] = [
-  {
-    kind: "speech",
-    label: "Dana, at Halden Supply’s returns desk",
-    lines: [
-      "“Order’s paid, customer’s waiting, it’s under what I’d sign. Refund it. Tell finance after.”",
-      "“Three years with us. I’m not charging her forty dollars over this.”",
-    ],
-  },
-  {
-    kind: "table",
-    columns: ["The next case", "The agent"],
-    rows: [
-      [
-        "Paid, waiting, under the limit, three years with Halden, and she asks for the fee back too",
-        "Refunds, waives the fee, tells finance",
-      ],
-    ],
-  },
-];
+const view = "An organization can be made explicit enough to run on its own.";
 const email = "contact@talco.dev";
-// the same first step the cycle ends on
-const oneStream = `mailto:${email}?subject=${encodeURIComponent("One stream")}`;
+const mailto = `mailto:${email}`;
+const linkedin = "https://www.linkedin.com/in/kyletobin/";
 
-const positions = (await getCollection("positions")).sort(
-  (a, b) => a.data.sheet - b.data.sheet,
-);
 const works = (await getCollection("works")).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const [book, ...software] = works;
-const no = (n: number) => String(n).padStart(2, "0");
-// the sheets after the positions, in order
-const after = positions.length + 1;
-const linkedin = "https://www.linkedin.com/in/kyletobin/";
+const [book, ...tools] = works;
 
 // What the page is, for search engines and link unfurlers.
 const ORIGIN = "https://talco.dev";
@@ -70,7 +35,7 @@ const structuredData = {
       url: `${ORIGIN}/`,
       logo: `${ORIGIN}/logo/tal-lockup.png`,
       email,
-      description: `${view} ${consequence}`,
+      description: view,
       founder: { "@id": founder },
     },
     {
@@ -97,7 +62,7 @@ const structuredData = {
 };
 ---
 
-<Base title="TAL Company" description={`TAL Company. ${view} ${consequence}`}>
+<Base title="TAL Company" description={`TAL Company. ${view}`}>
   <script
     is:inline
     slot="head"
@@ -109,135 +74,86 @@ const structuredData = {
     <a class="home" href="#cover" aria-label="TAL Company, top of page"
       ><Mark /></a
     >
-    <a class="cta" href={oneStream}>Email us</a>
+    <a class="cta" href={mailto}>Email us</a>
   </header>
 
   <Drawing id="cover" label="TAL Company" full>
     <div class="cover">
-      <div class="statement">
-        <Mark />
-        <h1>{view}</h1>
-        <div class="cover-exhibit">
-          <Proof proof={coverProof} />
-        </div>
-        <p class="consequence">{consequence}</p>
-      </div>
-      <nav class="index" aria-label="What we find in every company">
-        <CoverDrawing count={positions.length} />
-        <ol>
-          {
-            positions.map(({ data }) => (
-              <li>
-                <a href={`#position-${no(data.sheet)}`}>
-                  <span class="no">{no(data.sheet)}</span>
-                  <span class="name">{data.short}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ol>
-      </nav>
+      <Mark />
+      <h1>{view}</h1>
     </div>
   </Drawing>
 
   {
-    positions.map((position) => (
-      <Drawing
-        id={`position-${no(position.data.sheet)}`}
-        number={no(position.data.sheet)}
-        label={position.data.short}
-      >
-        <PositionSheet position={position} />
+    book && (
+      <Drawing id="book" number="01" label={book.data.title}>
+        <figure class="book">
+          <a
+            class="plate"
+            href={book.data.url}
+            rel="noopener"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <Picture
+              src={book.data.cover}
+              alt=""
+              widths={[400, 800]}
+              sizes="(max-width: 900px) 70vw, 400px"
+              formats={["avif", "webp"]}
+              loading="lazy"
+            />
+          </a>
+          <figcaption>
+            <span class="kind">{book.data.label}</span>
+            <a class="title-link" href={book.data.url} rel="noopener">
+              {book.data.title}
+              <Arrow />
+            </a>
+            <span class="by">by Kyle J. Tobin</span>
+            <span class="line">{book.data.line}</span>
+          </figcaption>
+        </figure>
       </Drawing>
-    ))
+    )
   }
 
-  <Drawing id="how-we-do-it" number={no(after)} label="How we do it">
-    <div class="method">
-      <p class="mono-label">How we do it</p>
-      <h2>One stream of work at a time.</h2>
-      <p class="lead">
-        Five stages on one drawing, with Dana’s desk as the stream.
-      </p>
-      <a class="cta" href="/method">The method, stage by stage</a>
-    </div>
-  </Drawing>
-
-  <Drawing id="work" number={no(after + 1)} label="Work">
-    <div class="work">
-      <h2 class="work-head">The book and the code.</h2>
+  <Drawing id="tools" number="02" label="The tools">
+    <div class="tools">
       {
-        book && (
-          <figure class="hero-item">
+        tools.map(({ data }) => (
+          <figure class="tool">
             <a
               class="plate"
-              href={book.data.url}
+              href={data.url}
               rel="noopener"
               tabindex="-1"
               aria-hidden="true"
             >
               <Picture
-                src={book.data.cover}
+                src={data.cover}
                 alt=""
-                widths={[320, 640]}
-                sizes="(max-width: 900px) 60vw, 320px"
+                widths={[560, 1120]}
+                sizes="(max-width: 900px) calc(100vw - 4rem), 560px"
                 formats={["avif", "webp"]}
                 loading="lazy"
               />
             </a>
             <figcaption>
-              <span class="kind">{book.data.label}</span>
-              <a class="title-link" href={book.data.url} rel="noopener">
-                {book.data.title}
+              <span class="kind">{data.label}</span>
+              <a class="title-link" href={data.url} rel="noopener">
+                {data.title}
                 <Arrow />
               </a>
-              <span class="by">by Kyle J. Tobin</span>
-              <span class="line">{book.data.line}</span>
+              <span class="line">{data.line}</span>
             </figcaption>
           </figure>
-        )
+        ))
       }
-      <div class="tools">
-        {
-          software.map(({ data }) => (
-            <figure class="tool">
-              <a
-                class="plate"
-                href={data.url}
-                rel="noopener"
-                tabindex="-1"
-                aria-hidden="true"
-              >
-                <Picture
-                  src={data.cover}
-                  alt=""
-                  widths={[480, 960]}
-                  sizes="(max-width: 900px) calc(100vw - 4rem), 480px"
-                  formats={["avif", "webp"]}
-                  loading="lazy"
-                />
-              </a>
-              <figcaption>
-                <span class="kind">{data.label}</span>
-                <a class="title-link" href={data.url} rel="noopener">
-                  {data.title}
-                  <Arrow />
-                </a>
-                <span class="line">{data.line}</span>
-                {data.code && (
-                  <div class="thing">
-                    <Proof proof={[{ kind: "code", code: data.code }]} />
-                  </div>
-                )}
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
     </div>
   </Drawing>
 
-  <Drawing id="founder" number={no(after + 2)} label="Founder">
+  <Drawing id="founder" number="03" label="Founder">
     <div class="founder">
       <div class="portrait">
         <Picture
@@ -250,14 +166,14 @@ const structuredData = {
         />
       </div>
       <div class="founder-text">
-        <p class="statement-lead">
+        <p class="statement">
           <strong>Kyle J. Tobin</strong> founded TAL to build organizations the way
           they will now have to run: whole, explicit, and executable, from the authority
           at the top to the code underneath.
         </p>
         <div class="start-actions">
-          <a class="cta" href={oneStream}>Email us</a>
-          <a class="go" href={oneStream}>{email}</a>
+          <a class="cta" href={mailto}>Email us</a>
+          <a class="go" href={mailto}>{email}</a>
         </div>
       </div>
     </div>
@@ -274,7 +190,7 @@ const structuredData = {
     // the bar's mark stands down while the cover's mark is in view. without
     // this script the bar simply always shows it.
     if ("IntersectionObserver" in window) {
-      const mark = document.querySelector("#cover .statement .mark");
+      const mark = document.querySelector("#cover .mark");
       if (mark) {
         new IntersectionObserver(
           ([e]) =>
@@ -290,98 +206,22 @@ const structuredData = {
 </Base>
 
 <style>
-  /* ---- the cover: the point of view on the left; on the right, the one
-     drawing on the site, standing on the index of positions it keys ---- */
+  /* ---- the cover: the mark and the conviction, nothing else ---- */
   .cover {
-    --mark: clamp(52px, 7vw, 88px);
+    --mark: clamp(56px, 7vw, 92px);
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1.5rem, 3vw, 3rem);
-    row-gap: 2.5rem;
-    align-items: end;
-  }
-  .statement {
-    grid-column: 1 / span 7;
-    display: grid;
-    gap: clamp(0.9rem, 2vh, 1.4rem);
-  }
-  /* the cover's exhibit: the decision by judgment, struck, and the same
-     decision as a row an agent can hold */
-  .cover-exhibit {
-    max-width: 36rem;
-  }
-  .cover-exhibit :global(.code) {
-    line-height: 1.5;
-    padding: 0.8rem 1rem;
-  }
-  .cover-exhibit :global(.proof) {
-    gap: 0.7rem;
-  }
-  .cover-exhibit :global(.speech p) {
-    font-size: 1.15rem;
-    line-height: 1.4;
-  }
-
-  .cover :global(.mark) {
-    justify-self: start;
+    gap: clamp(1.75rem, 5vh, 3rem);
+    align-content: end;
+    justify-items: start;
   }
   h1 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.4rem, 4.4vw, 4.2rem);
-    line-height: 1.02;
+    font-size: clamp(2.6rem, 5.6vw, 5rem);
+    line-height: 1.04;
     letter-spacing: -0.014em;
-    max-width: 22ch;
-    text-wrap: pretty;
-  }
-  .consequence {
-    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-    line-height: 1.42;
-    color: var(--ink-light);
-    max-width: 40rem;
-    text-wrap: pretty;
-  }
-
-  .index {
-    grid-column: 8 / span 5;
-  }
-  .index :global(.cover-drawing) {
-    margin-top: 0.5rem;
-    width: 100%;
-    max-height: 250px;
-  }
-  .index ol {
-    list-style: none;
-    border-top: 1px solid var(--line);
-  }
-  .index li {
-    border-bottom: 1px solid var(--line-faint);
-  }
-  .index a {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr;
-    align-items: baseline;
-    padding: 0.35rem 0;
-    min-height: 38px;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .index .no {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-  .index .name {
-    font-family: var(--font-display);
-    font-size: 1.12rem;
-    transition: transform 0.4s var(--ease);
-  }
-  .index a:hover .name,
-  .index a:focus-visible .name {
-    transform: translateX(4px);
-  }
-  .index a:focus-visible {
-    outline: 1.5px solid var(--ink);
-    outline-offset: 4px;
+    max-width: 17ch;
+    text-wrap: balance;
   }
 
   /* ---- the bar: the mark and the one action ---- */
@@ -405,7 +245,6 @@ const structuredData = {
     text-decoration: none;
     transition: opacity 0.4s var(--ease);
   }
-  /* while the cover's own mark is on screen, the bar does not repeat it */
   :global(.at-cover) .home {
     opacity: 0;
     pointer-events: none;
@@ -433,40 +272,7 @@ const structuredData = {
     outline: none;
   }
 
-  /* ---- the work: one composed exhibit. the book leads; the two tools
-     support it, stacked at half its weight ---- */
-  .work {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    grid-template-areas:
-      "head head"
-      "book tools";
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-    row-gap: 2.25rem;
-    align-items: start;
-  }
-  .work-head {
-    grid-area: head;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 3.6vw, 3.1rem);
-    line-height: 1.1;
-    letter-spacing: -0.008em;
-  }
-  /* the book's caption may run wider than its cover */
-  .hero-item {
-    grid-area: book;
-  }
-  .hero-item .plate {
-    width: min(100%, 320px);
-  }
-  /* the tools stack, together matching the book's height */
-  .tools {
-    grid-area: tools;
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.25rem);
-    max-width: 30rem;
-  }
+  /* ---- the works: plates set as objects, in their own colour ---- */
   .plate {
     display: block;
     line-height: 0;
@@ -475,22 +281,14 @@ const structuredData = {
     display: block;
     width: 100%;
     height: auto;
-    /* quiet on the sheet; the plates come up under the hand */
-    filter: grayscale(1) opacity(0.82);
-    transition: filter 0.4s var(--ease);
     box-shadow:
       0 0 0 1px rgba(26, 26, 26, 0.08),
       0 1px 1px rgba(26, 26, 26, 0.14),
       0 18px 32px -14px rgba(40, 30, 15, 0.34);
   }
-  .plate:hover :global(img),
-  .plate:focus-visible :global(img) {
-    filter: none;
-  }
   figcaption {
-    margin-top: 0.9rem;
     display: grid;
-    gap: 0.1rem;
+    gap: 0.2rem;
     justify-items: start;
   }
   .kind,
@@ -499,34 +297,16 @@ const structuredData = {
     font-size: 1.05rem;
     color: var(--ink-quiet);
   }
-  /* one link style for every title: the underline matches its text, and the
-     arrow stays on the title's last line */
   .title-link {
     font-family: var(--font-display);
-    font-size: 1.2rem;
-    line-height: 1.3;
+    font-size: 1.4rem;
+    line-height: 1.25;
     color: var(--ink);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-decoration-color: var(--line);
     text-underline-offset: 0.25em;
     transition: text-decoration-color 0.3s var(--ease);
-  }
-  .hero-item .title-link {
-    font-size: 1.45rem;
-  }
-  /* what it is, said once, for whoever will vet it */
-  .line {
-    margin-top: 0.3rem;
-    max-width: 30ch;
-    font-size: 1.12rem;
-    line-height: 1.45;
-    color: var(--ink-light);
-  }
-  /* the thing itself, a few lines of it */
-  .thing {
-    margin-top: 0.8rem;
-    width: 100%;
   }
   .title-link :global(svg) {
     margin-left: 0.3em;
@@ -537,28 +317,41 @@ const structuredData = {
     text-decoration-color: var(--ink);
     outline: none;
   }
-
-  /* ---- what it takes: the claim, then the cycle taught ---- */
-  .method h2 {
-    margin: 0.4rem 0 1rem;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2rem, 3.6vw, 3.1rem);
-    line-height: 1.1;
-    letter-spacing: -0.008em;
-    max-width: 24ch;
-    text-wrap: balance;
-  }
-  .method .lead {
-    margin: 0 0 1.5rem;
-    font-size: clamp(1.12rem, 1.45vw, 1.3rem);
-    line-height: 1.5;
+  .line {
+    margin-top: 0.4rem;
+    max-width: 32ch;
+    font-size: 1.18rem;
+    line-height: 1.45;
     color: var(--ink-light);
-    max-width: 44rem;
-    text-wrap: pretty;
   }
 
-  /* ---- the founder: the portrait drawn on the sheet, the statement beside it ---- */
+  /* the book leads: the cover large, its caption beside it */
+  .book {
+    display: grid;
+    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: end;
+  }
+  .book .title-link {
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+  }
+  .book .line {
+    font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+  }
+
+  /* the two tools, side by side at equal weight */
+  .tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    row-gap: 3rem;
+    align-items: start;
+  }
+  .tool figcaption {
+    margin-top: 1rem;
+  }
+
+  /* ---- the founder: the portrait, one sentence, the door ---- */
   .founder {
     display: grid;
     grid-template-columns: 280px minmax(0, 1fr);
@@ -566,8 +359,6 @@ const structuredData = {
     row-gap: 2rem;
     align-items: center;
   }
-  /* drawn on the sheet like the Scale scene: its edges dissolve into
-     the paper rather than sitting as a plate */
   .portrait :global(img) {
     display: block;
     width: 100%;
@@ -580,24 +371,16 @@ const structuredData = {
   .founder-text {
     max-width: 40rem;
   }
-  .statement-lead {
+  .statement {
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 2.7vw, 2.3rem);
     line-height: 1.22;
     letter-spacing: -0.005em;
     text-wrap: pretty;
   }
-  .statement-lead strong {
+  .statement strong {
     font-weight: 500;
   }
-  .statement-body {
-    margin-top: 1.25rem;
-    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
-    line-height: 1.55;
-    color: var(--ink-light);
-  }
-
-  /* the door sits under the founder's statement */
   .start-actions {
     margin-top: 2rem;
     display: flex;
@@ -629,31 +412,19 @@ const structuredData = {
   }
 
   @media (max-width: 900px) {
-    .statement,
-    .index {
-      grid-column: 1 / -1;
-    }
-    .work {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "head" "book" "tools";
-    }
-    .hero-item .plate {
-      width: min(60vw, 300px);
-    }
-    .tools {
-      gap: 2.25rem;
-    }
+    .book,
+    .tools,
     .founder {
       grid-template-columns: minmax(0, 1fr);
     }
+    .book {
+      row-gap: 1.5rem;
+    }
+    .book .plate {
+      width: min(70vw, 320px);
+    }
     .portrait {
       width: min(60vw, 280px);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .index .name {
-      transition: none;
     }
   }
 </style>
