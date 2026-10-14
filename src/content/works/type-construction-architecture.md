@@ -8,12 +8,12 @@ url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png
 year: 2026
-order: 3
+order: 2
 ---
 
 Policy says one thing, the people doing the work know another, and the software does a third. The software wins, because it is what customers get. Only an engineer can say what it does today, and anything it was never built for is decided by a default nobody chose.
 
-Type Construction Architecture closes that distance. Each rule is written in the words of the person who owns it, and what is written is what runs. The owner can read the rule where it is enforced, the engineer stops being the only translator, and there is no second copy to fall out of date.
+Type Construction Architecture closes that distance. Each rule, including the ones the book finds in people, is written in the words of the person who owns it, and what is written is what runs. The owner can read the rule where it is enforced, the engineer stops being the only translator, and there is no second copy to fall out of date.
 
 Whole kinds of bug then stop appearing, because the software has no way to express a state the business never allowed. A case nobody has decided reaches its owner as undecided, instead of being settled by a default.
 
