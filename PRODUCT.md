@@ -3,81 +3,107 @@
 This file is the record the page is built from. The page is checked against
 it, never the other way round.
 
+## The telos
+
+A serious, skeptical reader leaves believing that an organization can now be
+made to run on its own, because the work on the page proves it, and wants
+more: to read the book, build with the tools, or write to TAL.
+
 ## What TAL is
 
 TAL builds organizations the way they will now have to run: whole, explicit,
 and executable, from the authority at the top to the code underneath. TAL
-consults and builds products; the products are the problems met in every
-organization, solved once and given away.
+consults and builds products.
 
-## The conviction
+## The idea, held whole
 
-An organization can now be made to run on its own. Work runs on judgment no
-rule ever caught; that judgment is knowledge the organization already has;
-it can be made explicit; and an AI agent can act on it across a whole stream
-of work, safely, because the world it acts in is built so the wrong outcome
-cannot exist.
+Work moves through an organization as cases. People keep it moving with
+judgment that was never a rule and never could be: every rule written for a
+judgment needs one more clause. That judgment is knowledge the organization
+has, held by the people who do the work, and it can be made explicit.
+
+Rules could always run on software. What is new is that an AI agent can
+exercise judgment, so a whole stream of work can run with no person in it,
+exceptions included. It is safe because the agent acts in a world built from
+types, the organization's kinds and facts that exist only once proven, in
+which the wrong outcome has no type to be: what an agent cannot build, it
+cannot decide. Inside that world the agent has real autonomy.
+
+People work before and after, never during. Before, the people who do the
+work are the authority on what the knowledge is. After, managers change what
+can exist instead of touching cases.
+
+The idea is all of these at once. It is never reduced to one of them, and
+never to any of:
+
+- documenting the process, or writing the rules down as documents;
+- workflow automation, or a rule engine;
+- an approval matrix, a threshold that escalates, or a human in the loop;
+- replacing people with a bot. The subject is the knowledge, never
+  converting people into AI.
 
 ## The page
 
-The page exists to change a serious, skeptical reader: they leave believing
-an organization can now be made to run on its own, because the work in front
-of them proves it, and they read the book, build with the tools, or write.
-
 The site is an imprint, not a firm. It states one thesis and proves it with
-one idea seen at three levels: the judgment an organization runs on is
-knowledge; it can be written as rules that are what runs; the organization's
-own definitions can be written the same way and given one home. The book,
-TCA and ONTOK each carry one level, in that order: people, code, the
-organization itself. ONTOK is built with TCA, so the last sheet applies the
-second to the whole organization, and every sheet is written from that line, never
-as a product solving its own problem. The page is built the way it says an
-organization can be: each idea has one place, nothing is said twice.
+one idea seen at three levels, in this order:
 
-1. **Title page.** The imprint small; the thesis as the largest type; the
-   contents as three symptoms of one condition, at three levels: "Your
-   organization runs on judgment nobody wrote down." "Your rules run
-   in code their owners can't read." "Every system you run has its own idea
-   of your business." Hook, map and argument
-   at once.
-2. **01, the book: people.** Every organization runs twice; the difference
-   is judgment, which people supply and an agent is never given. That
-   judgment is knowledge and can be found: the five-question test the reader
-   can run on one case. The book is the method for finding all of it.
-3. **02, TCA: code.** Policy, people and software each hold a version and
-   the software wins; only an engineer can read it; the unanticipated is
-   decided by a default nobody chose. TCA writes each rule, including the
-   ones the book finds, in its owner's words, and that writing runs: the
-   owner reads it, the engineer stops being the only translator, nothing
-   drifts. Whole kinds of bug cannot be expressed; the undecided reaches its
-   owner. Agents made this way of building cheap, and it makes them safe to
-   trust: meaning, limits, and work checkable without reading every line.
-4. **03, ONTOK: the organization itself.** Each system rebuilt its own piece
-   of what the organization is because there was nowhere else to keep it.
-   ONTOK is that place, built with TCA: written once, as the organization
-   means it, as running code every system and agent works from, owned by
-   the organization, never a vendor. Its definitions behave like rules:
-   readable by their owners, unable to hold what was never proven. What the
-   book finds in people becomes something every system can hold.
-5. **Together.** "Then a whole stream of work can run with no one in it,"
-   and one sentence under it: a whole stream runs with
-   no one in it; agents do what the knowledge covers, the software shows
-   where it ends, people work before and after, deciding what the
-   organization should be.
-6. **Author.** Portrait, one sentence on what he works on, and
-   correspondence: the address, plain, never a button.
+1. **People: The Automated Organization.** The judgment an organization runs
+   on is knowledge, and it can be found.
+2. **Code: Type Construction Architecture.** Rules can be written in their
+   owners' words so that what is read is what runs.
+3. **The organization itself: ONTOK.** Built with TCA, it writes what the
+   organization is once, as running code every system and agent works from.
 
-Each sheet carries its work's real image and its entry: kind, status and
-year, the title as the link, and one short next step.
+A closing sheet gives the thesis as their consequence, and the author follows
+with correspondence. Every sheet is written from that line, never as a
+product solving its own problem. The page is built the way it says an
+organization can be: each idea has one place, and nothing is said twice.
 
-No method, no cycle, no drawn explainers, no code, no call-to-action button.
+Each sheet's job:
+
+- **Title page.** The thesis, and contents that are three symptoms of one
+  condition at the three levels: hook, map and argument at once.
+- **Each work.** Open on the situation every reader already lives with, in
+  their own nouns. The work answers it whole, in its own terms but in the
+  reader's words, and hands the reader to the next level. Its entry gives
+  one plain next step.
+- **Together.** The thesis as consequence: a whole stream runs with no one
+  in it, and people decide what the organization should be.
+- **Author.** One sentence on what he works on, and correspondence.
+
+The copy itself lives in `src/content/works/` and `src/pages/index.astro`,
+never restated here.
+
+### The readers
+
+Leaders, product managers and engineers each meet the page from their own
+seat. Each finds their own situation without being addressed by name; there
+is no paragraph per role. One reader's realization is another's starting
+point: the engineer ends where the product manager begins, with rules anyone
+can read, and the product manager ends where the engineer begins, with
+failures that cannot exist. Open on the fact they share, build to the turn
+almost nobody believes possible, and close on the thesis as its consequence.
 
 ### Where the proof is still owed
 
 - No public piece yet shows a real stream of an organization's work run end
-  to end by an agent on ONTOK kinds and TCA types, exceptions included. TCA
-  shows the wrong outcome cannot exist in a program, not yet in a stream. A published reference stream is what would carry the thesis whole.
-- The book's chapters that join it to ONTOK and TCA are not written yet.
+  to end by an agent on ONTOK and TCA, exceptions included. A published
+  reference stream is what would carry the thesis whole.
+- The book's chapters that join it to TCA and ONTOK are not written yet.
+
+## Messaging rules
+
+- Show, never narrate. No captions, keys or labels that explain what a work
+  already shows.
+- No example or demo stands in for the argument. Value is reasoned from
+  what each work is and what the reader already knows to be true.
+- No code on the page.
+- No lines pasted from the repos, the book, or its storefront. Every line is
+  written for this page and this reader.
+- No product pitch and no call-to-action button. Email links say they are
+  email.
+- A line earns its place by what it does to the reader, never by where it
+  came from.
 
 ## Voice
 
@@ -103,5 +129,6 @@ role at a company:
 
 - An instruction is a delta on this record, never a replacement for it.
 - The answers come from reasoning and deciding here, not from other sources.
-- Evolve the existing design; never wipe and restart.
-- Copy is verified like layout: read whole, as a stranger would.
+- Copy is rewritten whole from the through-line, never patched note by note.
+- Copy is verified like layout: measured, then read whole, as a stranger
+  would.

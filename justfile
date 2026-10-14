@@ -1,4 +1,4 @@
-# Tobin at Large — task runner.
+# TAL Company site — task runner.
 # Workflow: build on `preview` (→ Vercel preview deploys), promote to `main`
 # (→ production). `just save` ships your work to preview; `just ship` promotes.
 
@@ -34,6 +34,10 @@ check:
     pnpm format:check
     pnpm lint
     pnpm build
+
+# measure the built page against the copy budgets in DESIGN.md
+measure: build
+    node scripts/measure.mjs
 
 # commit all changes on the current branch and push (use on `preview`)
 save MSG:

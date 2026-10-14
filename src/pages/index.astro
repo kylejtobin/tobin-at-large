@@ -1,9 +1,4 @@
 ---
-// TAL Company, set as an imprint rather than a firm. One thesis, and the
-// works under TAL's name that together make it true, each presented whole:
-// how an organization actually runs, the software whose rules are what runs,
-// and the organization itself written in that software. The title page with the thesis and its contents, one sheet per work,
-// and the author. Contact is correspondence, never a button.
 import { getCollection, render } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
@@ -29,68 +24,18 @@ const sheets = await Promise.all(
     Evidence: (await render(work)).Content,
   })),
 );
-
-// What the page is, for search engines and link unfurlers.
-const ORIGIN = "https://talco.dev";
-const org = `${ORIGIN}/#org`;
-const author = `${ORIGIN}/#author`;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": org,
-      name: "TAL Company",
-      url: `${ORIGIN}/`,
-      logo: `${ORIGIN}/logo/tal-lockup.png`,
-      email,
-      description: thesis,
-      founder: { "@id": author },
-    },
-    {
-      "@type": "Person",
-      "@id": author,
-      name: "Kyle J. Tobin",
-      image: `${ORIGIN}/logo/founder.png`,
-      worksFor: { "@id": org },
-      sameAs: [linkedin, "https://github.com/kylejtobin"],
-    },
-    ...works.map(({ data }) => ({
-      "@type": data.kind === "book" ? "Book" : "SoftwareSourceCode",
-      name: data.title,
-      author: { "@id": author },
-      publisher: { "@id": org },
-      datePublished: String(data.year),
-      url: data.url,
-      ...(data.kind === "software" && {
-        codeRepository: data.url,
-        programmingLanguage: "Python",
-      }),
-    })),
-  ],
-};
 ---
 
 <Base
   title="TAL Company"
   description={`${thesis} The Automated Organization, ONTOK and Type Construction Architecture, by Kyle J. Tobin.`}
 >
-  <script
-    is:inline
-    slot="head"
-    type="application/ld+json"
-    set:html={JSON.stringify(structuredData)}
-  />
-
-  <!-- the bar: the imprint, and nothing to buy -->
   <header class="bar">
     <a class="home" href="#cover" aria-label="TAL Company, top of page"
       ><Mark /></a
     >
   </header>
 
-  <!-- the title page: the thesis, and the works that make it true, from
-       the organization down to the code -->
   <Drawing id="cover" label="TAL Company" full>
     <div class="cover">
       <div class="colophon"><Mark /></div>
@@ -111,8 +56,6 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <!-- one sheet per work: what it holds, the work itself, the evidence a
-       reader meets in it, and its entry -->
   {
     sheets.map(({ data, number, Evidence }) => (
       <Drawing id={anchor(data.title)} number={number} label={data.title}>
@@ -164,8 +107,6 @@ const structuredData = {
     ))
   }
 
-  <!-- the whole: the three works taken together, and the thesis they make
-       true -->
   <Drawing id="whole" label="Together">
     <div class="whole">
       <h2>Then a whole stream of work can run with no one in it.</h2>
@@ -177,7 +118,6 @@ const structuredData = {
     </div>
   </Drawing>
 
-  <!-- the author, and correspondence -->
   <Drawing id="author" label="Author">
     <div class="author">
       <div class="portrait">
@@ -235,7 +175,6 @@ const structuredData = {
     --reading: clamp(1.14rem, 1.3vw, 1.24rem);
   }
 
-  /* ---- the title page: the imprint small, the thesis, the contents ---- */
   .cover {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -257,7 +196,6 @@ const structuredData = {
     max-width: 16ch;
     text-wrap: balance;
   }
-  /* the contents: what each work holds, and the work */
   .contents {
     grid-column: 1 / span 10;
     list-style: none;
@@ -305,7 +243,6 @@ const structuredData = {
     outline-offset: 4px;
   }
 
-  /* ---- the bar: the imprint only ---- */
   .bar {
     position: sticky;
     top: 0;
@@ -330,7 +267,6 @@ const structuredData = {
     pointer-events: none;
   }
 
-  /* ---- the works: plates printed on the page's paper ---- */
   .plate {
     display: block;
     line-height: 0;
@@ -346,7 +282,6 @@ const structuredData = {
     height: auto;
     mix-blend-mode: multiply;
   }
-  /* ---- a work: what it holds, the plate, the evidence, the entry ---- */
   .sheet {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -368,7 +303,6 @@ const structuredData = {
     max-width: 24ch;
     text-wrap: balance;
   }
-  /* the work and its entry stay in view while its evidence is read */
   .exhibit {
     grid-area: x;
     position: sticky;
@@ -418,14 +352,10 @@ const structuredData = {
     color: var(--ink-light);
   }
 
-  /* the evidence: what a reader meets in the work, in its own words */
   .reading {
     grid-area: r;
     max-width: 36rem;
   }
-  /* four type roles carry the page: display for headlines only, turn for
-     the one sentence each sheet exists for, reading for what supports it,
-     label for metadata. the turn is the first paragraph of the evidence */
   .reading :global(p),
   .reading :global(li) {
     font-size: var(--reading);
@@ -448,31 +378,10 @@ const structuredData = {
   .reading > :global(p:first-child + *) {
     margin-top: 1.5rem;
   }
-  .reading > :global(.source) {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-quiet);
-  }
-  .reading > :global(.source + blockquote) {
-    margin-top: 0.7rem;
-  }
-  .reading :global(blockquote) {
-    border-left: 1px solid var(--line);
-    padding-left: 1.25rem;
-  }
-  .reading :global(blockquote p) {
-    color: var(--ink);
-    font-size: clamp(1.45rem, 2vw, 1.75rem);
-    line-height: 1.34;
-  }
-  /* a list follows its sentence closely, and the next sentence follows it */
   .reading > :global(p + ol) {
     margin-top: 0.75rem;
   }
-  .reading :global(ol),
-  .reading :global(ul) {
+  .reading :global(ol) {
     list-style: none;
     border-top: 1px solid var(--line-faint);
     counter-reset: q;
@@ -483,7 +392,6 @@ const structuredData = {
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
   }
-  /* the book's questions, numbered */
   .reading :global(ol li) {
     counter-increment: q;
   }
@@ -501,7 +409,6 @@ const structuredData = {
     color: var(--ink-quiet);
   }
 
-  /* ---- the whole: one passage, the thesis as consequence ---- */
   .whole {
     display: grid;
     row-gap: 1.5rem;
@@ -513,7 +420,6 @@ const structuredData = {
     max-width: 38rem;
   }
 
-  /* ---- the author: portrait, one sentence, correspondence ---- */
   .author {
     display: grid;
     grid-template-columns: 220px minmax(0, 1fr);

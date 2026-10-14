@@ -1,11 +1,10 @@
 ---
 kind: software
-label: Open-source architecture
+label: Architecture
 title: Type Construction Architecture
 claim: "Your rules run in code their owners can’t read."
 line: "Its skills load into your coding agent."
 url: https://github.com/kylejtobin/tca
-linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png
 year: 2026
 order: 2

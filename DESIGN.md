@@ -10,29 +10,28 @@ to rewrite to fit what was built.
 
 ## Structure
 
-The page is set as an imprint: a title page, one sheet per work, an author.
+The page is set as an imprint: a title page, one sheet per work, a closing
+sheet, an author.
 
 - **Bar** (sticky): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
-- **Title page** (full screen): the mark small, as a colophon; the thesis as
-  the largest type on the site; under it the contents: a mono number, the
-  situation the work opens on in the reading face, the work's title in italic, a hairline
+- **Title page** (full screen): the mark small, as a colophon; the thesis in
+  display; under it the contents, each entry a mono number, the sheet's
+  headline in reading, and the work's title in quiet italic, a hairline
   under each, linking to the sheet.
-- **01 to 03, the works**: the situation the work opens on as the sheet's
-  headline in the display face; on the left the work's real image as a plate with its
-  entry under it (kind, status and year in mono, title as link), held in
-  view while the evidence on the right, in the reading face, is read. A
-  quotation from the work hangs on a hairline; a list sits between
-  hairlines, numbered in mono where the work numbers it, struck in red where
-  it lists what cannot happen. The book's tall cover takes a narrower
-  column. Under 900px everything stacks: headline, plate and entry,
-  evidence.
-- **Together**: one unnumbered sheet: a two-line headline, the thesis as
-  consequence, and one sentence in the turn role under it. No image.
-- **Author**: the portrait drawn on the sheet, one sentence in the reading
-  face with the name in the display face, and correspondence: a mono label
-  and the address as a plain link.
-- **Footer**: copyright and profile links, small.
+- **01 to 03, the works**: the headline in display; on the left the work's
+  real image as a plate with its entry under it (kind, status and year as a
+  label, the title as a link, one next-step line), held in view while the
+  evidence on the right is read: the turn, then reading. A list sits
+  between hairlines, numbered in mono. The book's tall cover takes a
+  narrower column. Under 900px everything stacks: headline, plate and
+  entry, evidence.
+- **Together**: one unnumbered sheet: a two-line headline in display and one
+  sentence in the turn role. No image.
+- **Author**: the portrait drawn on the sheet, one sentence in the turn role
+  with the name in display, and correspondence: a label and the address as
+  a plain link.
+- **Footer**: copyright and profile links, as labels.
 
 ## Principles
 
@@ -43,8 +42,9 @@ The page is set as an imprint: a title page, one sheet per work, an author.
    Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
-4. **Evolve, never restart.** Improve what exists. Rebuilding from scratch has
-   always thrown away the parts that worked.
+4. **Evolve the design, never restart it.** Improve what exists. Rebuilding
+   the design from scratch has always thrown away the parts that worked.
+   Copy is the exception: it is rewritten whole, never patched.
 5. **Nothing decorative.** Every line, mark, and image means something or it
    goes.
 
@@ -67,8 +67,6 @@ The page is set as an imprint: a title page, one sheet per work, an author.
 | `--ink-light`            | `#3a3a3a`        | reading text                                                |
 | `--ink-quiet`            | `#625c53`        | labels, metadata (≥ 4.5:1 even at the paper's darkest edge) |
 | `--line`, `--line-faint` | ink at 32% / 14% | rules and frames only, never text                           |
-| `--signal`               | `#c8452c`        | the plates' red, for lines and marks                        |
-| `--signal-text`          | `#a8371f`        | red as text (≥ 4.5:1)                                       |
 
 **Paper texture:** a lit relief tile (`public/paper.webp`, built by
 `brand/build.py`) laid over everything with `overlay`, so ink and plates take
@@ -103,8 +101,12 @@ Copy is written to a budget set by the layout, never poured into it:
   that breaks its budget is rewritten, not the layout.
 - A list is one grammar: here, questions, capitalized, each with its mark.
 
-Every change is measured on the rendered page at all three widths (line
-counts, short last lines, column heights, overflow) and then looked at.
+Every change is measured with `just measure`, which renders the built page
+at all three widths and fails on any broken budget, short last line,
+evidence taller than its plate, or horizontal overflow. Then it is looked at
+in screenshots at each width, and the whole page is read top to bottom at
+reading pace, as a stranger would. `just check` before every push; push
+only on green.
 
 ## Images
 
@@ -119,8 +121,7 @@ counts, short last lines, column heights, overflow) and then looked at.
   2×.
 - Each work's plate sits on its own sheet beside the evidence it holds.
 - The founder portrait is drawn in pencil on the site's paper and dissolves
-  into the sheet at its edges; it is the style reference in
-  `brand/illustrations/`.
+  into the sheet at its edges.
 - No invented illustrations. A drawing appears only where it carries something
   words cannot.
 
@@ -157,11 +158,3 @@ counts, short last lines, column heights, overflow) and then looked at.
 - The works' plates in grey at rest: they read as washed-out copies.
 - A boxed "Email us" button in the bar and under the founder: it made the
   page a firm. Contact is correspondence.
-
-## Verification
-
-Every change is checked by eye, not just by build: screenshots at desktop
-(1440×900) and phone (390×844), zero horizontal overflow, contrast measured on
-the darkest paper. Then the whole page is read top to bottom at reading pace, as a
-stranger would, and what held and what moved is reported. `just check` before
-every push; push only on green.

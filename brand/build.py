@@ -1,9 +1,7 @@
-"""Build the TAL & Co. brand assets: SVG sources and PNG renders.
+"""Build the TAL Company brand assets: SVG sources and PNG renders.
 
 Text is set with HarfBuzz and written as outlines, so every SVG renders the same
-anywhere — no font install, no fallback serif. Geometry is measured off the
-Tobin at Large originals in `public/`, so the new files drop in at the same
-sizes with the same composition.
+anywhere, with no font install and no fallback serif.
 
     uv run --no-project --with fonttools --with uharfbuzz python build.py
 
@@ -30,7 +28,6 @@ PNG_DIR = HERE / "png"
 
 INK = "#1a1a1a"
 INK_LIGHT = "#3a3a3a"
-INK_FAINT = "#8a8378"
 
 # The brand is TAL. "Company" is only there so the name is more than three
 # letters, so it is always set as a descriptor: smaller, lighter and wider
@@ -202,13 +199,6 @@ def paper(w: int, h: int) -> str:
   <rect width="{w}" height="{h}" filter="url(#grain)" opacity="0.045" style="mix-blend-mode:multiply"/>"""
 
 
-def rule(cx: float, y: float, width: float, weight: float, color: str = INK) -> str:
-    return (
-        f'<rect x="{cx - width / 2:.2f}" y="{y - weight / 2:.2f}" '
-        f'width="{width:.2f}" height="{weight:.2f}" fill="{color}"/>'
-    )
-
-
 def monogram(cx: float, box_top: float, cap: float, stroke: float) -> tuple[str, float]:
     """The mark: TAL, with COMPANY beneath it, inside one hairline frame.
 
@@ -260,14 +250,9 @@ def lockup() -> tuple[int, int, str]:
 
 def og() -> tuple[int, int, str]:
     w, h = 1200, 628
-    # the practice's card: the mark and what the practice is, centred as a block
-    mark, bottom = monogram(600, 160, 95, 1.5)
-    body = [
-        mark,
-        rule(600, bottom + 60, 152, 1, INK_FAINT),
-        set_text(CORMORANT_ITALIC, TAGLINE, 24, cx=600, baseline=bottom + 112, fill=INK_LIGHT),
-    ]
-    return w, h, document(w, h, NAME, body)
+    cap = 95
+    mark, _ = monogram(600, (h - 2.007 * cap) / 2, cap, 1.5)
+    return w, h, document(w, h, NAME, [mark])
 
 
 # The banners have no box, so TAL itself carries the name, with COMPANY small

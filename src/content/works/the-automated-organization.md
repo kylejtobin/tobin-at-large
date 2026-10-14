@@ -6,7 +6,6 @@ title: The Automated Organization
 claim: "Your organization runs on judgment nobody wrote down."
 line: "Written in public, a chapter at a time."
 url: https://leanpub.com/the-automated-organization
-linkLabel: Read the book
 cover: ./the-automated-organization.png
 year: 2026
 order: 1

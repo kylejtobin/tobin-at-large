@@ -1,11 +1,10 @@
 ---
 kind: software
-label: Open-source language
+label: Language
 title: ONTOK
 claim: "Every system you run has its own idea of your business."
 line: "In early release."
 url: https://github.com/kylejtobin/ontok
-linkLabel: ONTOK on GitHub
 cover: ./ontok.png
 year: 2026
 order: 3
