@@ -57,14 +57,17 @@ thesis.
    way it can end; no second copy, so nothing drifts. A state the business
    never allowed cannot exist; what is undecided arrives by name. Agents
    remove the cost that kept this design rare and depend on it most. The
-   close returns to the thesis: agents do what the written knowledge covers,
-   the software shows where it ends, people decide what the business is.
+   close is the thesis as consequence: a whole stream runs with no one in
+   it; agents do what the written rules cover, the software shows where
+   they end, people work on the rules, never on the cases.
    No example stands in for the argument; no role is addressed by name.
 5. **Author.** Portrait, one sentence on what he works on, and
    correspondence: the address, plain, never a button.
 
-Each sheet carries its work's real image and its entry: kind, status and
-year, the title as the link. What the work holds and its evidence live in
+Each answer returns to the nouns of the situation it opened with, never the
+work's own vocabulary. Each sheet carries its work's real image and its
+entry: kind, status and year, the title as the link, and the reader's next
+step: what can be read today, or what can be installed this week. What the work holds and its evidence live in
 the work's content file.
 
 No method, no cycle, no drawn explainers, no code, no call-to-action button.

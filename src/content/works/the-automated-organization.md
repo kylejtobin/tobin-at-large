@@ -4,7 +4,7 @@ label: Book
 status: in progress
 title: The Automated Organization
 claim: "Your AI pilot worked in the demo. Then it met the organization."
-line: "Published on Leanpub as it is written."
+line: "Written in public: each chapter goes to readers as it is finished."
 url: https://leanpub.com/the-automated-organization
 linkLabel: Read the book
 cover: ./the-automated-organization.png
@@ -16,7 +16,7 @@ What stopped it was everything the documents never said: which approval permits 
 
 The book is the method for fixing the organization first. Find the organization that actually runs, settle who has the authority to change it, and govern only what binds. Each playbook chapter ends with something running.
 
-It starts with a test you can run on one case. Trace it from trigger to outcome, and ask whether the documents say
+It starts with a test you can run on one case this week. Trace it from trigger to outcome, and ask whether the documents say
 
 1. who determined the result,
 2. what information mattered,
