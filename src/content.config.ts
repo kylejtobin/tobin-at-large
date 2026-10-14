@@ -14,6 +14,8 @@ const works = defineCollection({
       title: z.string(),
       // what it is, in one line, for the reader who will vet it
       line: z.string(),
+      // the year it was published
+      year: z.number().int(),
       // the thing itself, where a few lines of it show more than the line
       code: z.string().optional(),
       url: z.string().url(),

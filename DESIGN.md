@@ -10,16 +10,21 @@ to rewrite to fit what was built.
 
 ## Structure
 
-- **Bar** (sticky): the mark and one action, _Email us_, a mailto labelled
-  as one. The bar's mark stands down while the cover's mark is on screen.
-- **Cover** (full screen): the mark and the conviction as the largest type
-  on the site. Nothing else.
-- **01, the book**: its own cover as a plate, large, with its caption beside
-  it: label, title, author, one line, the link.
-- **02, the tools**: ONTOK and TCA side by side at equal weight, each repo's
-  own hero image as a plate, its caption under it.
-- **03, founder**: the portrait drawn on the sheet, the declaration, the
-  door.
+The page is set as an imprint: a title page, entries, an author.
+
+- **Bar** (sticky): the imprint only, small. Nothing to click but home. It
+  stands down while the title page's imprint is on screen.
+- **Title page** (full screen): the mark small, as a colophon; the thesis as
+  the largest type on the site; under it the contents, set like a journal's:
+  each work's title in the reading face, its kind and year in italic, a
+  hairline under each, linking to the entry.
+- **01, the book**: its own cover as a plate, large, with its entry beside
+  it: kind and year in mono, title, author, one line, the link.
+- **02, open source**: ONTOK and TCA side by side at equal weight, each
+  repo's own hero image as a plate, its entry under it.
+- **03, author**: the portrait drawn on the sheet, one sentence in the
+  reading face with the name in the display face, and correspondence: a mono
+  label and the address as a plain link.
 - **Footer**: copyright and profile links, small.
 
 ## Principles
@@ -27,7 +32,7 @@ to rewrite to fit what was built.
 1. **Compose, don't fill.** A sheet is as tall as its composition needs. Only
    the cover holds the full first screen. Space is rhythm, never leftover.
 2. **One focal point per sheet.** The conviction on the cover, the book on its
-   sheet, the pair of tools on theirs, the declaration on the founder's.
+   sheet, the pair of tools on theirs, the sentence on the author's.
    Everything else steps back in scale and tone.
 3. **Each element has one job.** Say a thing once, in the one place it belongs.
    No captions that explain what a proof already shows.
@@ -72,9 +77,12 @@ the tooth too. Warm drafting stock, never parchment mottling.
 ## Images
 
 - The works' images are their real ones: the book's published cover and
-  each repo's README hero, in their own colour. Never washed, filtered or
-  redrawn. They sit as objects: a contact edge and a soft fall of light
-  (`box-shadow`), served as AVIF/WebP at 2×.
+  each repo's README hero, in their own colour, never washed or redrawn.
+  They are printed on the page's paper (`mix-blend-mode: multiply`): their
+  own cool, near-white ground gives way to the warm paper, which otherwise
+  makes them read pale, and their ink keeps full strength. They sit as
+  objects: a contact edge and a soft fall of light, served as AVIF/WebP at
+  2×.
 - The tall book cover leads on its own sheet; the two wide tool plates sit
   side by side on the next.
 - The founder portrait is drawn in pencil on the site's paper and dissolves
@@ -95,6 +103,8 @@ the tooth too. Warm drafting stock, never parchment mottling.
   its own page, an interactive outcome-space drawing. It competed with the
   book and was removed whole.
 - The works' plates in grey at rest: they read as washed-out copies.
+- A boxed "Email us" button in the bar and under the founder: it made the
+  page a firm. Contact is correspondence.
 
 ## Verification
 

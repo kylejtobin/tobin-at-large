@@ -19,22 +19,28 @@ because the world it acts in is built so the wrong outcome cannot exist.
 
 ## The page
 
-One page that presents the work and does not re-teach it. The book is the
-argument at length; ONTOK and TCA are the argument built. A visitor who
-wants the argument reads the book, one who wants to build reads the code,
-and one who wants it done in their organization writes.
+The site is an imprint, not a firm: it leads with a thesis and the works
+that argue it, published under TAL's name, with their author. It presents
+the work and does not re-teach it. The book is the argument at length; ONTOK
+and TCA are the argument built. A visitor who wants the argument reads the
+book, one who wants to build reads the code, and one who wants it done in
+their organization writes.
 
-1. **Cover.** The mark and the conviction in one sentence. Nothing else.
-2. **The book.** It leads, large: its own cover, title, author, one line
-   saying what it argues, the link.
-3. **The tools.** ONTOK and TCA side by side at equal weight: each repo's own
-   hero image, name, one line saying what it is, the link.
-4. **Founder.** Portrait, the declaration, the email.
+1. **Title page.** The imprint small, as a colophon; the thesis as the
+   largest type; under it the contents, each work's title with its kind and
+   year, linking to its entry.
+2. **The book.** It leads, large: its own cover, kind and year, title,
+   author, one line saying what it argues, the link.
+3. **Open source.** ONTOK and TCA side by side at equal weight: each repo's
+   own hero image, kind and year, name, one line, the link.
+4. **Author.** Portrait, one sentence on what he works on, and
+   correspondence: the address, plain, never a button.
 
-No method, no cycle, no positions, no explainer drawings, no code. They were
-tried at length and removed: the site was competing with the book and
-losing. If a thing on the page could be lost without the page getting
-poorer, it goes.
+New work (an essay, a release) is added as another entry in the contents.
+
+No method, no cycle, no positions, no explainer drawings, no code, no
+call-to-action button. They were tried and removed: the site was competing
+with the book, and the button made it a firm.
 
 ### The works' lines
 
@@ -51,16 +57,19 @@ Each line says what the thing is. None re-argues the page.
 - "We" and "our": TAL speaks as a company.
 - Never describe TAL or the founder with adjectives about quality, rarity,
   or expertise. Never the founder's résumé.
-- No selling. The door is an email address, labelled as one, in the bar and
-  under the founder.
+- No selling. Contact is correspondence: the address, plain, under the
+  author. Nothing on the page asks.
 - The remove-claudeish skill (`.agents/skills/remove-claudeish/SKILL.md`)
   is run on every copy change.
 
-## The founder
+## The author
 
-> **Kyle J. Tobin** founded TAL to build organizations the way they will now
-> have to run: whole, explicit, and executable, from the authority at the top
-> to the code underneath.
+The author is identified by what he works on, in his own words, not by his
+role at a company:
+
+> **Kyle J. Tobin** works on how organizations will now have to run: whole,
+> explicit, and executable, from the authority at the top to the code
+> underneath.
 
 ## Working rules
 

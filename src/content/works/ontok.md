@@ -6,5 +6,6 @@ line: "An organization’s kinds and facts, written as types."
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
+year: 2026
 order: 2
 ---
