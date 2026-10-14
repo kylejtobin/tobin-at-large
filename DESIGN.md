@@ -27,8 +27,8 @@ The page is set as an imprint: a title page, one sheet per work, an author.
   it lists what cannot happen. The book's tall cover takes a narrower
   column. Under 900px everything stacks: headline, plate and entry,
   evidence.
-- **Together**: one unnumbered sheet, a single passage in the display face
-  at reading size, no image: the three works taken together as the thesis.
+- **Together**: one unnumbered sheet: a two-line headline, the thesis as
+  consequence, and one sentence in the turn role under it. No image.
 - **Author**: the portrait drawn on the sheet, one sentence in the reading
   face with the name in the display face, and correspondence: a mono label
   and the address as a plain link.
@@ -76,10 +76,35 @@ the tooth too. Warm drafting stock, never parchment mottling.
 
 ## Type
 
-- **Playfair Display**: claims. Headlines, positions, titles. Balanced wrap.
-- **Cormorant Garamond**: reading. Supporting lines, descriptors in italic.
-- **IBM Plex Mono**: small metadata only. Sheet numbers, table headers, the
-  CTA, the footer. Overused, it turns the page into a dev tool.
+Four roles carry every word on the page, and no other style exists:
+
+- **Display** (Playfair Display): the thesis and the sheets' headlines,
+  never a paragraph. Headlines run two lines at desktop and are written to
+  about the same length, so the sheets share a rhythm.
+- **Turn** (Cormorant Garamond 500, `--turn`, full ink): the one sentence
+  each sheet exists for, set as the first paragraph of its evidence, where
+  the eye lands after the headline. The closing passage and the author's
+  sentence use it too.
+- **Reading** (Cormorant Garamond 500, `--reading`, ink-light): what
+  supports the turn, in short paragraphs. Lists take it in full ink.
+- **Label** (IBM Plex Mono): sheet numbers, kind and year, correspondence,
+  the footer. Overused, it turns the page into a dev tool.
+
+## Copy is designed
+
+Text is the page's main material; its amount and shape are composition.
+Copy is written to a budget set by the layout, never poured into it:
+
+- Each sheet holds about one desktop screen, and its evidence runs no
+  taller than the plate and entry beside it.
+- Contents entries, title links and entry lines take one line each at
+  desktop; entry lines one line on a phone too.
+- No paragraph ends on a short last line at 1440, 1280 or 390; a sentence
+  that breaks its budget is rewritten, not the layout.
+- A list is one grammar: here, questions, capitalized, each with its mark.
+
+Every change is measured on the rendered page at all three widths (line
+counts, short last lines, column heights, overflow) and then looked at.
 
 ## Images
 
@@ -122,6 +147,9 @@ the tooth too. Warm drafting stock, never parchment mottling.
 - Copy patched note by note: each fix added a sentence, lines repeated,
   sources pasted back in. The page grew and got worse. Copy is rewritten
   whole from the through-line, never patched.
+- Copy written without its shape: grey walls of equal paragraphs, the key
+  sentence buried, a paragraph set in the display face, columns that left
+  unplanned empty space, wraps that stranded one word.
 - Three products for three problems: each sheet a fix for its own pain,
   the one idea felt only in the last line.
 - Each work introduced in its own abstract terms. Accurate and whole, but it

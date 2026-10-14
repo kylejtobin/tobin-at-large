@@ -12,14 +12,14 @@ year: 2026
 order: 1
 ---
 
-Every organization runs twice: as its documents describe it, and as it actually works. The difference is judgment. Who really decides, which exception gets an answer, which two records are the same customer: your people supply it without being asked. An agent is handed the documents, so it runs the first version.
+Every organization runs twice: as its documents describe it, and as it actually works. An agent is handed the documents.
 
-That judgment is knowledge, and it can be found. Take one case that mattered, trace it from what started it to how it ended, and ask whether the documents say
+That difference is judgment your people supply unasked, and it can be found. Trace one case that mattered and ask the documents:
 
-1. who determined the result,
-2. what information mattered,
-3. what condition triggered the decision,
-4. what authority governed it,
-5. what consequence followed.
+1. Who determined the result?
+2. What information mattered?
+3. What condition triggered the decision?
+4. What authority governed it?
+5. What consequence followed?
 
-Wherever they don’t, you have found something your organization knows and has never written down. The book is the method for finding all of it, settling who has the authority to change it, and fixing the organization before anything is automated.
+Every gap is knowledge your organization has never written down. The book is the method for finding all of it.

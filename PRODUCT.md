@@ -36,9 +36,9 @@ organization can be: each idea has one place, nothing is said twice.
 
 1. **Title page.** The imprint small; the thesis as the largest type; the
    contents as three symptoms of one condition, at three levels: "Your
-   organization runs on judgment nobody wrote down." "The rules your
-   business runs on are in code its owners can't read." "Every system you
-   own has its own idea of what your business is." Hook, map and argument
+   organization runs on judgment nobody wrote down." "Your rules run
+   in code their owners can't read." "Every system you run has its own idea
+   of your business." Hook, map and argument
    at once.
 2. **01, the book: people.** Every organization runs twice; the difference
    is judgment, which people supply and an agent is never given. That
@@ -59,8 +59,8 @@ organization can be: each idea has one place, nothing is said twice.
    the organization, never a vendor. Its definitions behave like rules:
    readable by their owners, unable to hold what was never proven. What the
    book finds in people becomes something every system can hold.
-5. **Together.** One passage, the thesis as consequence: the judgment found,
-   written as rules that run, given one home every system shares; a whole stream runs with
+5. **Together.** "Then a whole stream of work can run with no one in it,"
+   and one sentence under it: a whole stream runs with
    no one in it; agents do what the knowledge covers, the software shows
    where it ends, people work before and after, deciding what the
    organization should be.

@@ -102,10 +102,7 @@ const structuredData = {
               <a href={`#${anchor(data.title)}`}>
                 <span class="no">{number}</span>
                 <span class="claim">{data.claim}</span>
-                <span class="work">
-                  {data.title},{" "}
-                  <span class="nw">{data.label.toLowerCase()}</span>
-                </span>
+                <span class="work">{data.title}</span>
               </a>
             </li>
           ))
@@ -170,13 +167,14 @@ const structuredData = {
   <!-- the whole: the three works taken together, and the thesis they make
        true -->
   <Drawing id="whole" label="Together">
-    <p class="whole">
-      Taken together, the judgment your people carry is found, written as rules
-      that run, and given one home every system shares. A whole stream of work
-      can then run with no one in it. Agents do everything that knowledge
-      covers, the software shows where it ends, and people work before and
-      after, deciding what the organization should be.
-    </p>
+    <div class="whole">
+      <h2>Then a whole stream of work can run with no one in it.</h2>
+      <p class="turn">
+        Agents do everything that knowledge covers, the software shows where it
+        ends, and people work before and after, deciding what the organization
+        should be.
+      </p>
+    </div>
   </Drawing>
 
   <!-- the author, and correspondence -->
@@ -232,6 +230,11 @@ const structuredData = {
 </Base>
 
 <style>
+  :global(:root) {
+    --turn: clamp(1.4rem, 1.9vw, 1.7rem);
+    --reading: clamp(1.14rem, 1.3vw, 1.24rem);
+  }
+
   /* ---- the title page: the imprint small, the thesis, the contents ---- */
   .cover {
     display: grid;
@@ -256,7 +259,7 @@ const structuredData = {
   }
   /* the contents: what each work holds, and the work */
   .contents {
-    grid-column: 1 / span 9;
+    grid-column: 1 / span 10;
     list-style: none;
     border-top: 1px solid var(--line);
   }
@@ -353,7 +356,7 @@ const structuredData = {
     align-items: start;
   }
   .sheet.book {
-    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
   }
   h2 {
     grid-area: h;
@@ -391,7 +394,7 @@ const structuredData = {
   }
   .title-link {
     font-family: var(--font-display);
-    font-size: 1.45rem;
+    font-size: 1.3rem;
     line-height: 1.22;
     color: var(--ink);
     text-decoration: underline;
@@ -413,7 +416,6 @@ const structuredData = {
     font-size: 1.15rem;
     line-height: 1.4;
     color: var(--ink-light);
-    max-width: 34ch;
   }
 
   /* the evidence: what a reader meets in the work, in its own words */
@@ -421,15 +423,30 @@ const structuredData = {
     grid-area: r;
     max-width: 36rem;
   }
+  /* four type roles carry the page: display for headlines only, turn for
+     the one sentence each sheet exists for, reading for what supports it,
+     label for metadata. the turn is the first paragraph of the evidence */
   .reading :global(p),
   .reading :global(li) {
-    font-size: clamp(1.2rem, 1.45vw, 1.32rem);
+    font-size: var(--reading);
+    font-weight: 500;
     line-height: 1.5;
     color: var(--ink-light);
     text-wrap: pretty;
   }
+  .reading > :global(p:first-child),
+  .turn {
+    font-size: var(--turn);
+    font-weight: 500;
+    line-height: 1.32;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
   .reading > :global(* + *) {
-    margin-top: 1.6rem;
+    margin-top: 1.1rem;
+  }
+  .reading > :global(p:first-child + *) {
+    margin-top: 1.5rem;
   }
   .reading > :global(.source) {
     font-family: var(--font-mono);
@@ -451,13 +468,8 @@ const structuredData = {
     line-height: 1.34;
   }
   /* a list follows its sentence closely, and the next sentence follows it */
-  .reading > :global(p + ol),
-  .reading > :global(p + ul) {
-    margin-top: 0.9rem;
-  }
-  .reading > :global(ol + p),
-  .reading > :global(ul + p) {
-    margin-top: 1rem;
+  .reading > :global(p + ol) {
+    margin-top: 0.75rem;
   }
   .reading :global(ol),
   .reading :global(ul) {
@@ -467,7 +479,7 @@ const structuredData = {
   }
   .reading :global(li) {
     position: relative;
-    padding: 0.45rem 0 0.45rem 1.5rem;
+    padding: 0.35rem 0 0.35rem 1.5rem;
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
   }
@@ -491,13 +503,14 @@ const structuredData = {
 
   /* ---- the whole: one passage, the thesis as consequence ---- */
   .whole {
-    max-width: 38ch;
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-    line-height: 1.3;
-    letter-spacing: -0.006em;
-    color: var(--ink);
-    text-wrap: pretty;
+    display: grid;
+    row-gap: 1.5rem;
+  }
+  .whole h2 {
+    grid-area: auto;
+  }
+  .whole .turn {
+    max-width: 38rem;
   }
 
   /* ---- the author: portrait, one sentence, correspondence ---- */
@@ -521,8 +534,9 @@ const structuredData = {
     max-width: 40rem;
   }
   .statement {
-    font-size: clamp(1.45rem, 2.2vw, 1.9rem);
-    line-height: 1.35;
+    font-size: var(--turn);
+    font-weight: 500;
+    line-height: 1.32;
     color: var(--ink);
     text-wrap: pretty;
   }
