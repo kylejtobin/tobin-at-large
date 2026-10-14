@@ -27,6 +27,8 @@ The page is set as an imprint: a title page, one sheet per work, an author.
   it lists what cannot happen. The book's tall cover takes a narrower
   column. Under 900px everything stacks: headline, plate and entry,
   evidence.
+- **Together**: one unnumbered sheet, a single passage in the display face
+  at reading size, no image: the three works taken together as the thesis.
 - **Author**: the portrait drawn on the sheet, one sentence in the reading
   face with the name in the display face, and correspondence: a mono label
   and the address as a plain link.
@@ -117,6 +119,11 @@ the tooth too. Warm drafting stock, never parchment mottling.
 - TCA argued through its own worked example, a trading desk, first as a
   list of failures and then as the desk's declarations. A demo stood in
   for reasoning from what TCA is.
+- Copy patched note by note: each fix added a sentence, lines repeated,
+  sources pasted back in. The page grew and got worse. Copy is rewritten
+  whole from the through-line, never patched.
+- Three products for three problems: each sheet a fix for its own pain,
+  the one idea felt only in the last line.
 - Each work introduced in its own abstract terms. Accurate and whole, but it
   read as talk; the reader's own situation has to open each sheet.
 - The works' plates in grey at rest: they read as washed-out copies.

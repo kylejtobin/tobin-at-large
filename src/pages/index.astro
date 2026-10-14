@@ -71,7 +71,10 @@ const structuredData = {
 };
 ---
 
-<Base title="TAL Company" description={`TAL Company. ${thesis}`}>
+<Base
+  title="TAL Company"
+  description={`${thesis} The Automated Organization, ONTOK and Type Construction Architecture, by Kyle J. Tobin.`}
+>
   <script
     is:inline
     slot="head"
@@ -163,6 +166,18 @@ const structuredData = {
       </Drawing>
     ))
   }
+
+  <!-- the whole: the three works taken together, and the thesis they make
+       true -->
+  <Drawing id="whole" label="Together">
+    <p class="whole">
+      Taken together, the judgment your people carry is found, given one home
+      every system shares, and written as the rules that run. A whole stream of
+      work can then run with no one in it. Agents do everything that knowledge
+      covers, the software shows where it ends, and people work before and
+      after, deciding what the organization should be.
+    </p>
+  </Drawing>
 
   <!-- the author, and correspondence -->
   <Drawing id="author" label="Author">
@@ -472,6 +487,17 @@ const structuredData = {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--ink-quiet);
+  }
+
+  /* ---- the whole: one passage, the thesis as consequence ---- */
+  .whole {
+    max-width: 38ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    line-height: 1.3;
+    letter-spacing: -0.006em;
+    color: var(--ink);
+    text-wrap: pretty;
   }
 
   /* ---- the author: portrait, one sentence, correspondence ---- */

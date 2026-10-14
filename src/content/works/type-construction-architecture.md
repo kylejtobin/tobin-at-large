@@ -2,8 +2,8 @@
 kind: software
 label: Open-source architecture
 title: Type Construction Architecture
-claim: "The rules your business runs on live in its code, where almost no one who owns them can read them."
-line: "Its skills go into your coding agent, and its check in front of every commit."
+claim: "The rules your business runs on are in code its owners can’t read."
+line: "Its skills load straight into your coding agent."
 url: https://github.com/kylejtobin/tca
 linkLabel: TCA on GitHub
 cover: ./type-construction-architecture.png
@@ -11,12 +11,10 @@ year: 2026
 order: 3
 ---
 
-Policy, the people doing the work and the software each hold a version of them, and when they disagree, the software’s version is the one customers get. The spec describes last quarter’s product. Only an engineer can say what the system does today. Every case it was never built for is settled by a default nobody chose.
+Policy says one thing, the people doing the work know another, and the software does a third. The software wins, because it is what customers get. Only an engineer can say what it does today, and anything it was never built for is decided by a default nobody chose.
 
-With Type Construction Architecture, a rule is written once, in the words its owner uses, and that writing is the code that runs. The owner reads the rule where it is enforced. The spec and the code are the same document, so neither falls behind. A threshold a manager tunes carries its limits.
+Type Construction Architecture closes that distance. Each rule is written in the words of the person who owns it, and what is written is what runs. The owner can read the rule where it is enforced, the engineer stops being the only translator, and there is no second copy to fall out of date.
 
-A case the rules forbid cannot be produced, so it never ships. A case nobody has decided yet reaches its owner as undecided, instead of being settled by a default.
+Whole kinds of bug then stop appearing, because the software has no way to express a state the business never allowed. A case nobody has decided reaches its owner as undecided, instead of being settled by a default.
 
-This was always the better way to build and rarely the one chosen, because it took longer to write. Agents now write it as fast as the usual way, and they depend on it most. An agent works from what is written, so here it works from the real rules, and it cannot produce an outcome nobody declared.
-
-So a whole stream of work can run with no one in it. Agents do everything the written rules cover, the software shows where they end, and people work on the rules, never on the cases.
+This was always the better way to build, and rarely chosen because it was slower to write. Agents now write it as fast as the usual way, and it is what makes them safe to trust: the written rules give an agent the business’s meaning, limits it cannot cross, and work that can be checked without reading every line.

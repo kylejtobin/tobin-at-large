@@ -24,51 +24,47 @@ The page exists to change a serious, skeptical reader: they leave believing
 an organization can now be made to run on its own, because the work in front
 of them proves it, and they read the book, build with the tools, or write.
 
-The site is an imprint, not a firm. It states one thesis, and the works
-under TAL's name that together make it true. The reader is a serious leader
-who has watched AI stall inside their organization. The thesis hooks them;
-each work then opens on a situation they already live with, in plain
-business terms, and answers it in its own words, whole. The value shows in
-the specifics, never in a list of benefits. Read in order the works run from
-the organization down to the code, and the last sheet closes back on the
-thesis.
+The site is an imprint, not a firm. It states one thesis and proves it with
+one idea seen at three levels: the judgment an organization runs on is
+knowledge; that knowledge can have one home; that home can be the rules that
+run. The book, ONTOK and TCA each carry one level, from the authority at the
+top to the code underneath, and every sheet is written from that line, never
+as a product solving its own problem. The page is built the way it says an
+organization can be: each idea has one place, nothing is said twice.
 
-1. **Title page.** The imprint small, as a colophon; the thesis as the
-   largest type; under it the contents: the situation each work opens on,
-   with its title. They are what pull the reader down the page.
-2. **01, The Automated Organization.** "Your AI pilot worked in the demo.
-   Then it met the organization." What stopped it was everything the
-   documents never said; an agent is the first worker that gets only the
-   manual. The book is the method for fixing the organization first, and it
-   starts with a five-question test the reader can run on one case.
-3. **02, ONTOK.** "Your CRM, your billing system and your support desk each
-   have a customer, and no two agree." Every application rebuilds a piece of
-   the organization and people reconcile the pieces; an agent takes whichever
-   piece it is handed. ONTOK writes the organization as software, once, from
-   fourteen core kinds; a fact enters only once proven, so there is no bad
-   record to clean up; the book's answers each have a place in it.
-4. **03, Type Construction Architecture.** "The rules your business runs on
-   live in its code, where almost no one who owns them can read them." The
-   one fact every reader shares, whatever their seat: policy, people and
-   software each hold a version and the software's wins; the spec decays,
-   only an engineer can say what the system does, and the unanticipated is
-   settled by a default nobody chose. TCA makes the version that runs the
-   version anyone can read, written once in the business's words with every
-   way it can end; no second copy, so nothing drifts. A state the business
-   never allowed cannot exist; what is undecided arrives by name. Agents
-   remove the cost that kept this design rare and depend on it most. The
-   close is the thesis as consequence: a whole stream runs with no one in
-   it; agents do what the written rules cover, the software shows where
-   they end, people work on the rules, never on the cases.
-   No example stands in for the argument; no role is addressed by name.
-5. **Author.** Portrait, one sentence on what he works on, and
+1. **Title page.** The imprint small; the thesis as the largest type; the
+   contents as three symptoms of one condition, at three levels: "Your
+   organization runs on judgment nobody wrote down." "Every system you own
+   has its own idea of what your business is." "The rules your business
+   runs on are in code its owners can't read." Hook, map and argument at
+   once.
+2. **01, the book: people.** Every organization runs twice; the difference
+   is judgment, which people supply and an agent is never given. That
+   judgment is knowledge and can be found: the five-question test the reader
+   can run on one case. The book is the method for finding all of it.
+3. **02, ONTOK: systems.** Each system rebuilt its own piece of what the
+   organization is because there was nowhere else to keep it. ONTOK is that
+   place: written once, as the organization means it, owned by the
+   organization, never a vendor; a fact enters only once proven. What the
+   book finds in people becomes something every system can hold.
+4. **03, TCA: code.** Policy, people and software each hold a version and
+   the software wins; only an engineer can read it; the unanticipated is
+   decided by a default nobody chose. TCA writes each rule in its owner's
+   words and that writing runs: the owner reads it, the engineer stops being
+   the only translator, nothing drifts. Whole kinds of bug cannot be
+   expressed; the undecided reaches its owner. Agents made this way of
+   building cheap, and it makes them safe to trust: meaning, limits, and
+   work checkable without reading every line.
+5. **Together.** One passage, the thesis as consequence: the judgment found,
+   given one home, written as the rules that run; a whole stream runs with
+   no one in it; agents do what the knowledge covers, the software shows
+   where it ends, people work before and after, deciding what the
+   organization should be.
+6. **Author.** Portrait, one sentence on what he works on, and
    correspondence: the address, plain, never a button.
 
-Each answer returns to the nouns of the situation it opened with, never the
-work's own vocabulary. Each sheet carries its work's real image and its
-entry: kind, status and year, the title as the link, and the reader's next
-step: what can be read today, or what can be installed this week. What the work holds and its evidence live in
-the work's content file.
+Each sheet carries its work's real image and its entry: kind, status and
+year, the title as the link, and one short next step.
 
 No method, no cycle, no drawn explainers, no code, no call-to-action button.
 

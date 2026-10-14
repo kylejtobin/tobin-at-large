@@ -2,8 +2,8 @@
 kind: software
 label: Open-source language
 title: ONTOK
-claim: "Your CRM, your billing system and your support desk each have a customer, and no two agree."
-line: "Alpha. Installs from GitHub as a Python package."
+claim: "Every system you own has its own idea of what your business is."
+line: "In early release."
 url: https://github.com/kylejtobin/ontok
 linkLabel: ONTOK on GitHub
 cover: ./ontok.png
@@ -11,10 +11,8 @@ year: 2026
 order: 2
 ---
 
-Each one rebuilt its own idea of what a customer is, and your people spend their days reconciling them. An agent takes whichever customer it is handed.
+The CRM has a customer, billing has another, support has a third, and someone reconciles them by hand. Each system rebuilt its own piece of what the organization is, because there was nowhere else to keep it. An agent inherits whichever piece it is given.
 
-ONTOK writes what a customer is once, as your organization defines it, and the CRM, the billing system, the support desk and every agent work from that one definition. The same goes for everything else the organization deals with: its payments, roles, events and rules.
+ONTOK is that place. What a customer, a payment, a role or a rule is gets written once, as your organization means it, and every system and agent works from the same definition. The definition belongs to the organization, never to a vendor’s system.
 
-A record enters only once everything it rests on is proven. A payment that names no proven customer is never recorded, so there is no bad record to reconcile later.
-
-The answers the book’s test finds each have a place here: who decided is a role, what triggered it is an event, the authority is a rule.
+A fact enters only once everything it rests on is proven, so a payment that names no real customer is never recorded and there is nothing to reconcile later. What the book finds in your people becomes something every system can hold.

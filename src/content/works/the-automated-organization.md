@@ -3,8 +3,8 @@ kind: book
 label: Book
 status: in progress
 title: The Automated Organization
-claim: "Your AI pilot worked in the demo. Then it met the organization."
-line: "Written in public: each chapter goes to readers as it is finished."
+claim: "Your organization runs on judgment nobody wrote down."
+line: "Written in public, a chapter at a time."
 url: https://leanpub.com/the-automated-organization
 linkLabel: Read the book
 cover: ./the-automated-organization.png
@@ -12,11 +12,9 @@ year: 2026
 order: 1
 ---
 
-What stopped it was everything the documents never said: which approval permits what, who can really move the budget, which exception needs judgment, which two records are the same customer. Your people supply all of that every day without being asked. An AI agent is the first worker that gets only the manual.
+Every organization runs twice: as its documents describe it, and as it actually works. The difference is judgment. Who really decides, which exception gets an answer, which two records are the same customer: your people supply it without being asked. An agent is handed the documents, so it runs the first version.
 
-The book is the method for fixing the organization first. Find the organization that actually runs, settle who has the authority to change it, and govern only what binds. Each playbook chapter ends with something running.
-
-It starts with a test you can run on one case this week. Trace it from trigger to outcome, and ask whether the documents say
+That judgment is knowledge, and it can be found. Take one case that mattered, trace it from what started it to how it ended, and ask whether the documents say
 
 1. who determined the result,
 2. what information mattered,
@@ -24,4 +22,4 @@ It starts with a test you can run on one case this week. Trace it from trigger t
 4. what authority governed it,
 5. what consequence followed.
 
-Where they do not, you have found the knowledge the agent was never given.
+Wherever they don’t, you have found something your organization knows and has never written down. The book is the method for finding all of it, settling who has the authority to change it, and fixing the organization before anything is automated.
