@@ -13,9 +13,9 @@ order: 2
 
 Each of those checks exists because a type allows more than your business does.
 
-1. Text can hold any string.
-2. A number can be any amount.
-3. An empty value can mean anything.
+- Text can hold any string.
+- A number can be any amount.
+- An empty value can mean anything.
 
 Your business allows a few of each, and every check, missed test and incident sits in that difference. Type Construction Architecture declares types that allow exactly what the business allows, so a program that only builds them has nothing left to check and nothing for an incident to be.
 

@@ -446,11 +446,36 @@ const sheets = await Promise.all(
     border-top: 1px solid var(--line-faint);
     counter-reset: q;
   }
-  .notes :global(li) {
+  .notes :global(ol li) {
     position: relative;
     padding: 0.35rem var(--cell) 0.35rem calc(var(--cell) + 1.75rem);
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
+  }
+  /* a light list, read in the flow of its paragraph */
+  .notes :global(ul) {
+    list-style: none;
+  }
+  .notes > :global(p + ul) {
+    margin-top: 0.6rem;
+  }
+  .notes :global(ul li) {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--ink-light);
+  }
+  .notes :global(ul li + li) {
+    margin-top: 0.15rem;
+  }
+  .notes :global(ul li::before) {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 0.72em;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: var(--ink-quiet);
   }
   .notes :global(ol li) {
     counter-increment: q;
