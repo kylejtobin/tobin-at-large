@@ -1,38 +1,52 @@
 ---
-// TCA's exhibit: one feature both ways. The usual code turns a deposit
-// into a withdrawal on a capital letter; the types refuse it on arrival.
+// TCA's exhibit: one payment provider's reply, both ways. The usual code
+// crashes on a normal approval after the money moved, and the retry charges
+// twice; the provider's reply, modeled once, constructs its own case.
 ---
 
 <div class="detail">
   <figure class="window check" aria-label="The check">
-    <p class="bar"><span>The check</span><span class="file">ledger.py</span></p>
-    <pre><code><span class="l"><span class="k">def</span> apply(balance, entry):</span>
-<span class="l">    <span class="k">if</span> entry[<span class="s">"kind"</span>] == <span class="s">"credit"</span>:</span>
-<span class="l">        <span class="k">return</span> balance + entry[<span class="s">"amount"</span>]</span>
-<span class="l">    <span class="bad">else</span>:  <span class="note"># eh, probably a debit</span></span>
-<span class="l">        <span class="k">return</span> balance - entry[<span class="s">"amount"</span>]</span>
+    <p class="bar">
+      <span>The check</span><span class="file">payments.py</span>
+    </p>
+    <pre><code><span class="l"><span class="k">def</span> charge(order):</span>
+<span class="l">    r = requests.post(PAY_URL, json=order.to_dict())</span>
+<span class="l">    data = r.json()</span>
+<span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"approved"</span>:</span>
+<span class="l">        <span class="k">return</span> &#123;<span class="s">"id"</span>: data<span class="bad">["charge"]</span>[<span class="s">"id"</span>]&#125;</span>
+<span class="l">    <span class="k">elif</span> <span class="s">"decline_code"</span> <span class="k">in</span> data:  <span class="note"># or _codes? eh</span></span>
+<span class="l">        <span class="k">return</span> &#123;<span class="s">"why"</span>: data[<span class="s">"decline_code"</span>]&#125;</span>
+<span class="l">    <span class="k">return</span> <span class="k">None</span>  <span class="note"># outage? decline? retry it, whatever</span></span>
 <span class="l" />
-<span class="l"><span class="note"># the bank says "Credit". close enough.</span></span>
-<span class="l">apply(<span class="n">100</span>, &#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
-<span class="l"><span class="bad"># 50. They deposited 50. Tests: green.</span></span></code></pre>
+<span class="l"><span class="c"># they send &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
+<span class="l"><span class="bad"># KeyError: 'charge'</span></span>
+<span class="l"><span class="bad"># card charged. we retry. charged twice.</span></span></code></pre>
   </figure>
   <figure class="window type" aria-label="The type">
-    <p class="bar"><span>The type</span><span class="file">ledger.py</span></p>
-    <pre><code><span class="l"><span class="k">class</span> <span class="t">Credit</span>(BaseModel):</span>
-<span class="l">    kind: <span class="good">Literal["credit"]</span></span>
-<span class="l">    amount: <span class="t">Amount</span></span>
+    <p class="bar">
+      <span>The type</span><span class="file">payments/model.py</span>
+    </p>
+    <pre><code><span class="l"><span class="c"># every class frozen and strict; config left out</span></span>
+<span class="l"><span class="note"># their whole API. every answer they can give.</span></span>
+<span class="l"><span class="k">class</span> <span class="t">ChargeApproved</span>(BaseModel):</span>
+<span class="l">    status: <span class="t">Approved</span></span>
+<span class="l">    charge: <span class="t">ChargeId</span> = Field(<span class="good">alias="id"</span>)</span>
 <span class="l" />
-<span class="l"><span class="k">class</span> <span class="t">Debit</span>(BaseModel):</span>
-<span class="l">    kind: <span class="good">Literal["debit"]</span></span>
-<span class="l">    amount: <span class="t">Amount</span></span>
+<span class="l"><span class="k">class</span> <span class="t">ChargeDeclined</span>(BaseModel):</span>
+<span class="l">    status: <span class="t">Declined</span></span>
+<span class="l">    codes: <span class="t">DeclineCodes</span> = Field(alias=<span class="s">"decline_codes"</span>)</span>
 <span class="l" />
-<span class="l"><span class="note"># the whole rule. no if. no else.</span></span>
-<span class="l"><span class="k">class</span> <span class="t">Entry</span>(RootModel[<span class="t">Credit</span> | <span class="t">Debit</span>]):</span>
-<span class="l">    <span class="c">"""A change to a balance: a credit or a debit."""</span></span>
+<span class="l"><span class="k">class</span> <span class="t">ChargeFailed</span>(BaseModel):</span>
+<span class="l">    error: <span class="t">StatedError</span></span>
 <span class="l" />
-<span class="l"><span class="note"># go ahead, send "Credit".</span></span>
-<span class="l"><span class="t">Entry</span>.model_validate(&#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
-<span class="l"><span class="good"># ValidationError: kind should be 'credit' or 'debit'</span></span></code></pre>
+<span class="l"><span class="k">class</span> <span class="t">ChargeReply</span>(RootModel[</span>
+<span class="l">    <span class="t">ChargeApproved</span> | <span class="t">ChargeDeclined</span> | <span class="t">ChargeFailed</span></span>
+<span class="l">]):</span>
+<span class="l">    <span class="c">"""What the payment provider says of a charge."""</span></span>
+<span class="l" />
+<span class="l"><span class="note"># fire anything at it</span></span>
+<span class="l"><span class="t">ChargeReply</span>.model_validate_json(response.content)</span>
+<span class="l"><span class="good"># ChargeApproved, charge ch_9. charged once.</span></span></code></pre>
   </figure>
 </div>
 
@@ -92,7 +106,7 @@
     padding: 0.9rem 1.1rem 1rem 0;
     font-family: var(--font-mono);
     font-size: clamp(0.7rem, 0.82vw, 0.8rem);
-    line-height: 1.7;
+    line-height: 1.55;
     counter-reset: line;
   }
   .l::before {
