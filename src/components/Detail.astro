@@ -9,17 +9,18 @@
     <pre><code><span class="l"><span class="k">def</span> apply(balance, entry):</span>
 <span class="l">    <span class="k">if</span> entry[<span class="s">"kind"</span>] == <span class="s">"credit"</span>:</span>
 <span class="l">        <span class="k">return</span> balance + entry[<span class="s">"amount"</span>]</span>
-<span class="l">    <span class="bad">else</span>:  <span class="note"># whatever isn't "credit" lands here</span></span>
+<span class="l">    <span class="bad">else</span>:  <span class="note"># assumes debit</span></span>
 <span class="l">        <span class="k">return</span> balance - entry[<span class="s">"amount"</span>]</span>
 <span class="l" />
-<span class="l"><span class="note"># a deposit of 50, with a capital C</span></span>
+<span class="l"><span class="c"># the bank sends "Credit"</span></span>
 <span class="l">apply(<span class="n">100</span>, &#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
-<span class="l"><span class="bad"># 50</span></span></code></pre>
+<span class="l"><span class="bad"># 50. No error.</span></span></code></pre>
   </figure>
   <figure class="window type" aria-label="The type">
     <p class="bar"><span>The type</span><span class="file">ledger.py</span></p>
     <pre><code><span class="l"><span class="k">class</span> <span class="t">Credit</span>(BaseModel):</span>
-<span class="l">    kind: <span class="good">Literal["credit"]</span>  <span class="note"># this, and only this</span></span>
+<span class="l">    <span class="note"># exactly what the business allows</span></span>
+<span class="l">    kind: <span class="good">Literal["credit"]</span></span>
 <span class="l">    amount: <span class="t">Amount</span></span>
 <span class="l" />
 <span class="l"><span class="k">class</span> <span class="t">Debit</span>(BaseModel):</span>
@@ -29,7 +30,7 @@
 <span class="l"><span class="k">class</span> <span class="t">Entry</span>(RootModel[<span class="t">Credit</span> | <span class="t">Debit</span>]):</span>
 <span class="l">    <span class="c">"""A change to a balance: a credit or a debit."""</span></span>
 <span class="l" />
-<span class="l"><span class="note"># the same deposit, refused where it arrives</span></span>
+<span class="l"><span class="c"># the bank sends "Credit"</span></span>
 <span class="l"><span class="t">Entry</span>.model_validate(&#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
 <span class="l"><span class="good"># ValidationError: kind should be 'credit' or 'debit'</span></span></code></pre>
   </figure>
