@@ -2,16 +2,16 @@
 kind: software
 label: Architecture
 title: Type Construction Architecture
-claim: "Every branch in your code is a rule its owner can’t read."
-line: "Run the smell check on your own code."
+claim: "Most of your code checks for what should never happen."
+line: "See one feature built both ways."
 url: https://github.com/kylejtobin/tca
 cover: ./type-construction-architecture.png
 year: 2026
 order: 2
 ---
 
-In Type Construction Architecture every case is a type, and building one is all a program does, with no branch, loop, exception or null.
+Type Construction Architecture makes all of it impossible to build, so the checks go, and so do the incidents they missed.
 
-Input becomes the one case it matches, or a refusal, where it arrives. Every result contains the fact it came from, so steps cannot run out of order, and a refusal is a case the caller has to take. Delete every function body and the types still describe the business, so whoever owns a rule can read it where it runs.
+What remains is each case your program can be in, declared once in its owner’s words, so a rule changes in one place. A new hire, the product owner and you next year read the same types, and what they read is what runs. To an agent, those types are a world model of your business, so the same declarations that tell it what exists stop it from building anything else.
 
-The smell check fails the build on a single branch, a reviewer reads each change as an attempt to get around the rule, and the skills hold your coding agent to it.
+None of it uses a branch, a null or a caught exception, and a smell check fails the build on the first one.
