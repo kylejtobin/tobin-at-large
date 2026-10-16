@@ -5,6 +5,7 @@ import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import Drawing from "../components/Drawing.astro";
 import Arrow from "../components/Arrow.astro";
+import Detail from "../components/Detail.astro";
 import portrait from "../assets/founder.png";
 
 const thesis = "An organization can now be made to run on its own.";
@@ -83,6 +84,7 @@ const sheets = await Promise.all(
                 loading="lazy"
               />
             </a>
+            {data.detail && <Detail />}
           </div>
           <div class="entry">
             <p class="kind mono-label">
@@ -364,6 +366,8 @@ const sheets = await Promise.all(
     grid-area: x;
     display: grid;
     place-items: center;
+    align-content: center;
+    gap: var(--cell);
     padding: calc(var(--cell) * 1.25) var(--cell);
     border-top: 1px solid var(--line);
     border-right: 1px solid var(--line);

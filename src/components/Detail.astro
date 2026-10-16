@@ -1,0 +1,67 @@
+---
+// the detail drawn under TCA's plate: the check a type makes necessary,
+// beside the type that leaves nothing to check
+---
+
+<figure class="detail" aria-label="The check, and the type">
+  <div class="panes">
+    <div class="pane">
+      <p class="mono-label">The check</p>
+      <pre><code><span class="k">def</span> refund(order: Order) -&gt; Refund:
+    <span class="k">if</span> order.status != <span class="s">"paid"</span>:
+        <span class="k">raise</span> RefundError(<span class="s">"not paid"</span>)
+    <span class="k">return</span> Refund(order=order)</code></pre>
+    </div>
+    <div class="pane">
+      <p class="mono-label">The type</p>
+      <pre><code><span class="k">class</span> Order(RootModel[Paid | Unpaid]): ...
+
+<span class="k">class</span> Refund(BaseModel):
+    order: <span class="a">Paid</span></code></pre>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .detail {
+    container-type: inline-size;
+    width: 100%;
+    border: 1px solid var(--line);
+    background: rgba(255, 250, 240, 0.32);
+  }
+  .pane + .pane {
+    border-top: 1px solid var(--line);
+  }
+  .pane p {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid var(--line-faint);
+  }
+  pre {
+    overflow-x: auto;
+    padding: 0.85rem 0.9rem 0.95rem;
+    font-family: var(--font-mono);
+    font-size: clamp(0.7rem, 0.86vw, 0.8rem);
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .k {
+    color: var(--ink-quiet);
+  }
+  .s {
+    color: var(--ink-light);
+  }
+  .a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  @container (min-width: 34rem) {
+    .panes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .pane + .pane {
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+  }
+</style>

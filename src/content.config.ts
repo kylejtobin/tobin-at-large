@@ -15,6 +15,7 @@ const works = defineCollection({
       year: z.number().int(),
       url: z.string().url(),
       cover: image(),
+      detail: z.boolean().optional(),
       order: z.number().int(),
     }),
 });

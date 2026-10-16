@@ -112,8 +112,12 @@ const probe = (desktop) => {
     });
   if (desktop)
     document.querySelectorAll(".sheet").forEach((s) => {
-      const x = s.querySelector(".plate").getBoundingClientRect().height;
-      // the evidence's text against the plate's image, not their cells
+      // the evidence's text against what the drawing field holds, not
+      // their cells: the plate, and the detail under it where there is one
+      const held = [...s.querySelector(".exhibit").children];
+      const x =
+        held.at(-1).getBoundingClientRect().bottom -
+        held[0].getBoundingClientRect().top;
       const kids = [...s.querySelector(".reading").children];
       const r =
         kids.at(-1).getBoundingClientRect().bottom -

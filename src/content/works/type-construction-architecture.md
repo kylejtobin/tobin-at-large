@@ -6,12 +6,13 @@ claim: "Most of your code checks for what should never happen."
 line: "See one feature built both ways."
 url: https://github.com/kylejtobin/tca
 cover: ./type-construction-architecture.png
+detail: true
 year: 2026
 order: 2
 ---
 
-Type Construction Architecture makes all of it impossible to build, so the checks go, and so do the incidents they missed.
+Each of those checks exists because a type allows more than your business does.
 
-What remains is each case your program can be in, declared once in its owner’s words, so a rule changes in one place. A new hire, the product owner and you next year read the same types, and what they read is what runs. To an agent, those types are a world model of your business, so the same declarations that tell it what exists stop it from building anything else.
+Text can hold any string, a number any amount, and an empty value can stand for anything, while the business allows a few of each; the checks, the tests that missed a case and the incidents they let through all sit in that difference. Type Construction Architecture declares types that allow exactly what the business allows, so a program that only builds them has nothing left to check and nothing for an incident to be.
 
-None of it uses a branch, a null or a caught exception, and a smell check fails the build on the first one.
+Those types are the rules, declared once in their owner’s words, so a new hire, the product owner and you next year read what runs. To an agent, those types are a world model of your business, so the same declarations that tell it what exists stop it from building anything else.
