@@ -1,66 +1,55 @@
 ---
 interface Props {
   id: string;
-  // the cover carries no number
-  number?: string;
   label: string;
   // the title page holds the full screen; every other sheet is as tall as
   // its composition needs
   full?: boolean;
 }
 
-const { id, number, label, full = false } = Astro.props;
+const { id, label, full = false } = Astro.props;
 ---
 
 <section class:list={["drawing", { full }]} id={id} aria-label={label}>
-  <div class="frame" aria-hidden="true">
+  <div class="trim" aria-hidden="true">
     <span class="over tl"></span>
     <span class="over tr"></span>
     <span class="over bl"></span>
     <span class="over br"></span>
   </div>
-  {
-    number && (
-      <p class="head mono-label">
-        <span class="no">{number}</span>
-      </p>
-    )
-  }
   <div class="field"><slot /></div>
 </section>
 
 <style>
+  /* a sheet: the trim line at the paper's edge, the border drawn inside it,
+     and between them the zone strip, ticked at the grid every field on the
+     sheet is ruled to */
   .drawing {
     position: relative;
-    /* clear of the frame and the labels drawn on its margin; the sheet is as
-       tall as its composition */
-    padding: calc(var(--gutter) * 0.5 + 3rem) calc(var(--gutter) + 1.5rem);
+    padding: calc(var(--trim) + var(--zone));
     display: grid;
-    /* the track is the sheet's width, never its widest content's */
     grid-template-columns: minmax(0, 1fr);
-    /* a sheet ends at its edge: construction lines may run into the margin,
-       never off the paper */
+    width: 100%;
+    max-width: var(--sheet-max);
+    margin-inline: auto;
     overflow-x: clip;
     scroll-snap-align: start;
   }
-
-  /* the title page holds the first screen */
-  /* the title page holds the first screen, but never more than its
-     composition can fill: on a tall screen, extra height would only become
-     empty paper above the mark */
-  .drawing.full {
-    min-height: min(calc(100svh - var(--bar)), 50rem);
+  /* the title page holds the first screen at a desk, never more than its
+     composition can fill; on a phone it is as tall as its composition */
+  @media (min-width: 901px) {
+    .drawing.full {
+      min-height: min(calc(100svh - var(--bar)), 52rem);
+    }
   }
-  /* sheets in a run share their edges, like pages in a set */
+  /* sheets in a set share their trim edge; the corners cross where they meet */
   .drawing + :global(.drawing) {
-    margin-top: calc(var(--gutter) * -0.5);
+    margin-top: calc(var(--trim) * -2);
   }
 
-  /* the drafting border, inset from the paper's edge. drawn: its clip
-     reaches past the corners so the overshoots show */
-  .frame {
+  .trim {
     position: absolute;
-    inset: calc(var(--gutter) * 0.5);
+    inset: var(--trim);
     border: 1px solid var(--line);
     pointer-events: none;
     clip-path: inset(-16px);
@@ -126,38 +115,48 @@ const { id, number, label, full = false } = Astro.props;
     top: 0;
   }
 
-  /* drafted in: the border runs out from the top-left corner */
-  :global(.drafting) .drawing:not(.drawn) .frame {
+  .field {
+    position: relative;
+    min-width: 0;
+    display: grid;
+  }
+  /* the border, in the mark's own weight */
+  .field::after {
+    content: "";
+    position: absolute;
+    inset: calc(var(--border) * -1);
+    border: var(--border) solid var(--ink);
+    pointer-events: none;
+    clip-path: inset(0);
+    transition: clip-path 1.6s var(--ease);
+  }
+  /* the zone ticks: one at every column line of the sheet's grid, above and
+     below */
+  .field::before {
+    content: "";
+    position: absolute;
+    left: calc(100% / var(--cols));
+    right: 0;
+    top: calc(var(--zone) * -1 - var(--border));
+    bottom: calc(var(--zone) * -1 - var(--border));
+    pointer-events: none;
+    background:
+      linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 /
+        calc(100% / (var(--cols) - 1)) var(--zone) repeat-x,
+      linear-gradient(to right, var(--line) 1px, transparent 1px) 0 100% /
+        calc(100% / (var(--cols) - 1)) var(--zone) repeat-x;
+    transition: opacity 1.2s var(--ease) 0.5s;
+  }
+
+  /* drafted in: trim and border run out from the top-left corner, then the
+     ticks are set */
+  :global(.drafting) .drawing:not(.drawn) .trim {
     clip-path: inset(-16px 100% 100% -16px);
   }
-
-  /* the sheet number sits on the frame's margin, as on a drawing, so the
-     field keeps the whole sheet */
-  .head {
-    position: absolute;
-    left: calc(var(--gutter) * 0.5 + 1.25rem);
-    right: calc(var(--gutter) * 0.5 + 1.25rem);
+  :global(.drafting) .drawing:not(.drawn) .field::after {
+    clip-path: inset(0 100% 100% 0);
   }
-  .head {
-    top: calc(var(--gutter) * 0.5 + 1rem);
-    display: flex;
-    gap: 1.25rem;
-  }
-  .no {
-    color: var(--ink);
-  }
-
-  .field {
-    min-width: 0;
-    width: 100%;
-    max-width: var(--sheet-max);
-    margin: 0 auto;
-    align-self: center;
-  }
-
-  @media (max-width: 700px) {
-    .drawing {
-      padding: calc(var(--gutter) * 0.5 + 4rem) calc(var(--gutter) + 0.5rem);
-    }
+  :global(.drafting) .drawing:not(.drawn) .field::before {
+    opacity: 0;
   }
 </style>

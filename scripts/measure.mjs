@@ -112,8 +112,12 @@ const probe = (desktop) => {
     });
   if (desktop)
     document.querySelectorAll(".sheet").forEach((s) => {
-      const x = s.querySelector(".exhibit").getBoundingClientRect().height;
-      const r = s.querySelector(".reading").getBoundingClientRect().height;
+      const x = s.querySelector(".plate").getBoundingClientRect().height;
+      // the evidence's text against the plate's image, not their cells
+      const kids = [...s.querySelector(".reading").children];
+      const r =
+        kids.at(-1).getBoundingClientRect().bottom -
+        kids[0].getBoundingClientRect().top;
       if (r > x + 40)
         out.push(
           `evidence ${Math.round(r)}px taller than plate ${Math.round(x)}px: ${text(s.querySelector("h2"))}`,

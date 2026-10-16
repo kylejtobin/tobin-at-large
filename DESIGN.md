@@ -15,22 +15,26 @@ sheet, an author.
 
 - **Bar** (sticky): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
-- **Title page** (full screen): the mark small, as a colophon; the thesis in
-  display; under it the contents, each entry a mono number, the sheet's
-  headline in reading, and the work's title in quiet italic, a hairline
-  under each, linking to the sheet.
-- **01 to 03, the works**: the headline in display; on the left the work's
-  real image as a plate with its entry under it (kind, status and year as a
-  label, the title as a link, one next-step line), held in view while the
-  evidence on the right is read: the turn, then reading. A list sits
-  between hairlines, numbered in mono. The book's tall cover takes a
-  narrower column. Under 900px everything stacks: headline, plate and
-  entry, evidence.
-- **Together**: one unnumbered sheet: a two-line headline in display and one
-  sentence in the turn role. No image.
+- **Title page** (full screen at a desk; on a phone as tall as its
+  composition), a set's cover sheet: the thesis in display,
+  standing on the index; the index ruled as a drawing list, a mono number
+  cell, the sheet's headline in reading, and the work's title in quiet
+  italic, each row linking to its sheet; the mark in its own cell at the
+  index's end, where a set carries its maker's mark.
+- **01 to 03, the works**: a header band (the sheet number in its cell, the
+  headline in display); below it the drawing field, the work's real image
+  printed as a plate, and beside it the notes column: the turn, then
+  reading, a list between hairlines numbered in mono. The work's entry is
+  the sheet's title block in the bottom-right corner: kind, status and year
+  in cells on the sheet's columns, the title as a link, one next-step line.
+  Under 900px everything stacks in reading order: number, headline, plate,
+  title block, notes.
+- **Together**: one unnumbered sheet: the two-line headline on the works'
+  headline column, and one sentence in the turn role in the notes column.
+  No image.
 - **Author**: the portrait drawn on the sheet, one sentence in the turn role
-  with the name in display, and correspondence: a label and the address as
-  a plain link.
+  with the name in display, and correspondence in the title block's place:
+  a label and the address as a plain link.
 - **Footer**: copyright and profile links, as labels.
 
 ## Principles
@@ -50,13 +54,24 @@ sheet, an author.
 
 ## Sheets
 
-- Hairline frame inset from the paper's edge; corners **overshoot** the way a
-  draughtsman closes a border.
-- The frame **drafts in once** as the sheet enters view. The only motion on the
-  site. Static under reduced motion.
-- A sheet carries only its **number** at its head. No titles in the margin, no
-  repeated maker's mark.
-- Consecutive sheets share their edges, like pages in a set.
+- A hairline **trim** line inset from the paper's edge, its corners
+  **overshooting** the way a draughtsman closes a border; inside it the
+  **border** in the mark's own 1.5px of ink; between them the zone strip.
+- Line weight carries the hierarchy: the border in full ink, the rules
+  between fields at `--line`, rules inside a field at `--line-faint`.
+- Every sheet is one grid of 12 columns (6 under 900px) with no gutter. Its
+  fields are ruled cells that meet the border, and every rule falls on a
+  column line. The zone strip is **ticked at each column line**, so the grid
+  the sheet is drawn on is visible. Every headline, and the thesis over
+  the index, starts on column 2, beside the numbers; the notes
+  column always starts on column 8, so one spine runs down the set. Cells
+  in a row share one baseline.
+- The trim and border **draft in once** as the sheet enters view, then the
+  ticks are set. The only motion on the site. Static under reduced motion.
+- A sheet carries its **number** in the header band's first cell. No titles
+  in the margin, no repeated maker's mark.
+- Consecutive sheets share their trim edge, like sheets in a set; the
+  overshooting corners cross where they meet.
 
 ## Color
 
@@ -114,18 +129,22 @@ only on green.
   each repo's README hero, in their own colour, never washed or redrawn.
   They are printed on the page's paper (`mix-blend-mode: multiply`): their
   own cool, near-white ground gives way to the warm paper, which otherwise
-  makes them read pale, and their ink keeps full strength. Where the plate's
-  group sticks, the group carries the blend, since sticking isolates it from
-  the paper. They sit as
-  objects: a contact edge and a soft fall of light, served as AVIF/WebP at
-  2×.
-- Each work's plate sits on its own sheet beside the evidence it holds.
+  makes them read pale, and their ink keeps full strength. They are printed,
+  not laid on: no shadow, only the plate mark the press leaves around them.
+  Served as AVIF/WebP at 2×.
+- Each work's plate is centred in its sheet's drawing field, beside the
+  notes it holds.
 - The founder portrait is drawn in pencil on the site's paper and dissolves
   into the sheet at its edges.
 - No invented illustrations. A drawing appears only where it carries something
   words cannot.
 
 ## What has failed
+
+- An editorial page: serif headlines over text columns floating on beige
+  paper, the plates lying on it with drop shadows, the drawing office only a
+  faint frame and a sheet number. The sheet itself has to be drawn: border,
+  grid, fields, title block.
 
 - A document with section headers and scroll: a Word file on colored paper.
 - Full-screen sheets with content floating in the middle.

@@ -58,8 +58,9 @@ const sheets = await Promise.all(
 
   {
     sheets.map(({ data, number, Evidence }) => (
-      <Drawing id={anchor(data.title)} number={number} label={data.title}>
+      <Drawing id={anchor(data.title)} label={data.title}>
         <div class:list={["sheet", { book: data.kind === "book" }]}>
+          <p class="no mono-label">{number}</p>
           <h2>{data.claim}</h2>
           <div class="exhibit">
             <a
@@ -72,22 +73,24 @@ const sheets = await Promise.all(
               <Picture
                 src={data.cover}
                 alt=""
-                widths={data.kind === "book" ? [320, 640] : [560, 1120]}
+                widths={data.kind === "book" ? [400, 800] : [720, 1080, 1440]}
                 sizes={
                   data.kind === "book"
-                    ? "(max-width: 900px) 64vw, 320px"
-                    : "(max-width: 900px) calc(100vw - 4rem), 560px"
+                    ? "(max-width: 900px) 64vw, 400px"
+                    : "(max-width: 900px) calc(100vw - 4rem), min(52vw, 860px)"
                 }
                 formats={["avif", "webp"]}
                 loading="lazy"
               />
             </a>
-            <div class="entry">
-              <span class="kind mono-label">
-                {[data.label, data.status, data.year]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </span>
+          </div>
+          <div class="entry">
+            <p class="kind mono-label">
+              {[data.label, data.status, data.year]
+                .filter(Boolean)
+                .flatMap((part, i) => [i ? " " : "", <span>{part}</span>])}
+            </p>
+            <div class="named">
               <a class="title-link" href={data.url} rel="noopener">
                 {data.title.split(" ").slice(0, -1).join(" ")}{" "}
                 <span class="nw">
@@ -96,8 +99,8 @@ const sheets = await Promise.all(
                 </span>
               </a>
               {data.kind === "book" && <span class="by">Kyle J. Tobin</span>}
-              {data.line && <span class="line">{data.line}</span>}
             </div>
+            {data.line && <p class="line">{data.line}</p>}
           </div>
           <div class="reading">
             <Evidence />
@@ -130,17 +133,15 @@ const sheets = await Promise.all(
           loading="lazy"
         />
       </div>
-      <div class="author-text">
-        <p class="statement">
-          <strong>Kyle J. Tobin</strong> works on how organizations will now have
-          to run: whole, explicit, and executable, from the authority at the top to
-          the code underneath.
-        </p>
-        <p class="correspondence">
-          <span class="mono-label">Correspondence</span>
-          <a href={mailto}>{email}</a>
-        </p>
-      </div>
+      <p class="statement">
+        <strong>Kyle J. Tobin</strong> works on how organizations will now have to
+        run: whole, explicit, and executable, from the authority at the top to the
+        code underneath.
+      </p>
+      <p class="correspondence">
+        <span class="mono-label">Correspondence</span>
+        <span class="address"><a href={mailto}>{email}</a></span>
+      </p>
     </div>
   </Drawing>
 
@@ -175,64 +176,108 @@ const sheets = await Promise.all(
     --reading: clamp(1.14rem, 1.3vw, 1.24rem);
   }
 
-  .cover {
+  /* every sheet is one grid of --cols columns with no gutter: its fields
+     are ruled cells that meet the border, and every rule falls on a tick */
+  .cover,
+  .sheet,
+  .whole,
+  .author {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1.5rem, 3vw, 3rem);
-    row-gap: clamp(2rem, 5vh, 3.5rem);
-    align-content: end;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   }
-  .colophon {
-    --mark: clamp(34px, 3.2vw, 44px);
-    grid-column: 1 / -1;
+
+  /* the cover sheet: the thesis, then the index of sheets ruled as a
+     drawing list, with the maker's mark in its own cell */
+  .cover {
+    grid-template-rows: 1fr auto;
   }
   h1 {
-    grid-column: 1 / span 9;
+    grid-column: 2 / span 9;
+    grid-row: 1;
+    align-self: end;
+    padding: calc(var(--cell) * 2) var(--cell) calc(var(--cell) * 1.6);
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.5rem, 5.4vw, 5rem);
-    line-height: 1.04;
+    font-size: clamp(2.5rem, 6.8vw, 6.5rem);
+    line-height: 1.02;
     letter-spacing: -0.014em;
     max-width: 16ch;
+    box-sizing: content-box;
     text-wrap: balance;
   }
   .contents {
     grid-column: 1 / span 10;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
     list-style: none;
     border-top: 1px solid var(--line);
   }
   .contents li {
-    border-bottom: 1px solid var(--line-faint);
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+  .contents li + li {
+    border-top: 1px solid var(--line-faint);
   }
   .contents a {
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 2.25rem minmax(0, 1fr) minmax(0, 15rem);
-    column-gap: 1.25rem;
-    row-gap: 0.15rem;
+    grid-template-columns: subgrid;
+    position: relative;
     align-items: baseline;
-    padding: 0.85rem 0;
     min-height: 44px;
     color: var(--ink);
     text-decoration: none;
+    transition: background-color 0.3s var(--ease);
+  }
+  .contents .no,
+  .contents .claim,
+  .contents .work {
+    padding: 1rem var(--cell);
   }
   .contents .no {
+    grid-column: 1;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.12em;
-    color: var(--ink-quiet);
+    color: var(--ink);
   }
   .contents .claim {
+    grid-column: 2 / span 6;
     font-size: clamp(1.2rem, 1.55vw, 1.38rem);
     line-height: 1.32;
     text-wrap: pretty;
     transition: transform 0.4s var(--ease);
   }
   .contents .work {
+    grid-column: 8 / -1;
     font-style: italic;
     font-size: 1.05rem;
     line-height: 1.3;
     color: var(--ink-quiet);
-    text-align: right;
+  }
+  /* the index's column rules, drawn by the row so every cell keeps one
+     baseline */
+  .contents a::before,
+  .contents a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+  .contents a::before {
+    left: 10%;
+  }
+  .contents a::after {
+    left: 70%;
+  }
+  .contents a:hover,
+  .contents a:focus-visible {
+    background-color: rgba(26, 26, 26, 0.035);
   }
   .contents a:hover .claim,
   .contents a:focus-visible .claim {
@@ -240,7 +285,17 @@ const sheets = await Promise.all(
   }
   .contents a:focus-visible {
     outline: 1.5px solid var(--ink);
-    outline-offset: 4px;
+    outline-offset: -1.5px;
+  }
+  .colophon {
+    --mark: clamp(30px, 2.8vw, 40px);
+    grid-column: 11 / -1;
+    grid-row: 2;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
 
   .bar {
@@ -250,13 +305,13 @@ const sheets = await Promise.all(
     height: var(--bar);
     display: flex;
     align-items: center;
-    padding: 0 calc(var(--gutter) * 0.5 + 1.25rem);
-    background: rgba(238, 227, 208, 0.9);
+    padding: 0 calc(var(--trim) + var(--zone) + var(--border) + var(--cell));
+    background: rgba(238, 227, 208, 0.92);
     backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line-faint);
+    border-bottom: 1px solid var(--line);
   }
   .home {
-    --mark: 26px;
+    --mark: 24px;
     color: var(--ink);
     line-height: 0;
     text-decoration: none;
@@ -267,94 +322,80 @@ const sheets = await Promise.all(
     pointer-events: none;
   }
 
+  /* a work's sheet: the header band (sheet number, headline), the drawing
+     field with its plate, the notes, and the title block in the corner */
+  .sheet {
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "n h h h h h h h h h h h"
+      "x x x x x x x r r r r r"
+      "x x x x x x x e e e e e";
+  }
+  /* the header band: the sheet number on the headline's first baseline */
+  .sheet > .no {
+    grid-area: n;
+    align-self: baseline;
+    padding: 0 var(--cell);
+    color: var(--ink);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.85rem, 3.3vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .sheet h2 {
+    grid-area: h;
+    align-self: baseline;
+    padding-top: calc(var(--cell) * 0.75);
+    padding-bottom: var(--cell);
+    padding-left: var(--cell);
+    border-left: 1px solid var(--line);
+  }
+  /* the band's rule runs to the border; the headline keeps its measure */
+  .sheet h2,
+  .whole h2 {
+    padding-right: max(var(--cell), calc(100% - 26ch - var(--cell)));
+  }
+
+  .exhibit {
+    grid-area: x;
+    display: grid;
+    place-items: center;
+    padding: calc(var(--cell) * 1.25) var(--cell);
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  /* the plate, printed: its own ground gives way to the paper, its ink
+     stays full, and the press leaves its mark around it */
   .plate {
     display: block;
+    width: 100%;
     line-height: 0;
+    padding: clamp(8px, 0.9vw, 12px);
     box-shadow:
-      0 0 0 1px rgba(26, 26, 26, 0.1),
-      0 1px 1px rgba(26, 26, 26, 0.12),
-      0 18px 32px -16px rgba(40, 30, 15, 0.3);
+      inset 0 0 0 1px rgba(26, 26, 26, 0.16),
+      inset 1px 1px 0 1px rgba(255, 250, 240, 0.5);
   }
-  /* the plate's own ground gives way to the paper; its ink stays full */
+  .sheet.book .plate {
+    width: min(100%, 25rem);
+  }
   .plate :global(img) {
     display: block;
     width: 100%;
     height: auto;
     mix-blend-mode: multiply;
   }
-  .sheet {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    grid-template-areas: "h h" "x r";
-    column-gap: clamp(2rem, 4.5vw, 4.5rem);
-    row-gap: clamp(1.5rem, 3vw, 2.25rem);
-    align-items: start;
-  }
-  .sheet.book {
-    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
-  }
-  h2 {
-    grid-area: h;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(1.85rem, 3.3vw, 2.9rem);
-    line-height: 1.12;
-    letter-spacing: -0.01em;
-    max-width: 24ch;
-    text-wrap: balance;
-  }
-  .exhibit {
-    grid-area: x;
-    position: sticky;
-    top: calc(var(--bar) + 2rem);
-    display: grid;
-    row-gap: clamp(1.5rem, 3vw, 2.25rem);
-    /* sticking isolates the group, so the group itself is printed on the
-       paper; the plate's own blend would otherwise meet nothing */
-    mix-blend-mode: multiply;
-  }
-  .entry {
-    display: grid;
-    gap: 0.3rem;
-    justify-items: start;
-  }
-  .kind {
-    letter-spacing: 0.12em;
-  }
-  .by {
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--ink-quiet);
-  }
-  .title-link {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    line-height: 1.22;
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-decoration-color: var(--line);
-    text-underline-offset: 0.25em;
-    transition: text-decoration-color 0.3s var(--ease);
-  }
-  .title-link :global(svg) {
-    margin-left: 0.3em;
-    vertical-align: 0.12em;
-  }
-  .title-link:hover,
-  .title-link:focus-visible {
-    text-decoration-color: var(--ink);
-    outline: none;
-  }
-  .line {
-    font-size: 1.15rem;
-    line-height: 1.4;
-    color: var(--ink-light);
-  }
 
   .reading {
     grid-area: r;
-    max-width: 36rem;
+    border-top: 1px solid var(--line);
+    padding: calc(var(--cell) * 1.25) var(--cell) var(--cell);
+  }
+  .reading > :global(*) {
+    max-width: 30rem;
   }
   .reading :global(p),
   .reading :global(li) {
@@ -381,6 +422,11 @@ const sheets = await Promise.all(
   .reading > :global(p + ol) {
     margin-top: 0.75rem;
   }
+  /* the list is ruled across the whole notes column, like the title block */
+  .reading > :global(ol) {
+    max-width: none;
+    margin-inline: calc(var(--cell) * -1);
+  }
   .reading :global(ol) {
     list-style: none;
     border-top: 1px solid var(--line-faint);
@@ -388,58 +434,137 @@ const sheets = await Promise.all(
   }
   .reading :global(li) {
     position: relative;
-    padding: 0.35rem 0 0.35rem 1.5rem;
+    padding: 0.35rem var(--cell) 0.35rem calc(var(--cell) + 1.75rem);
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
   }
   .reading :global(ol li) {
     counter-increment: q;
   }
+  .reading :global(ol li::before) {
+    content: counter(q, decimal-leading-zero);
+    display: inline-block;
+    width: 1.75rem;
+    margin-left: -1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-quiet);
+  }
   .nw {
     white-space: nowrap;
   }
-  .reading :global(ol li::before) {
-    content: counter(q);
-    display: inline-block;
-    width: 1.5rem;
-    margin-left: -1.5rem;
-    padding-left: 0.1rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+
+  /* the title block: what the work is, ruled into cells */
+  .entry {
+    grid-area: e;
+    display: grid;
+    grid-template-columns: subgrid;
+    border-top: 1px solid var(--line);
+  }
+  .entry > * {
+    grid-column: 1 / -1;
+    padding: 0.75rem var(--cell);
+  }
+  .entry > * + * {
+    border-top: 1px solid var(--line-faint);
+  }
+  /* kind, status and year in cells on the sheet's own columns */
+  .entry > .kind {
+    display: grid;
+    grid-template-columns: subgrid;
+    padding: 0;
+    letter-spacing: 0.12em;
+  }
+  .kind span {
+    grid-column: span 2;
+    padding: 0.7rem var(--cell);
+    border-right: 1px solid var(--line-faint);
+  }
+  .kind span:last-child {
+    grid-column: span 1;
+    border-right: 0;
+  }
+  .kind span:nth-child(2):last-child {
+    grid-column: span 3;
+  }
+  .named {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 1rem;
+    padding-block: 0.9rem;
+  }
+  .title-link {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.22;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--line);
+    text-underline-offset: 0.25em;
+    transition: text-decoration-color 0.3s var(--ease);
+  }
+  .title-link :global(svg) {
+    margin-left: 0.3em;
+    vertical-align: 0.12em;
+  }
+  .title-link:hover,
+  .title-link:focus-visible {
+    text-decoration-color: var(--ink);
+    outline: none;
+  }
+  .by {
+    font-style: italic;
+    font-size: 1.1rem;
     color: var(--ink-quiet);
   }
-
-  .whole {
-    display: grid;
-    row-gap: 1.5rem;
+  .line {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--ink-light);
   }
+
+  /* together: the headline where the works' headlines stand, the sentence in
+     the notes column */
   .whole h2 {
-    grid-area: auto;
+    grid-column: 2 / 8;
+    padding-block: calc(var(--cell) * 1.25);
+    padding-left: var(--cell);
   }
   .whole .turn {
-    max-width: 38rem;
+    grid-column: 8 / -1;
+    padding: calc(var(--cell) * 1.25) var(--cell);
+    border-left: 1px solid var(--line);
   }
 
+  /* the author: the portrait drawn on the sheet, the sentence beside it,
+     correspondence where the works carry their title block */
   .author {
-    display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-    row-gap: 2rem;
+    grid-template-rows: 1fr auto;
     align-items: center;
+  }
+  .portrait {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+    padding: var(--cell) 0 var(--cell) calc(var(--cell) * 0.5);
   }
   .portrait :global(img) {
     display: block;
     width: 100%;
+    max-width: 220px;
     height: auto;
     mask-image:
       linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
       linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
     mask-composite: intersect;
   }
-  .author-text {
-    max-width: 40rem;
-  }
   .statement {
+    grid-column: 3 / -1;
+    grid-row: 1;
+    max-width: 40rem;
+    box-sizing: content-box;
+    padding: calc(var(--cell) * 1.25) var(--cell) var(--cell);
     font-size: var(--turn);
     font-weight: 500;
     line-height: 1.32;
@@ -451,10 +576,18 @@ const sheets = await Promise.all(
     font-weight: 500;
   }
   .correspondence {
-    margin-top: 2rem;
+    grid-column: 8 / -1;
+    grid-row: 2;
     display: grid;
-    gap: 0.35rem;
-    justify-items: start;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .correspondence > * {
+    padding: 0.75rem var(--cell);
+    justify-self: stretch;
+  }
+  .correspondence > * + * {
+    border-top: 1px solid var(--line-faint);
   }
   .correspondence a {
     font-size: 1.25rem;
@@ -474,7 +607,10 @@ const sheets = await Promise.all(
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1.75rem;
-    padding: 1.5rem calc(var(--gutter) + 1.5rem) 2.5rem;
+    width: 100%;
+    max-width: var(--sheet-max);
+    margin-inline: auto;
+    padding: 1.25rem calc(var(--trim) + var(--zone) + var(--cell)) 2.5rem;
   }
   footer .links {
     display: flex;
@@ -492,34 +628,117 @@ const sheets = await Promise.all(
     outline: none;
   }
 
+  /* between desk and phone the index gives the claim the spine's column */
+  @media (max-width: 1180px) and (min-width: 901px) {
+    .contents .claim {
+      grid-column: 2 / span 7;
+    }
+    .contents .work {
+      grid-column: 9 / -1;
+    }
+    .contents a::after {
+      left: 80%;
+    }
+  }
   @media (max-width: 900px) {
-    h1,
+    h1 {
+      grid-column: 1 / -1;
+      align-self: end;
+    }
     .contents {
       grid-column: 1 / -1;
     }
     .contents a {
-      grid-template-columns: 1.75rem minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      align-items: start;
+    }
+    .contents .no {
+      grid-row: 1 / span 2;
+    }
+    .contents a::before {
+      left: calc(100% / 6);
+    }
+    .contents a::after {
+      display: none;
+    }
+    .contents .claim {
+      grid-column: 2 / -1;
+      padding-bottom: 0.15rem;
     }
     .contents .work {
-      grid-column: 2;
-      text-align: left;
+      grid-column: 2 / -1;
+      border-left: 0;
+      padding-top: 0;
     }
-    .sheet,
-    .sheet.book,
-    .author {
-      grid-template-columns: minmax(0, 1fr);
+    .colophon {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      justify-items: start;
+      border-left: 0;
+      padding: var(--cell);
     }
     .sheet {
-      grid-template-areas: "h" "x" "r";
+      grid-template-rows: none;
+      grid-template-areas:
+        "n n . . . ."
+        "h h h h h h"
+        "x x x x x x"
+        "e e e e e e"
+        "r r r r r r";
+    }
+    .sheet > .no {
+      align-self: stretch;
+      padding: 0.6rem var(--cell);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .sheet h2 {
+      padding-top: var(--cell);
+      border-left: 0;
+    }
+    .reading {
+      border-top: 0;
     }
     .exhibit {
-      position: static;
+      padding-inline: calc(var(--cell) * 0.5);
+      border-right: 0;
     }
     .sheet.book .plate {
-      width: min(64vw, 300px);
+      width: min(80%, 18rem);
+    }
+    .title-link {
+      font-size: 1.2rem;
+    }
+    .entry {
+      border-bottom: 1px solid var(--line);
+    }
+    .entry > .kind {
+      display: flex;
+    }
+    .kind span {
+      padding-inline: var(--cell);
+    }
+    .whole h2,
+    .whole .turn,
+    .statement,
+    .correspondence {
+      grid-column: 1 / -1;
+      border-left: 0;
+    }
+    .whole .turn {
+      padding-top: 0;
+    }
+    .statement,
+    .correspondence {
+      grid-row: auto;
     }
     .portrait {
-      width: min(50vw, 220px);
+      grid-row: auto;
+      grid-column: 1 / span 3;
+      padding: var(--cell) 0 0 var(--cell);
+    }
+    .correspondence {
+      border-top: 1px solid var(--line);
     }
   }
   @media (prefers-reduced-motion: reduce) {

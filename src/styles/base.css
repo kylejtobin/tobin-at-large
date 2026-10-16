@@ -18,10 +18,18 @@
   --font-mono:
     "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --sheet-max: 76rem;
+  --sheet-max: 100rem;
   /* the height of the persistent bar; sheets fill the screen beneath it */
   --bar: 3.5rem;
   --gutter: clamp(1.25rem, 3.4vw, 2.75rem);
+  /* the sheet: trim line inset from the paper's edge, the zone strip, then
+     the border in the mark's own weight. every field inside is ruled to a
+     grid of --cols columns, ticked on the zone strip */
+  --trim: calc(var(--gutter) * 0.5);
+  --zone: clamp(8px, 0.9vw, 13px);
+  --border: 1.5px;
+  --cols: 12;
+  --cell: clamp(1.25rem, 2.3vw, 2.25rem);
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
@@ -36,6 +44,19 @@ html {
   /* sheets come to rest beneath the bar, not under it */
   scroll-padding-top: var(--bar);
 }
+@media (max-width: 900px) {
+  :root {
+    --cols: 6;
+  }
+}
+/* a phone gives the words the width: the margins of the sheet close in */
+@media (max-width: 600px) {
+  :root {
+    --zone: 7px;
+    --cell: 1rem;
+  }
+}
+
 /* on screens large enough to hold a sheet, each sheet comes to rest whole */
 @media (min-width: 900px) and (min-height: 700px) {
   html {
