@@ -64,27 +64,30 @@ const sheets = await Promise.all(
           <p class="no mono-label">{number}</p>
           <h2>{data.claim}</h2>
           <div class="exhibit">
-            <a
-              class="plate"
-              href={data.url}
-              rel="noopener"
-              tabindex="-1"
-              aria-hidden="true"
-            >
-              <Picture
-                src={data.cover}
-                alt=""
-                widths={data.kind === "book" ? [400, 800] : [720, 1080, 1440]}
-                sizes={
-                  data.kind === "book"
-                    ? "(max-width: 900px) 64vw, 400px"
-                    : "(max-width: 900px) calc(100vw - 4rem), min(52vw, 860px)"
-                }
-                formats={["avif", "webp"]}
-                loading="lazy"
-              />
-            </a>
-            {data.detail && <Detail />}
+            {data.detail ? (
+              <Detail />
+            ) : (
+              <a
+                class="plate"
+                href={data.url}
+                rel="noopener"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <Picture
+                  src={data.cover}
+                  alt=""
+                  widths={data.kind === "book" ? [400, 800] : [720, 1080, 1440]}
+                  sizes={
+                    data.kind === "book"
+                      ? "(max-width: 900px) 64vw, 400px"
+                      : "(max-width: 900px) calc(100vw - 4rem), min(52vw, 860px)"
+                  }
+                  formats={["avif", "webp"]}
+                  loading="lazy"
+                />
+              </a>
+            )}
           </div>
           <div class="entry">
             <p class="kind mono-label">

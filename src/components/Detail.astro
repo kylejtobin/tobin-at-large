@@ -1,67 +1,140 @@
 ---
-// the detail drawn under TCA's plate: the check a type makes necessary,
-// beside the type that leaves nothing to check
+// TCA's exhibit: one feature both ways. The usual code turns a deposit
+// into a withdrawal on a capital letter; the types refuse it on arrival.
 ---
 
-<figure class="detail" aria-label="The check, and the type">
-  <div class="panes">
-    <div class="pane">
-      <p class="mono-label">The check</p>
-      <pre><code><span class="k">def</span> refund(order: Order) -&gt; Refund:
-    <span class="k">if</span> order.status != <span class="s">"paid"</span>:
-        <span class="k">raise</span> RefundError(<span class="s">"not paid"</span>)
-    <span class="k">return</span> Refund(order=order)</code></pre>
-    </div>
-    <div class="pane">
-      <p class="mono-label">The type</p>
-      <pre><code><span class="k">class</span> Order(RootModel[Paid | Unpaid]): ...
-
-<span class="k">class</span> Refund(BaseModel):
-    order: <span class="a">Paid</span></code></pre>
-    </div>
+<figure class="detail" aria-label="ledger.py, the check and the type">
+  <p class="bar"><span>ledger.py</span></p>
+  <div class="pane">
+    <p class="label">The check</p>
+    <pre><code><span class="l"><span class="k">def</span> apply(balance, entry):</span>
+<span class="l">    <span class="k">if</span> entry[<span class="s">"kind"</span>] == <span class="s">"credit"</span>:</span>
+<span class="l">        <span class="k">return</span> balance + entry[<span class="s">"amount"</span>]</span>
+<span class="l">    <span class="bad">else</span>:</span>
+<span class="l">        <span class="k">return</span> balance - entry[<span class="s">"amount"</span>]</span>
+<span class="l"></span>
+<span class="l">apply(<span class="n">100</span>, &#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
+<span class="l"><span class="bad"># 50</span></span></code></pre>
+  </div>
+  <div class="pane">
+    <p class="label">The type</p>
+    <pre><code><span class="l"><span class="k">class</span> <span class="t">Credit</span>(BaseModel):</span>
+<span class="l">    kind: <span class="good">Literal["credit"]</span></span>
+<span class="l">    amount: <span class="t">Amount</span></span>
+<span class="l"></span>
+<span class="l"><span class="k">class</span> <span class="t">Debit</span>(BaseModel):</span>
+<span class="l">    kind: <span class="good">Literal["debit"]</span></span>
+<span class="l">    amount: <span class="t">Amount</span></span>
+<span class="l"></span>
+<span class="l"><span class="k">class</span> <span class="t">Entry</span>(RootModel[<span class="t">Credit</span> | <span class="t">Debit</span>]):</span>
+<span class="l">    <span class="c">"""A change to a balance: a credit or a debit."""</span></span>
+<span class="l"></span>
+<span class="l"><span class="t">Entry</span>.model_validate(&#123;<span class="s">"kind"</span>: <span class="s">"Credit"</span>, <span class="s">"amount"</span>: <span class="n">50</span>&#125;)</span>
+<span class="l"><span class="good"># ValidationError: kind should be 'credit' or 'debit'</span></span></code></pre>
   </div>
 </figure>
 
 <style>
+  /* printed in reverse: an ink ground on the sheet, the code in the
+     paper's own colour, and two marks: red where the usual code goes
+     wrong, ochre where the type refuses it */
   .detail {
-    container-type: inline-size;
+    --ground: #1d1b18;
+    --text: #ece3d2;
+    --quiet: #8f8676;
+    --rule: rgba(236, 227, 210, 0.14);
     width: 100%;
-    border: 1px solid var(--line);
-    background: rgba(255, 250, 240, 0.32);
+    background: var(--ground);
+    color: var(--text);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar,
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--quiet);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.1rem;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: 0.06em;
+    text-transform: none;
+  }
+  .bar::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent-light);
   }
   .pane + .pane {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--rule);
   }
-  .pane p {
-    padding: 0.55rem 0.9rem;
-    border-bottom: 1px solid var(--line-faint);
+  .label {
+    padding: 0.85rem 1.1rem 0;
   }
   pre {
     overflow-x: auto;
-    padding: 0.85rem 0.9rem 0.95rem;
+    padding: 0.6rem 1.1rem 1rem 0;
     font-family: var(--font-mono);
-    font-size: clamp(0.7rem, 0.86vw, 0.8rem);
-    line-height: 1.65;
-    color: var(--ink);
+    font-size: clamp(0.7rem, 0.82vw, 0.8rem);
+    line-height: 1.7;
+    counter-reset: line;
+  }
+  .l::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 3.2em;
+    padding-right: 1.2em;
+    text-align: right;
+    color: var(--quiet);
+    opacity: 0.6;
+    user-select: none;
   }
   .k {
-    color: var(--ink-quiet);
+    color: #b9ad99;
   }
-  .s {
-    color: var(--ink-light);
-  }
-  .a {
-    color: var(--accent);
+  .t {
+    color: #fffaf0;
     font-weight: 500;
   }
-  @container (min-width: 34rem) {
-    .panes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+  .s {
+    color: #cdb48a;
+  }
+  .n {
+    color: #e2cfa8;
+  }
+  .c {
+    color: var(--quiet);
+    font-style: italic;
+  }
+  .bad {
+    color: var(--accent-light);
+    font-weight: 500;
+  }
+  .good {
+    color: #e3b04b;
+    font-weight: 500;
+  }
+  /* a phone keeps every line whole: the numbers go, the type steps down */
+  @media (max-width: 600px) {
+    pre {
+      padding-left: 1rem;
+      font-size: 0.6rem;
     }
-    .pane + .pane {
-      border-top: 0;
-      border-left: 1px solid var(--line);
+    .l::before {
+      display: none;
+    }
+    .bar,
+    .label {
+      padding-inline: 1rem;
     }
   }
 </style>
