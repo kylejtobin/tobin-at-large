@@ -2,16 +2,16 @@
 kind: software
 label: Architecture
 title: Type Construction Architecture
-claim: "Your rules run in code their owners can’t read."
-line: "Its skills load into your coding agent."
+claim: "Your code permits what your business never would."
+line: "Hold your next commit to it."
 url: https://github.com/kylejtobin/tca
 cover: ./type-construction-architecture.png
 year: 2026
 order: 2
 ---
 
-Type Construction Architecture writes each rule in its owner’s words, and what is written is what runs.
+Build every program so it can hold only what its owners allowed, in their words, and what is read is what runs.
 
-The owner can read a rule where it is enforced, and with no second copy nothing drifts. A state the business never allowed cannot be expressed, and a case nobody decided reaches its owner instead of a default.
+Code that can hold anything has to be guarded everywhere, and its guards miss the case nobody thought of. Declare what exists, in the owner’s terms, and a wrong state cannot be built, no second copy drifts, and a case nobody decided reaches its owner instead of a default.
 
-Agents make building this way as fast as the usual way, and it makes them safe to trust: they work from the business’s meaning, within limits they cannot cross, and their work can be checked without reading every line.
+This never depended on agents; it was always the sound way to build, and agents remove its cost. Type Construction Architecture is how we build: the method, and the checks and skills that hold you and your coding agent to it.
