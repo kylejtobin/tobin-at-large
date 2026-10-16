@@ -4,75 +4,83 @@
 // twice; the provider's reply, modeled once, constructs its own case.
 ---
 
-<div class="detail">
-  <figure class="window check" aria-label="The check">
-    <p class="bar">
-      <span>The check</span><span class="file">payments.py</span>
-    </p>
-    <pre><code><span class="l"><span class="k">def</span> charge(order):</span>
-<span class="l">    r = requests.post(PAY_URL, json=order.to_dict())</span>
-<span class="l">    data = r.json()</span>
+<figure class="detail">
+  <div class="windows">
+    <div class="window check" aria-label="The check">
+      <p class="bar">
+        <span>The check</span><span class="file">payments.py</span>
+      </p>
+      <pre><code><span class="l"><span class="k">def</span> <span class="t">charge</span>(order):  <span class="note"># ship it</span></span>
+<span class="l">    <span class="k">try</span>:</span>
+<span class="l">        data = post(PAY, order).json()</span>
+<span class="l">    <span class="k">except</span> Exception:</span>
+<span class="l">        <span class="k">return</span> <span class="k">None</span>  <span class="note"># eh, just retry</span></span>
 <span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"approved"</span>:</span>
-<span class="l x">        <span class="k">return</span> &#123;<span class="s">"id"</span>: data<span class="err">["charge"]</span>[<span class="s">"id"</span>]&#125;</span>
-<span class="l">    <span class="k">elif</span> <span class="s">"decline_code"</span> <span class="k">in</span> data:  <span class="note"># or _codes? eh</span></span>
-<span class="l">        <span class="k">return</span> &#123;<span class="s">"why"</span>: data[<span class="s">"decline_code"</span>]&#125;</span>
-<span class="l">    <span class="k">return</span> <span class="k">None</span>  <span class="note"># outage? decline? retry it, whatever</span></span>
-<span class="l" />
-<span class="l"><span class="c"># they send &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
-<span class="l x"><span class="bad"># KeyError: 'charge'</span></span>
-<span class="l x"><span class="bad"># card charged. we retry. charged twice.</span></span></code></pre>
-  </figure>
-  <figure class="window type" aria-label="The type">
-    <p class="bar">
-      <span>The type</span><span class="file">payments/model.py</span>
-    </p>
-    <pre><code><span class="l"><span class="c"># every class frozen and strict; config left out</span></span>
-<span class="l"><span class="note"># their whole API. every answer they can give.</span></span>
-<span class="l"><span class="k">class</span> <span class="t">ChargeApproved</span>(BaseModel):</span>
+<span class="l x">        <span class="k">return</span> data<span class="err">["charge"]</span>[<span class="s">"id"</span>]</span>
+<span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"declined"</span>:</span>
+<span class="l">        <span class="k">return</span> <span class="k">None</span>  <span class="note"># also retry?</span></span>
+<span class="l">    <span class="k">return</span> <span class="k">None</span>  <span class="note"># who knows</span></span>
+<span class="l"> </span>
+<span class="l"><span class="c"># &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
+<span class="l x"><span class="mark"># KeyError: 'charge'</span></span></code></pre>
+      <p class="end"><span aria-hidden="true">✕</span> Charged twice.</p>
+    </div>
+    <div class="window type" aria-label="The type">
+      <p class="bar">
+        <span>The type</span><span class="file">payments/model.py</span>
+      </p>
+      <pre><code><span class="l"><span class="k">class</span> <span class="t">Approval</span>(BaseModel):</span>
 <span class="l">    status: <span class="t">Approved</span></span>
-<span class="l ok">    charge: <span class="t">ChargeId</span> = Field(<span class="good">alias="id"</span>)</span>
-<span class="l" />
-<span class="l"><span class="k">class</span> <span class="t">ChargeDeclined</span>(BaseModel):</span>
+<span class="l ok">    charge: <span class="t">ChargeId</span> = Field(<span class="mark">alias="id"</span>)</span>
+<span class="l"><span class="k">class</span> <span class="t">Decline</span>(BaseModel):</span>
 <span class="l">    status: <span class="t">Declined</span></span>
-<span class="l">    codes: <span class="t">DeclineCodes</span> = Field(alias=<span class="s">"decline_codes"</span>)</span>
-<span class="l" />
-<span class="l"><span class="k">class</span> <span class="t">ChargeFailed</span>(BaseModel):</span>
+<span class="l">    codes: <span class="t">DeclineCodes</span></span>
+<span class="l"><span class="k">class</span> <span class="t">Outage</span>(BaseModel):</span>
 <span class="l">    error: <span class="t">StatedError</span></span>
-<span class="l" />
-<span class="l"><span class="k">class</span> <span class="t">ChargeReply</span>(RootModel[</span>
-<span class="l">    <span class="t">ChargeApproved</span> | <span class="t">ChargeDeclined</span> | <span class="t">ChargeFailed</span></span>
+<span class="l"><span class="k">class</span> <span class="t">Reply</span>(RootModel[</span>
+<span class="l">    <span class="t">Approval</span> | <span class="t">Decline</span> | <span class="t">Outage</span></span>
 <span class="l">]):</span>
-<span class="l">    <span class="c">"""What the payment provider says of a charge."""</span></span>
-<span class="l" />
-<span class="l"><span class="note"># fire anything at it</span></span>
-<span class="l"><span class="t">ChargeReply</span>.model_validate_json(response.content)</span>
-<span class="l ok"><span class="good"># ChargeApproved, charge ch_9. charged once.</span></span></code></pre>
-  </figure>
-</div>
+<span class="l">    <span class="note">"""Every answer they have."""</span></span>
+<span class="l"> </span>
+<span class="l"><span class="c"># &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
+<span class="l"><span class="t">Reply</span>.model_validate_json(raw)</span>
+<span class="l ok"><span class="mark"># Approval(charge=ChargeId('ch_9'))</span></span></code></pre>
+      <p class="end"><span aria-hidden="true">✓</span> Charged once.</p>
+    </div>
+  </div>
+  <figcaption class="mono-label">
+    Every class is frozen and strict; its configuration is left out.
+  </figcaption>
+</figure>
 
 <style>
-  /* two windows printed in reverse on the sheet, one for each way of
-     writing the feature: an ink ground, the code in the paper's own colour,
-     and each window's mark, red where the usual code goes wrong, ochre
-     where the type refuses it */
+  /* two windows printed in reverse on the sheet, the way its plates print
+     black and one red: the code in the paper's own colour, its grammar in
+     weight and brightness alone, and colour kept for the two marks */
   .detail {
-    display: grid;
-    gap: calc(var(--cell) * 0.6);
+    container-type: inline-size;
     width: 100%;
   }
+  .windows {
+    display: grid;
+    gap: calc(var(--cell) * 0.5);
+  }
   .window {
-    --ground: #1d1b18;
-    --text: #e8e1d4;
+    --ground: #1b1a17;
+    --text: #d9d1c3;
     --quiet: #8f8676;
-    --rule: rgba(236, 227, 210, 0.14);
+    --rule: rgba(236, 227, 210, 0.13);
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
     background: var(--ground);
     color: var(--text);
-    border-radius: 4px;
+    border-radius: 3px;
     overflow: hidden;
   }
-  /* the two marks sit on the orange-blue axis, which every common colour
-     vision tells apart, and each also carries a mark that is not colour:
-     a squiggle under the error, a cross or a tick in the gutter */
+  /* the marks sit on the orange-blue axis, which every common colour
+     vision tells apart, and each is carried without colour too: a squiggle
+     under the error, a cross or a tick beside the lines that decide */
   .check {
     --mark: #f07a55;
   }
@@ -82,110 +90,102 @@
   .bar {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.7rem 1.1rem;
+    gap: 0.55rem;
+    padding: 0.65rem 1rem;
     border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text);
+    color: #f3ecdf;
   }
   .bar::before {
     content: "";
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.45rem;
+    height: 0.45rem;
     border-radius: 50%;
     background: var(--mark);
   }
   .file {
     margin-left: auto;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-transform: none;
     color: var(--quiet);
   }
+  /* the type is sized to the window, so the longest line, forty
+     characters, always fits whole */
   pre {
-    overflow-x: auto;
-    padding: 0.9rem 1.1rem 1rem 0;
+    flex: 1;
+    padding: 0.9rem 1rem 0.9rem 1.6rem;
     font-family: var(--font-mono);
-    font-size: clamp(0.7rem, 0.82vw, 0.8rem);
-    line-height: 1.55;
-    counter-reset: line;
+    font-size: clamp(0.64rem, calc((100cqi - 2.6rem) / 24.5), 0.84rem);
+    line-height: 1.6;
   }
-  .l::before {
-    counter-increment: line;
-    content: counter(line);
-    display: inline-block;
-    width: 3.2em;
-    padding-right: 1.2em;
-    text-align: right;
-    color: var(--quiet);
-    opacity: 0.6;
-    user-select: none;
+  .l {
+    position: relative;
+  }
+  .x::before,
+  .ok::before {
+    position: absolute;
+    left: -1.2em;
+    color: var(--mark);
+    font-weight: 500;
+  }
+  .x::before {
+    content: "✕";
+  }
+  .ok::before {
+    content: "✓";
   }
   .k {
-    color: #d4a0b8;
+    color: #9a907f;
   }
   .t {
     color: #fbf7ef;
     font-weight: 500;
   }
-  .s,
-  .n {
-    color: #a8d8c0;
+  .s {
+    color: #b9b0a0;
   }
   .c {
     color: var(--quiet);
     font-style: italic;
   }
-  .bad,
-  .good {
-    color: var(--mark);
-    font-weight: 500;
-  }
-  .err {
-    color: var(--mark);
-    font-weight: 500;
-    text-decoration: underline wavy var(--mark);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.3em;
-  }
-  /* what each way does, said in the code's own comments */
   .note {
     color: var(--mark);
     font-style: italic;
   }
-  .l {
-    position: relative;
-  }
-  .x::after,
-  .ok::after {
-    position: absolute;
-    left: 0.45em;
+  .mark,
+  .err {
     color: var(--mark);
     font-weight: 500;
   }
-  .x::after {
-    content: "✕";
+  .err {
+    text-decoration: underline wavy var(--mark);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
   }
-  .ok::after {
-    content: "✓";
+  /* each way's ending, on one baseline across the two windows */
+  .end {
+    padding: 0.75rem 1rem 0.85rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--mark);
   }
-  /* a phone keeps every line whole: the numbers go, the type steps down */
-  @media (max-width: 600px) {
-    pre {
-      padding-left: 1rem;
-      font-size: 0.6rem;
-    }
-    .l::before {
-      display: none;
-    }
-    .x::after,
-    .ok::after {
-      left: -0.75rem;
-    }
-    .bar {
-      padding-inline: 1rem;
+  .end span {
+    margin-right: 0.35rem;
+  }
+  figcaption {
+    padding-top: 0.7rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: none;
+  }
+  @container (min-width: 36rem) {
+    .windows {
+      grid-template-columns: 1fr 1fr;
     }
   }
 </style>
