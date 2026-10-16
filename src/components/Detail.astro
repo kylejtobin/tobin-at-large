@@ -13,14 +13,14 @@
 <span class="l">    r = requests.post(PAY_URL, json=order.to_dict())</span>
 <span class="l">    data = r.json()</span>
 <span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"approved"</span>:</span>
-<span class="l">        <span class="k">return</span> &#123;<span class="s">"id"</span>: data<span class="bad">["charge"]</span>[<span class="s">"id"</span>]&#125;</span>
+<span class="l x">        <span class="k">return</span> &#123;<span class="s">"id"</span>: data<span class="err">["charge"]</span>[<span class="s">"id"</span>]&#125;</span>
 <span class="l">    <span class="k">elif</span> <span class="s">"decline_code"</span> <span class="k">in</span> data:  <span class="note"># or _codes? eh</span></span>
 <span class="l">        <span class="k">return</span> &#123;<span class="s">"why"</span>: data[<span class="s">"decline_code"</span>]&#125;</span>
 <span class="l">    <span class="k">return</span> <span class="k">None</span>  <span class="note"># outage? decline? retry it, whatever</span></span>
 <span class="l" />
 <span class="l"><span class="c"># they send &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
-<span class="l"><span class="bad"># KeyError: 'charge'</span></span>
-<span class="l"><span class="bad"># card charged. we retry. charged twice.</span></span></code></pre>
+<span class="l x"><span class="bad"># KeyError: 'charge'</span></span>
+<span class="l x"><span class="bad"># card charged. we retry. charged twice.</span></span></code></pre>
   </figure>
   <figure class="window type" aria-label="The type">
     <p class="bar">
@@ -30,7 +30,7 @@
 <span class="l"><span class="note"># their whole API. every answer they can give.</span></span>
 <span class="l"><span class="k">class</span> <span class="t">ChargeApproved</span>(BaseModel):</span>
 <span class="l">    status: <span class="t">Approved</span></span>
-<span class="l">    charge: <span class="t">ChargeId</span> = Field(<span class="good">alias="id"</span>)</span>
+<span class="l ok">    charge: <span class="t">ChargeId</span> = Field(<span class="good">alias="id"</span>)</span>
 <span class="l" />
 <span class="l"><span class="k">class</span> <span class="t">ChargeDeclined</span>(BaseModel):</span>
 <span class="l">    status: <span class="t">Declined</span></span>
@@ -46,7 +46,7 @@
 <span class="l" />
 <span class="l"><span class="note"># fire anything at it</span></span>
 <span class="l"><span class="t">ChargeReply</span>.model_validate_json(response.content)</span>
-<span class="l"><span class="good"># ChargeApproved, charge ch_9. charged once.</span></span></code></pre>
+<span class="l ok"><span class="good"># ChargeApproved, charge ch_9. charged once.</span></span></code></pre>
   </figure>
 </div>
 
@@ -62,7 +62,7 @@
   }
   .window {
     --ground: #1d1b18;
-    --text: #ece3d2;
+    --text: #e8e1d4;
     --quiet: #8f8676;
     --rule: rgba(236, 227, 210, 0.14);
     background: var(--ground);
@@ -70,11 +70,14 @@
     border-radius: 4px;
     overflow: hidden;
   }
+  /* the two marks sit on the orange-blue axis, which every common colour
+     vision tells apart, and each also carries a mark that is not colour:
+     a squiggle under the error, a cross or a tick in the gutter */
   .check {
-    --mark: var(--accent-light);
+    --mark: #f07a55;
   }
   .type {
-    --mark: #e3b04b;
+    --mark: #6cc4f0;
   }
   .bar {
     display: flex;
@@ -121,17 +124,15 @@
     user-select: none;
   }
   .k {
-    color: #b9ad99;
+    color: #d4a0b8;
   }
   .t {
-    color: #fffaf0;
+    color: #fbf7ef;
     font-weight: 500;
   }
-  .s {
-    color: #cdb48a;
-  }
+  .s,
   .n {
-    color: #e2cfa8;
+    color: #a8d8c0;
   }
   .c {
     color: var(--quiet);
@@ -142,10 +143,33 @@
     color: var(--mark);
     font-weight: 500;
   }
+  .err {
+    color: var(--mark);
+    font-weight: 500;
+    text-decoration: underline wavy var(--mark);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
   /* what each way does, said in the code's own comments */
   .note {
     color: var(--mark);
     font-style: italic;
+  }
+  .l {
+    position: relative;
+  }
+  .x::after,
+  .ok::after {
+    position: absolute;
+    left: 0.45em;
+    color: var(--mark);
+    font-weight: 500;
+  }
+  .x::after {
+    content: "✕";
+  }
+  .ok::after {
+    content: "✓";
   }
   /* a phone keeps every line whole: the numbers go, the type steps down */
   @media (max-width: 600px) {
@@ -155,6 +179,10 @@
     }
     .l::before {
       display: none;
+    }
+    .x::after,
+    .ok::after {
+      left: -0.75rem;
     }
     .bar {
       padding-inline: 1rem;
