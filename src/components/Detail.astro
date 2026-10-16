@@ -1,52 +1,127 @@
 ---
 // TCA's exhibit: one payment provider's reply, both ways. The usual code
 // crashes on a normal approval after the money moved, and the retry charges
-// twice; the provider's reply, modeled once, constructs its own case.
+// twice; the provider's reply, modeled once, constructs its own case. The
+// code is tokenized and coloured by an established theme; only the marks
+// of each outcome are this page's own.
+import { Code } from "astro:components";
+import type { ComponentProps } from "astro/types";
+
+type ShikiTransformer = NonNullable<
+  ComponentProps<typeof Code>["transformers"]
+>[number];
+
+// each theme's own ground and ink, as its theme file states them
+const grounds = {
+  "github-dark-dimmed": { dark: true, ground: "#22272e", text: "#adbac7" },
+  vesper: { dark: true, ground: "#101010", text: "#ffffff" },
+  "kanagawa-wave": { dark: true, ground: "#1f1f28", text: "#dcd7ba" },
+  "rose-pine-dawn": { dark: false, ground: "#faf4ed", text: "#575279" },
+} as const;
+type Theme = keyof typeof grounds;
+
+interface Props {
+  theme?: Theme;
+}
+const { theme = "rose-pine-dawn" } = Astro.props;
+const { dark, ground, text } = grounds[theme];
+
+const check = `def charge(order):  # ship it
+    try:
+        data = post(PAY, order).json()
+    except Exception:
+        return None  # eh, just retry
+    if data.get("status") == "approved":
+        return data["charge"]["id"]
+    if data.get("status") == "declined":
+        return None  # also retry?
+    return None  # who knows
+
+# {"status": "approved", "id": "ch_9"}
+# KeyError: 'charge'`;
+
+const type = `class Approval(BaseModel):
+    status: Approved
+    charge: ChargeId = Field(alias="id")
+
+class Decline(BaseModel):
+    status: Declined
+    codes: DeclineCodes
+
+class Outage(BaseModel):
+    error: StatedError
+
+class Reply(RootModel[
+    Approval | Decline | Outage
+]):
+    """Every answer they have."""
+
+# {"status": "approved", "id": "ch_9"}
+Reply.model_validate_json(raw)
+# Approval(charge=ChargeId('ch_9'))`;
+
+// the lines that decide, and the one token that breaks
+const marks = (
+  x: number[],
+  ok: number[],
+  out: number,
+  jokes: number[],
+  err?: { line: number; from: number; to: number },
+): ShikiTransformer => {
+  // a comment is several tokens; from its # to the line's end is the joke
+  const joking = new Set<number>();
+  return {
+    name: "marks",
+    line(node, line) {
+      if (x.includes(line)) this.addClassToHast(node, "x");
+      if (ok.includes(line)) this.addClassToHast(node, "ok");
+      if (line === out) this.addClassToHast(node, "out");
+    },
+    span(node, line, col) {
+      if (err && line === err.line && col >= err.from && col < err.to)
+        this.addClassToHast(node, "err");
+      const first = node.children[0];
+      if (
+        jokes.includes(line) &&
+        first?.type === "text" &&
+        first.value.trimStart().startsWith("#")
+      )
+        joking.add(line);
+      if (joking.has(line)) this.addClassToHast(node, "joke");
+    },
+  };
+};
 ---
 
-<figure class="detail">
-  <div class="windows">
-    <div class="window check" aria-label="The check">
-      <p class="bar">
-        <span>The check</span><span class="file">payments.py</span>
-      </p>
-      <pre><code><span class="l"><span class="k">def</span> <span class="t">charge</span>(order):  <span class="note"># ship it</span></span>
-<span class="l">    <span class="k">try</span>:</span>
-<span class="l">        data = post(PAY, order).json()</span>
-<span class="l">    <span class="k">except</span> Exception:</span>
-<span class="l">        <span class="k">return</span> <span class="k">None</span>  <span class="note"># eh, just retry</span></span>
-<span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"approved"</span>:</span>
-<span class="l x">        <span class="k">return</span> data<span class="err">["charge"]</span>[<span class="s">"id"</span>]</span>
-<span class="l">    <span class="k">if</span> data.get(<span class="s">"status"</span>) == <span class="s">"declined"</span>:</span>
-<span class="l">        <span class="k">return</span> <span class="k">None</span>  <span class="note"># also retry?</span></span>
-<span class="l">    <span class="k">return</span> <span class="k">None</span>  <span class="note"># who knows</span></span>
-<span class="l"> </span>
-<span class="l"><span class="c"># &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
-<span class="l x"><span class="mark"># KeyError: 'charge'</span></span></code></pre>
-      <p class="end"><span aria-hidden="true">✕</span> Charged twice.</p>
-    </div>
-    <div class="window type" aria-label="The type">
-      <p class="bar">
-        <span>The type</span><span class="file">payments/model.py</span>
-      </p>
-      <pre><code><span class="l"><span class="k">class</span> <span class="t">Approval</span>(BaseModel):</span>
-<span class="l">    status: <span class="t">Approved</span></span>
-<span class="l ok">    charge: <span class="t">ChargeId</span> = Field(<span class="mark">alias="id"</span>)</span>
-<span class="l"><span class="k">class</span> <span class="t">Decline</span>(BaseModel):</span>
-<span class="l">    status: <span class="t">Declined</span></span>
-<span class="l">    codes: <span class="t">DeclineCodes</span></span>
-<span class="l"><span class="k">class</span> <span class="t">Outage</span>(BaseModel):</span>
-<span class="l">    error: <span class="t">StatedError</span></span>
-<span class="l"><span class="k">class</span> <span class="t">Reply</span>(RootModel[</span>
-<span class="l">    <span class="t">Approval</span> | <span class="t">Decline</span> | <span class="t">Outage</span></span>
-<span class="l">]):</span>
-<span class="l">    <span class="note">"""Every answer they have."""</span></span>
-<span class="l"> </span>
-<span class="l"><span class="c"># &#123;"status": "approved", "id": "ch_9"&#125;</span></span>
-<span class="l"><span class="t">Reply</span>.model_validate_json(raw)</span>
-<span class="l ok"><span class="mark"># Approval(charge=ChargeId('ch_9'))</span></span></code></pre>
-      <p class="end"><span aria-hidden="true">✓</span> Charged once.</p>
-    </div>
+<figure
+  class:list={["detail", dark ? "dark" : "light"]}
+  style={`--ground: ${ground}; --text: ${text};`}
+>
+  <div class="window check" aria-label="The check">
+    <p class="bar">
+      <span>The check</span><span class="file">payments.py</span>
+    </p>
+    <Code
+      code={check}
+      lang="python"
+      theme={theme}
+      transformers={[
+        marks([7, 13], [], 13, [1, 5, 9, 10], { line: 7, from: 19, to: 29 }),
+      ]}
+    />
+    <p class="end"><span aria-hidden="true">✕</span> Charged twice.</p>
+  </div>
+  <div class="window type" aria-label="The type">
+    <p class="bar">
+      <span>The type</span><span class="file">payments/model.py</span>
+    </p>
+    <Code
+      code={type}
+      lang="python"
+      theme={theme}
+      transformers={[marks([], [3, 19], 19, [])]}
+    />
+    <p class="end"><span aria-hidden="true">✓</span> Charged once.</p>
   </div>
   <figcaption class="mono-label">
     Every class is frozen and strict; its configuration is left out.
@@ -54,50 +129,49 @@
 </figure>
 
 <style>
-  /* two windows printed in reverse on the sheet, the way its plates print
-     black and one red: the code in the paper's own colour, its grammar in
-     weight and brightness alone, and colour kept for the two marks */
-  .detail {
-    container-type: inline-size;
-    width: 100%;
+  /* the marks sit on the orange-blue axis, which every common colour
+     vision tells apart, and each is carried without colour too: a squiggle
+     under the error, a cross or a tick beside the lines that decide */
+  .dark .check {
+    --mark: #f07a55;
   }
-  .windows {
+  .dark .type {
+    --mark: #6cc4f0;
+  }
+  .light .check {
+    --mark: #c2410c;
+  }
+  .light .type {
+    --mark: #0369a1;
+  }
+  .detail {
     display: grid;
     gap: calc(var(--cell) * 0.5);
+    width: 100%;
   }
   .window {
-    --ground: #1b1a17;
-    --text: #d9d1c3;
-    --quiet: #8f8676;
-    --rule: rgba(236, 227, 210, 0.13);
     container-type: inline-size;
-    display: flex;
-    flex-direction: column;
     background: var(--ground);
     color: var(--text);
     border-radius: 3px;
     overflow: hidden;
   }
-  /* the marks sit on the orange-blue axis, which every common colour
-     vision tells apart, and each is carried without colour too: a squiggle
-     under the error, a cross or a tick beside the lines that decide */
-  .check {
-    --mark: #f07a55;
+  .light .window {
+    box-shadow: inset 0 0 0 1px var(--line-faint);
   }
-  .type {
-    --mark: #6cc4f0;
-  }
-  .bar {
+  .bar,
+  .end {
     display: flex;
     align-items: center;
     gap: 0.55rem;
     padding: 0.65rem 1rem;
-    border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono);
+  }
+  .bar {
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
     font-size: 0.66rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #f3ecdf;
   }
   .bar::before {
     content: "";
@@ -110,82 +184,67 @@
     margin-left: auto;
     letter-spacing: 0.04em;
     text-transform: none;
-    color: var(--quiet);
+    opacity: 0.6;
   }
-  /* the type is sized to the window, so the longest line, forty
-     characters, always fits whole */
-  pre {
-    flex: 1;
-    padding: 0.9rem 1rem 0.9rem 1.6rem;
-    font-family: var(--font-mono);
-    font-size: clamp(0.64rem, calc((100cqi - 2.6rem) / 24.5), 0.84rem);
-    line-height: 1.6;
-  }
-  .l {
-    position: relative;
-  }
-  .x::before,
-  .ok::before {
-    position: absolute;
-    left: -1.2em;
-    color: var(--mark);
-    font-weight: 500;
-  }
-  .x::before {
-    content: "✕";
-  }
-  .ok::before {
-    content: "✓";
-  }
-  .k {
-    color: #9a907f;
-  }
-  .t {
-    color: #fbf7ef;
-    font-weight: 500;
-  }
-  .s {
-    color: #b9b0a0;
-  }
-  .c {
-    color: var(--quiet);
-    font-style: italic;
-  }
-  .note {
-    color: var(--mark);
-    font-style: italic;
-  }
-  .mark,
-  .err {
-    color: var(--mark);
-    font-weight: 500;
-  }
-  .err {
-    text-decoration: underline wavy var(--mark);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.16em;
-  }
-  /* each way's ending, on one baseline across the two windows */
   .end {
-    padding: 0.75rem 1rem 0.85rem;
-    border-top: 1px solid var(--rule);
-    font-family: var(--font-mono);
+    border-top: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--mark);
   }
-  .end span {
-    margin-right: 0.35rem;
+  /* the type is sized to the window, so the longest line, forty
+     characters, always fits whole */
+  .window :global(pre) {
+    margin: 0;
+    padding: 0.9rem 1rem 0.9rem 1.8rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: clamp(0.64rem, calc((100cqi - 2.8rem) / 24.5), 0.84rem);
+    line-height: 1.6;
+  }
+  .window :global(code) {
+    font-family: inherit;
+  }
+  .window :global(.line) {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  .window :global(.line.x),
+  .window :global(.line.ok) {
+    background: color-mix(in srgb, var(--mark) 14%, transparent);
+  }
+  .window :global(.line.x)::before,
+  .window :global(.line.ok)::before {
+    position: absolute;
+    left: -1.3em;
+    color: var(--mark);
+    font-weight: 500;
+  }
+  .window :global(.line.x)::before {
+    content: "✕";
+  }
+  .window :global(.line.ok)::before {
+    content: "✓";
+  }
+  /* what each way ends in, in its outcome's colour over the theme's own */
+  .window :global(.line.out span) {
+    color: var(--mark) !important;
+    font-style: normal !important;
+    font-weight: 500;
+  }
+  /* the check's author, in their own voice, in its outcome's colour */
+  .window :global(.joke) {
+    color: var(--mark) !important;
+  }
+  .window :global(.err) {
+    text-decoration: underline wavy var(--mark);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
   }
   figcaption {
-    padding-top: 0.7rem;
     font-size: 0.62rem;
     letter-spacing: 0.1em;
     text-transform: none;
-  }
-  @container (min-width: 36rem) {
-    .windows {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 </style>
