@@ -5,7 +5,7 @@
   /* warm drafting stock: warmer than it was, never parchment */
   --paper: #eee3d0;
   --ink: #1a1a1a;
-  --ink-light: #3a3a3a;
+  --ink-light: #33302c;
   /* quiet text: labels, captions. ≥ 4.5:1 on the paper, even at its edges */
   --ink-quiet: #625c53;
   /* drafting lines only — too light for text */
@@ -17,7 +17,7 @@
   --accent-light: #ec6a50;
 
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
   /* the plates' technical lettering, for labels and proofs */
   --font-mono:
     "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;

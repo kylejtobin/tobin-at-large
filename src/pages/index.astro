@@ -132,8 +132,8 @@ const sheets = await Promise.all(
         <Picture
           src={portrait}
           alt="Kyle J. Tobin, drawn in pencil"
-          widths={[240, 480]}
-          sizes="(max-width: 900px) 50vw, 240px"
+          widths={[420, 840]}
+          sizes="(max-width: 900px) 80vw, 416px"
           formats={["avif", "webp"]}
           loading="lazy"
         />
@@ -177,8 +177,8 @@ const sheets = await Promise.all(
 
 <style>
   :global(:root) {
-    --turn: clamp(1.4rem, 1.9vw, 1.7rem);
-    --reading: clamp(1.14rem, 1.3vw, 1.24rem);
+    --turn: clamp(1.25rem, 1.65vw, 1.5rem);
+    --reading: clamp(1.02rem, 1.2vw, 1.12rem);
   }
 
   /* every sheet is one grid of --cols columns with no gutter: its fields
@@ -203,10 +203,10 @@ const sheets = await Promise.all(
     padding: calc(var(--cell) * 2) var(--cell) calc(var(--cell) * 1.6);
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.5rem, 6.8vw, 6.5rem);
+    font-size: clamp(2.5rem, 8.2vw, 8rem);
     line-height: 1.02;
     letter-spacing: -0.014em;
-    max-width: 16ch;
+    max-width: 18ch;
     box-sizing: content-box;
     text-wrap: balance;
   }
@@ -311,8 +311,7 @@ const sheets = await Promise.all(
     display: flex;
     align-items: center;
     padding: 0 calc(var(--trim) + var(--zone) + var(--border) + var(--cell));
-    background: rgba(238, 227, 208, 0.92);
-    backdrop-filter: blur(6px);
+    background: var(--paper);
     border-bottom: 1px solid var(--line);
   }
   .home {
@@ -407,15 +406,15 @@ const sheets = await Promise.all(
   .reading :global(p),
   .reading :global(li) {
     font-size: var(--reading);
-    font-weight: 500;
-    line-height: 1.5;
+    font-weight: 400;
+    line-height: 1.55;
     color: var(--ink-light);
     text-wrap: pretty;
   }
   .reading > :global(p:first-child),
   .turn {
     font-size: var(--turn);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.32;
     color: var(--ink);
     text-wrap: pretty;
@@ -545,21 +544,25 @@ const sheets = await Promise.all(
     border-left: 1px solid var(--line);
   }
 
-  /* the author: the portrait drawn on the sheet, the sentence beside it,
+  /* the author, drawn as a work's sheet is: the portrait printed in the
+     drawing field at a plate's scale, the sentence on the notes column, and
      correspondence where the works carry their title block */
   .author {
     grid-template-rows: 1fr auto;
-    align-items: center;
+    grid-template-areas:
+      "x x x x x x x r r r r r"
+      "x x x x x x x e e e e e";
   }
   .portrait {
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 2;
-    padding: var(--cell) 0 var(--cell) calc(var(--cell) * 0.5);
+    grid-area: x;
+    display: grid;
+    place-items: center;
+    padding: calc(var(--cell) * 1.25) var(--cell);
+    border-right: 1px solid var(--line);
   }
   .portrait :global(img) {
     display: block;
-    width: 100%;
-    max-width: 220px;
+    width: min(100%, 26rem);
     height: auto;
     mask-image:
       linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
@@ -567,13 +570,12 @@ const sheets = await Promise.all(
     mask-composite: intersect;
   }
   .statement {
-    grid-column: 3 / -1;
-    grid-row: 1;
-    max-width: 40rem;
+    grid-area: r;
+    max-width: 30rem;
     box-sizing: content-box;
     padding: calc(var(--cell) * 1.25) var(--cell) var(--cell);
     font-size: var(--turn);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.32;
     color: var(--ink);
     text-wrap: pretty;
@@ -583,11 +585,9 @@ const sheets = await Promise.all(
     font-weight: 500;
   }
   .correspondence {
-    grid-column: 8 / -1;
-    grid-row: 2;
+    grid-area: e;
     display: grid;
     border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
   }
   .correspondence > * {
     padding: 0.75rem var(--cell);
@@ -739,10 +739,18 @@ const sheets = await Promise.all(
     .correspondence {
       grid-row: auto;
     }
+    .author {
+      grid-template-rows: none;
+      grid-template-areas: none;
+    }
     .portrait {
       grid-row: auto;
-      grid-column: 1 / span 3;
-      padding: var(--cell) 0 0 var(--cell);
+      grid-column: 1 / -1;
+      padding: var(--cell);
+      border-right: 0;
+    }
+    .portrait :global(img) {
+      width: min(80%, 18rem);
     }
     .correspondence {
       border-top: 1px solid var(--line);
