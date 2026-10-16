@@ -1,18 +1,18 @@
 ---
-// TCA's exhibit: one payment provider's reply, both ways, printed on the
-// sheet as its plates are. The usual code crashes on a normal approval after
-// the money moved, and the retry charges twice; the provider's reply,
-// modeled once, constructs its own case.
+// TCA's exhibit: one payment provider's reply, drawn as two details on the
+// sheet. The shape of each is the argument: the usual code is a staircase,
+// its nesting drawn and dimensioned; the type is a flat schedule, one deep.
+// Each ends on what it does with an ordinary approval.
 import { Code } from "astro:components";
 import type { ComponentProps } from "astro/types";
 
 type ShikiTransformer = NonNullable<
   ComponentProps<typeof Code>["transformers"]
 >[number];
-
-// the sheet's own inks as a theme: keywords in full ink, names in ink-light,
-// strings and comments quiet; nothing else is coloured
 type Theme = Exclude<NonNullable<ComponentProps<typeof Code>["theme"]>, string>;
+
+// the sheet's own inks: keywords in full ink, the rest in ink-light,
+// strings and comments quiet; nothing else is coloured
 const ink: Theme = {
   name: "tal-ink",
   type: "light",
@@ -52,10 +52,11 @@ const check = `def charge(order):  # ship it
         data = post(PAY, order).json()
     except Exception:
         return None  # eh, just retry
-    if data.get("status") == "approved":
-        return data["charge"]["id"]
-    if data.get("status") == "declined":
-        return None  # also retry?
+    if "status" in data:
+        if data["status"] == "approved":
+            return data["charge"]["id"]
+        if data["status"] == "declined":
+            return None  # also retry?
     return None  # who knows
 
 # {"status": "approved", "id": "ch_9"}
@@ -66,9 +67,9 @@ const type = `class Approval(BaseModel):
     charge: ChargeId = Field(alias="id")
 class Decline(BaseModel):
     status: Declined
-    codes: DeclineCodes
+    codes:  DeclineCodes
 class Outage(BaseModel):
-    error: StatedError
+    error:  StatedError
 class Reply(RootModel[
     Approval | Decline | Outage
 ]):
@@ -78,27 +79,56 @@ class Reply(RootModel[
 Reply.model_validate_json(raw)
 # Approval(charge=ChargeId('ch_9'))`;
 
-// the lines that decide, the one token that breaks, and the check's author
-// in their own voice
+// how deep the code sits, line by line, in levels of four spaces
+const depth = (code: string) =>
+  code
+    .split("\n")
+    .map((l) => Math.floor((l.length - l.trimStart().length) / 4));
+const deepest = (code: string) => Math.max(...depth(code));
+
+// each line's nesting drawn as construction lines, the result it ends on,
+// the one token that breaks, and the check's author in their own voice
 const marks = (
-  x: number[],
-  ok: number[],
+  code: string,
   out: number,
   jokes: number[],
   err?: { line: number; from: number; to: number },
 ): ShikiTransformer => {
+  const levels = depth(code);
   // a comment is several tokens; from its # to the line's end is the joke
   const joking = new Set<number>();
   return {
     name: "marks",
     line(node, line) {
-      if (x.includes(line)) this.addClassToHast(node, "x");
-      if (ok.includes(line)) this.addClassToHast(node, "ok");
+      const d = levels[line - 1] ?? 0;
+      if (d) this.addClassToHast(node, `d${d}`);
       if (line === out) this.addClassToHast(node, "out");
+      // the tokens that break, gathered under one wave
+      if (err && line === err.line) {
+        type Child = (typeof node.children)[number];
+        const width = (n: Child): number =>
+          n.type === "text"
+            ? n.value.length
+            : "children" in n
+              ? n.children.reduce((sum, c) => sum + width(c), 0)
+              : 0;
+        const wave: typeof node = {
+          type: "element",
+          tagName: "span",
+          properties: { className: ["err"] },
+          children: [],
+        };
+        let col = 0;
+        node.children = node.children.flatMap((child) => {
+          const at = col;
+          col += width(child);
+          if (at < err.from || at >= err.to) return [child];
+          wave.children.push(child);
+          return wave.children.length === 1 ? [wave] : [];
+        });
+      }
     },
-    span(node, line, col) {
-      if (err && line === err.line && col >= err.from && col < err.to)
-        this.addClassToHast(node, "err");
+    span(node, line) {
       const first = node.children[0];
       if (
         jokes.includes(line) &&
@@ -113,128 +143,180 @@ const marks = (
 ---
 
 <figure class="detail">
-  <section class="way check" aria-label="The check">
-    <p class="label mono-label">
-      <span>The check</span><span>payments.py</span>
+  <section class="way check" aria-label="Detail A, the check">
+    <p class="title">
+      <span class="bubble" aria-hidden="true">A</span>
+      <span class="mono-label">The check</span>
+      <span class="mono-label file">payments.py</span>
     </p>
-    <Code
-      code={check}
-      lang="python"
-      theme={ink}
-      transformers={[
-        marks([7, 13], [], 13, [1, 5, 9, 10], { line: 7, from: 19, to: 29 }),
-      ]}
-    />
-    <p class="end"><span aria-hidden="true">✕</span> Charged twice.</p>
+    <div class="code">
+      <p class="dim" style={`--n: ${deepest(check)}`} aria-hidden="true">
+        <span class="mono-label">{deepest(check)} deep</span>
+      </p>
+      <Code
+        code={check}
+        lang="python"
+        theme={ink}
+        transformers={[
+          marks(check, 14, [1, 5, 10, 11], { line: 8, from: 24, to: 32 }),
+        ]}
+      />
+    </div>
+    <p class="end">Charged twice.</p>
   </section>
-  <section class="way type" aria-label="The type">
-    <p class="label mono-label">
-      <span>The type</span><span>payments/model.py</span>
+  <section class="way type" aria-label="Detail B, the type">
+    <p class="title">
+      <span class="bubble" aria-hidden="true">B</span>
+      <span class="mono-label">The type</span>
+      <span class="mono-label file">payments/model.py</span>
     </p>
-    <Code
-      code={type}
-      lang="python"
-      theme={ink}
-      transformers={[marks([], [3, 16], 16, [])]}
-    />
-    <p class="end"><span aria-hidden="true">✓</span> Charged once.</p>
+    <div class="code">
+      <p class="dim" style={`--n: ${deepest(type)}`} aria-hidden="true">
+        <span class="mono-label">{deepest(type)} deep</span>
+      </p>
+      <Code
+        code={type}
+        lang="python"
+        theme={ink}
+        transformers={[marks(type, 16, [])]}
+      />
+    </div>
+    <p class="end">Charged once.</p>
   </section>
 </figure>
 
 <style>
-  /* printed as the plates are: no fill of its own and no chrome, only the
-     mark the press leaves around it. One colour, the plates' vermilion, and
-     only where the usual code fails; the type's outcome is in ink with a
-     tick. Every mark is carried without colour too: a cross or a tick, a
-     squiggle under the error */
+  /* two details drawn straight onto the drawing field: no frame, no fill,
+     no chrome. The nesting of each line is drawn in construction lines and
+     the deepest is dimensioned, so the staircase and the flat schedule read
+     before a word does. One colour, the plates' vermilion, only where the
+     usual code fails; every mark also reads without it, as a word, a
+     squiggle or a shape */
   .detail {
-    --mark: var(--accent);
+    display: grid;
+    gap: calc(var(--cell) * 1.6);
     width: 100%;
-    padding: clamp(8px, 0.9vw, 12px);
-    box-shadow:
-      inset 0 0 0 1px rgba(26, 26, 26, 0.16),
-      inset 1px 1px 0 1px rgba(255, 250, 240, 0.5);
   }
   .way {
+    --mark: var(--accent);
     container-type: inline-size;
   }
   .type {
     --mark: var(--ink);
-    border-top: 1px solid var(--line-faint);
   }
-  .label {
+  .title {
     display: flex;
-    justify-content: space-between;
-    padding: 0.7rem 0.9rem 0;
-    font-size: 0.62rem;
+    align-items: center;
+    gap: 0.7rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--line);
   }
-  .label span + span {
+  .title .mono-label {
+    color: var(--ink);
+  }
+  .title .file {
+    margin-left: auto;
     letter-spacing: 0.04em;
     text-transform: none;
+    color: var(--ink-quiet);
   }
-  .end {
-    padding: 0 0.9rem 0.8rem;
+  /* a detail's callout, as a drawing set marks one */
+  .bubble {
+    display: grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
     font-family: var(--font-mono);
-    font-size: 0.86rem;
-    font-weight: 500;
-    color: var(--mark);
+    font-size: 0.72rem;
+    color: var(--ink);
   }
-  .end span {
-    margin-right: 0.3rem;
-  }
-  /* the type is sized to the plate, so the longest line, forty characters,
+  /* the type is sized to the detail, so the longest line, forty characters,
      always fits whole */
-  .way :global(pre) {
+  .code {
+    --pad: 0.2rem;
+    padding: 1.1rem 0 0;
+    font-family: var(--font-mono);
+    font-size: clamp(0.66rem, calc((100cqi - 0.6rem) / 24.4), 0.86rem);
+  }
+  .code :global(pre) {
     margin: 0;
-    padding: 0.55rem 0.9rem 0.6rem 1.9rem;
+    padding: 0.4rem var(--pad) 0;
     overflow-x: auto;
     background: transparent !important;
-    font-family: var(--font-mono);
-    font-size: clamp(0.64rem, calc((100cqi - 2.8rem) / 24.5), 0.74rem);
-    line-height: 1.38;
+    font-size: 1em;
+    line-height: 1.55;
   }
-  .way :global(code) {
+  .code :global(code) {
     font-family: inherit;
   }
-  .way :global(span[style*="font-weight:bold"]) {
+  .code :global(span[style*="font-weight:bold"]) {
     font-weight: 500 !important;
   }
-  .way :global(.line) {
-    position: relative;
+  .code :global(.line) {
     display: inline-block;
     width: 100%;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--line) 0 1px,
+      transparent 1px 4ch
+    );
+    background-repeat: no-repeat;
+    background-size: 0 100%;
   }
-  .way :global(.line.x) {
-    background: rgba(179, 49, 30, 0.07);
+  .code :global(.line.d1) {
+    background-size: 4ch 100%;
   }
-  .way :global(.line.ok) {
-    background: rgba(26, 26, 26, 0.05);
+  .code :global(.line.d2) {
+    background-size: 8ch 100%;
   }
-  .way :global(.line.x)::before,
-  .way :global(.line.ok)::before {
+  .code :global(.line.d3) {
+    background-size: 12ch 100%;
+  }
+  /* the deepest nesting, dimensioned over the code */
+  .dim {
+    position: relative;
+    width: calc(var(--n) * 4ch + 1px);
+    height: 0.7rem;
+    margin-left: var(--pad);
+    border-inline: 1px solid var(--ink-quiet);
+    background: linear-gradient(var(--ink-quiet), var(--ink-quiet)) center /
+      100% 1px no-repeat;
+  }
+  .dim span {
     position: absolute;
-    left: -1.35em;
-    color: var(--mark);
-    font-weight: 500;
-  }
-  .way :global(.line.x)::before {
-    content: "✕";
-  }
-  .way :global(.line.ok)::before {
-    content: "✓";
+    top: 50%;
+    left: calc(100% + 0.6rem);
+    translate: 0 -50%;
+    white-space: nowrap;
+    color: var(--ink);
   }
   /* what each way ends in, and the check's voice, in its outcome's ink */
-  .way :global(.line.out span),
-  .way :global(.joke) {
+  .code :global(.line.out span),
+  .code :global(.joke) {
     color: var(--mark) !important;
   }
-  .way :global(.line.out span) {
+  .code :global(.line.out span) {
     font-style: normal !important;
     font-weight: 500;
   }
-  .way :global(.err) {
+  .code :global(.err) {
     text-decoration: underline wavy var(--mark);
     text-decoration-thickness: 1px;
-    text-underline-offset: 0.16em;
+    text-underline-offset: 0.18em;
+    text-decoration-skip-ink: none;
+  }
+  /* the one large thing on each detail: what it did with the money */
+  .end {
+    margin-top: 1.1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line-faint);
+    font-family: var(--font-body);
+    font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--mark);
   }
 </style>

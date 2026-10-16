@@ -104,7 +104,7 @@ const probe = (desktop) => {
   }
   budget(".entry .line", 1, "entry line");
   document
-    .querySelectorAll(".reading > p, .whole .turn, .statement")
+    .querySelectorAll(".notes > p, .whole .turn, .statement")
     .forEach((el) => {
       const l = lines(el);
       if (l.n > 1 && l.last < l.w * 0.2)
@@ -118,7 +118,7 @@ const probe = (desktop) => {
       const x =
         held.at(-1).getBoundingClientRect().bottom -
         held[0].getBoundingClientRect().top;
-      const kids = [...s.querySelector(".reading").children];
+      const kids = [...s.querySelector(".notes").children];
       const r =
         kids.at(-1).getBoundingClientRect().bottom -
         kids[0].getBoundingClientRect().top;

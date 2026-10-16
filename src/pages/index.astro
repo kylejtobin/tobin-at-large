@@ -108,7 +108,9 @@ const sheets = await Promise.all(
             {data.line && <p class="line">{data.line}</p>}
           </div>
           <div class="reading">
-            <Evidence />
+            <div class="notes">
+              <Evidence />
+            </div>
           </div>
         </div>
       </Drawing>
@@ -395,23 +397,29 @@ const sheets = await Promise.all(
     mix-blend-mode: multiply;
   }
 
+  /* the notes travel beside a drawing taller than they are, held in
+     their cell */
+  .notes {
+    position: sticky;
+    top: calc(var(--bar) + var(--cell));
+  }
   .reading {
     grid-area: r;
     border-top: 1px solid var(--line);
     padding: calc(var(--cell) * 1.25) var(--cell) var(--cell);
   }
-  .reading > :global(*) {
+  .notes > :global(*) {
     max-width: 30rem;
   }
-  .reading :global(p),
-  .reading :global(li) {
+  .notes :global(p),
+  .notes :global(li) {
     font-size: var(--reading);
     font-weight: 400;
     line-height: 1.55;
     color: var(--ink-light);
     text-wrap: pretty;
   }
-  .reading > :global(p:first-child),
+  .notes > :global(p:first-child),
   .turn {
     font-size: var(--turn);
     font-weight: 400;
@@ -419,35 +427,35 @@ const sheets = await Promise.all(
     color: var(--ink);
     text-wrap: pretty;
   }
-  .reading > :global(* + *) {
+  .notes > :global(* + *) {
     margin-top: 1.1rem;
   }
-  .reading > :global(p:first-child + *) {
+  .notes > :global(p:first-child + *) {
     margin-top: 1.5rem;
   }
-  .reading > :global(p + ol) {
+  .notes > :global(p + ol) {
     margin-top: 0.75rem;
   }
   /* the list is ruled across the whole notes column, like the title block */
-  .reading > :global(ol) {
+  .notes > :global(ol) {
     max-width: none;
     margin-inline: calc(var(--cell) * -1);
   }
-  .reading :global(ol) {
+  .notes :global(ol) {
     list-style: none;
     border-top: 1px solid var(--line-faint);
     counter-reset: q;
   }
-  .reading :global(li) {
+  .notes :global(li) {
     position: relative;
     padding: 0.35rem var(--cell) 0.35rem calc(var(--cell) + 1.75rem);
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink);
   }
-  .reading :global(ol li) {
+  .notes :global(ol li) {
     counter-increment: q;
   }
-  .reading :global(ol li::before) {
+  .notes :global(ol li::before) {
     content: counter(q, decimal-leading-zero);
     display: inline-block;
     width: 1.75rem;
@@ -702,6 +710,9 @@ const sheets = await Promise.all(
     .sheet h2 {
       padding-top: var(--cell);
       border-left: 0;
+    }
+    .notes {
+      position: static;
     }
     .reading {
       border-top: 0;
