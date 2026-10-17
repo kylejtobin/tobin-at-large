@@ -8,7 +8,7 @@ url: https://github.com/kylejtobin/tca
 cover: ./type-construction-architecture.png
 detail: true
 year: 2026
-order: 2
+order: 1
 ---
 
 Each of those checks exists because a type allows more than your business does.

@@ -8,7 +8,7 @@ line: "Written in public, a chapter at a time."
 url: https://leanpub.com/the-automated-organization
 cover: ./the-automated-organization.png
 year: 2026
-order: 1
+order: 3
 ---
 
 Every organization runs twice: as its documents describe it, and as it actually works. An agent is handed the documents.
