@@ -3,7 +3,7 @@ kind: software
 label: Architecture
 title: Type Construction Architecture
 claim: "Most of your code checks for what should never happen."
-line: "See one feature built both ways."
+line: "See a whole program built this way."
 url: https://github.com/kylejtobin/tca
 cover: ./type-construction-architecture.png
 detail: true

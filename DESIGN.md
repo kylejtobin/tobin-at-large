@@ -13,10 +13,11 @@ to rewrite to fit what was built.
 The page is set as an imprint: a title page, one sheet per work, a closing
 sheet, an author.
 
-- **Bar** (sticky): the imprint only, small. Nothing to click but home. It
+- **Bar** (sticky, opaque paper): the imprint only, small. Nothing to click but home. It
   stands down while the title page's imprint is on screen.
 - **Title page** (full screen at a desk; on a phone as tall as its
-  composition), a set's cover sheet: the thesis in display,
+  composition), a set's cover sheet: the thesis in display, its lines
+  running toward the mark's column,
   standing on the index; the index ruled as a drawing list, a mono number
   cell, the sheet's headline in reading, and the work's title in quiet
   italic, each row linking to its sheet; the mark in its own cell at the
@@ -28,13 +29,25 @@ sheet, an author.
   the sheet's title block in the bottom-right corner: kind, status and year
   in cells on the sheet's columns, the title as a link, one next-step line.
   Under 900px everything stacks in reading order: number, headline, plate,
-  title block, notes.
+  title block, notes. At a desk, notes shorter than their drawing are held
+  in view beside it as the reader scrolls.
+- **TCA's exhibit**, in place of its plate: one feature both ways, drawn as
+  two details called out A and B, straight on the drawing field with no
+  frame or chrome. Each line's nesting is drawn in construction lines and
+  the deepest is dimensioned, so the check reads as a staircase and the
+  type as a flat schedule before a word is read. The code is in the sheet's
+  inks; vermilion only where the usual code fails (its comments, the error,
+  a wave under the token that breaks). Each detail ends on its outcome in
+  the reading face, large: charged twice, charged once. Every mark also
+  reads without colour. This sheet may run past one screen; its notes are
+  held beside the details.
 - **Together**: one unnumbered sheet: the two-line headline on the works'
   headline column, and one sentence in the turn role in the notes column.
   No image.
-- **Author**: the portrait drawn on the sheet, one sentence in the turn role
-  with the name in display, and correspondence in the title block's place:
-  a label and the address as a plain link.
+- **Author**, drawn as a work's sheet is: the portrait printed in the
+  drawing field at a plate's scale, one sentence in the turn role on the
+  notes column with the name in display, and correspondence in the title
+  block's place: a label and the address as a plain link.
 - **Footer**: copyright and profile links, as labels.
 
 ## Principles
@@ -94,12 +107,14 @@ Four roles carry every word on the page, and no other style exists:
 - **Display** (Playfair Display): the thesis and the sheets' headlines,
   never a paragraph. Headlines run two lines at desktop and are written to
   about the same length, so the sheets share a rhythm.
-- **Turn** (Cormorant Garamond 500, `--turn`, full ink): the one sentence
+- **Turn** (Source Serif 4, `--turn`, full ink): the one sentence
   each sheet exists for, set as the first paragraph of its evidence, where
   the eye lands after the headline. The closing passage and the author's
   sentence use it too.
-- **Reading** (Cormorant Garamond 500, `--reading`, ink-light): what
-  supports the turn, in short paragraphs. Lists take it in full ink.
+- **Reading** (Source Serif 4, `--reading`, ink-light): what supports the
+  turn, in short paragraphs. A list inside an argument is light, plain
+  bullets in the reading text; a list that is itself the exhibit, as the
+  book's questions, is ruled and numbered in full ink.
 - **Label** (IBM Plex Mono): sheet numbers, kind and year, correspondence,
   the footer. Overused, it turns the page into a dev tool.
 
@@ -114,7 +129,8 @@ Copy is written to a budget set by the layout, never poured into it:
   desktop; entry lines one line on a phone too.
 - No paragraph ends on a short last line at 1440, 1280 or 390; a sentence
   that breaks its budget is rewritten, not the layout.
-- A list is one grammar: here, questions, capitalized, each with its mark.
+- A list is one grammar. A list that names a problem has its counterpart,
+  line for line and of matched length.
 
 Every change is measured with `just measure`, which renders the built page
 at all three widths and fails on any broken budget, short last line,
@@ -177,3 +193,14 @@ only on green.
 - The works' plates in grey at rest: they read as washed-out copies.
 - A boxed "Email us" button in the bar and under the founder: it made the
   page a firm. Contact is correspondence.
+- Code as dark editor windows, then a pastel editor theme: a dev blog pasted
+  onto a drawing set. Then side by side, which forced wrapping and split the
+  reader's eye. Code is drawn on the sheet in its inks.
+- Code marked everywhere: a cross or tick on every line, tinted bands, two
+  accent colours. One colour, one mark per outcome.
+- Cormorant Garamond for reading: too frail at reading size on the paper.
+- A ruled, numbered list dropped into prose: it broke the paragraph's flow.
+  A list of problems with no list of answers: the sheet read lopsided.
+- Headlines that cast people as the problem: "held together by people",
+  "after they go home", "with no one in it". People are the source of the
+  knowledge and decide what the organization becomes.

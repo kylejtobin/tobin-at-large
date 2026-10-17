@@ -50,9 +50,10 @@ announced rather than earned. Plain, exact and true is the house style.
 
 The page is TAL Company's one-page site. Its telos:
 
-A serious, skeptical reader leaves believing that an organization can now be
-made to run on its own, because the work on the page proves it, and wants
-more: to read the book, build with the tools, or write to TAL.
+A serious, skeptical reader leaves believing that the systems they work with
+can now understand their business, well enough to carry its work with them,
+because the work on the page proves it, and wants more: to build with the
+tools, read the book, or write to TAL.
 
 Read `PRODUCT.md` for the idea held whole and the messaging rules, so your
 feedback never pushes the page toward what they rule out.

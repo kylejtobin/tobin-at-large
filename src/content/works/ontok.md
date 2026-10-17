@@ -14,4 +14,4 @@ ONTOK, built with Type Construction Architecture, writes what your organization 
 
 The CRM, billing and support stop keeping separate customers for someone to reconcile by hand. The definition belongs to the organization, never to a vendor.
 
-A fact enters only once what it rests on is proven, so what your people know, once it is found, becomes something every system holds.
+A fact enters only once what it rests on is proven, so what your people know becomes what every system understands.

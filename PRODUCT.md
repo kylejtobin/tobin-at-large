@@ -5,9 +5,10 @@ it, never the other way round.
 
 ## The telos
 
-A serious, skeptical reader leaves believing that an organization can now be
-made to run on its own, because the work on the page proves it, and wants
-more: to read the book, build with the tools, or write to TAL.
+A serious, skeptical reader leaves believing that the systems they work with
+can now understand their business, well enough to carry its work with them,
+because the work on the page proves it, and wants more: to build with the
+tools, read the book, or write to TAL.
 
 ## What TAL is
 
@@ -22,16 +23,20 @@ judgment that was never a rule and never could be: every rule written for a
 judgment needs one more clause. That judgment is knowledge the organization
 has, held by the people who do the work, and it can be made explicit.
 
-Rules could always run on software. What is new is that an AI agent can
-exercise judgment, so a whole stream of work can run with no person in it,
+Rules could always run on software, but software never understood the
+business it ran: it was handed documents and code in which anything could
+happen. What is new is that an AI agent can exercise judgment, so systems
+that understand the business can carry its cases from start to finish,
 exceptions included. It is safe because the agent acts in a world built from
 types, the organization's kinds and facts that exist only once proven, in
 which the wrong outcome has no type to be: what an agent cannot build, it
-cannot decide. Inside that world the agent has real autonomy.
+cannot decide. The same types are its world model, so they give it both its
+context and its limits, and inside that world it has real autonomy.
 
-People work before and after, never during. Before, the people who do the
-work are the authority on what the knowledge is. After, managers change what
-can exist instead of touching cases.
+The systems work with people. The people who do the work are the authority
+on what the knowledge is, and the people who run the organization decide
+what it should become, by changing what can exist rather than by touching
+cases.
 
 The idea is all of these at once. It is never reduced to one of them, and
 never to any of:
@@ -40,19 +45,24 @@ never to any of:
 - workflow automation, or a rule engine;
 - an approval matrix, a threshold that escalates, or a human in the loop;
 - replacing people with a bot. The subject is the knowledge, never
-  converting people into AI.
+  converting people into AI;
+- people as the problem the system removes, or the cost it saves. People are
+  where the knowledge comes from and who decides what the organization
+  becomes.
 
 ## The page
 
-The site is an imprint, not a firm. It states one thesis and proves it with
-one idea seen at three levels, in this order:
+The site is an imprint, not a firm. It states one thesis, that the systems
+you work with can now understand your business, and proves it with one idea
+seen at three levels, each one layer deeper into what understanding needs:
 
-1. **People: The Automated Organization.** The judgment an organization runs
-   on is knowledge, and it can be found.
-2. **Code: Type Construction Architecture.** Rules can be written in their
+1. **Code: Type Construction Architecture.** Rules can be written in their
    owners' words so that what is read is what runs.
-3. **The organization itself: ONTOK.** Built with TCA, it writes what the
-   organization is once, as running code every system and agent works from.
+2. **The organization's definitions: ONTOK.** Built with TCA, it writes what
+   the organization is once, as running code every system and agent works
+   from.
+3. **The judgment they rest on: The Automated Organization.** The judgment
+   an organization runs on is knowledge, and it can be found.
 
 A closing sheet gives the thesis as their consequence, and the author follows
 with correspondence. Every sheet is written from that line, never as a
@@ -67,8 +77,9 @@ Each sheet's job:
   their own nouns. The work answers it whole, in its own terms but in the
   reader's words, and hands the reader to the next level. Its entry gives
   one plain next step.
-- **Together.** The thesis as consequence: a whole stream runs with no one
-  in it, and people decide what the organization should be.
+- **Together.** The thesis as consequence: the work runs on what the
+  business knows, whole cases with their exceptions, and the people who know
+  it best decide what it should become.
 - **Author.** One sentence on what he works on, and correspondence.
 
 The copy itself lives in `src/content/works/` and `src/pages/index.astro`,
@@ -97,7 +108,8 @@ almost nobody believes possible, and close on the thesis as its consequence.
   already shows.
 - No example or demo stands in for the argument. Value is reasoned from
   what each work is and what the reader already knows to be true.
-- No code on the page.
+- Code appears only as TCA's exhibit, drawn as a detail: one feature both
+  ways, its shape the argument.
 - No lines pasted from the repos, the book, or its storefront. Every line is
   written for this page and this reader.
 - No product pitch and no call-to-action button. Email links say they are
