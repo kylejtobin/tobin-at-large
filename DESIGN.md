@@ -95,6 +95,7 @@ sheet, an author.
 | `--ink-light`            | `#3a3a3a`        | reading text                                                |
 | `--ink-quiet`            | `#625c53`        | labels, metadata (≥ 4.5:1 even at the paper's darkest edge) |
 | `--line`, `--line-faint` | ink at 32% / 14% | rules and frames only, never text                           |
+| `--accent`               | `#b3311e`        | the plates' vermilion: only where TCA's usual code fails    |
 
 **Paper texture:** a lit relief tile (`public/paper.webp`, built by
 `brand/build.py`) laid over everything with `overlay`, so ink and plates take

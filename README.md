@@ -26,7 +26,9 @@ just measure  # the built page against the copy budgets, at 1440, 1280, 390
 
 `src/content/works/` holds one file per work, in page order. The frontmatter
 gives the sheet's headline (`claim`), the entry's kind, status, year and
-next-step line, the link, the plate image and the order. The body is the
+next-step line, the link, the plate image, the order, and `detail` for the
+one sheet whose exhibit is drawn code (`src/components/Detail.astro`) in
+place of its plate. The body is the
 sheet's evidence; its first paragraph is the turn. The schema in
 `src/content.config.ts` rejects a malformed file.
 

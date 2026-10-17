@@ -13,8 +13,6 @@
   --line-faint: rgba(26, 26, 26, 0.14);
   /* the plates' red, for the one mark a detail is drawn to show */
   --accent: #b3311e;
-  /* the same red, raised for an ink ground */
-  --accent-light: #ec6a50;
 
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
